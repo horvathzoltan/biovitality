@@ -1,4 +1,6 @@
 #include "mainpresenter.h"
+#include "helpers/logger.h"
+#include "helpers/sqlhelper.h"
 #include "mainviewmodel.h"
 #include "dowork.h"
 
@@ -9,6 +11,8 @@
 #include <QSqlError>
 #include <QSqlQuery>
 #include <QDebug>
+
+#include <helpers/sqlhelper.h>
 
 MainPresenter::MainPresenter(QObject *parent) :QObject(parent)
 {
@@ -33,6 +37,23 @@ void MainPresenter::refreshView(IMainView *w) const { Q_UNUSED(w) };
 void MainPresenter::initView(IMainView *w) const {
     MainViewModel::DoWorkRModel rm{"1"};
     w->set_DoWorkRModel(rm);
+
+    static const QString conn = QStringLiteral("conn1");
+    SQLHelper::SQLSettings sql_settings{
+        "QMARIADB",
+        "biovitality",
+            {{"192.168.1.105", 3306}},
+        "zoli",
+        "Aladar123"
+    };
+    SQLHelper sqlh;
+    auto db = sqlh.Connect(sql_settings, conn);
+
+    if(db.isValid()){
+        zInfo("DB is valid");
+    } else{
+        zInfo("DB is invalid");
+    }
 };
 
 void MainPresenter::processPushButtonAction(IMainView *sender){

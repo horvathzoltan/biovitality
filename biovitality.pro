@@ -2,7 +2,11 @@ QT       += core gui charts network sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-CONFIG += c++11
+# gcc -v --help 2> /dev/null | sed -n '/^ *-std=\([^<][^ ]\+\).*/ {s//\1/p}'
+CONFIG += c++17
+
+DEFINES += TARGI=$$TARGET
+message( "TARGET = "$$TARGET )
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -10,7 +14,12 @@ CONFIG += c++11
 
 SOURCES += \
     #actions.cpp \
+    buildnumber.cpp \
     dowork.cpp \
+    helpers/logger.cpp \
+    helpers/networkhelper.cpp \
+    helpers/processhelper.cpp \
+    helpers/sqlhelper.cpp \
     main.cpp \
     mainpresenter.cpp \
     mainwindow.cpp
@@ -19,8 +28,14 @@ SOURCES += \
 
 HEADERS += \
     #actions.h \
+    buildnumber.h \
     dowork.h \
     global.h \
+    helpers/logger.h \
+    helpers/networkhelper.h \
+    helpers/processhelper.h \
+    helpers/sqlhelper.h \
+    helpers/stringify.h \
     imainview.h \
     mainpresenter.h \
     mainviewmodel.h \
