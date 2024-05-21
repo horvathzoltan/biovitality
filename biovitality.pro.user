@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 13.0.1, 2024-05-21T21:30:00. -->
+<!-- Written by QtCreator 13.0.1, 2024-05-21T23:27:21. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -102,7 +102,7 @@
     <valuemap type="QVariantMap" key="ProjectExplorer.BuildConfiguration.BuildStepList.0">
      <valuemap type="QVariantMap" key="ProjectExplorer.BuildStepList.Step.0">
       <value type="bool" key="ProjectExplorer.BuildStep.Enabled">true</value>
-      <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">-p biovitality -t %{sourceDir}/buildnumber.h -d %{buildDir}</value>
+      <value type="QString" key="ProjectExplorer.ProcessStep.Arguments">-p biovitality -t %{sourceDir}/buildnumber.h -d %{buildDir} -s 5000</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.Command">/home/zoli/buildnum_</value>
       <value type="QString" key="ProjectExplorer.ProcessStep.WorkingDirectory">%{sourceDir}</value>
       <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">ProjectExplorer.ProcessStep</value>
