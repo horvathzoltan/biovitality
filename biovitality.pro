@@ -16,30 +16,39 @@ SOURCES += \
     #actions.cpp \
     buildnumber.cpp \
     dowork.cpp \
+    helpers/filenamehelper.cpp \
     helpers/logger.cpp \
     helpers/networkhelper.cpp \
     helpers/processhelper.cpp \
+    helpers/signalhelper.cpp \
     helpers/sqlhelper.cpp \
     main.cpp \
     mainpresenter.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    operations.cpp \
+    presenter.cpp
     #model.cpp \
      #updates.cpp
 
 HEADERS += \
     #actions.h \
+    Singleton.h \
     buildnumber.h \
     dowork.h \
     global.h \
+    helpers/filenamehelper.h \
     helpers/logger.h \
     helpers/networkhelper.h \
     helpers/processhelper.h \
+    helpers/signalhelper.h \
     helpers/sqlhelper.h \
     helpers/stringify.h \
     imainview.h \
     mainpresenter.h \
     mainviewmodel.h \
-    mainwindow.h
+    mainwindow.h \
+    operations.h \
+    presenter.h
     #model.h \
      #updates.h
 
@@ -50,3 +59,7 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    testdata/teszt1.csv \
+    testdata/teszt2.csv

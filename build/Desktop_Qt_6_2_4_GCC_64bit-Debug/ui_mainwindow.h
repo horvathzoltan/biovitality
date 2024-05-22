@@ -31,6 +31,7 @@ public:
     QHBoxLayout *horizontalLayout;
     QPushButton *pushButton;
     QLabel *label;
+    QPushButton *pushButton_tetelImport;
     QSpacerItem *horizontalSpacer;
     QSpacerItem *verticalSpacer;
     QMenuBar *menubar;
@@ -56,6 +57,11 @@ public:
         label->setObjectName(QString::fromUtf8("label"));
 
         horizontalLayout->addWidget(label);
+
+        pushButton_tetelImport = new QPushButton(centralwidget);
+        pushButton_tetelImport->setObjectName(QString::fromUtf8("pushButton_tetelImport"));
+
+        horizontalLayout->addWidget(pushButton_tetelImport);
 
         horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
@@ -87,6 +93,7 @@ public:
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
         pushButton->setText(QCoreApplication::translate("MainWindow", "PushButton", nullptr));
         label->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
+        pushButton_tetelImport->setText(QCoreApplication::translate("MainWindow", "T\303\251telImport", nullptr));
     } // retranslateUi
 
 };

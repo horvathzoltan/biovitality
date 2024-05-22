@@ -1,0 +1,1161 @@
+Partner neve,Székhelye,Teljesítés,Számlaszám,Termék megnevezése,Db,Egységár,Nettó ár
+# eladott tételek/eladások
+# az egysegar az eladaskori egysegar
+# a nettó ár kiszámolható-e az egységár és a db szorzatából, az 5-ft-os kerekítés hogy lett figyelembevéve???
+# partnerID,teljesítés,számlaszám,termékId,db,egysegar,nettoAr
+Korodi Istvan,"4024 Debecen,
+Jászai Mari utca 7.
+fszt. 3.",2022.04.27,shop-2022-1,Ginseng,1,1 102 Ft,1 102 Ft
+Korodi Istvan,"4024 Debecen, Jászai Mari utca 7. fszt. 3.",2022.04.27,shop-2022-1,GLS házhozszállítás,1,1 700 Ft,1 700 Ft
+Alaszka Kft.,"4030 Debrecen,  Vágóhíd út 4.b.",2022.04.27,2022-1,Fekete Magolaj,20,4 340 Ft,86 800 Ft
+Alaszka Kft.,"4030 Debrecen,  Vágóhíd út 4.b.",2022.04.27,2022-1,Ginseng,20,870 Ft,17 400 Ft
+Alaszka Kft.,"4030 Debrecen,  Vágóhíd út 4.b.",2022.04.27,2022-1,Kalcium+Vitamin D ,20,835 Ft,16 700 Ft
+Alaszka Kft.,"4030 Debrecen,  Vágóhíd út 4.b.",2022.04.27,2022-1,Koenzim Q10 30 db kapszula ,20,1 400 Ft,28 000 Ft
+Alaszka Kft.,"4030 Debrecen,  Vágóhíd út 4.b.",2022.04.27,2022-1,Omega 3,20,1 270 Ft,25 400 Ft
+Alaszka Kft.,"4030 Debrecen,  Vágóhíd út 4.b.",2022.04.27,2022-1,Probiotikum,20,1 805 Ft,36 100 Ft
+Alaszka Kft.,"4030 Debrecen,  Vágóhíd út 4.b.",2022.04.27,2022-1,Vitamin D3,20,1 270 Ft,25 400 Ft
+Veres Balázs,"4220 Hajdúböszörmény, Újfehértói utca 79.",2022.05.04,shop-2022-2,Kalcium+Vitamin D ,1,1 134 Ft,1 134 Ft
+Veres Balázs,"4220 Hajdúböszörmény, Újfehértói utca 79.",2022.05.04,shop-2022-2,FoxPost csomagautomata,1,950 Ft,950 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2022.06.02,2022-2,Ginseng,4,783 Ft,3 132 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2022.06.02,2022-2,Omega 3,2,1 143 Ft,2 286 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2022.06.02,2022-2,Probiotikum,5,1 625 Ft,8 125 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2022.06.02,2022-3,Ginseng,4,-783 Ft,-3 132 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2022.06.02,2022-3,Omega 3,2,-1 143 Ft,-2 286 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2022.06.02,2022-3,Probiotikum,5,-1 625 Ft,-8 125 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2022.06.10,2022-4,Ginseng,4,783 Ft,3 132 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2022.06.10,2022-4,Omega 3,2,1 143 Ft,2 286 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2022.06.10,2022-4,Probiotikum,5,1 625 Ft,8 125 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.07.09,2022-5,Vitamin D3,1,1 270 Ft,1 270 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.07.09,2022-5,Fekete Magolaj,3,4 340 Ft,13 020 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.07.09,2022-5,Ginseng,6,870 Ft,5 220 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.07.09,2022-5,Kalcium+Vitamin D ,1,835 Ft,835 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.07.09,2022-5,Probiotikum,1,1 805 Ft,1 805 Ft
+Fülöpné Nagy Anikó,"4080 Hajdúnánás, Irányi utca 1.",2022.06.10,2022-6,Omega 3,20,1 270 Ft,25 400 Ft
+Fülöpné Nagy Anikó,"4080 Hajdúnánás, Irányi utca 1.",2022.06.10,2022-6,Koenzim Q10 30 db kapszula ,20,1 200 Ft,24 000 Ft
+Fülöpné Nagy Anikó,"4080 Hajdúnánás, Irányi utca 1.",2022.06.10,2022-6,Probiotikum,20,1 805 Ft,36 100 Ft
+Fülöpné Nagy Anikó,"4080 Hajdúnánás, Irányi utca 1.",2022.06.10,2022-6,Ginseng,20,870 Ft,17 400 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2022.06.13,2022-7,Probiotikum,15,1 840 Ft,27 604 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2022.06.13,2022-7,Omega 3,10,1 386 Ft,13 855 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2022.06.13,2022-7,Koenzim Q10 30 db kapszula ,10,1 224 Ft,12 240 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2022.06.13,2022-7,Ginseng,10,1 046 Ft,10 455 Ft
+"""MÁTYÁS KIRÁLY"" Kft.","4028 Debrecen, Laktanya utca 23.",2022.06.15,2022-8,Probiotikum,8,1 805 Ft,14 440 Ft
+"""MÁTYÁS KIRÁLY"" Kft.","4028 Debrecen, Laktanya utca 23.",2022.06.15,2022-8,Probiotikum,2,5 Ft,10 Ft
+"""MÁTYÁS KIRÁLY"" Kft.","4028 Debrecen, Laktanya utca 23.",2022.06.15,2022-8,Ginseng,12,870 Ft,10 440 Ft
+"""MÁTYÁS KIRÁLY"" Kft.","4028 Debrecen, Laktanya utca 23.",2022.06.15,2022-8,Ginseng,3,5 Ft,15 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2022.07.05,2022-9,Fekete Magolaj,5,3 515 Ft,17 577 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2022.07.05,2022-9,Ginseng,7,783 Ft,5 481 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2022.07.05,2022-9,Probiotikum,2,1 625 Ft,3 250 Ft
+TOP-NEXUS Kft.,"4024 Debrecen, Kossuth u. 7.",2022.07.0.7,2022-10,Vitamin D3,1,1 630 Ft,1 630 Ft
+TOP-NEXUS Kft.,"4024 Debrecen, Kossuth u. 7.",2022.07.0.7,2022-10,Fekete Magolaj,1,4 700 Ft,4 700 Ft
+TOP-NEXUS Kft.,"4024 Debrecen, Kossuth u. 7.",2022.07.0.7,2022-10,Koenzim Q10 30 db kapszula ,1,1 560 Ft,1 560 Ft
+TOP-NEXUS Kft.,"4024 Debrecen, Kossuth u. 7.",2022.07.0.7,2022-10,Probiotikum,1,2 165 Ft,2 165 Ft
+TOP-NEXUS Kft.,"4024 Debrecen, Kossuth u. 7.",2022.07.0.7,2022-10,Ginseng,1,1 230 Ft,1 230 Ft
+TOP-NEXUS Kft.,"4024 Debrecen, Kossuth u. 7.",2022.07.0.7,2022-10,Omega 3,1,1 630 Ft,1 630 Ft
+TOP-NEXUS Kft.,"4024 Debrecen, Kossuth u. 7.",2022.07.0.7,2022-10,Kalcium+Vitamin D ,1,1 195 Ft,1 195 Ft
+TOP-NEXUS Kft.,"4024 Debrecen, Kossuth u. 7.",2022.07.0.7,2022-11,Vitamin D3,1,-1 630 Ft,-1 630 Ft
+TOP-NEXUS Kft.,"4024 Debrecen, Kossuth u. 7.",2022.07.0.7,2022-11,Fekete Magolaj,1,-4 700 Ft,-4 700 Ft
+TOP-NEXUS Kft.,"4024 Debrecen, Kossuth u. 7.",2022.07.0.7,2022-11,Koenzim Q10 30 db kapszula ,1,-1 560 Ft,-1 560 Ft
+TOP-NEXUS Kft.,"4024 Debrecen, Kossuth u. 7.",2022.07.0.7,2022-11,Probiotikum,1,-2 165 Ft,-2 165 Ft
+TOP-NEXUS Kft.,"4024 Debrecen, Kossuth u. 7.",2022.07.0.7,2022-11,Ginseng,1,-1 230 Ft,-1 230 Ft
+TOP-NEXUS Kft.,"4024 Debrecen, Kossuth u. 7.",2022.07.0.7,2022-11,Omega 3,1,-1 630 Ft,-1 630 Ft
+TOP-NEXUS Kft.,"4024 Debrecen, Kossuth u. 7.",2022.07.0.7,2022-11,Kalcium+Vitamin D ,1,-1 195 Ft,-1 195 Ft
+TOP-NEXUS Kft.,"4024 Debrecen, Kossuth u. 7.",2022.07.0.7,2022-12,Vitamin D3,1,1 630 Ft,1 630 Ft
+TOP-NEXUS Kft.,"4024 Debrecen, Kossuth u. 7.",2022.07.0.7,2022-12,Fekete Magolaj,1,4 700 Ft,4 700 Ft
+TOP-NEXUS Kft.,"4024 Debrecen, Kossuth u. 7.",2022.07.0.7,2022-12,Koenzim Q10 30 db kapszula ,1,1 560 Ft,1 560 Ft
+TOP-NEXUS Kft.,"4024 Debrecen, Kossuth u. 7.",2022.07.0.7,2022-12,Probiotikum,1,2 165 Ft,2 165 Ft
+TOP-NEXUS Kft.,"4024 Debrecen, Kossuth u. 7.",2022.07.0.7,2022-12,Ginseng,1,1 230 Ft,1 230 Ft
+TOP-NEXUS Kft.,"4024 Debrecen, Kossuth u. 7.",2022.07.0.7,2022-12,Omega 3,1,1 630 Ft,1 630 Ft
+TOP-NEXUS Kft.,"4024 Debrecen, Kossuth u. 7.",2022.07.0.7,2022-12,Kalcium+Vitamin D ,1,1 195 Ft,1 195 Ft
+Szecsődi Fodrászcikk és Biotermék Kft.,"6724 Szeged, Mars tér 1-3.",2022.07.14,2022-13,Vitamin D3,2,1 630 Ft,3 260 Ft
+Szecsődi Fodrászcikk és Biotermék Kft.,"6724 Szeged, Mars tér 1-3.",2022.07.14,2022-13,Fekete Magolaj,2,4 700 Ft,9 400 Ft
+Szecsődi Fodrászcikk és Biotermék Kft.,"6724 Szeged, Mars tér 1-3.",2022.07.14,2022-13,Koenzim Q10 30 db kapszula ,2,1 560 Ft,3 120 Ft
+Szecsődi Fodrászcikk és Biotermék Kft.,"6724 Szeged, Mars tér 1-3.",2022.07.14,2022-13,Probiotikum,1,2 165 Ft,2 165 Ft
+Szecsődi Fodrászcikk és Biotermék Kft.,"6724 Szeged, Mars tér 1-3.",2022.07.14,2022-13,Ginseng,2,1 230 Ft,2 460 Ft
+Szecsődi Fodrászcikk és Biotermék Kft.,"6724 Szeged, Mars tér 1-3.",2022.07.14,2022-13,Omega 3,2,1 630 Ft,3 260 Ft
+Szecsődi Fodrászcikk és Biotermék Kft.,"6724 Szeged, Mars tér 1-3.",2022.07.14,2022-13,Kalcium+Vitamin D ,1,1 195 Ft,1 195 Ft
+Szecsődi Fodrászcikk és Biotermék Kft.,"6724 Szeged, Mars tér 1-3.",2022.07.14,2022-13,Kalcium+Vitamin D ,2,5 Ft,10 Ft
+Andorkó Julianna,"8394 Alsópáhok, Fő utca 76. B.ép.fszt.5.",2022.07.25,2022-14,Vitamin D3,2,1 270 Ft,2 540 Ft
+Andorkó Julianna,"8394 Alsópáhok, Fő utca 76. B.ép.fszt.5.",2022.07.25,2022-14,Fekete Magolaj,2,4 340 Ft,8 680 Ft
+Andorkó Julianna,"8394 Alsópáhok, Fő utca 76. B.ép.fszt.5.",2022.07.25,2022-14,Koenzim Q10 30 db kapszula ,2,1 200 Ft,2 400 Ft
+Andorkó Julianna,"8394 Alsópáhok, Fő utca 76. B.ép.fszt.5.",2022.07.25,2022-14,Probiotikum,2,1 805 Ft,3 610 Ft
+Andorkó Julianna,"8394 Alsópáhok, Fő utca 76. B.ép.fszt.5.",2022.07.25,2022-14,Ginseng,2,870 Ft,1 740 Ft
+Andorkó Julianna,"8394 Alsópáhok, Fő utca 76. B.ép.fszt.5.",2022.07.25,2022-14,Omega 3,2,1 270 Ft,2 540 Ft
+Andorkó Julianna,"8394 Alsópáhok, Fő utca 76. B.ép.fszt.5.",2022.07.25,2022-14,Kalcium+Vitamin D ,2,835 Ft,1 670 Ft
+"""MÁTYÁS KIRÁLY"" Kft.","4028 Debrecen, Laktanya utca 23.",2022.07.27,2022-15,Probiotikum,100,1 200 Ft,120 000 Ft
+"""MÁTYÁS KIRÁLY"" Kft.","4028 Debrecen, Laktanya utca 23.",2022.07.27,2022-15,Fekete Magolaj,2,4 340 Ft,8 680 Ft
+Puskás Nikoletta,"2120 Dunakeszi, Kisdobos utca 21.b.",2022.08.03,2022-16,Probiotikum,3,2 181 Ft,6 543 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2022.08.13,2022-17,Fekete Magolaj,2,3 906 Ft,7 812 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2022.08.13,2022-17,Ginseng,5,783 Ft,3 915 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2022.08.13,2022-17,Probiotikum,6,1 625 Ft,9 750 Ft
+Terra Gold Kft.,"4251 Hajdúsámson, Kiscsere utca 3.",2022.08.09,2022-18,Vitamin D3,1,1 270 Ft,1 270 Ft
+Terra Gold Kft.,"4251 Hajdúsámson, Kiscsere utca 3.",2022.08.09,2022-18,Koenzim Q10 30 db kapszula ,4,1 400 Ft,5 600 Ft
+Terra Gold Kft.,"4251 Hajdúsámson, Kiscsere utca 3.",2022.08.09,2022-18,Ginseng,5,870 Ft,4 350 Ft
+Terra Gold Kft.,"4251 Hajdúsámson, Kiscsere utca 3.",2022.08.09,2022-18,Omega 3,3,1 270 Ft,3 810 Ft
+Terra Gold Kft.,"4251 Hajdúsámson, Kiscsere utca 3.",2022.08.09,2022-18,Kalcium+Vitamin D ,2,835 Ft,1 670 Ft
+Terra Gold Kft.,"4251 Hajdúsámson, Kiscsere utca 3.",2022.08.09,2022-18,Probiotikum,6,1 805 Ft,10 830 Ft
+HD MESTER EURO Kft.,"4220 Hajdúböszörmény, Dorogi utca 20.",2022.08.11,2022-19,Vitamin D3,2,1 418 Ft,2 836 Ft
+HD MESTER EURO Kft.,"4220 Hajdúböszörmény, Dorogi utca 20.",2022.08.11,2022-19,Fekete Magolaj,2,4 089 Ft,8 178 Ft
+HD MESTER EURO Kft.,"4220 Hajdúböszörmény, Dorogi utca 20.",2022.08.11,2022-19,Koenzim Q10 30 db kapszula ,2,1 357 Ft,2 714 Ft
+HD MESTER EURO Kft.,"4220 Hajdúböszörmény, Dorogi utca 20.",2022.08.11,2022-19,Probiotikum,2,1 884 Ft,3 767 Ft
+HD MESTER EURO Kft.,"4220 Hajdúböszörmény, Dorogi utca 20.",2022.08.11,2022-19,Ginseng,2,1 070 Ft,2 140 Ft
+HD MESTER EURO Kft.,"4220 Hajdúböszörmény, Dorogi utca 20.",2022.08.11,2022-19,Omega 3,2,1 418 Ft,2 836 Ft
+HD MESTER EURO Kft.,"4220 Hajdúböszörmény, Dorogi utca 20.",2022.08.11,2022-19,Kalcium+Vitamin D ,2,1 040 Ft,2 079 Ft
+HAJDÚ GYÓGYSZERTÁR Bt.,"4220 Hajdúböszörmény, Árpád u.45",2022.08.16,2022-20,Vitamin D3,2,1 418 Ft,2 836 Ft
+HAJDÚ GYÓGYSZERTÁR Bt.,"4220 Hajdúböszörmény, Árpád u.45",2022.08.16,2022-20,Fekete Magolaj,2,4 089 Ft,8 178 Ft
+HAJDÚ GYÓGYSZERTÁR Bt.,"4220 Hajdúböszörmény, Árpád u.45",2022.08.16,2022-20,Koenzim Q10 30 db kapszula ,2,1 357 Ft,2 714 Ft
+HAJDÚ GYÓGYSZERTÁR Bt.,"4220 Hajdúböszörmény, Árpád u.45",2022.08.16,2022-20,Probiotikum,2,1 884 Ft,3 767 Ft
+HAJDÚ GYÓGYSZERTÁR Bt.,"4220 Hajdúböszörmény, Árpád u.45",2022.08.16,2022-20,Ginseng,2,1 070 Ft,2 140 Ft
+HAJDÚ GYÓGYSZERTÁR Bt.,"4220 Hajdúböszörmény, Árpád u.45",2022.08.16,2022-20,Omega 3,2,1 418 Ft,2 836 Ft
+HAJDÚ GYÓGYSZERTÁR Bt.,"4220 Hajdúböszörmény, Árpád u.45",2022.08.16,2022-20,Kalcium+Vitamin D ,2,1 040 Ft,2 079 Ft
+NYÍREGY-NOVA Kft.,"1097 Budapest, Könyves Kálmán krt. 12-14. (Lurdy-ház)",2022.08.19,2022-21,Vitamin D3,1,1 270 Ft,1 270 Ft
+NYÍREGY-NOVA Kft.,"1097 Budapest, Könyves Kálmán krt. 12-14. (Lurdy-ház)",2022.08.19,2022-21,Fekete Magolaj,1,4 340 Ft,4 340 Ft
+NYÍREGY-NOVA Kft.,"1097 Budapest, Könyves Kálmán krt. 12-14. (Lurdy-ház)",2022.08.19,2022-21,Probiotikum,1,1 805 Ft,1 805 Ft
+NYÍREGY-NOVA Kft.,"1097 Budapest, Könyves Kálmán krt. 12-14. (Lurdy-ház)",2022.08.19,2022-21,Omega 3,1,1 270 Ft,1 270 Ft
+NYÍREGY-NOVA Kft.,"1097 Budapest, Könyves Kálmán krt. 12-14. (Lurdy-ház)",2022.08.19,2022-21,Ginseng,1,870 Ft,870 Ft
+NYÍREGY-NOVA Kft.,"1097 Budapest, Könyves Kálmán krt. 12-14. (Lurdy-ház)",2022.08.19,2022-21,Kalcium+Vitamin D ,1,835 Ft,835 Ft
+NYÍREGY-NOVA Kft.,"1097 Budapest, Könyves Kálmán krt. 12-14. (Lurdy-ház)",2022.08.19,2022-21,Koenzim Q10 30 db kapszula ,1,1 200 Ft,1 200 Ft
+"""S.R.M. REMÉNY"" Kft.","4400 Nyíregyháza, Nyírfa utca 23.",2022.08.19,2022-22,Vitamin D3,6,1 270 Ft,7 620 Ft
+"""S.R.M. REMÉNY"" Kft.","4400 Nyíregyháza, Nyírfa utca 23.",2022.08.19,2022-22,Fekete Magolaj,6,4 340 Ft,26 040 Ft
+"""S.R.M. REMÉNY"" Kft.","4400 Nyíregyháza, Nyírfa utca 23.",2022.08.19,2022-22,Probiotikum,6,1 805 Ft,10 830 Ft
+"""S.R.M. REMÉNY"" Kft.","4400 Nyíregyháza, Nyírfa utca 23.",2022.08.19,2022-22,Omega 3,6,1 270 Ft,7 620 Ft
+"""S.R.M. REMÉNY"" Kft.","4400 Nyíregyháza, Nyírfa utca 23.",2022.08.19,2022-22,Ginseng,6,870 Ft,5 220 Ft
+"""S.R.M. REMÉNY"" Kft.","4400 Nyíregyháza, Nyírfa utca 23.",2022.08.19,2022-22,Kalcium+Vitamin D ,6,835 Ft,5 010 Ft
+"""S.R.M. REMÉNY"" Kft.","4400 Nyíregyháza, Nyírfa utca 23.",2022.08.19,2022-22,Koenzim Q10 30 db kapszula ,6,1 200 Ft,7 200 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.08.30,2022-23,Ginseng,1,870 Ft,870 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.08.30,2022-24,Probiotikum,1,1 805 Ft,1 805 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.08.30,2022-25,Vitamin D3,1,1 270 Ft,1 270 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.08.30,2022-25,Fekete Magolaj,3,4 340 Ft,13 020 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.08.30,2022-25,Ginseng,6,870 Ft,5 220 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.08.30,2022-25,Kalcium+Vitamin D ,1,835 Ft,835 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.08.30,2022-25,Probiotikum,1,1 805 Ft,1 805 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2022.09.13,2022-26,Fekete Magolaj,2,3 906 Ft,7 812 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2022.09.13,2022-26,Ginseng,7,783 Ft,5 481 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2022.09.13,2022-26,Omega 3,1,1 143 Ft,1 143 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2022.09.13,2022-26,Probiotikum,7,1 625 Ft,11 375 Ft
+Betulus Kft.,"3557 Bükkszentkereszt, Széchenyi u. 12.",2022.09.13,2022-27,Vitamin D3,2,1 423 Ft,2 846 Ft
+Betulus Kft.,"3557 Bükkszentkereszt, Széchenyi u. 12.",2022.09.13,2022-27,Fekete Magolaj,2,4 103 Ft,8 206 Ft
+Betulus Kft.,"3557 Bükkszentkereszt, Széchenyi u. 12.",2022.09.13,2022-27,Koenzim Q10 30 db kapszula ,2,1 362 Ft,2 724 Ft
+Betulus Kft.,"3557 Bükkszentkereszt, Széchenyi u. 12.",2022.09.13,2022-27,Probiotikum,2,1 890 Ft,3 780 Ft
+Betulus Kft.,"3557 Bükkszentkereszt, Széchenyi u. 12.",2022.09.13,2022-27,Ginseng,2,1 074 Ft,2 148 Ft
+Betulus Kft.,"3557 Bükkszentkereszt, Széchenyi u. 12.",2022.09.13,2022-27,Omega 3,2,1 423 Ft,2 846 Ft
+Betulus Kft.,"3557 Bükkszentkereszt, Széchenyi u. 12.",2022.09.13,2022-27,Kalcium+Vitamin D ,2,1 043 Ft,2 086 Ft
+GELSEMIUM Kft.,"3300 Eger, Hadnagy út 5.",2022.09.16,2022-28,Ginseng,1,870 Ft,870 Ft
+GELSEMIUM Kft.,"3300 Eger, Hadnagy út 5.",2022.09.16,2022-29,Ginseng,1,-870 Ft,-870 Ft
+GELSEMIUM Kft.,"3300 Eger, Hadnagy út 5.",2022.09.16,2022-30,Ginseng,1,870 Ft,870 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2022.10.13,2022-31,Ginseng,5,783 Ft,3 915 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2022.10.13,2022-31,Omega 3,1,1 143 Ft,1 143 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2022.10.13,2022-31,Probiotikum,6,1 625 Ft,9 750 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2022.10.13,2022-31,Vitamin D3,1,1 143 Ft,1 143 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2022.11.11,2022-32,Ginseng,1,783 Ft,783 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2022.11.11,2022-32,Omega 3,1,1 143 Ft,1 143 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2022.11.11,2022-32,Probiotikum,5,1 625 Ft,8 125 Ft
+"""MÁTYÁS KIRÁLY"" Kft.","4028 Debrecen, Laktanya utca 23.",2022.11.04,2022-33,Ginseng,20,870 Ft,17 400 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.11.09,2022-34,Probiotikum,4,1 805 Ft,7 220 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.11.09,2022-34,Ginseng,3,870 Ft,2 610 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.11.09,2022-34,Kalcium+Vitamin D ,2,835 Ft,1 670 Ft
+GO HEALTH Kft.,"2711 Tápiószentmárton, Rákóczi Ferenc utca 12.",2022.11.16,2022-35,Kalcium+Vitamin D ,20,835 Ft,16 700 Ft
+GO HEALTH Kft.,"2711 Tápiószentmárton, Rákóczi Ferenc utca 12.",2022.11.16,2022-35,Fekete Magolaj,20,4 340 Ft,86 800 Ft
+GO HEALTH Kft.,"2711 Tápiószentmárton, Rákóczi Ferenc utca 12.",2022.11.16,2022-35,Koenzim Q10 30 db kapszula ,20,1 200 Ft,24 000 Ft
+GO HEALTH Kft.,"2711 Tápiószentmárton, Rákóczi Ferenc utca 12.",2022.11.16,2022-35,Vitamin D3,20,1 270 Ft,25 400 Ft
+GO HEALTH Kft.,"2711 Tápiószentmárton, Rákóczi Ferenc utca 12.",2022.11.16,2022-35,Omega 3,20,1 270 Ft,25 400 Ft
+GO HEALTH Kft.,"2711 Tápiószentmárton, Rákóczi Ferenc utca 12.",2022.11.16,2022-35,Ginseng,20,870 Ft,17 400 Ft
+GO HEALTH Kft.,"2711 Tápiószentmárton, Rákóczi Ferenc utca 12.",2022.11.16,2022-35,Probiotikum,20,1 805 Ft,36 100 Ft
+"""AUGUSZTA 2000"" Bt.","4032 Debrecen, Móricz Zsigmond krt. 22.",2022.11.17,2022-36,Kalcium+Vitamin D ,2,835 Ft,1 670 Ft
+"""AUGUSZTA 2000"" Bt.","4032 Debrecen, Móricz Zsigmond krt. 22.",2022.11.17,2022-36,Fekete Magolaj,2,4 340 Ft,8 680 Ft
+"""AUGUSZTA 2000"" Bt.","4032 Debrecen, Móricz Zsigmond krt. 22.",2022.11.17,2022-36,Koenzim Q10 30 db kapszula ,2,1 200 Ft,2 400 Ft
+"""AUGUSZTA 2000"" Bt.","4032 Debrecen, Móricz Zsigmond krt. 22.",2022.11.17,2022-36,Vitamin D3,2,1 270 Ft,2 540 Ft
+"""AUGUSZTA 2000"" Bt.","4032 Debrecen, Móricz Zsigmond krt. 22.",2022.11.17,2022-36,Omega 3,2,1 270 Ft,2 540 Ft
+"""AUGUSZTA 2000"" Bt.","4032 Debrecen, Móricz Zsigmond krt. 22.",2022.11.17,2022-36,Ginseng,2,870 Ft,1 740 Ft
+"""AUGUSZTA 2000"" Bt.","4032 Debrecen, Móricz Zsigmond krt. 22.",2022.11.17,2022-36,Probiotikum,2,1 805 Ft,3 610 Ft
+GO HEALTH Kft.,"2711 Tápiószentmárton, Rákóczi Ferenc utca 12.",2022.11.21,2022-37,Ginseng,20,870 Ft,17 400 Ft
+GO HEALTH Kft.,"2711 Tápiószentmárton, Rákóczi Ferenc utca 12.",2022.11.21,2022-37,Koenzim Q10 30 db kapszula ,20,1 200 Ft,24 000 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.11.21,2022-38,Ginseng,3,870 Ft,2 610 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.11.21,2022-38,Kalcium+Vitamin D ,2,835 Ft,1 670 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.11.21,2022-38,Probiotikum,4,1 805 Ft,7 220 Ft
+RANGERS V&V Kft.,"3527 Miskolc, Baross Gábor u. 16.",2022.12.01,2022-39,Vitamin D3,10,1 270 Ft,12 700 Ft
+RANGERS V&V Kft.,"3527 Miskolc, Baross Gábor u. 16.",2022.12.01,2022-39,Koenzim Q10 30 db kapszula ,10,1 200 Ft,12 000 Ft
+RANGERS V&V Kft.,"3527 Miskolc, Baross Gábor u. 16.",2022.12.01,2022-39,Omega 3,10,1 270 Ft,12 700 Ft
+RANGERS V&V Kft.,"3527 Miskolc, Baross Gábor u. 16.",2022.12.01,2022-39,Fekete Magolaj,10,4 340 Ft,43 400 Ft
+RANGERS V&V Kft.,"3527 Miskolc, Baross Gábor u. 16.",2022.12.01,2022-39,Kalcium+Vitamin D ,10,835 Ft,8 350 Ft
+RANGERS V&V Kft.,"3527 Miskolc, Baross Gábor u. 16.",2022.12.01,2022-39,Ginseng,10,870 Ft,8 700 Ft
+RANGERS V&V Kft.,"3527 Miskolc, Baross Gábor u. 16.",2022.12.01,2022-39,Probiotikum,10,1 805 Ft,18 050 Ft
+"""MÁTYÁS KIRÁLY"" Kft.","4028 Debrecen, Laktanya utca 23.",2022.12.01,2022-40,Probiotikum,100,1 200 Ft,120 000 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.12.02,2022-41,Vitamin D3,9,1 270 Ft,11 430 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.12.02,2022-41,Fekete Magolaj,2,4 340 Ft,8 680 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.12.02,2022-41,Ginseng,13,870 Ft,11 310 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.12.02,2022-41,Kalcium+Vitamin D ,26,835 Ft,21 710 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.12.02,2022-41,Koenzim Q10 30 db kapszula ,13,1 200 Ft,15 600 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.12.02,2022-41,Omega 3,17,1 270 Ft,21 590 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.12.02,2022-41,Probiotikum,34,1 805 Ft,61 370 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.12.02,2022-42,Vitamin D3,9,-1 270 Ft,-11 430 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.12.02,2022-42,Fekete Magolaj,2,-4 340 Ft,-8 680 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.12.02,2022-42,Ginseng,13,-870 Ft,-11 310 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.12.02,2022-42,Kalcium+Vitamin D ,26,-835 Ft,-21 710 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.12.02,2022-42,Koenzim Q10 30 db kapszula ,13,-1 200 Ft,-15 600 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.12.02,2022-42,Omega 3,17,-1 270 Ft,-21 590 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.12.02,2022-42,Probiotikum,34,-1 805 Ft,-61 370 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2022.12.13,2022-43,Fekete Magolaj,1,3 906 Ft,3 906 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2022.12.13,2022-43,Ginseng,8,783 Ft,6 264 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2022.12.13,2022-43,Probiotikum,6,1 625 Ft,9 750 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2022.12.13,2022-43,Vitamin D3,1,1 143 Ft,1 143 Ft
+MEGARA-MED Kft.,"2500 Esztergom, Kossuth Lajos utca 39.",2022.01.07,2022-44,Probiotikum,40,1 805 Ft,72 200 Ft
+"""ERDÉLYI"" Kft.","8105 Péterfürdő, Iskola u.3.",2022.12.07,2022-45,Vitamin D3,2,1 418 Ft,2 836 Ft
+"""ERDÉLYI"" Kft.","8105 Péterfürdő, Iskola u.3.",2022.12.07,2022-45,Omega 3,2,1 418 Ft,2 836 Ft
+"""ERDÉLYI"" Kft.","8105 Péterfürdő, Iskola u.3.",2022.12.07,2022-45,Ginseng,2,1 070 Ft,2 140 Ft
+"""ERDÉLYI"" Kft.","8105 Péterfürdő, Iskola u.3.",2022.12.07,2022-45,Kalcium+Vitamin D ,2,1 040 Ft,2 079 Ft
+"""ERDÉLYI"" Kft.","8105 Péterfürdő, Iskola u.3.",2022.12.07,2022-45,Koenzim Q10 30 db kapszula ,2,1 357 Ft,2 714 Ft
+"""ERDÉLYI"" Kft.","8105 Péterfürdő, Iskola u.3.",2022.12.07,2022-45,Fekete Magolaj,2,4 089 Ft,8 178 Ft
+"""ERDÉLYI"" Kft.","8105 Péterfürdő, Iskola u.3.",2022.12.07,2022-45,Probiotikum,2,1 884 Ft,3 767 Ft
+"""FEHÉRTÓI KORONA' Kft.","4244 Újfehértó, Petőfi u. 52.",2022.12.15,2022-46,Vitamin D3,1,1 270 Ft,1 270 Ft
+"""FEHÉRTÓI KORONA' Kft.","4244 Újfehértó, Petőfi u. 52.",2022.12.15,2022-46,Probiotikum,1,1 805 Ft,1 805 Ft
+"""FEHÉRTÓI KORONA' Kft.","4244 Újfehértó, Petőfi u. 52.",2022.12.15,2022-46,Ginseng,1,870 Ft,870 Ft
+"""FEHÉRTÓI KORONA' Kft.","4244 Újfehértó, Petőfi u. 52.",2022.12.15,2022-46,Kalcium+Vitamin D ,1,835 Ft,835 Ft
+"""FEHÉRTÓI KORONA' Kft.","4244 Újfehértó, Petőfi u. 52.",2022.12.15,2022-46,Koenzim Q10 30 db kapszula ,1,1 200 Ft,1 200 Ft
+"""FEHÉRTÓI KORONA' Kft.","4244 Újfehértó, Petőfi u. 52.",2022.12.15,2022-46,Fekete Magolaj,1,4 340 Ft,4 340 Ft
+"""FEHÉRTÓI KORONA' Kft.","4244 Újfehértó, Petőfi u. 52.",2022.12.15,2022-46,Omega 3,1,1 270 Ft,1 270 Ft
+"""S.R.M. REMÉNY"" Kft.","4400 Nyíregyháza, Nyírfa utca 23.",2022.12.15,2022-47,Koenzim Q10 30 db kapszula ,5,1 200 Ft,6 000 Ft
+"""S.R.M. REMÉNY"" Kft.","4400 Nyíregyháza, Nyírfa utca 23.",2022.12.15,2022-47,Omega 3,10,1 270 Ft,12 700 Ft
+"""S.R.M. REMÉNY"" Kft.","4400 Nyíregyháza, Nyírfa utca 23.",2022.12.15,2022-47,Probiotikum,20,1 805 Ft,36 100 Ft
+"""S.R.M. REMÉNY"" Kft.","4400 Nyíregyháza, Nyírfa utca 23.",2022.12.15,2022-47,Vitamin D3,5,1 270 Ft,6 350 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2022.12.20,2022-48,Koenzim Q10 30 db kapszula ,20,972 Ft,19 446 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2022.12.20,2022-48,Vitamin D3,20,1 055 Ft,21 098 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2022.12.20,2022-48,Omega 3,20,1 029 Ft,20 580 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2022.12.20,2022-48,Fekete Magolaj,20,3 604 Ft,72 072 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2022.12.20,2022-48,Kalcium+Vitamin D ,20,692 Ft,13 846 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2022.12.20,2022-48,Ginseng,20,722 Ft,14 434 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2022.12.20,2022-48,Probiotikum,20,1 498 Ft,29 960 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.11.21,2022-49,Ginseng,3,-870 Ft,-2 610 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.11.21,2022-49,Kalcium+Vitamin D ,2,-835 Ft,-1 670 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.11.21,2022-49,Probiotikum,4,-1 805 Ft,-7 220 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.01.20,2022-50,Ginseng,3,870 Ft,2 610 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.01.20,2022-50,Kalcium+Vitamin D ,2,835 Ft,1 670 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.01.20,2022-50,Probiotikum,4,1 805 Ft,7 220 Ft
+JÓZSAI PATIKA Bt.,"4225 Debrecen, Szentgyörgyflavi utca 9",2023.01.09,2023-1,Probiotikum,20,1 805 Ft,36 100 Ft
+JÓZSAI PATIKA Bt.,"4225 Debrecen, Szentgyörgyflavi utca 9",2023.01.09,2023-1,Vitamin D3,20,1 270 Ft,25 400 Ft
+JÓZSAI PATIKA Bt.,"4225 Debrecen, Szentgyörgyflavi utca 9",2023.01.09,2023-1,Koenzim Q10 30 db kapszula ,20,1 200 Ft,24 000 Ft
+JÓZSAI PATIKA Bt.,"4225 Debrecen, Szentgyörgyflavi utca 9",2023.01.09,2023-1,Fekete Magolaj,3,4 340 Ft,13 020 Ft
+JÓZSAI PATIKA Bt.,"4225 Debrecen, Szentgyörgyflavi utca 9",2023.01.09,2023-1,Ginseng,3,870 Ft,2 610 Ft
+JÓZSAI PATIKA Bt.,"4225 Debrecen, Szentgyörgyflavi utca 9",2023.01.09,2023-1,Omega 3,20,1 270 Ft,25 400 Ft
+GS-Herc Bt,"4251 Hajdúsámson, Hunyadi utca 2.",2023.01.09,2023-2,Probiotikum,40,1 805 Ft,72 200 Ft
+GS-Herc Bt,"4251 Hajdúsámson, Hunyadi utca 2.",2023.01.09,2023-2,Kalcium+Vitamin D ,1,5 Ft,5 Ft
+GS-Herc Bt,"4251 Hajdúsámson, Hunyadi utca 2.",2023.01.09,2023-2,Vitamin D3,1,5 Ft,5 Ft
+HÁRS GYÓGYSZERTÁR Kft.,"4030 Debrecen, Pandúr utca 2/A.",2023.01.09,2023-3,Probiotikum,20,1 805 Ft,36 100 Ft
+HÁRS GYÓGYSZERTÁR Kft.,"4031 Debrecen, Pandúr utca 2/A.",2023.01.09,2023-3,Fekete Magolaj,1,5 Ft,5 Ft
+HÁRS GYÓGYSZERTÁR Kft.,"4032 Debrecen, Pandúr utca 2/A.",2023.01.09,2023-3,Omega 3,1,5 Ft,5 Ft
+HÁRS GYÓGYSZERTÁR Kft.,"4033 Debrecen, Pandúr utca 2/A.",2023.01.09,2023-3,Koenzim Q10 30 db kapszula ,1,5 Ft,5 Ft
+HÁRS GYÓGYSZERTÁR Kft.,"4034 Debrecen, Pandúr utca 2/A.",2023.01.09,2023-3,Ginseng,1,5 Ft,5 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.02.08,2023-4,Vitamin D3,33,1 270 Ft,41 910 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.02.08,2023-4,Fekete Magolaj,11,4 340 Ft,47 740 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.02.08,2023-4,Ginseng,37,870 Ft,32 190 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.02.08,2023-4,Kalcium+Vitamin D ,26,835 Ft,21 710 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.02.08,2023-4,Koenzim Q10 30 db kapszula ,23,1 200 Ft,27 600 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.02.08,2023-4,Omega 3,24,1 270 Ft,30 480 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.02.08,2023-4,Probiotikum,25,1 805 Ft,45 125 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.11.09,2023-5,Ginseng,3,870 Ft,2 610 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.11.09,2023-5,Kalcium+Vitamin D ,2,835 Ft,1 670 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.11.09,2023-5,Probiotikum,4,1 805 Ft,7 220 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.11.09,2023-6,Probiotikum,-3,870 Ft,-2 610 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.11.09,2023-6,Ginseng,-2,835 Ft,-1 670 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.11.09,2023-6,Kalcium+Vitamin D ,-4,1 805 Ft,-7 220 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.12.30,2023-7,Ginseng,3,870 Ft,2 610 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.12.30,2023-7,Kalcium+Vitamin D ,2,835 Ft,1 670 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.12.30,2023-7,Probiotikum,4,1 805 Ft,7 220 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.12.30,2023-8,Vitamin D3,9,1 270 Ft,11 430 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.12.30,2023-8,Fekete Magolaj,2,4 340 Ft,8 680 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.12.30,2023-8,Ginseng,13,870 Ft,11 310 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.12.30,2023-8,Kalcium+Vitamin D ,26,835 Ft,21 710 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.12.30,2023-8,Koenzim Q10 30 db kapszula ,13,1 200 Ft,15 600 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.12.30,2023-8,Omega 3,17,1 270 Ft,21 590 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.12.30,2023-8,Probiotikum,34,1 805 Ft,61 370 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2023.01.17,2023-9,Fekete Magolaj,6,3 906 Ft,23 436 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2023.01.17,2023-9,Ginseng,6,783 Ft,4 698 Ft
+BENNOVUM Kft.,"1088 Budapest, Százados u. 18.",2023.01.17,2023-9,Omega 3,6,1 143 Ft,6 858 Ft
+BENNOVUM Kft.,"1089 Budapest, Százados u. 18.",2023.01.17,2023-9,Probiotikum,4,1 625 Ft,6 500 Ft
+JÓZSAI PATIKA Bt.,"4225 Debrecen, Szentgyörgyflavi utca 9",2023.01.09,2023-10,Probiotikum,20,-1 805 Ft,-36 100 Ft
+JÓZSAI PATIKA Bt.,"4225 Debrecen, Szentgyörgyflavi utca 9",2023.01.09,2023-10,Vitamin D3,20,-1 270 Ft,-25 400 Ft
+JÓZSAI PATIKA Bt.,"4225 Debrecen, Szentgyörgyflavi utca 9",2023.01.09,2023-10,Koenzim Q10 30 db kapszula ,20,-1 200 Ft,-24 000 Ft
+JÓZSAI PATIKA Bt.,"4225 Debrecen, Szentgyörgyflavi utca 9",2023.01.09,2023-10,Fekete Magolaj,3,-4 340 Ft,-13 020 Ft
+JÓZSAI PATIKA Bt.,"4225 Debrecen, Szentgyörgyflavi utca 9",2023.01.09,2023-10,Ginseng,3,-870 Ft,-2 610 Ft
+JÓZSAI PATIKA Bt.,"4225 Debrecen, Szentgyörgyflavi utca 9",2023.01.09,2023-10,Omega 3,20,-1 270 Ft,-25 400 Ft
+JÓZSAI PATIKA Bt.,"4225 Debrecen, Szentgyörgyflavi utca 9",2023.01.10,2023-11,Probiotikum,20,1 805 Ft,36 100 Ft
+JÓZSAI PATIKA Bt.,"4225 Debrecen, Szentgyörgyflavi utca 9",2023.01.10,2023-11,Vitamin D3,20,1 270 Ft,25 400 Ft
+JÓZSAI PATIKA Bt.,"4225 Debrecen, Szentgyörgyflavi utca 9",2023.01.10,2023-11,Koenzim Q10 30 db kapszula ,20,1 200 Ft,24 000 Ft
+JÓZSAI PATIKA Bt.,"4225 Debrecen, Szentgyörgyflavi utca 9",2023.01.10,2023-11,Fekete Magolaj,3,4 340 Ft,13 020 Ft
+JÓZSAI PATIKA Bt.,"4225 Debrecen, Szentgyörgyflavi utca 9",2023.01.10,2023-11,Ginseng,3,870 Ft,2 610 Ft
+JÓZSAI PATIKA Bt.,"4226 Debrecen, Szentgyörgyflavi utca 9",2023.01.10,2023-11,Omega 3,20,1 270 Ft,25 400 Ft
+"""MÁTYÁS KIRÁLY"" Kft.","4028 Debrecen, Laktanya utca 23.",2023.01.12,2023-12,Ginseng,20,870 Ft,17 400 Ft
+Sanavita Bt.,"5340 Kunhegyes, Kossuth u. 54.",2023.01.12,2023-13,Probiotikum,40,1 805 Ft,72 200 Ft
+Sanavita Bt.,"5340 Kunhegyes, Kossuth u. 54.",2023.01.12,2023-13,Omega 3,10,1 270 Ft,12 700 Ft
+Sanavita Bt.,"5340 Kunhegyes, Kossuth u. 54.",2023.01.12,2023-13,Probiotikum,8,5 Ft,40 Ft
+Sanavita Bt.,"5340 Kunhegyes, Kossuth u. 54.",2023.01.12,2023-13,Omega 3,2,5 Ft,10 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.12.30,2023-14,Ginseng,3,-870 Ft,-2 610 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.12.30,2023-14,Kalcium+Vitamin D ,2,-835 Ft,-1 670 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.12.30,2023-14,Probiotikum,4,-1 805 Ft,-7 220 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.12.31,2023-15,Ginseng,3,870 Ft,2 610 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.12.31,2023-15,Kalcium+Vitamin D ,2,835 Ft,1 670 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2022.12.31,2023-15,Probiotikum,4,1 805 Ft,7 220 Ft
+Pappné Vass Anikó Eleonóra,"4324 Kállósemjén, Kossuth út 87.",2023.01.18,2023-16,Vitamin D3,20,1 270 Ft,25 400 Ft
+Pappné Vass Anikó Eleonóra,"4324 Kállósemjén, Kossuth út 87.",2023.01.18,2023-16,Probiotikum,20,1 805 Ft,36 100 Ft
+Pappné Vass Anikó Eleonóra,"4324 Kállósemjén, Kossuth út 87.",2023.01.18,2023-16,Fekete Magolaj,20,4 340 Ft,86 800 Ft
+Pappné Vass Anikó Eleonóra,"4324 Kállósemjén, Kossuth út 87.",2023.01.18,2023-16,Kalcium+Vitamin D ,10,835 Ft,8 350 Ft
+Pappné Vass Anikó Eleonóra,"4324 Kállósemjén, Kossuth út 87.",2023.01.18,2023-16,Ginseng,1,5 Ft,5 Ft
+Pappné Vass Anikó Eleonóra,"4324 Kállósemjén, Kossuth út 87.",2023.01.18,2023-16,Koenzim Q10 30 db kapszula ,1,5 Ft,5 Ft
+Pappné Vass Anikó Eleonóra,"4324 Kállósemjén, Kossuth út 87.",2023.01.18,2023-16,Omega 3,1,5 Ft,5 Ft
+"""FICTILE PHARMA"" Bt.","4029 Debrecen, Csapó utca 22. fszt.2.",2023.01.18,2023-17,Vitamin D3,20,1 270 Ft,25 400 Ft
+"""FICTILE PHARMA"" Bt.","4029 Debrecen, Csapó utca 22. fszt.2.",2023.01.18,2023-17,Kalcium+Vitamin D ,20,835 Ft,16 700 Ft
+"""FICTILE PHARMA"" Bt.","4029 Debrecen, Csapó utca 22. fszt.2.",2023.01.18,2023-17,Fekete Magolaj,20,4 340 Ft,86 800 Ft
+"""FICTILE PHARMA"" Bt.","4029 Debrecen, Csapó utca 22. fszt.2.",2023.01.18,2023-17,Ginseng,20,870 Ft,17 400 Ft
+"""FICTILE PHARMA"" Bt.","4029 Debrecen, Csapó utca 22. fszt.2.",2023.01.18,2023-17,Koenzim Q10 30 db kapszula ,20,1 200 Ft,24 000 Ft
+"""FICTILE PHARMA"" Bt.","4029 Debrecen, Csapó utca 22. fszt.2.",2023.01.18,2023-17,Omega 3,20,1 270 Ft,25 400 Ft
+"""FICTILE PHARMA"" Bt.","4029 Debrecen, Csapó utca 22. fszt.2.",2023.01.18,2023-17,Probiotikum,20,1 805 Ft,36 100 Ft
+"""FICTILE PHARMA"" Bt.","4029 Debrecen, Csapó utca 22. fszt.2.",2023.01.18,2023-17,Vitamin D3,4,5 Ft,20 Ft
+"""FICTILE PHARMA"" Bt.","4029 Debrecen, Csapó utca 22. fszt.2.",2023.01.18,2023-17,Kalcium+Vitamin D ,4,5 Ft,20 Ft
+"""FICTILE PHARMA"" Bt.","4029 Debrecen, Csapó utca 22. fszt.2.",2023.01.18,2023-17,Fekete Magolaj,4,5 Ft,20 Ft
+"""FICTILE PHARMA"" Bt.","4029 Debrecen, Csapó utca 22. fszt.2.",2023.01.18,2023-17,Ginseng,4,5 Ft,20 Ft
+"""FICTILE PHARMA"" Bt.","4029 Debrecen, Csapó utca 22. fszt.2.",2023.01.18,2023-17,Koenzim Q10 30 db kapszula ,4,5 Ft,20 Ft
+"""FICTILE PHARMA"" Bt.","4029 Debrecen, Csapó utca 22. fszt.2.",2023.01.18,2023-17,Omega 3,4,5 Ft,20 Ft
+"""FICTILE PHARMA"" Bt.","4029 Debrecen, Csapó utca 22. fszt.2.",2023.01.18,2023-17,Probiotikum,4,5 Ft,20 Ft
+MEGARA-MED Kft.,"2500 Esztergom, Kossuth Lajos utca 39.",2023.01.19,2023-18,Probiotikum,40,1 805 Ft,72 200 Ft
+MEGARA-MED Kft.,"2500 Esztergom, Kossuth Lajos utca 39.",2023.01.19,2023-18,Fekete Magolaj,20,4 340 Ft,86 800 Ft
+MEGARA-MED Kft.,"2500 Esztergom, Kossuth Lajos utca 39.",2023.01.19,2023-19,Omega 3,1,5 Ft,5 Ft
+MEGARA-MED Kft.,"2500 Esztergom, Kossuth Lajos utca 39.",2023.01.19,2023-19,Koenzim Q10 30 db kapszula ,1,5 Ft,5 Ft
+MEGARA-MED Kft.,"2500 Esztergom, Kossuth Lajos utca 39.",2023.01.19,2023-19,Kalcium+Vitamin D ,1,5 Ft,5 Ft
+MEGARA-MED Kft.,"2500 Esztergom, Kossuth Lajos utca 39.",2023.01.19,2023-19,Vitamin D3,1,5 Ft,5 Ft
+MEGARA-MED Kft.,"2500 Esztergom, Kossuth Lajos utca 39.",2023.01.19,2023-19,Ginseng,1,5 Ft,5 Ft
+JÓZSAI PATIKA Bt.,"4225 Debrecen, Szentgyörgyflavi utca 9.",2023.01.19,2023-20,Probiotikum,20,1 805 Ft,36 100 Ft
+TECTRA 95 Kft.,"4200 Hajdúszoboszló, Széchenyi u. 14.",2023.01.23,2023-21,Probiotikum,20,1 805 Ft,36 100 Ft
+Terra Gold Kft.,"4251 Hajdúsámson, Kiscsere utca 3.",2023.01.25,2023-22,Vitamin D3,8,1 270 Ft,10 160 Ft
+Terra Gold Kft.,"4251 Hajdúsámson, Kiscsere utca 3.",2023.01.25,2023-22,Fekete Magolaj,2,4 340 Ft,8 680 Ft
+Terra Gold Kft.,"4251 Hajdúsámson, Kiscsere utca 3.",2023.01.25,2023-22,Omega 3,5,1 270 Ft,6 350 Ft
+Terra Gold Kft.,"4251 Hajdúsámson, Kiscsere utca 3.",2023.01.25,2023-22,Kalcium+Vitamin D ,4,835 Ft,3 340 Ft
+Terra Gold Kft.,"4251 Hajdúsámson, Kiscsere utca 3.",2023.01.25,2023-22,Koenzim Q10 30 db kapszula ,14,1 400 Ft,19 600 Ft
+Terra Gold Kft.,"4251 Hajdúsámson, Kiscsere utca 3.",2023.01.25,2023-22,Probiotikum,2,1 805 Ft,3 610 Ft
+JÓZSAI PATIKA Bt.,"4225 Debrecen, Szentgyörgyflavi utca 9.",2023.01.27,2023-23,Probiotikum,20,1 805 Ft,36 100 Ft
+Varga Reformház Kft.,"4030 Debrecen, Epreskert u. 88.",2023.02.06,2023-24,Ginseng,2,870 Ft,1 740 Ft
+Varga Reformház Kft.,"4030 Debrecen, Epreskert u. 88.",2023.02.06,2023-24,Kalcium+Vitamin D ,1,835 Ft,835 Ft
+Varga Reformház Kft.,"4030 Debrecen, Epreskert u. 88.",2023.02.06,2023-24,Omega 3,1,1 270 Ft,1 270 Ft
+Varga Reformház Kft.,"4030 Debrecen, Epreskert u. 88.",2023.02.06,2023-24,Probiotikum,1,1 805 Ft,1 805 Ft
+"""S.R.M. REMÉNY"" Kft.","4400 Nyíregyháza, Nyírfa utca 23.",2023.02.06,2023-25,Probiotikum,20,1 805 Ft,36 100 Ft
+"""S.R.M. REMÉNY"" Kft.","4400 Nyíregyháza, Nyírfa utca 23.",2023.02.06,2023-25,Probiotikum,4,5 Ft,20 Ft
+"""S.R.M. REMÉNY"" Kft.","4400 Nyíregyháza, Nyírfa utca 23.",2023.02.06,2023-25,Ginseng,10,870 Ft,8 700 Ft
+"""S.R.M. REMÉNY"" Kft.","4400 Nyíregyháza, Nyírfa utca 23.",2023.02.06,2023-25,Ginseng,2,5 Ft,10 Ft
+"""S.R.M. REMÉNY"" Kft.","4400 Nyíregyháza, Nyírfa utca 23.",2023.02.06,2023-25,Vitamin D3,10,1 270 Ft,12 700 Ft
+"""S.R.M. REMÉNY"" Kft.","4400 Nyíregyháza, Nyírfa utca 23.",2023.02.06,2023-25,Vitamin D3,2,5 Ft,10 Ft
+"""S.R.M. REMÉNY"" Kft.","4400 Nyíregyháza, Nyírfa utca 23.",2023.02.06,2023-25,Koenzim Q10 30 db kapszula ,20,1 200 Ft,24 000 Ft
+"""S.R.M. REMÉNY"" Kft.","4400 Nyíregyháza, Nyírfa utca 23.",2023.02.06,2023-25,Koenzim Q10 30 db kapszula ,4,5 Ft,20 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2023.02.14,2023-26,Fekete Magolaj,6,3 906 Ft,23 436 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2023.02.14,2023-26,Ginseng,7,783 Ft,5 481 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2023.02.14,2023-26,Probiotikum,4,1 625 Ft,6 500 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2023.02.08,2023-27,CBD 375 mg,40,9 900 Ft,396 000 Ft
+JÓZSAI PATIKA Bt.,"4225 Debrecen, Szentgyörgyflavi utca 9.",2023.02.08,2023-28,Probiotikum,20,1 805 Ft,36 100 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2023.02.15,2023-31,Fekete Magolaj,5,3 515 Ft,17 577 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2023.02.15,2023-31,Ginseng,7,783 Ft,5 481 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2023.02.15,2023-31,Probiotikum,2,1 625 Ft,3 250 Ft
+TECTRA 95 Kft.,"4200 Hajdúszoboszló, Széchenyi u. 14.",2023.02.16,2023-33,Probiotikum,40,1 805 Ft,72 200 Ft
+TECTRA 95 Kft.,"4200 Hajdúszoboszló, Széchenyi u. 14.",2023.02.16,2023-33,Probiotikum,2,5 Ft,10 Ft
+SZENTGRÁL-PATIKA Bt.,"2840 Oroszlány, Rákóczi F. út 82.",2023.02.16,2023-34,Probiotikum,20,1 805 Ft,36 100 Ft
+MERITUS PATIKA Kft.,"9200 Mosonmagyaróvár, Flesch Károly utca 15.",2023.02.16,2023-35,Probiotikum,20,1 805 Ft,36 100 Ft
+JÓZSAI PATIKA Bt.,"4225 Debrecen, Szentgyörgyflavi utca 9.",2023.02.20,2023-36,Probiotikum,20,1 805 Ft,36 100 Ft
+JÓZSAI PATIKA Bt.,"4225 Debrecen, Szentgyörgyflavi utca 9.",2023.02.21,2023-37,Probiotikum,20,1 805 Ft,36 100 Ft
+K.M.N.R. Patika Szolgáltató Bt.,"2800 Tatabánya, Szent István u. 21.",2023.02.21,2023-38,Probiotikum,20,1 805 Ft,36 100 Ft
+Sanavita Bt.,"5340 Kunhegyes, Kossuth u. 54.",2023.02.21,2023-39,Probiotikum,20,1 805 Ft,36 100 Ft
+Sanavita Bt.,"5340 Kunhegyes, Kossuth u. 54.",2023.02.21,2023-39,Koenzim Q10 30 db kapszula ,5,1 200 Ft,6 000 Ft
+Sanavita Bt.,"5340 Kunhegyes, Kossuth u. 54.",2023.02.21,2023-39,Probiotikum,4,5 Ft,20 Ft
+Sanavita Bt.,"5340 Kunhegyes, Kossuth u. 54.",2023.02.21,2023-39,Koenzim Q10 30 db kapszula ,1,5 Ft,5 Ft
+ELIXIRIUM Bt.,"4100 Berettyóújfalu, Bajcsy-Zsilinszky Endre u. 3-5.",2023.02.21,2023-40,Kalcium+Vitamin D ,10,835 Ft,8 350 Ft
+ELIXIRIUM Bt.,"4100 Berettyóújfalu, Bajcsy-Zsilinszky Endre u. 3-5.",2023.02.21,2023-40,Ginseng,10,870 Ft,8 700 Ft
+ELIXIRIUM Bt.,"4100 Berettyóújfalu, Bajcsy-Zsilinszky Endre u. 3-5.",2023.02.21,2023-40,Vitamin D3,10,1 270 Ft,12 700 Ft
+ELIXIRIUM Bt.,"4100 Berettyóújfalu, Bajcsy-Zsilinszky Endre u. 3-5.",2023.02.21,2023-40,Omega 3,10,1 270 Ft,12 700 Ft
+ELIXIRIUM Bt.,"4100 Berettyóújfalu, Bajcsy-Zsilinszky Endre u. 3-5.",2023.02.21,2023-40,Probiotikum,10,1 805 Ft,18 050 Ft
+ELIXIRIUM Bt.,"4100 Berettyóújfalu, Bajcsy-Zsilinszky Endre u. 3-5.",2023.02.21,2023-40,Koenzim Q10 30 db kapszula ,10,1 200 Ft,12 000 Ft
+ELIXIRIUM Bt.,"4100 Berettyóújfalu, Bajcsy-Zsilinszky Endre u. 3-5.",2023.02.21,2023-40,Fekete Magolaj,5,4 340 Ft,21 700 Ft
+ELIXIRIUM Bt.,"4100 Berettyóújfalu, Bajcsy-Zsilinszky Endre u. 3-5.",2023.02.21,2023-40,Fekete Magolaj,1,5 Ft,5 Ft
+ELIXIRIUM Bt.,"4100 Berettyóújfalu, Bajcsy-Zsilinszky Endre u. 3-5.",2023.02.21,2023-40,Koenzim Q10 30 db kapszula ,2,5 Ft,10 Ft
+ELIXIRIUM Bt.,"4100 Berettyóújfalu, Bajcsy-Zsilinszky Endre u. 3-5.",2023.02.21,2023-40,Probiotikum,2,5 Ft,10 Ft
+ELIXIRIUM Bt.,"4100 Berettyóújfalu, Bajcsy-Zsilinszky Endre u. 3-5.",2023.02.21,2023-40,Omega 3,2,5 Ft,10 Ft
+ELIXIRIUM Bt.,"4100 Berettyóújfalu, Bajcsy-Zsilinszky Endre u. 3-5.",2023.02.21,2023-40,Vitamin D3,2,5 Ft,10 Ft
+ELIXIRIUM Bt.,"4100 Berettyóújfalu, Bajcsy-Zsilinszky Endre u. 3-5.",2023.02.21,2023-40,Ginseng,2,5 Ft,10 Ft
+ELIXIRIUM Bt.,"4100 Berettyóújfalu, Bajcsy-Zsilinszky Endre u. 3-5.",2023.02.21,2023-40,Kalcium+Vitamin D ,2,5 Ft,10 Ft
+PHARMA AXIA Kft.,"2840 Oroszlány, Népekbarátsága utca 20. 2.em.3.",2023.02.27,2023-41,Probiotikum,20,1 805 Ft,36 100 Ft
+KERSI Patika Bt.,"2500 Esztergom, Kossuth u. 41.",2023.03.01,2023-42,Vitamin D3,20,1 270 Ft,25 400 Ft
+GS-Herc Bt,"4251 Hajdúsámson, Hunyadi utca 2.",2023.03.01,2023-43,Probiotikum,40,1 805 Ft,72 200 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.04.02,2023-44,Vitamin D3,1,1 270 Ft,1 270 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.04.02,2023-44,Fekete Magolaj,4,4 340 Ft,17 360 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.04.02,2023-44,Ginseng,3,870 Ft,2 610 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.04.02,2023-44,Kalcium+Vitamin D ,2,835 Ft,1 670 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.04.02,2023-44,Koenzim Q10 30 db kapszula ,1,1 200 Ft,1 200 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.04.02,2023-44,Omega 3,2,1 270 Ft,2 540 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.04.02,2023-44,Probiotikum,48,1 805 Ft,86 640 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2023.03.11,2023-45,Ginseng,11,783 Ft,8 613 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2023.03.11,2023-45,Probiotikum,5,1 625 Ft,8 125 Ft
+JÓZSAI PATIKA Bt.,"4225 Debrecen, Szentgyörgyflavi utca 9.",2023.03.06,2023-46,Probiotikum,40,1 805 Ft,72 200 Ft
+"""S.R.M. REMÉNY"" Kft.","4400 Nyíregyháza, Nyírfa utca 23.",2023.03.07,2023-47,Omega 3,20,1 270 Ft,25 400 Ft
+"""S.R.M. REMÉNY"" Kft.","4400 Nyíregyháza, Nyírfa utca 23.",2023.03.07,2023-47,Kalcium+Vitamin D ,20,835 Ft,16 700 Ft
+"""S.R.M. REMÉNY"" Kft.","4400 Nyíregyháza, Nyírfa utca 23.",2023.03.07,2023-47,Kalcium+Vitamin D ,4,5 Ft,20 Ft
+"""S.R.M. REMÉNY"" Kft.","4400 Nyíregyháza, Nyírfa utca 23.",2023.03.07,2023-47,Omega 3,4,5 Ft,20 Ft
+GRANULA Bt.,"4544 Nyírkarász, Kossuth u.1.",2023.03.10,2023-48,Probiotikum,20,1 805 Ft,36 100 Ft
+GRANULA Bt.,"4544 Nyírkarász, Kossuth u.1.",2023.03.10,2023-48,Probiotikum,4,5 Ft,20 Ft
+JÓZSAI PATIKA Bt.,"4225 Debrecen, Szentgyörgyflavi utca 9.",2023.03.17,2023-49,Probiotikum,40,1805,72 200 Ft
+Sanavita Bt.,"5340 Kunhegyes, Kossuth u. 54.",2023.03.17,2023-50,Omega 3,20,1270,25 400 Ft
+Sanavita Bt.,"5340 Kunhegyes, Kossuth u. 54.",2023.03.17,2023-50,Ginseng,5,870 Ft,4 350 Ft
+Sanavita Bt.,"5340 Kunhegyes, Kossuth u. 54.",2023.03.17,2023-50,Ginseng,1,5 Ft,5 Ft
+Sanavita Bt.,"5340 Kunhegyes, Kossuth u. 54.",2023.03.17,2023-50,Omega 3,4,5 Ft,20 Ft
+ELIXIRIUM Bt.,"4100 Berettyóújfalu, Bajcsy-Zsilinszky Endre u. 3-5.",2023.03.17,2023-51,Probiotikum,20,1 805 Ft,36 100 Ft
+Dr. KISS JÓZSEF és TÁRSA Bt.,"4400 Nyíregyháza, Patkó utca 2/A",2023.03.20,2023-52,Probiotikum,6,1 805 Ft,10 830 Ft
+"""MÁTYÁS KIRÁLY"" Kft.","4028 Debrecen, Laktanya utca 23.",2023.03.20,2023-53,Probiotikum,100,1 200 Ft,120 000 Ft
+"""MÁTYÁS KIRÁLY"" Kft.","4028 Debrecen, Laktanya utca 23.",2023.03.20,2023-53,Ginseng,20,870 Ft,17 400 Ft
+"""MÁTYÁS KIRÁLY"" Kft.","4028 Debrecen, Laktanya utca 23.",2023.03.20,2023-53,Fekete Magolaj,3,4 340 Ft,13 020 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2023.03.23,2023-54,Koenzim Q10 30 db kapszula ,50,861 Ft,43 059 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2023.03.23,2023-54,Omega 3,50,911 Ft,45 570 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2023.03.23,2023-54,Fekete Magolaj,30,3 192 Ft,95 753 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2023.03.23,2023-54,Kalcium+Vitamin D ,20,613 Ft,12 264 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2023.03.23,2023-54,CBD 375 mg,40,7 920 Ft,316 795 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2023.03.23,2023-54,Ginseng,50,639 Ft,31 961 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2023.03.23,2023-54,Probiotikum,161,1 327 Ft,213 615 Ft
+MEGARA-MED Kft.,"2500 Esztergom, Kossuth Lajos utca 39.",2023.04.03,2023-55,Probiotikum,20,1 805 Ft,36 100 Ft
+ÁFONYA Patika Kft.,"4900 Fehérgyarmat, Móricz Zsigmond utca 3-5.",2023.04.05,2023-56,Probiotikum,20,1 805 Ft,36 100 Ft
+ÁFONYA Patika Kft.,"4900 Fehérgyarmat, Móricz Zsigmond utca 3-5.",2023.04.05,2023-56,Probiotikum,4,5 Ft,20 Ft
+ÁFONYA Patika Kft.,"4900 Fehérgyarmat, Móricz Zsigmond utca 3-5.",2023.04.05,2023-56,Kalcium+Vitamin D ,1,5 Ft,5 Ft
+ÁFONYA Patika Kft.,"4900 Fehérgyarmat, Móricz Zsigmond utca 3-5.",2023.04.05,2023-56,Vitamin D3,1,5 Ft,5 Ft
+ÁFONYA Patika Kft.,"4900 Fehérgyarmat, Móricz Zsigmond utca 3-5.",2023.04.05,2023-56,Koenzim Q10 30 db kapszula ,1,5 Ft,5 Ft
+ÁFONYA Patika Kft.,"4900 Fehérgyarmat, Móricz Zsigmond utca 3-5.",2023.04.05,2023-56,Omega 3,1,5 Ft,5 Ft
+ÁFONYA Patika Kft.,"4900 Fehérgyarmat, Móricz Zsigmond utca 3-5.",2023.04.05,2023-56,Ginseng,1,5 Ft,5 Ft
+ÁFONYA Patika Kft.,"4900 Fehérgyarmat, Móricz Zsigmond utca 3-5.",2023.04.05,2023-56,Fekete Magolaj,1,5 Ft,5 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2023.04.13,2023-57,Fekete Magolaj,1,3 906 Ft,3 906 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2023.04.13,2023-57,Ginseng,5,783 Ft,3 915 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2023.04.13,2023-57,Probiotikum,8,1 625 Ft,13 000 Ft
+Varga Reformház Kft.,"4030 Debrecen, Epreskert u. 88.",2023.04.05,2023-58,Kalcium+Vitamin D ,1,835 Ft,835 Ft
+Varga Reformház Kft.,"4030 Debrecen, Epreskert u. 88.",2023.04.05,2023-58,Koenzim Q10 30 db kapszula ,1,1 400 Ft,1 400 Ft
+Varga Reformház Kft.,"4030 Debrecen, Epreskert u. 88.",2023.04.05,2023-58,Omega 3,1,1 270 Ft,1 270 Ft
+Varga Reformház Kft.,"4030 Debrecen, Epreskert u. 88.",2023.04.05,2023-58,Probiotikum,1,1 805 Ft,1 805 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.05.05,2023-59,Fekete Magolaj,2,4 340 Ft,8 680 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.05.05,2023-59,Ginseng,5,870 Ft,4 350 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.05.05,2023-59,Koenzim Q10 30 db kapszula ,184,1 200 Ft,220 800 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.05.05,2023-59,Omega 3,1,1 270 Ft,1 270 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.05.05,2023-59,Probiotikum,6,1 805 Ft,10 830 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.05.06,2023-60,Fekete Magolaj,11,4 557 Ft,50 127 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.05.06,2023-60,Ginseng,12,914 Ft,10 968 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.05.06,2023-60,Kalcium+Vitamin D ,3,878 Ft,2 634 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.05.06,2023-60,Koenzim Q10 30 db kapszula ,8,1 266 Ft,10 128 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.05.06,2023-60,Omega 3,3,1 334 Ft,4 002 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.05.06,2023-60,Probiotikum,12,1 895 Ft,22 740 Ft
+SILVER-PHARMA Bt.,"4400 Nyíregyháza, Kossuth u. 50.",2023.04.13,2023-61,Probiotikum,10,1 805 Ft,18 050 Ft
+HÁRS GYÓGYSZERTÁR Kft.,"4030 Debrecen, Pandúr utca 2/A.",2023.04.13,2023-62,Probiotikum,20,1 805 Ft,36 100 Ft
+Sanavita Bt.,"5340 Kunhegyes, Kossuth u. 54.",2023.04.17,2023-63,Probiotikum,40,1 805 Ft,72 200 Ft
+Sanavita Bt.,"5340 Kunhegyes, Kossuth u. 54.",2023.04.17,2023-63,Probiotikum,8,5 Ft,40 Ft
+Sanavita Bt.,"5340 Kunhegyes, Kossuth u. 54.",2023.04.19,2023-64,Omega 3,20,1 270 Ft,25 400 Ft
+Sanavita Bt.,"5340 Kunhegyes, Kossuth u. 54.",2023.04.19,2023-64,Ginseng,10,870 Ft,8 700 Ft
+Sanavita Bt.,"5340 Kunhegyes, Kossuth u. 54.",2023.04.19,2023-64,Fekete Magolaj,2,4 340 Ft,8 680 Ft
+Sanavita Bt.,"5340 Kunhegyes, Kossuth u. 54.",2023.04.19,2023-64,Omega 3,4,5 Ft,20 Ft
+Sanavita Bt.,"5340 Kunhegyes, Kossuth u. 54.",2023.04.19,2023-64,Ginseng,2,5 Ft,10 Ft
+SZENTGRÁL-PATIKA Bt.,"2840 Oroszlány, Rákóczi F. út 82.",2023.04.26,2023-65,Probiotikum,20,1 805 Ft,36 100 Ft
+JÓZSAI PATIKA Bt.,"4225 Debrecen, Szentgyörgyflavi utca 9.",2023.04.26,2023-66,Probiotikum,40,1 805 Ft,72 200 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.06.04,2023-67,Probiotikum,63,1 805 Ft,113 715 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.06.04,2023-67,Omega 3,15,1 270 Ft,19 050 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.06.04,2023-67,Koenzim Q10 30 db kapszula ,3,1 200 Ft,3 600 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.06.04,2023-67,Ginseng,15,870 Ft,13 050 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.06.04,2023-67,Fekete Magolaj,2,4 340 Ft,8 680 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2023.05.12,2023-68,Fekete Magolaj,1,3 906 Ft,3 906 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2023.05.12,2023-68,Ginseng,11,783 Ft,8 613 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2023.05.12,2023-68,Omega 3,27,630 Ft,17 010 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2023.05.12,2023-68,Probiotikum,5,1 625 Ft,8 125 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2023.05.12,2023-68,Vitamin D3,21,630 Ft,13 230 Ft
+GRANULA Bt.,"4544 Nyírkarász, Kossuth u.1.",2023.05.05,2023-69,Probiotikum,20,1 805 Ft,36 100 Ft
+GRANULA Bt.,"4544 Nyírkarász, Kossuth u.1.",2023.05.05,2023-69,Probiotikum,4,5 Ft,20 Ft
+GRANULA Bt.,"4544 Nyírkarász, Kossuth u.1.",2023.05.05,2023-69,Vitamin D3,10,1 270 Ft,12 700 Ft
+GRANULA Bt.,"4544 Nyírkarász, Kossuth u.1.",2023.05.05,2023-69,Vitamin D3,2,5 Ft,10 Ft
+MEGARA-MED Kft.,"2500 Esztergom, Kossuth Lajos utca 39.",2023.05.05,2023-70,Probiotikum,40,1 805 Ft,72 200 Ft
+GS-Herc Bt,"4251 Hajdúsámson, Hunyadi utca 2.",2023.05.08,2023-71,Probiotikum,40,1 805 Ft,72 200 Ft
+Matyasovszkiné Csikai Andrea,"2093 Budajenő, Szőlőhegyi út 15.",2023.05.08,2023-72,CBD 375 mg,4,4 900 Ft,19 600 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.06.11,2023-73,Fekete Magolaj,5,5 241 Ft,26 205 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.06.11,2023-73,Ginseng,3,1 051 Ft,3 153 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.06.11,2023-73,Kalcium+Vitamin D ,1,1 010 Ft,1 010 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.06.11,2023-73,Koenzim Q10 30 db kapszula ,1,1 449 Ft,1 449 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.06.11,2023-73,Omega 3,1,1 534 Ft,1 534 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.06.11,2023-73,Probiotikum,5,2 179 Ft,10 895 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.05.25,2023-74,Vitamin D3,5,1 270 Ft,6 350 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.05.25,2023-74,Fekete Magolaj,4,4 340 Ft,17 360 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.05.25,2023-74,Ginseng,2,870 Ft,1 740 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.05.25,2023-74,Kalcium+Vitamin D ,10,835 Ft,8 350 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.05.25,2023-74,Koenzim Q10 30 db kapszula ,3,1 200 Ft,3 600 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.05.25,2023-74,Omega 3,2,1 270 Ft,2 540 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.05.25,2023-74,Probiotikum,6,1 805 Ft,10 830 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2023.05.16,2023-75,Ginseng,20,870 Ft,17 400 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2023.05.16,2023-75,Omega 3,20,1 270 Ft,25 400 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2023.05.16,2023-75,Koenzim Q10 30 db kapszula ,20,1 200 Ft,24 000 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2023.05.16,2023-75,Ginseng,4,5 Ft,20 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2023.05.16,2023-75,Omega 3,4,5 Ft,20 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2023.05.16,2023-75,Koenzim Q10 30 db kapszula ,4,5 Ft,20 Ft
+Varga Reformház Kft.,"4030 Debrecen, Epreskert u. 88.",2023.05.18,2023-76,Ginseng,5,870 Ft,4 350 Ft
+Varga Reformház Kft.,"4030 Debrecen, Epreskert u. 88.",2023.05.18,2023-76,Kalcium+Vitamin D ,5,835 Ft,4 175 Ft
+Varga Reformház Kft.,"4030 Debrecen, Epreskert u. 88.",2023.05.18,2023-76,Koenzim Q10 30 db kapszula ,5,1 400 Ft,7 000 Ft
+Varga Reformház Kft.,"4030 Debrecen, Epreskert u. 88.",2023.05.18,2023-76,Omega 3,5,1 270 Ft,6 350 Ft
+Varga Reformház Kft.,"4030 Debrecen, Epreskert u. 88.",2023.05.18,2023-76,Probiotikum,5,1 805 Ft,9 025 Ft
+Varga Reformház Kft.,"4030 Debrecen, Epreskert u. 88.",2023.05.18,2023-77,Ginseng,5,-870 Ft,-4 350 Ft
+Varga Reformház Kft.,"4030 Debrecen, Epreskert u. 88.",2023.05.18,2023-77,Kalcium+Vitamin D ,5,-835 Ft,-4 175 Ft
+Varga Reformház Kft.,"4030 Debrecen, Epreskert u. 88.",2023.05.18,2023-77,Koenzim Q10 30 db kapszula ,5,-1 400 Ft,-7 000 Ft
+Varga Reformház Kft.,"4030 Debrecen, Epreskert u. 88.",2023.05.18,2023-77,Omega 3,5,-1 270 Ft,-6 350 Ft
+Varga Reformház Kft.,"4030 Debrecen, Epreskert u. 88.",2023.05.18,2023-77,Probiotikum,5,-1 805 Ft,-9 025 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2023.05.19,2023-78,CBD 375 mg,40,4 900 Ft,196 000 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2023.05.19,2023-78,Probiotikum,20,1 805 Ft,36 100 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2023.05.19,2023-78,Ginseng,20,870 Ft,17 400 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2023.05.19,2023-78,Omega 3,20,1 270 Ft,25 400 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2023.05.19,2023-78,Koenzim Q10 30 db kapszula ,20,1 200 Ft,24 000 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2023.05.19,2023-78,Fekete Magolaj,5,4 340 Ft,21 700 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2023.05.19,2023-78,Kalcium+Vitamin D ,10,835 Ft,8 350 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2023.05.19,2023-78,Vitamin D3,5,1 270 Ft,6 350 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2023.05.19,2023-78,Vitamin D3,1,5 Ft,5 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2023.05.19,2023-78,Kalcium+Vitamin D ,2,5 Ft,10 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2023.05.19,2023-78,Fekete Magolaj,1,5 Ft,5 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2023.05.19,2023-78,Koenzim Q10 30 db kapszula ,4,5 Ft,20 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2023.05.19,2023-78,Omega 3,4,5 Ft,20 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2023.05.19,2023-78,Ginseng,4,5 Ft,20 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2023.05.19,2023-78,Probiotikum,4,5 Ft,20 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.05.25,2023-79,Vitamin D3,5,-1 270 Ft,-6 350 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.05.25,2023-79,Fekete Magolaj,4,-4 340 Ft,-17 360 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.05.25,2023-79,Ginseng,2,-870 Ft,-1 740 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.05.25,2023-79,Kalcium+Vitamin D ,10,-835 Ft,-8 350 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.05.25,2023-79,Koenzim Q10 30 db kapszula ,3,-1 200 Ft,-3 600 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.05.25,2023-79,Omega 3,2,-1 270 Ft,-2 540 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.05.25,2023-79,Probiotikum,6,-1 805 Ft,-10 830 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.04.01,2023-80,Vitamin D3,5,1 270 Ft,6 350 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.04.01,2023-80,Fekete Magolaj,4,4 340 Ft,17 360 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.04.01,2023-80,Kalcium+Vitamin D ,10,835 Ft,8 350 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.04.01,2023-80,Koenzim Q10 30 db kapszula ,3,1 200 Ft,3 600 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.04.01,2023-80,Omega 3,2,1 270 Ft,2 540 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.04.01,2023-80,Probiotikum,6,1 805 Ft,10 830 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.04.01,2023-80,Ginseng,2,870 Ft,1 740 Ft
+ELIXIRIUM Bt.,"4100 Berettyóújfalu, Bajcsy-Zsilinszky Endre u. 3-5.",2023.06.01,2023-81,Probiotikum,20,1 805 Ft,36 100 Ft
+Arany Borostyán Patika Kft.,"4800 Vásárosnamény, Kossuth Lajos út 34. fszt. 3.",2023.05.24,2023-82,Probiotikum,20,1 805 Ft,36 100 Ft
+Arany Borostyán Patika Kft.,"4800 Vásárosnamény, Kossuth Lajos út 34. fszt. 3.",2023.05.24,2023-82,Probiotikum,4,5 Ft,20 Ft
+Arany Borostyán Patika Kft.,"4800 Vásárosnamény, Kossuth Lajos út 34. fszt. 3.",2023.05.24,2023-82,Koenzim Q10 30 db kapszula ,10,1 200 Ft,12 000 Ft
+Arany Borostyán Patika Kft.,"4800 Vásárosnamény, Kossuth Lajos út 34. fszt. 3.",2023.05.24,2023-82,Koenzim Q10 30 db kapszula ,2,5 Ft,10 Ft
+Arany Borostyán Patika Kft.,"4800 Vásárosnamény, Kossuth Lajos út 34. fszt. 3.",2023.05.24,2023-82,Omega 3,10,1 270 Ft,12 700 Ft
+Arany Borostyán Patika Kft.,"4800 Vásárosnamény, Kossuth Lajos út 34. fszt. 3.",2023.05.24,2023-82,Omega 3,2,5 Ft,10 Ft
+Arany Borostyán Patika Kft.,"4800 Vásárosnamény, Kossuth Lajos út 34. fszt. 3.",2023.05.24,2023-82,Ginseng,5,870 Ft,4 350 Ft
+Arany Borostyán Patika Kft.,"4800 Vásárosnamény, Kossuth Lajos út 34. fszt. 3.",2023.05.24,2023-82,Ginseng,1,5 Ft,5 Ft
+Arany Borostyán Patika Kft.,"4800 Vásárosnamény, Kossuth Lajos út 34. fszt. 3.",2023.05.24,2023-82,Kalcium+Vitamin D ,5,835 Ft,4 175 Ft
+Arany Borostyán Patika Kft.,"4800 Vásárosnamény, Kossuth Lajos út 34. fszt. 3.",2023.05.24,2023-82,Kalcium+Vitamin D ,1,5 Ft,5 Ft
+Arany Borostyán Patika Kft.,"4800 Vásárosnamény, Kossuth Lajos út 34. fszt. 3.",2023.05.24,2023-82,Fekete Magolaj,5,4 340 Ft,21 700 Ft
+Arany Borostyán Patika Kft.,"4800 Vásárosnamény, Kossuth Lajos út 34. fszt. 3.",2023.05.24,2023-82,Fekete Magolaj,1,5 Ft,5 Ft
+"""ARANY SZARVAS PATIKA"" Bt.","4634 Aranyosapáti, Kossuth u. 63.",2023.05.24,2023-83,Probiotikum,20,1 805 Ft,36 100 Ft
+"""ARANY SZARVAS PATIKA"" Bt.","4634 Aranyosapáti, Kossuth u. 63.",2023.05.24,2023-83,Probiotikum,4,5 Ft,20 Ft
+"""ARANY SZARVAS PATIKA"" Bt.","4634 Aranyosapáti, Kossuth u. 63.",2023.05.24,2023-83,Omega 3,2,1 270 Ft,2 540 Ft
+Ugrai Gergő,"4181 Nádudvar, Petri-derzs utca 36.",2023.05.25,2023-84,CBD 375 mg,2,9 900 Ft,19 800 Ft
+Ugrai Gergő,"4181 Nádudvar, Petri-derzs utca 36.",2023.05.25,2023-84,Ginseng,1,870 Ft,870 Ft
+Ugrai Gergő,"4181 Nádudvar, Petri-derzs utca 36.",2023.05.25,2023-84,Vitamin D3,3,1 270 Ft,3 810 Ft
+Ugrai Gergő,"4181 Nádudvar, Petri-derzs utca 36.",2023.05.25,2023-84,Omega 3,2,1 270 Ft,2 540 Ft
+SZENTGRÁL-PATIKA Bt.,"2840 Oroszlány, Rákóczi F. út 82.",2023.05.31,2023-85,Probiotikum,20,1 805 Ft,36 100 Ft
+TECTRA 95 Kft.,"4200 Hajdúszoboszló, Széchenyi u. 14.",2023.05.31,2023-86,Probiotikum,20,1 805 Ft,36 100 Ft
+ARANYGYÖMBÉR Kft. ,"4553 Apagy, Kossuth Lajos út 147.A.ép.",2023.06.01,2023-87,Omega 3,20,1 270 Ft,25 400 Ft
+ARANYGYÖMBÉR Kft. ,"4553 Apagy, Kossuth Lajos út 147.A.ép.",2023.06.01,2023-87,Koenzim Q10 30 db kapszula ,20,1 200 Ft,24 000 Ft
+Ugrai Gergő,"4181 Nádudvar, Petri-derzs utca 36.",2023.05.25,2023-88,CBD 375 mg,2,-9 900 Ft,-19 800 Ft
+Ugrai Gergő,"4181 Nádudvar, Petri-derzs utca 36.",2023.05.25,2023-88,Ginseng,1,-870 Ft,-870 Ft
+Ugrai Gergő,"4181 Nádudvar, Petri-derzs utca 36.",2023.05.25,2023-88,Vitamin D3,3,-1 270 Ft,-3 810 Ft
+Ugrai Gergő,"4181 Nádudvar, Petri-derzs utca 36.",2023.05.25,2023-88,Omega 3,2,-1 270 Ft,-2 540 Ft
+Ugrai Gergő,"4181 Nádudvar, Petri-derzs utca 36.",2023.05.31,2023-89,CBD 375 mg,2,7 795 Ft,15 590 Ft
+Ugrai Gergő,"4181 Nádudvar, Petri-derzs utca 36.",2023.05.31,2023-89,Ginseng,1,1 339 Ft,1 339 Ft
+Ugrai Gergő,"4181 Nádudvar, Petri-derzs utca 36.",2023.05.31,2023-89,Vitamin D3,3,1 567 Ft,4 701 Ft
+Ugrai Gergő,"4181 Nádudvar, Petri-derzs utca 36.",2023.05.31,2023-89,Omega 3,2,1 614 Ft,3 228 Ft
+JÓZSAI PATIKA Bt.,"4225 Debrecen, Szentgyörgyflavi utca 9.",2023.06.02,2023-90,Probiotikum,40,1 805 Ft,72 200 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.07.06,2023-91,Fekete Magolaj,4,4 340 Ft,17 360 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.07.06,2023-91,Ginseng,14,870 Ft,12 180 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.07.06,2023-91,Kalcium+Vitamin D ,10,835 Ft,8 350 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.07.06,2023-91,Probiotikum,39,1 805 Ft,70 395 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2023.06.14,2023-92,Probiotikum,10,1 625 Ft,16 250 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2023.06.14,2023-92,Fekete Magolaj,1,3 906 Ft,3 906 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2023.06.14,2023-92,Ginseng,6,783 Ft,4 698 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2023.06.14,2023-92,Vitamin D3,13,630 Ft,8 190 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2023.06.14,2023-92,Omega 3,21,630 Ft,13 230 Ft
+Varga Reformház Kft.,"4030 Debrecen, Epreskert u. 88.",2023.06.07,2023-93,Vitamin D3,1,1 270 Ft,1 270 Ft
+Varga Reformház Kft.,"4030 Debrecen, Epreskert u. 88.",2023.06.07,2023-93,Omega 3,1,1 270 Ft,1 270 Ft
+Varga Reformház Kft.,"4030 Debrecen, Epreskert u. 88.",2023.06.07,2023-93,Probiotikum,1,1 805 Ft,1 805 Ft
+Pappné Vass Anikó Eleonóra,"4324 Kállósemjén, Kossuth út 87.",2023.06.07,2023-94,Probiotikum,20,1 805 Ft,36 100 Ft
+Pappné Vass Anikó Eleonóra,"4324 Kállósemjén, Kossuth út 87.",2023.06.07,2023-95,Probiotikum,20,-1 805 Ft,-36 100 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.07.09,2023-96,Ginseng,1,914 Ft,914 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.07.09,2023-96,Probiotikum,1,1 895 Ft,1 895 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.07.09,2023-96,Omega 3,1,1 334 Ft,1 334 Ft
+HÁRS GYÓGYSZERTÁR Kft.,"4030 Debrecen, Pandúr utca 2/A.",2023.06.16,2023-97,Probiotikum,20,1 805 Ft,36 100 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2023.06.19,2023-98,Ginseng,40,870 Ft,34 800 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2023.06.19,2023-98,Ginseng,8,5 Ft,40 Ft
+Sanavita Bt.,"5340 Kunhegyes, Kossuth u. 54.",2023.06.27,2023-99,Probiotikum,20,1 805 Ft,36 100 Ft
+Sanavita Bt.,"5340 Kunhegyes, Kossuth u. 54.",2023.06.27,2023-99,Koenzim Q10 30 db kapszula ,10,1 200 Ft,12 000 Ft
+Sanavita Bt.,"5340 Kunhegyes, Kossuth u. 54.",2023.06.27,2023-99,Probiotikum,4,5 Ft,20 Ft
+Sanavita Bt.,"5340 Kunhegyes, Kossuth u. 54.",2023.06.27,2023-99,Koenzim Q10 30 db kapszula ,2,5 Ft,10 Ft
+SZENTGRÁL-PATIKA Bt.,"2840 Oroszlány, Rákóczi F. út 82.",2023.07.03,2023-100,Probiotikum,60,1 805 Ft,108 300 Ft
+SZENTGRÁL-PATIKA Bt.,"2840 Oroszlány, Rákóczi F. út 82.",2023.07.05,2023-101,Probiotikum,20,1 805 Ft,36 100 Ft
+SZENTGRÁL-PATIKA Bt.,"2840 Oroszlány, Rákóczi F. út 82.",2023.07.05,2023-102,Probiotikum,20,-1 805 Ft,-36 100 Ft
+MERITUS PATIKA Kft.,"9200 Mosonmagyaróvár, Flesch Károly utca 15.",2023.07.05,2023-103,Probiotikum,20,1 804 Ft,36 086 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.08.04,2023-104,Probiotikum,13,1 805 Ft,23 465 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.08.04,2023-104,Omega 3,1,1 270 Ft,1 270 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.08.04,2023-104,Kalcium+Vitamin D ,2,835 Ft,1 670 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.08.04,2023-104,Ginseng,5,870 Ft,4 350 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.08.04,2023-104,Vitamin D3,2,1 270 Ft,2 540 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2023.07.13,2023-105,Fekete Magolaj,4,3 906 Ft,15 624 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2023.07.13,2023-105,Ginseng,7,783 Ft,5 481 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2023.07.13,2023-105,Omega 3,13,1 143 Ft,14 859 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2023.07.13,2023-105,Probiotikum,4,1 625 Ft,6 500 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2023.07.13,2023-105,Vitamin D3,5,1 143 Ft,5 715 Ft
+Varga Reformház Kft.,"4030 Debrecen, Epreskert u. 88.",2023.07.07,2023-106,Ginseng,1,870 Ft,870 Ft
+Varga Reformház Kft.,"4030 Debrecen, Epreskert u. 88.",2023.07.07,2023-106,Probiotikum,1,1 805 Ft,1 805 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.08.06,2023-107,Kalcium+Vitamin D ,2,1 010 Ft,2 020 Ft
+"""S.R.M. REMÉNY"" Kft.","4400 Nyíregyháza, Nyírfa utca 23.",2023.08.02,2023-108,Probiotikum,5,1 805 Ft,9 025 Ft
+"""S.R.M. REMÉNY"" Kft.","4400 Nyíregyháza, Nyírfa utca 23.",2023.08.02,2023-108,Fekete Magolaj,5,4 340 Ft,21 700 Ft
+"""S.R.M. REMÉNY"" Kft.","4400 Nyíregyháza, Nyírfa utca 23.",2023.08.02,2023-108,Koenzim Q10 30 db kapszula ,5,1 200 Ft,6 000 Ft
+"""S.R.M. REMÉNY"" Kft.","4400 Nyíregyháza, Nyírfa utca 23.",2023.08.02,2023-108,Omega 3,5,1 270 Ft,6 350 Ft
+"""S.R.M. REMÉNY"" Kft.","4400 Nyíregyháza, Nyírfa utca 23.",2023.08.02,2023-108,Kalcium+Vitamin D ,5,835 Ft,4 175 Ft
+"""S.R.M. REMÉNY"" Kft.","4400 Nyíregyháza, Nyírfa utca 23.",2023.08.02,2023-108,Ginseng,5,870 Ft,4 350 Ft
+"""S.R.M. REMÉNY"" Kft.","4400 Nyíregyháza, Nyírfa utca 23.",2023.08.02,2023-108,Vitamin D3,5,1 270 Ft,6 350 Ft
+"""S.R.M. REMÉNY"" Kft.","4400 Nyíregyháza, Nyírfa utca 23.",2023.08.02,2023-108,Probiotikum,1,5 Ft,5 Ft
+"""S.R.M. REMÉNY"" Kft.","4400 Nyíregyháza, Nyírfa utca 23.",2023.08.02,2023-108,Fekete Magolaj,1,5 Ft,5 Ft
+"""S.R.M. REMÉNY"" Kft.","4400 Nyíregyháza, Nyírfa utca 23.",2023.08.02,2023-108,Koenzim Q10 30 db kapszula ,1,5 Ft,5 Ft
+"""S.R.M. REMÉNY"" Kft.","4400 Nyíregyháza, Nyírfa utca 23.",2023.08.02,2023-108,Omega 3,1,5 Ft,5 Ft
+"""S.R.M. REMÉNY"" Kft.","4400 Nyíregyháza, Nyírfa utca 23.",2023.08.02,2023-108,Kalcium+Vitamin D ,1,5 Ft,5 Ft
+"""S.R.M. REMÉNY"" Kft.","4400 Nyíregyháza, Nyírfa utca 23.",2023.08.02,2023-108,Ginseng,1,5 Ft,5 Ft
+"""S.R.M. REMÉNY"" Kft.","4400 Nyíregyháza, Nyírfa utca 23.",2023.08.02,2023-108,Kalcium+Vitamin D ,1,5 Ft,5 Ft
+Sanavita Bt.,"5340 Kunhegyes, Kossuth u. 54.",2023.08.02,2023-109,Probiotikum,60,1 805 Ft,108 300 Ft
+"""MÁTYÁS KIRÁLY"" Kft.","4028 Debrecen, Laktanya utca 23.",2023.08.02,2023-110,Probiotikum,100,1 200 Ft,120 047 Ft
+"""MÁTYÁS KIRÁLY"" Kft.","4028 Debrecen, Laktanya utca 23.",2023.08.02,2023-110,Ginseng,20,871 Ft,17 416 Ft
+HÁRS GYÓGYSZERTÁR Kft.,"4030 Debrecen, Pandúr utca 2/A.",2023.08.03,2023-111,Probiotikum,20,1 805 Ft,36 100 Ft
+GS-Herc Bt,"4251 Hajdúsámson, Hunyadi utca 2.",2023.08.03,2023-112,Probiotikum,40,1 805 Ft,72 200 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2023.08.12,2023-113,Ginseng,8,783 Ft,6 264 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2023.08.12,2023-113,Omega 3,7,1 143 Ft,8 001 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2023.08.12,2023-113,Probiotikum,6,1 625 Ft,9 750 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.09.03,2023-114,Fekete Magolaj,1,4 340 Ft,4 340 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.09.03,2023-114,Ginseng,14,870 Ft,12 180 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.09.03,2023-114,Omega 3,1,1 270 Ft,1 270 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.09.03,2023-115,Probiotikum,15,2 179 Ft,32 685 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.09.03,2023-115,Ginseng,1,1 051 Ft,1 051 Ft
+JÓZSAI PATIKA Bt.,"4225 Debrecen, Szentgyörgyflavi utca 9.",2023.08.14,2023-116,Probiotikum,40,1 805 Ft,72 200 Ft
+AZILE Kft.,"7624 Pécs, Barbakán tér 3. fsz.",2023.08.14,2023-117,Omega 3,20,1 270 Ft,25 400 Ft
+AZILE Kft.,"7624 Pécs, Barbakán tér 3. fsz.",2023.08.14,2023-117,Ginseng,20,870 Ft,17 400 Ft
+Kecskeméti Szent György Patika Bt.,"6000 Kecskemét, Budai utca 1.",2023.08.14,2023-118,Fekete Magolaj,20,4 123 Ft,82 460 Ft
+Kecskeméti Szent György Patika Bt.,"6000 Kecskemét, Budai utca 1.",2023.08.14,2023-118,CBD 375 mg,20,4 655 Ft,93 100 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2023.08.25,2023-119,Vitamin D3,20,1 270 Ft,25 400 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2023.08.25,2023-119,Ginseng,20,870 Ft,17 400 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2023.08.25,2023-119,Probiotikum,40,1 805 Ft,72 200 Ft
+RANGERS V&V Kft.,"3527 Miskolc, Baross Gábor u. 16.",2023.08.25,2023-120,CBD 375 mg,40,4 900 Ft,196 000 Ft
+RANGERS V&V Kft.,"3527 Miskolc, Baross Gábor u. 16.",2023.08.25,2023-120,CBD 375 mg,40,5 Ft,200 Ft
+"""FICTILE PHARMA"" Bt.","4029 Debrecen, Csapó utca 22. fszt.2.",2023.09.01,2023-121,Probiotikum,20,1 805 Ft,36 100 Ft
+"""FICTILE PHARMA"" Bt.","4029 Debrecen, Csapó utca 22. fszt.2.",2023.09.01,2023-121,Koenzim Q10 30 db kapszula ,60,1 200 Ft,72 000 Ft
+"""FICTILE PHARMA"" Bt.","4029 Debrecen, Csapó utca 22. fszt.2.",2023.09.01,2023-121,Probiotikum,5,5 Ft,25 Ft
+"""FICTILE PHARMA"" Bt.","4029 Debrecen, Csapó utca 22. fszt.2.",2023.09.01,2023-121,Koenzim Q10 30 db kapszula ,15,5 Ft,75 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2023.09.12,2023-122,Ginseng,9,783 Ft,7 047 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2023.09.12,2023-122,Omega 3,10,1 143 Ft,11 430 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2023.09.12,2023-122,Probiotikum,7,1 625 Ft,11 375 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2023.09.12,2023-123,Ginseng,9,-783 Ft,-7 047 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2023.09.12,2023-123,Omega 3,10,-1 143 Ft,-11 430 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2023.09.12,2023-123,Probiotikum,7,-1 625 Ft,-11 375 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2023.09.12,2023-124,Ginseng,9,783 Ft,7 047 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2023.09.12,2023-124,Omega 3,10,1 143 Ft,11 430 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2023.09.12,2023-124,Probiotikum,7,1 625 Ft,11 375 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2023.09.12,2023-124,Vitamin D3,1,1 143 Ft,1 143 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.10.05,2023-125,Vitamin D3,4,1 270 Ft,5 080 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.10.05,2023-125,Fekete Magolaj,18,4 340 Ft,78 120 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.10.05,2023-125,Ginseng,17,870 Ft,14 790 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.10.05,2023-125,Kalcium+Vitamin D ,2,835 Ft,1 670 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.10.05,2023-125,Omega 3,14,1 270 Ft,17 780 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.10.05,2023-125,Probiotikum,40,1 805 Ft,72 200 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.10.11,2023-126,Fekete Magolaj,4,4 340 Ft,17 360 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.10.11,2023-126,Ginseng,3,870 Ft,2 610 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.10.11,2023-126,Kalcium+Vitamin D ,5,835 Ft,4 175 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.10.11,2023-126,Koenzim Q10 30 db kapszula ,5,1 200 Ft,6 000 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.10.11,2023-126,Omega 3,9,1 270 Ft,11 430 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.10.11,2023-126,Probiotikum,21,1 805 Ft,37 905 Ft
+Varga Reformház Kft.,"4030 Debrecen, Epreskert u. 88.",2023.09.11,2023-127,Ginseng,1,870 Ft,870 Ft
+"""S.R.M. REMÉNY"" Kft.","4400 Nyíregyháza, Nyírfa utca 23.",2023.09.15,2023-128,Probiotikum,40,1 805 Ft,72 200 Ft
+"""S.R.M. REMÉNY"" Kft.","4400 Nyíregyháza, Nyírfa utca 23.",2023.09.15,2023-128,Probiotikum,10,5 Ft,50 Ft
+"""S.R.M. REMÉNY"" Kft.","4400 Nyíregyháza, Nyírfa utca 23.",2023.09.15,2023-128,Ginseng,4,870 Ft,3 480 Ft
+"""S.R.M. REMÉNY"" Kft.","4400 Nyíregyháza, Nyírfa utca 23.",2023.09.15,2023-128,Ginseng,1,5 Ft,5 Ft
+JÓZSAI PATIKA Bt.,"4225 Debrecen, Szentgyörgyflavi utca 9.",2023.09.15,2023-129,Probiotikum,40,1 805 Ft,72 200 Ft
+GS-Herc Bt,"4251 Hajdúsámson, Hunyadi utca 2.",2023.09.20,2023-130,Probiotikum,40,1 805 Ft,72 200 Ft
+Terra Gold Kft.,"4251 Hajdúsámson, Kiscsere utca 3.",2023.09.22,2023-131,Vitamin D3,14,1 270 Ft,17 780 Ft
+Terra Gold Kft.,"4251 Hajdúsámson, Kiscsere utca 3.",2023.09.22,2023-131,Fekete Magolaj,19,4 340 Ft,82 460 Ft
+Terra Gold Kft.,"4251 Hajdúsámson, Kiscsere utca 3.",2023.09.22,2023-131,Omega 3,5,1 270 Ft,6 350 Ft
+Terra Gold Kft.,"4251 Hajdúsámson, Kiscsere utca 3.",2023.09.22,2023-131,Kalcium+Vitamin D ,6,835 Ft,5 010 Ft
+Terra Gold Kft.,"4251 Hajdúsámson, Kiscsere utca 3.",2023.09.22,2023-131,Koenzim Q10 30 db kapszula ,10,1 400 Ft,14 000 Ft
+Terra Gold Kft.,"4251 Hajdúsámson, Kiscsere utca 3.",2023.09.22,2023-131,Probiotikum,10,1 805 Ft,18 050 Ft
+Terra Gold Kft.,"4251 Hajdúsámson, Kiscsere utca 3.",2023.09.22,2023-131,Ginseng,10,870 Ft,8 700 Ft
+Terra Gold Kft.,"4251 Hajdúsámson, Kiscsere utca 3.",2023.09.22,2023-131,Probiotikum,20,1 Ft,20 Ft
+Arany Borostyán Patika Kft.,"4800 Vásárosnamény, Kossuth Lajos út 34. fszt. 3.",2023.09.26,2023-132,Kalcium+Vitamin D ,8,835 Ft,6 680 Ft
+Arany Borostyán Patika Kft.,"4800 Vásárosnamény, Kossuth Lajos út 34. fszt. 3.",2023.09.26,2023-132,Kalcium+Vitamin D ,2,5 Ft,10 Ft
+Arany Borostyán Patika Kft.,"4800 Vásárosnamény, Kossuth Lajos út 34. fszt. 3.",2023.09.26,2023-132,Ginseng,4,870 Ft,3 480 Ft
+Arany Borostyán Patika Kft.,"4800 Vásárosnamény, Kossuth Lajos út 34. fszt. 3.",2023.09.26,2023-132,Ginseng,1,5 Ft,5 Ft
+Arany Borostyán Patika Kft.,"4800 Vásárosnamény, Kossuth Lajos út 34. fszt. 3.",2023.09.26,2023-132,Koenzim Q10 30 db kapszula ,8,1 200 Ft,9 600 Ft
+Arany Borostyán Patika Kft.,"4800 Vásárosnamény, Kossuth Lajos út 34. fszt. 3.",2023.09.26,2023-132,Koenzim Q10 30 db kapszula ,2,5 Ft,10 Ft
+Arany Borostyán Patika Kft.,"4800 Vásárosnamény, Kossuth Lajos út 34. fszt. 3.",2023.09.26,2023-132,CBD 375 mg,2,9 900 Ft,19 800 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.11.04,2023-133,Vitamin D3,46,1 270 Ft,58 420 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.11.04,2023-133,Fekete Magolaj,3,4 340 Ft,13 020 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.11.04,2023-133,Ginseng,11,870 Ft,9 570 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.11.04,2023-133,Kalcium+Vitamin D ,5,835 Ft,4 175 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.11.04,2023-133,Omega 3,18,1 270 Ft,22 860 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.11.04,2023-133,Probiotikum,50,1 805 Ft,90 250 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.11.10,2023-134,Ginseng,4,914 Ft,3 656 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.11.10,2023-134,Kalcium+Vitamin D ,2,878 Ft,1 756 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.11.10,2023-134,Koenzim Q10 30 db kapszula ,2,1 266 Ft,2 532 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.11.10,2023-134,Omega 3,2,1 334 Ft,2 668 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.11.10,2023-134,Probiotikum,20,1 895 Ft,37 900 Ft
+Kecskeméti Szent György Patika Bt.,"6000 Kecskemét, Budai utca 1.",2023.10.23,2023-135,CBD 375 mg,20,4 655 Ft,93 100 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2023.10.23,2023-136,Probiotikum,40,1 805 Ft,72 200 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2023.10.23,2023-136,Probiotikum,10,5 Ft,50 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2023.10.23,2023-136,Ginseng,40,870 Ft,34 800 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2023.10.23,2023-136,Ginseng,10,5 Ft,50 Ft
+TECTRA 95 Kft.,"4200 Hajdúszoboszló, Széchenyi u. 14.",2023.10.23,2023-137,Probiotikum,20,1 805 Ft,36 100 Ft
+Kis-Kamilla Patika Kft.,"4200 Hajdúszoboszló, Bethlen utca 30.",2023.10.23,2023-138,Probiotikum,20,1 805 Ft,36 100 Ft
+Kis-Kamilla Patika Kft.,"4200 Hajdúszoboszló, Bethlen utca 30.",2023.10.23,2023-138,Probiotikum,4,5 Ft,20 Ft
+Kis-Kamilla Patika Kft.,"4200 Hajdúszoboszló, Bethlen utca 30.",2023.10.23,2023-138,Vitamin D3,5,1 270 Ft,6 350 Ft
+Kis-Kamilla Patika Kft.,"4200 Hajdúszoboszló, Bethlen utca 30.",2023.10.23,2023-138,Vitamin D3,1,5 Ft,5 Ft
+Kis-Kamilla Patika Kft.,"4200 Hajdúszoboszló, Bethlen utca 30.",2023.10.23,2023-138,Koenzim Q10 30 db kapszula ,5,1 200 Ft,6 000 Ft
+Kis-Kamilla Patika Kft.,"4200 Hajdúszoboszló, Bethlen utca 30.",2023.10.23,2023-138,Koenzim Q10 30 db kapszula ,ű,5 Ft,#ÉRTÉK!
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2023.10.23,2023-139,Koenzim Q10 30 db kapszula ,20,1 200 Ft,24 000 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2023.10.23,2023-139,Koenzim Q10 30 db kapszula ,4,5 Ft,20 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2023.10.23,2023-139,Probiotikum,10,1 805 Ft,18 050 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2023.10.23,2023-139,Probiotikum,2,5 Ft,10 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2023.10.23,2023-139,Ginseng,10,870 Ft,8 700 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2023.10.23,2023-139,Ginseng,2,5 Ft,10 Ft
+MIMIPHARMA Kft.,"4026 Debrecen, Hatvan utca 66.",2023.10.23,2023-140,Probiotikum,10,1 805 Ft,18 050 Ft
+MIMIPHARMA Kft.,"4026 Debrecen, Hatvan utca 66.",2023.10.23,2023-140,Koenzim Q10 30 db kapszula ,10,1 200 Ft,12 000 Ft
+Tócóskert téri Patika Kft.,"40311 Debrecen, Tócóskert tér 1-3.",2023.10.25,2023-141,CBD 375 mg,20,4 900 Ft,98 000 Ft
+Tócóskert téri Patika Kft.,"40311 Debrecen, Tócóskert tér 1-3.",2023.10.25,2023-141,CBD 375 mg,20,5 Ft,100 Ft
+JÓZSAI PATIKA Bt.,"4225 Debrecen, Szentgyörgyflavi utca 9.",2023.10.25,2023-142,Probiotikum,40,1 805 Ft,72 200 Ft
+Varga Reformház Kft.,"4030 Debrecen, Epreskert u. 88.",2023.10.30,2023-143,Ginseng,1,870 Ft,870 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2023.12.06,2023-144,Ginseng,23,783 Ft,18 009 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2023.12.06,2023-144,Omega 3,7,1 143 Ft,8 001 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2023.12.06,2023-144,Probiotikum,54,1 625 Ft,87 750 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2023.12.06,2023-144,Vitamin D3,1,1 143 Ft,1 143 Ft
+HÁRS GYÓGYSZERTÁR Kft.,"4030 Debrecen, Pandúr utca 2/A.",2023.11.06,2023-145,Probiotikum,20,1 805 Ft,36 100 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.12.06,2023-146,Omega 3,7,1 270 Ft,8 890 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.12.06,2023-146,Kalcium+Vitamin D ,5,835 Ft,4 175 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.12.06,2023-146,Ginseng,3,870 Ft,2 610 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.12.06,2023-146,Fekete Magolaj,2,4 340 Ft,8 680 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2023.12.06,2023-146,Vitamin D3,5,1 270 Ft,6 350 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.12.10,2023-147,Ginseng,3,1 051 Ft,3 153 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.12.10,2023-147,Koenzim Q10 30 db kapszula ,3,1 449 Ft,4 347 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.12.10,2023-147,Omega 3,1,1 534 Ft,1 534 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.12.10,2023-147,Probiotikum,107,2 179 Ft,233 153 Ft
+ELIXIRIUM Bt.,"4100 Berettyóújfalu, Bajcsy-Zsilinszky Endre u. 3-5.",2023.11.10,2023-148,Probiotikum,20,1 805 Ft,36 100 Ft
+"""GEDEON ÉS GEDEON"" Kft.","4600 Kisvárda, Szt. László u. 69.",2023.11.14,2023-149,Probiotikum,2,1 805 Ft,3 610 Ft
+"""GEDEON ÉS GEDEON"" Kft.","4600 Kisvárda, Szt. László u. 69.",2023.11.14,2023-149,Omega 3,2,1 270 Ft,2 540 Ft
+"""GEDEON ÉS GEDEON"" Kft.","4600 Kisvárda, Szt. László u. 69.",2023.11.14,2023-149,Fekete Magolaj,2,4 340 Ft,8 680 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2023.11.14,2023-150,Ginseng,20,870 Ft,17 400 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2023.11.14,2023-150,Ginseng,4,5 Ft,20 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2023.11.14,2023-150,Probiotikum,40,1 805 Ft,72 200 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2023.11.14,2023-150,Probiotikum,8,5 Ft,40 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2023.11.14,2023-151,Probiotikum,20,1 805 Ft,36 100 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2023.11.14,2023-151,Probiotikum,4,5 Ft,20 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2023.11.14,2023-151,Kalcium+Vitamin D ,20,835 Ft,16 700 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2023.11.14,2023-151,Kalcium+Vitamin D ,4,5 Ft,20 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2023.11.14,2023-151,Ginseng,20,870 Ft,17 400 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2023.11.14,2023-151,Ginseng,4,5 Ft,20 Ft
+Pappné Vass Anikó Eleonóra,"4324 Kállósemjén, Kossuth út 87.",2023.11.21,2023-152,CBD 375 mg,5,9 900 Ft,49 500 Ft
+Pappné Vass Anikó Eleonóra,"4324 Kállósemjén, Kossuth út 87.",2023.11.21,2023-152,CBD 375 mg,1,5 Ft,5 Ft
+AZILE Kft.,"7624 Pécs, Barbakán tér 3. fsz.",2023.11.23,2023-153,Ginseng,20,870 Ft,17 400 Ft
+JÓZSAI PATIKA Bt.,"4225 Debrecen, Szentgyörgyflavi utca 9.",2023.11.23,2023-154,Probiotikum,20,1 805 Ft,36 100 Ft
+Tili Patika Bt.,"4532 Nyírtura, Rákóczi u. 21.",2023.11.24,2023-155,CBD 375 mg,1,9 900 Ft,9 900 Ft
+Balbio Line Kft.,"4027 Debrecen, Szegfű utca 1. 2.em.9.",2023.11.28,2023-156,Probiotikum,10,1 805 Ft,18 050 Ft
+Balbio Line Kft.,"4027 Debrecen, Szegfű utca 1. 2.em.9.",2023.11.28,2023-156,Probiotikum,2,5 Ft,10 Ft
+Balbio Line Kft.,"4027 Debrecen, Szegfű utca 1. 2.em.9.",2023.11.28,2023-156,Ginseng,10,870 Ft,8 700 Ft
+Balbio Line Kft.,"4027 Debrecen, Szegfű utca 1. 2.em.9.",2023.11.28,2023-156,Ginseng,2,5 Ft,10 Ft
+Sanavita Bt.,"5340 Kunhegyes, Kossuth u. 54.",2023.11.29,2023-157,Probiotikum,60,1 805 Ft,108 300 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2023.11.29,2023-158,Fekete Magolaj,10,4 340 Ft,43 400 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2023.11.29,2023-158,Ginseng,20,870 Ft,17 400 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2023.11.29,2023-158,Kalcium+Vitamin D ,20,835 Ft,16 700 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2023.11.29,2023-158,Koenzim Q10 30 db kapszula ,20,1 400 Ft,28 000 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2023.11.29,2023-158,Omega 3,20,1 270 Ft,25 400 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2023.11.29,2023-158,Probiotikum,80,1 805 Ft,144 400 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2023.11.29,2023-158,Vitamin D3,20,1 270 Ft,25 400 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2024.01.03,2023-159,Ginseng,12,783 Ft,9 396 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2024.01.03,2023-159,Omega 3,28,1 143 Ft,32 004 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2024.01.03,2023-159,Probiotikum,14,1 625 Ft,22 750 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2024.01.03,2023-159,Vitamin D3,2,1 143 Ft,2 286 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2024.01.04,2023-160,Probiotikum,10,1 805 Ft,18 050 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2024.01.04,2023-160,Omega 3,2,1 270 Ft,2 540 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2024.01.04,2023-160,Koenzim Q10 30 db kapszula ,29,1 200 Ft,34 800 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2024.01.04,2023-160,Kalcium+Vitamin D ,20,835 Ft,16 700 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2024.01.04,2023-160,Ginseng,7,870 Ft,6 090 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2024.01.04,2023-160,Vitamin D3,1,1 270 Ft,1 270 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2023.12.07,2023-161,Fekete Magolaj,20,4 340 Ft,86 800 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2023.12.07,2023-161,Fekete Magolaj,4,5 Ft,20 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2023.12.07,2023-161,Vitamin D3,20,1 270 Ft,25 400 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2023.12.07,2023-161,Vitamin D3,4,5 Ft,20 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2023.12.07,2023-161,Omega 3,40,1 270 Ft,50 800 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2023.12.07,2023-161,Omega 3,8,5 Ft,40 Ft
+Tündérfátyol Bt.,"4028 Debrecen, Szigligeti u. 7.",2023.12.11,2023-162,Probiotikum,20,1 805 Ft,36 100 Ft
+Tündérfátyol Bt.,"4028 Debrecen, Szigligeti u. 7.",2023.12.11,2023-162,Ginseng,10,870 Ft,8 700 Ft
+Tündérfátyol Bt.,"4028 Debrecen, Szigligeti u. 7.",2023.12.11,2023-162,Kalcium+Vitamin D ,20,835 Ft,16 700 Ft
+Tündérfátyol Bt.,"4028 Debrecen, Szigligeti u. 7.",2023.12.11,2023-162,Koenzim Q10 30 db kapszula ,20,1 200 Ft,24 000 Ft
+Tündérfátyol Bt.,"4028 Debrecen, Szigligeti u. 7.",2023.12.11,2023-162,Omega 3,20,1 270 Ft,25 400 Ft
+Tündérfátyol Bt.,"4028 Debrecen, Szigligeti u. 7.",2023.12.11,2023-162,Vitamin D3,20,1 270 Ft,25 400 Ft
+Pappné Vass Anikó Eleonóra,"4324 Kállósemjén, Kossuth út 87.",2023.12.11,2023-163,CBD 375 mg,5,9 900 Ft,49 500 Ft
+Pappné Vass Anikó Eleonóra,"4324 Kállósemjén, Kossuth út 87.",2023.12.11,2023-163,CBD 375 mg,1,5 Ft,5 Ft
+"""MÁTYÁS KIRÁLY"" Kft.","4028 Debrecen, Laktanya utca 23.",2023.12.13,2023-164,Probiotikum 30x Kedvezményes,60,1 202 Ft,72 095 Ft
+"""MÁTYÁS KIRÁLY"" Kft.","4028 Debrecen, Laktanya utca 23.",2023.12.13,2023-164,Ginseng,20,871 Ft,17 427 Ft
+Tündérfátyol Bt.,"4028 Debrecen, Szigligeti u. 7.",2024.01.05,2023-165,Probiotikum,90,1 805 Ft,162 450 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2023.12.28,2023-166,Fekete Magolaj,10,4 340 Ft,43 400 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2023.12.28,2023-166,Ginseng,80,870 Ft,69 600 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2023.12.28,2023-166,Kalcium+Vitamin D ,40,835 Ft,33 400 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2023.12.28,2023-166,Koenzim Q10 30 db kapszula ,40,1 200 Ft,48 000 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2023.12.28,2023-166,Omega 3,20,1 270 Ft,25 400 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2023.12.28,2023-166,Probiotikum,180,1 805 Ft,324 900 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2023.12.28,2023-166,Vitamin D3,40,1 270 Ft,50 800 Ft
+JÓZSAI PATIKA Bt.,"4225 Debrecen, Szentgyörgyflavi utca 9.",2023.12.18,2023-167,Probiotikum,40,1 805 Ft,72 200 Ft
+Dr. KISS JÓZSEF és TÁRSA Bt.,"4400 Nyíregyháza, Patkó utca 2/A",2023.12.19,2023-168,Probiotikum,3,1 805 Ft,5 415 Ft
+Dr. KISS JÓZSEF és TÁRSA Bt.,"4400 Nyíregyháza, Patkó utca 2/A",2023.12.19,2023-168,CBD 375 mg,3,5 000 Ft,15 000 Ft
+RANGERS V&V Kft.,"3527 Miskolc, Baross Gábor u. 16.",2023.12.22,2023-169,CBD 375 mg,20,9 900 Ft,198 000 Ft
+RANGERS V&V Kft.,"3527 Miskolc, Baross Gábor u. 16.",2023.12.22,2023-169,CBD 375 mg,20,5 Ft,100 Ft
+Dr. Kissné Lengyel Csilla Anikó,"4400 Nyíregyháza, Patkó utca 2/A",2023.12.22,2023-170,CBD 375 mg,7,5 000 Ft,35 000 Ft
+RANGERS V&V Kft.,"3527 Miskolc, Baross Gábor u. 16.",2023.12.22,2023-171,CBD 375 mg,20,-9 900 Ft,-198 000 Ft
+RANGERS V&V Kft.,"3527 Miskolc, Baross Gábor u. 16.",2023.12.22,2023-171,CBD 375 mg,20,-5 Ft,-100 Ft
+RANGERS V&V Kft.,"3527 Miskolc, Baross Gábor u. 16.",2023.12.27,2023-172,CBD 375 mg,20,4 900 Ft,98 000 Ft
+RANGERS V&V Kft.,"3527 Miskolc, Baross Gábor u. 16.",2023.12.27,2023-172,CBD 375 mg,20,5 Ft,100 Ft
+Korodi Istvan,"4034 Debrecen, Ruyter utca 70/B",2024.01.16,shop-2024-1,Kalcium+Vitamin D ,1,1 260 Ft,1 260 Ft
+Korodi Istvan,"4034 Debrecen, Ruyter utca 70/B",2024.01.16,shop-2024-1,GLS házhozszállítás,1,787 Ft,787 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2024.01.11,2024-1,Ginseng,8,783 Ft,6 264 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2024.01.11,2024-1,Omega 3,3,1 143 Ft,3 429 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2024.01.11,2024-1,Probiotikum,15,1 625 Ft,24 375 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2024.01.11,2024-1,Vitamin D3,2,1 143 Ft,2 286 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2024.02.04,2024-2,Omega 3,2,1 270 Ft,2 540 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2024.02.04,2024-2,Ginseng,2,870 Ft,1 740 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2024.02.04,2024-2,Vitamin D3,1,1 270 Ft,1 270 Ft
+"""MÁTYÁS KIRÁLY"" Kft.","4028 Debrecen, Laktanya utca 23.",2024.01.08,2024-3,Probiotikum,40,1 805 Ft,72 200 Ft
+Sanavita Bt.,"5340 Kunhegyes, Kossuth u. 54.",2024.01.08,2024-4,Omega 3,10,1 270 Ft,12 700 Ft
+"""MÁTYÁS KIRÁLY"" Kft.","4028 Debrecen, Laktanya utca 23.",2024.01.08,2024-5,Probiotikum,40,-1 805 Ft,-72 200 Ft
+"""MÁTYÁS KIRÁLY"" Kft.","4028 Debrecen, Laktanya utca 23.",2024.01.08,2024-6,Probiotikum,40,1 200 Ft,48 013 Ft
+Pappné Vass Anikó Eleonóra,"4324 Kállósemjén, Kossuth út 87.",2024.01.12,2024-7,Probiotikum,20,1 805 Ft,36 100 Ft
+Tündérfátyol Bt.,"4028 Debrecen, Szigligeti u. 7.",2024.01.12,2024-8,CBD 375 mg,1,9 900 Ft,9 900 Ft
+GRANULA Bt.,"4544 Nyírkarász, Kossuth u.1.",2024.01.19,2024-9,CBD 375 mg,5,9 900 Ft,49 500 Ft
+GRANULA Bt.,"4544 Nyírkarász, Kossuth u.1.",2024.01.19,2024-9,Kalcium+Vitamin D ,5,835 Ft,4 175 Ft
+Balbio Life Kft.,"4027 Debrecen, Szegfű utca 1. 2.em.9.",2024.01.23,2024-10,Ginseng,20,870 Ft,17 400 Ft
+Balbio Life Kft.,"4027 Debrecen, Szegfű utca 1. 2.em.9.",2024.01.23,2024-10,Ginseng,4,5 Ft,20 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.08.11,2024-11,Fekete Magolaj,5,-5 241 Ft,-26 205 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.08.11,2024-11,Ginseng,3,-1 051 Ft,-3 153 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.08.11,2024-11,Kalcium+Vitamin D ,1,-1 010 Ft,-1 010 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.08.11,2024-11,Koenzim Q10 30 db kapszula ,1,-1 449 Ft,-1 449 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.08.11,2024-11,Omega 3,1,-1 534 Ft,-1 534 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.08.11,2024-11,Probiotikum,5,-2 179 Ft,-10 895 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2024.01.23,2024-12,Fekete Magolaj,5,4 557 Ft,22 785 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2024.01.23,2024-12,Ginseng,3,1 051 Ft,3 153 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2024.01.23,2024-12,Kalcium+Vitamin D ,1,1 010 Ft,1 010 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2024.01.23,2024-12,Koenzim Q10 30 db kapszula ,1,1 449 Ft,1 449 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2024.01.23,2024-12,Omega 3,1,1 534 Ft,1 534 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2024.01.23,2024-12,Probiotikum,5,2 179 Ft,10 895 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2024.01.23,2024-13,Fekete Magolaj,5,-4 557 Ft,-22 785 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2024.01.23,2024-13,Ginseng,3,-1 051 Ft,-3 153 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2024.01.23,2024-13,Kalcium+Vitamin D ,1,-1 010 Ft,-1 010 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2024.01.23,2024-13,Koenzim Q10 30 db kapszula ,1,-1 449 Ft,-1 449 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2024.01.23,2024-13,Omega 3,1,-1 534 Ft,-1 534 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2024.01.23,2024-13,Probiotikum,5,-2 179 Ft,-10 895 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.12.10,2024-15,Ginseng,3,-1 051 Ft,-3 153 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.12.10,2024-15,Koenzim Q10 30 db kapszula ,3,-1 449 Ft,-4 347 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.12.10,2024-15,Omega 3,1,-1 534 Ft,-1 534 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.12.10,2024-15,Probiotikum,107,-2 179 Ft,-233 153 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.01.23,2024-16,Ginseng,3,914 Ft,2 742 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.01.23,2024-16,Koenzim Q10 30 db kapszula ,3,1 266 Ft,3 798 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.01.23,2024-16,Omega 3,1,1 334 Ft,1 334 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.01.23,2024-16,Probiotikum,107,1 895 Ft,202 765 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.01.23,2024-17,Fekete Magolaj,4,4 557 Ft,18 228 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.01.23,2024-17,Ginseng,3,914 Ft,2 742 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.01.23,2024-17,Kalcium+Vitamin D ,5,878 Ft,4 390 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.01.23,2024-17,Koenzim Q10 30 db kapszula ,5,1 266 Ft,6 330 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.01.23,2024-17,Omega 3,9,1 334 Ft,12 006 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.01.23,2024-17,Probiotikum,21,1 895 Ft,39 795 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.10.11,2024-18,Fekete Magolaj,4,-4 340 Ft,-17 360 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.10.11,2024-18,Ginseng,3,-870 Ft,-2 610 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.10.11,2024-18,Kalcium+Vitamin D ,5,-835 Ft,-4 175 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.10.11,2024-18,Koenzim Q10 30 db kapszula ,5,-1 200 Ft,-6 000 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.10.11,2024-18,Omega 3,9,-1 270 Ft,-11 430 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.10.11,2024-18,Probiotikum,21,-1 805 Ft,-37 905 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.09.03,2024-19,Probiotikum,15,-2 179 Ft,-32 685 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.09.03,2024-19,Ginseng,1,-1 051 Ft,-1 051 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2024.01.23,2024-20,Probiotikum,15,1 895 Ft,28 425 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2024.01.23,2024-20,Ginseng,1,914 Ft,914 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2024.01.23,2024-21,Kalcium+Vitamin D ,2,878 Ft,1 756 Ft
+PHOENIX Pharma Zrt.,"2151 Fót, Keleti Márton út 19.",2023.08.08,2024-22,Kalcium+Vitamin D ,2,-1 010 Ft,-2 020 Ft
+JÓZSAI PATIKA Bt.,"4225 Debrecen, Szentgyörgyflavi utca 9.",2024.01.23,2024-23,Probiotikum,40,1 805 Ft,72 200 Ft
+Tündérfátyol Bt.,"4028 Debrecen, Szigligeti u. 7.",2024.01.25,2024-24,CBD 375 mg,20,9 900 Ft,198 000 Ft
+ELIXIRIUM Bt.,"4100 Berettyóújfalu, Bajcsy-Zsilinszky Endre u. 3-5.",2024.01.25,2024-25,Ginseng,20,870 Ft,17 400 Ft
+ELIXIRIUM Bt.,"4100 Berettyóújfalu, Bajcsy-Zsilinszky Endre u. 3-5.",2024.01.25,2024-25,Omega 3,20,1 270 Ft,25 400 Ft
+ELIXIRIUM Bt.,"4100 Berettyóújfalu, Bajcsy-Zsilinszky Endre u. 3-5.",2024.01.25,2024-25,Koenzim Q10 30 db kapszula ,20,1 200 Ft,24 000 Ft
+"""S.R.M. REMÉNY"" Kft.","4400 Nyíregyháza, Nyírfa utca 23.",2024.01.30,2024-26,Omega 3,20,1 270 Ft,25 400 Ft
+"""S.R.M. REMÉNY"" Kft.","4400 Nyíregyháza, Nyírfa utca 23.",2024.01.30,2024-26,Omega 3,10,5 Ft,50 Ft
+"""S.R.M. REMÉNY"" Kft.","4400 Nyíregyháza, Nyírfa utca 23.",2024.01.30,2024-26,Ginseng,20,870 Ft,17 400 Ft
+"""S.R.M. REMÉNY"" Kft.","4400 Nyíregyháza, Nyírfa utca 23.",2024.01.30,2024-26,Ginseng,5,5 Ft,25 Ft
+"""S.R.M. REMÉNY"" Kft.","4400 Nyíregyháza, Nyírfa utca 23.",2024.01.30,2024-27,Probiotikum,20,1 625 Ft,32 490 Ft
+"""FICTILE PHARMA"" Bt.","4029 Debrecen, Csapó utca 22. fszt.2.",2024.01.30,2024-28,CBD 375 mg,20,9 900 Ft,198 000 Ft
+"""FICTILE PHARMA"" Bt.","4029 Debrecen, Csapó utca 22. fszt.2.",2024.01.30,2024-28,CBD 375 mg,20,5 Ft,100 Ft
+"""FICTILE PHARMA"" Bt.","4029 Debrecen, Csapó utca 22. fszt.2.",2024.01.30,2024-28,Probiotikum,20,1 805 Ft,36 100 Ft
+"""FICTILE PHARMA"" Bt.","4029 Debrecen, Csapó utca 22. fszt.2.",2024.01.30,2024-28,Probiotikum,4,5 Ft,20 Ft
+"""FICTILE PHARMA"" Bt.","4029 Debrecen, Csapó utca 22. fszt.2.",2024.01.30,2024-28,Ginseng,16,870 Ft,13 920 Ft
+"""FICTILE PHARMA"" Bt.","4029 Debrecen, Csapó utca 22. fszt.2.",2024.01.30,2024-28,Ginseng,4,5 Ft,20 Ft
+MIMIPHARMA Kft.,"4026 Debrecen, Hatvan utca 66.",2024.01.30,2024-29,CBD 375 mg,40,9 900 Ft,396 000 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2024.02.01,2024-30,Probiotikum,20,1 625 Ft,32 490 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2024.02.01,2024-31,Fekete Magolaj,20,4 340 Ft,86 800 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2024.02.01,2024-31,Fekete Magolaj,20,5 Ft,100 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2024.02.01,2024-31,Ginseng,20,870 Ft,17 400 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2024.02.01,2024-31,Ginseng,5,5 Ft,25 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2024.02.01,2024-31,Kalcium+Vitamin D ,20,835 Ft,16 700 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2024.02.01,2024-31,Kalcium+Vitamin D ,10,5 Ft,50 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2024.02.01,2024-31,Koenzim Q10 30 db kapszula ,20,1 400 Ft,28 000 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2024.02.01,2024-31,Koenzim Q10 30 db kapszula ,10,5 Ft,50 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2024.02.01,2024-31,Omega 3,20,1 270 Ft,25 400 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2024.02.01,2024-31,Omega 3,10,5 Ft,50 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2024.02.01,2024-31,Vitamin D3,20,1 270 Ft,25 400 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2024.02.01,2024-31,Vitamin D3,10,5 Ft,50 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2024.02.01,2024-31,CBD 375 mg,20,9 900 Ft,198 000 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2024.02.01,2024-31,CBD 375 mg,20,5 Ft,100 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2024.02.09,2024-32,Ginseng,65,783 Ft,50 895 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2024.02.09,2024-32,Omega 3,7,1 143 Ft,8 001 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2024.02.09,2024-32,Probiotikum,68,1 625 Ft,110 500 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2024.02.09,2024-32,Vitamin D3,1,1 143 Ft,1 143 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2024.03.07,2024-33,Probiotikum,3,1 805 Ft,5 415 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2024.03.07,2024-33,Omega 3,20,1 270 Ft,25 400 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2024.03.07,2024-33,Ginseng,3,870 Ft,2 610 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2024.03.07,2024-33,Kalcium+Vitamin D ,1,835 Ft,835 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2024.03.07,2024-33,Fekete Magolaj,20,4 340 Ft,86 800 Ft
+Dr. Kissné Lengyel Csilla Anikó,"4400 Nyíregyháza, Patkó utca 2/A",2024.02.09,2024-34,CBD 375 mg,5,5 000 Ft,25 000 Ft
+Ábrányi Patika Bt.,"4264 Nyírábrány, Hajnal u. 1.",2024.02.12,2024-35,CBD 375 mg,5,9 900 Ft,49 500 Ft
+Ábrányi Patika Bt.,"4264 Nyírábrány, Hajnal u. 1.",2024.02.12,2024-35,CBD 375 mg,1,5 Ft,5 Ft
+Ábrányi Patika Bt.,"4264 Nyírábrány, Hajnal u. 1.",2024.02.12,2024-35,Probiotikum,5,1 805 Ft,9 025 Ft
+Ábrányi Patika Bt.,"4264 Nyírábrány, Hajnal u. 1.",2024.02.12,2024-35,Multi-Vitamin 60x ,5,1 577 Ft,7 885 Ft
+SILVER-PHARMA Bt.,"4400 Nyíregyháza, Kossuth u. 50.",2024.02.12,2024-36,Multi-Vitamin 60x ,5,1 262 Ft,6 308 Ft
+MIMIPHARMA Kft.,"4026 Debrecen, Hatvan utca 66.",2024.02.12,2024-37,Multi-Vitamin 60x ,30,1 262 Ft,37 848 Ft
+"""FICTILE PHARMA"" Bt.","4029 Debrecen, Csapó utca 22. fszt.2.",2024.02.12,2024-38,Multi-Vitamin 60x ,20,1 262 Ft,25 232 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2024.02.12,2024-39,Multi-Vitamin 60x ,60,1 262 Ft,75 696 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2024.02.12,2024-39,Kollagén 20x,40,4 492 Ft,179 680 Ft
+GRANULA Bt.,"4544 Nyírkarász, Kossuth u.1.",2024.02.12,2024-40,Multi-Vitamin 60x ,20,1 262 Ft,25 232 Ft
+GRANULA Bt.,"4544 Nyírkarász, Kossuth u.1.",2024.02.12,2024-40,Kollagén 20x,2,4 492 Ft,8 984 Ft
+GS-Herc Bt,"4251 Hajdúsámson, Hunyadi utca 2.",2024.02.12,2024-41,Multi-Vitamin 60x ,20,1 262 Ft,25 232 Ft
+Sanavita Bt.,"5340 Kunhegyes, Kossuth u. 54.",2024.02.12,2024-42,Multi-Vitamin 60x ,10,1 262 Ft,12 616 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2024.02.12,2024-43,Multi-Vitamin 60x  Kedvezményes,100,1 262 Ft,126 160 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2024.02.12,2024-43,Kollagén 20x,10,4 492 Ft,44 920 Ft
+"""S.R.M. REMÉNY"" Kft.","4400 Nyíregyháza, Nyírfa utca 23.",2024.02.12,2024-44,Kollagén 20x,20,4 492 Ft,89 840 Ft
+"""S.R.M. REMÉNY"" Kft.","4400 Nyíregyháza, Nyírfa utca 23.",2024.02.12,2024-44,Multi-Vitamin 60x ,40,1 262 Ft,50 464 Ft
+JÓZSAI PATIKA Bt.,"4225 Debrecen, Szentgyörgyflavi utca 9.",2024.02.12,2024-45,Kollagén 20x,10,4 492 Ft,44 920 Ft
+JÓZSAI PATIKA Bt.,"4225 Debrecen, Szentgyörgyflavi utca 9.",2024.02.12,2024-45,Multi-Vitamin 60x ,10,1 262 Ft,12 616 Ft
+RANGERS V&V Kft.,"3527 Miskolc, Baross Gábor u. 16.",2022.02.12,2024-46,Kollagén 20x,10,4 492 Ft,44 920 Ft
+RANGERS V&V Kft.,"3527 Miskolc, Baross Gábor u. 16.",2022.02.12,2024-46,Multi-Vitamin 60x ,10,1 262 Ft,12 616 Ft
+Kis-Kamilla Patika Kft.,"4200 Hajdúszoboszló, Bethlen utca 30.",2022.02.12,2024-47,Kollagén 20x,5,4 492 Ft,22 460 Ft
+Kis-Kamilla Patika Kft.,"4200 Hajdúszoboszló, Bethlen utca 30.",2022.02.12,2024-47,Multi-Vitamin 60x ,5,1 262 Ft,6 308 Ft
+TECTRA 95 Kft.,"4200 Hajdúszoboszló, Széchenyi u. 14.",2022.02.12,2024-48,Kollagén 20x,5,4 492 Ft,22 460 Ft
+TECTRA 95 Kft.,"4200 Hajdúszoboszló, Széchenyi u. 14.",2022.02.12,2024-48,Multi-Vitamin 60x ,5,1 262 Ft,6 308 Ft
+Szent György Patika Investment Kft.,"1088 Budapest, Mikszáth K. tér 4.",2022.02.12,2024-49,Multi-Vitamin 60x ,10,1 262 Ft,12 616 Ft
+Szent György Patika Investment Kft.,"1088 Budapest, Mikszáth K. tér 4.",2022.02.12,2024-49,Kollagén 20x,5,4 492 Ft,22 460 Ft
+"""MÁTYÁS KIRÁLY"" Kft.","4028 Debrecen, Laktanya utca 23.",2022.02.12,2024-50,Ginseng,20,870 Ft,17 400 Ft
+"""MÁTYÁS KIRÁLY"" Kft.","4028 Debrecen, Laktanya utca 23.",2022.02.12,2024-50,Ginseng,5,5 Ft,25 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2022.02.12,2024-51,Multi-Vitamin 60x ,20,1 262 Ft,25 232 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2022.02.12,2024-51,Kollagén 20x,10,4 492 Ft,44 920 Ft
+Pappné Vass Anikó Eleonóra,"4324 Kállósemjén, Kossuth út 87.",2022.02.12,2024-52,Multi-Vitamin 60x ,10,1 262 Ft,12 616 Ft
+Pappné Vass Anikó Eleonóra,"4324 Kállósemjén, Kossuth út 87.",2022.02.12,2024-52,Kollagén 20x,2,4 492 Ft,8 984 Ft
+Terra Gold Kft.,"4251 Hajdúsámson, Kiscsere utca 3.",2022.02.13,2024-53,Multi-Vitamin 60x ,20,1 200 Ft,24 000 Ft
+Terra Gold Kft.,"4251 Hajdúsámson, Kiscsere utca 3.",2022.02.13,2024-53,Kollagén 20x,20,3 800 Ft,76 000 Ft
+Terra Gold Kft.,"4251 Hajdúsámson, Kiscsere utca 3.",2022.02.13,2024-53,Probiotikum,18,1 805 Ft,32 490 Ft
+Terra Gold Kft.,"4251 Hajdúsámson, Kiscsere utca 3.",2022.02.13,2024-53,Kalcium+Vitamin D ,8,835 Ft,6 680 Ft
+Terra Gold Kft.,"4251 Hajdúsámson, Kiscsere utca 3.",2022.02.13,2024-53,Omega 3,5,1 270 Ft,6 350 Ft
+Terra Gold Kft.,"4251 Hajdúsámson, Kiscsere utca 3.",2022.02.13,2024-53,Ginseng,4,870 Ft,3 480 Ft
+Terra Gold Kft.,"4251 Hajdúsámson, Kiscsere utca 3.",2022.02.13,2024-53,Koenzim Q10 30 db kapszula ,4,1 400 Ft,5 600 Ft
+FEHÉRTÓ-PATIKA Bt.,"4244 Újfehértó, Bartók Béla út 11.",2023.02.16,2024-54,Kalcium+Vitamin D ,10,585 Ft,5 845 Ft
+FEHÉRTÓ-PATIKA Bt.,"4244 Újfehértó, Bartók Béla út 11.",2023.02.16,2024-54,Omega 3,10,889 Ft,8 890 Ft
+FEHÉRTÓ-PATIKA Bt.,"4244 Újfehértó, Bartók Béla út 11.",2023.02.16,2024-54,Vitamin D3,10,889 Ft,8 890 Ft
+FEHÉRTÓ-PATIKA Bt.,"4244 Újfehértó, Bartók Béla út 11.",2023.02.16,2024-54,Koenzim Q10 30 db kapszula ,10,980 Ft,9 800 Ft
+FEHÉRTÓ-PATIKA Bt.,"4244 Újfehértó, Bartók Béla út 11.",2023.02.16,2024-55,Probiotikum,10,1 625 Ft,16 245 Ft
+FEHÉRTÓ-PATIKA Bt.,"4244 Újfehértó, Bartók Béla út 11.",2023.02.16,2024-56,Ginseng,8,870 Ft,6 960 Ft
+FEHÉRTÓ-PATIKA Bt.,"4244 Újfehértó, Bartók Béla út 11.",2023.02.16,2024-56,Ginseng,2,5 Ft,10 Ft
+GS-Herc Bt,"4251 Hajdúsámson, Hunyadi utca 2.",2024.02.16,2024-57,Probiotikum,40,1 805 Ft,72 200 Ft
+Patika 62. Bt.,"4138 Komádi, Fő u. 35.",2024.02.16,2024-58,CBD 375 mg,2,9 900 Ft,19 800 Ft
+Patika 62. Bt.,"4138 Komádi, Fő u. 35.",2024.02.16,2024-58,Kalcium+Vitamin D ,10,835 Ft,8 350 Ft
+Patika 62. Bt.,"4138 Komádi, Fő u. 35.",2024.02.16,2024-58,Kalcium+Vitamin D ,5,5 Ft,25 Ft
+Patika 62. Bt.,"4138 Komádi, Fő u. 35.",2024.02.16,2024-58,Vitamin D3,10,1 270 Ft,12 700 Ft
+Patika 62. Bt.,"4138 Komádi, Fő u. 35.",2024.02.16,2024-58,Vitamin D3,5,5 Ft,25 Ft
+Patika 62. Bt.,"4138 Komádi, Fő u. 35.",2024.02.16,2024-58,Multi-Vitamin 60x ,10,1 577 Ft,15 770 Ft
+Patika 62. Bt.,"4138 Komádi, Fő u. 35.",2024.02.16,2024-59,Probiotikum,10,1 625 Ft,16 245 Ft
+Sanavita Bt.,"5340 Kunhegyes, Kossuth u. 54.",2024.02.20,2024-60,Probiotikum,60,1 625 Ft,97 470 Ft
+Sanavita Bt.,"5340 Kunhegyes, Kossuth u. 54.",2024.02.20,2024-61,Koenzim Q10 30 db kapszula ,20,980 Ft,19 600 Ft
+JÓZSAI PATIKA Bt.,"4225 Debrecen, Szentgyörgyflavi utca 9.",2024.02.20,2024-62,Probiotikum,40,1 805 Ft,72 200 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2024.03.23,2024-63,Fekete Magolaj,20,4 340 Ft,86 800 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2024.03.23,2024-63,Ginseng,3,870 Ft,2 610 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2024.03.23,2024-63,Kalcium+Vitamin D ,1,835 Ft,835 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2024.03.23,2024-63,Omega 3,20,1 270 Ft,25 400 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2024.03.23,2024-63,Probiotikum,3,1 805 Ft,5 415 Ft
+Sanitas Patika Kft.,"4623 Tuzsér, Kossuth u. 64.",2024.02.22,2024-64,Probiotikum,5,1 625 Ft,8 123 Ft
+Sanitas Patika Kft.,"4623 Tuzsér, Kossuth u. 64.",2024.02.22,2024-64,Multi-Vitamin 60x ,5,1 562 Ft,7 808 Ft
+Litke '98 Bt.,"4621 Fényeslitke, Kossuth u. 137.",2024.02.22,2024-65,CBD 375 mg,1,9 900 Ft,9 900 Ft
+Litke '98 Bt.,"4621 Fényeslitke, Kossuth u. 137.",2024.02.22,2024-66,Probiotikum,10,1 625 Ft,16 245 Ft
+Horváthné Dr. Kamuti Göngyi,"4119 Váncsod, Kossuth u. 13.",2024.02.22,2024-67,Fekete Magolaj,1,4 340 Ft,4 340 Ft
+Horváthné Dr. Kamuti Göngyi,"4119 Váncsod, Kossuth u. 13.",2024.02.22,2024-67,Multi-Vitamin 60x ,10,1 577 Ft,15 770 Ft
+Horváthné Dr. Kamuti Göngyi,"4119 Váncsod, Kossuth u. 13.",2024.02.22,2024-67,Vitamin D3,5,1 270 Ft,6 350 Ft
+Horváthné Dr. Kamuti Göngyi,"4119 Váncsod, Kossuth u. 13.",2024.02.22,2024-67,Vitamin D3,1,5 Ft,5 Ft
+Horváthné Dr. Kamuti Göngyi,"4119 Váncsod, Kossuth u. 13.",2024.02.22,2024-67,Ginseng,8,870 Ft,6 960 Ft
+Horváthné Dr. Kamuti Göngyi,"4119 Váncsod, Kossuth u. 13.",2024.02.22,2024-67,Ginseng,2,5 Ft,10 Ft
+Horváthné Dr. Kamuti Göngyi,"4119 Váncsod, Kossuth u. 13.",2024.02.22,2024-68,Koenzim Q10 30 db kapszula ,10,980 Ft,9 800 Ft
+Horváthné Dr. Kamuti Göngyi,"4119 Váncsod, Kossuth u. 13.",2024.02.22,2024-68,Omega 3,10,889 Ft,8 890 Ft
+Horváthné Dr. Kamuti Göngyi,"4119 Váncsod, Kossuth u. 13.",2024.02.22,2024-69,Probiotikum,10,1 625 Ft,16 245 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2024.02.28,2024-70,CBD 375 mg,20,9 900 Ft,198 000 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2024.02.27,2024-71,Ginseng,20,870 Ft,17 400 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2024.02.27,2024-71,Koenzim Q10 30 db kapszula ,20,1 400 Ft,28 000 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2024.02.27,2024-71,Koenzim Q10 30 db kapszula ,10,5 Ft,50 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2024.02.27,2024-71,Ginseng,5,5 Ft,25 Ft
+FEHÉRTÓ-PATIKA Bt.,"4374 Encsencs, Fő út 3.",2024.02.28,2024-72,Kalcium+Vitamin D ,10,585 Ft,5 845 Ft
+FEHÉRTÓ-PATIKA Bt.,"4374 Encsencs, Fő út 3.",2024.02.28,2024-72,Omega 3,10,889 Ft,8 890 Ft
+FEHÉRTÓ-PATIKA Bt.,"4374 Encsencs, Fő út 3.",2024.02.28,2024-72,Vitamin D3,10,889 Ft,8 890 Ft
+FEHÉRTÓ-PATIKA Bt.,"4374 Encsencs, Fő út 3.",2024.02.28,2024-72,Koenzim Q10 30 db kapszula ,10,980 Ft,9 800 Ft
+FEHÉRTÓ-PATIKA Bt.,"4374 Encsencs, Fő út 3.",2024.02.28,2024-73,Probiotikum,10,1 625 Ft,16 250 Ft
+FEHÉRTÓ-PATIKA Bt.,"4374 Encsencs, Fő út 3.",2024.02.28,2024-74,Ginseng,8,870 Ft,6 960 Ft
+FEHÉRTÓ-PATIKA Bt.,"4374 Encsencs, Fő út 3.",2024.02.28,2024-74,Ginseng,8,5 Ft,40 Ft
+FEHÉRTÓ-PATIKA Bt.,"4374 Encsencs, Fő út 3.",2024.02.18,2024-75,Ginseng,8,-870 Ft,-6 960 Ft
+FEHÉRTÓ-PATIKA Bt.,"4374 Encsencs, Fő út 3.",2024.02.18,2024-75,Ginseng,8,-5 Ft,-40 Ft
+Patika 62. Bt.,"4138 Komádi, Fő u. 35.",2024.02.18,2024-76,Probiotikum,10,-1 625 Ft,-16 245 Ft
+FEHÉRTÓ-PATIKA Bt.,"4374 Encsencs, Fő út 3.",2024.02.18,2024-77,Kalcium+Vitamin D ,10,-585 Ft,-5 845 Ft
+FEHÉRTÓ-PATIKA Bt.,"4374 Encsencs, Fő út 3.",2024.02.18,2024-77,Omega 3,10,-889 Ft,-8 890 Ft
+FEHÉRTÓ-PATIKA Bt.,"4374 Encsencs, Fő út 3.",2024.02.18,2024-77,Vitamin D3,10,-889 Ft,-8 890 Ft
+FEHÉRTÓ-PATIKA Bt.,"4374 Encsencs, Fő út 3.",2024.02.18,2024-77,Koenzim Q10 30 db kapszula ,10,-980 Ft,-9 800 Ft
+FEHÉRTÓ-PATIKA Bt.,"4244 Újfehértó, Bartók Béla út 11.",2024.02.18,2024-78,Probiotikum,10,-1 625 Ft,-16 245 Ft
+Patika 62. Bt.,"4138 Komádi, Fő u. 35.",2024.02.28,2024-79,Probiotikum,10,1 625 Ft,16 245 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2024.02.28,2024-80,Probiotikum,40,1 625 Ft,64 980 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2024.02.28,2024-81,Fekete Magolaj,20,4 340 Ft,86 800 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2024.02.28,2024-81,Fekete Magolaj,20,5 Ft,100 Ft
+KORONA PATIKA-98 Bt.,"4060 Balmazújváros, Veres Péter u. 2/D",2024.02.28,2024-82,CBD 375 mg,5,9 900 Ft,49 500 Ft
+KORONA PATIKA-98 Bt.,"4060 Balmazújváros, Veres Péter u. 2/D",2024.02.28,2024-82,CBD 375 mg,5,5 Ft,25 Ft
+KORONA PATIKA-98 Bt.,"4060 Balmazújváros, Veres Péter u. 2/D",2024.02.28,2024-82,Fekete Magolaj,5,4 340 Ft,21 700 Ft
+KORONA PATIKA-98 Bt.,"4060 Balmazújváros, Veres Péter u. 2/D",2024.02.28,2024-82,Fekete Magolaj,5,5 Ft,25 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2024.03.12,2024-83,Ginseng,33,783 Ft,25 839 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2024.03.12,2024-83,Omega 3,3,1 143 Ft,3 429 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2024.03.12,2024-83,Probiotikum,14,1 625 Ft,22 750 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2024.04.04,2024-84,Probiotikum,29,1 805 Ft,52 345 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2024.04.04,2024-84,Omega 3,103,1 270 Ft,130 810 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2024.04.04,2024-84,Kalcium+Vitamin D ,10,835 Ft,8 350 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2024.04.04,2024-84,Ginseng,11,870 Ft,9 570 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2024.04.04,2024-84,Vitamin D3,6,1 270 Ft,7 620 Ft
+JÓZSAI PATIKA Bt.,"4225 Debrecen, Szentgyörgyflavi utca 9.",2024.03.14,2024-85,Probiotikum,40,1 805 Ft,72 200 Ft
+HÁRS GYÓGYSZERTÁR Kft.,"4030 Debrecen, Pandúr utca 2/A.",2024.03.20,2024-86,Probiotikum,20,1 805 Ft,36 100 Ft
+RANGERS V&V Kft.,"3527 Miskolc, Baross Gábor u. 16.",2024.03.20,2024-87,CBD 375 mg,40,2 450 Ft,98 000 Ft
+Pappné Vass Anikó Eleonóra,"4324 Kállósemjén, Kossuth út 87.",2024.03.20,2024-88,Fekete Magolaj,2,5 Ft,10 Ft
+Pappné Vass Anikó Eleonóra,"4324 Kállósemjén, Kossuth út 87.",2024.03.20,2024-88,Ginseng,2,5 Ft,10 Ft
+Pappné Vass Anikó Eleonóra,"4324 Kállósemjén, Kossuth út 87.",2024.03.20,2024-88,Koenzim Q10 30 db kapszula ,2,5 Ft,10 Ft
+Pappné Vass Anikó Eleonóra,"4324 Kállósemjén, Kossuth út 87.",2024.03.20,2024-88,Omega 3,2,5 Ft,10 Ft
+Pappné Vass Anikó Eleonóra,"4324 Kállósemjén, Kossuth út 87.",2024.03.20,2024-88,Probiotikum,2,5 Ft,10 Ft
+Pappné Vass Anikó Eleonóra,"4324 Kállósemjén, Kossuth út 87.",2024.03.20,2024-88,Probiotikum,20,1 805 Ft,36 100 Ft
+"""S.R.M. REMÉNY"" Kft.","4400 Nyíregyháza, Nyírfa utca 23.",2024.03.26,2024-89,Multi-Vitamin 60x ,40,1 262 Ft,50 464 Ft
+"""S.R.M. REMÉNY"" Kft.","4400 Nyíregyháza, Nyírfa utca 23.",2024.03.26,2024-90,Probiotikum,42,1 805 Ft,75 810 Ft
+"""S.R.M. REMÉNY"" Kft.","4400 Nyíregyháza, Nyírfa utca 23.",2024.03.26,2024-90,Probiotikum,7,5 Ft,35 Ft
+GYÓGYÍR Bt.,"4150 Püspökladány, Kossuth utca 5/1.",2024.03.27,2024-91,Probiotikum,5,1 805 Ft,9 025 Ft
+GYÓGYÍR Bt.,"4150 Püspökladány, Kossuth utca 5/1.",2024.03.27,2024-91,Multi-Vitamin 60x ,5,1 182 Ft,5 910 Ft
+GYÓGYÍR Bt.,"4150 Püspökladány, Kossuth utca 5/1.",2024.03.27,2024-91,Fekete Magolaj,1,4 340 Ft,4 340 Ft
+Sanavita Bt.,"5340 Kunhegyes, Kossuth u. 54.",2024.03.27,2024-92,Probiotikum,20,1 805 Ft,36 100 Ft
+Sanavita Bt.,"5340 Kunhegyes, Kossuth u. 54.",2024.03.27,2024-92,Multi-Vitamin 60x ,20,1 557 Ft,31 140 Ft
+ARANYGYÖMBÉR Kft. ,"4553 Apagy, Kossuth Lajos út 147.A.ép.",2024.03.28,2024-93,CBD 375 mg,10,9 900 Ft,99 000 Ft
+ARANYGYÖMBÉR Kft. ,"4553 Apagy, Kossuth Lajos út 147.A.ép.",2024.03.28,2024-93,CBD 375 mg,10,5 Ft,50 Ft
+ARANYGYÖMBÉR Kft. ,"4553 Apagy, Kossuth Lajos út 147.A.ép.",2024.03.28,2024-93,Probiotikum,5,1 805 Ft,9 025 Ft
+ARANYGYÖMBÉR Kft. ,"4553 Apagy, Kossuth Lajos út 147.A.ép.",2024.03.28,2024-93,Multi-Vitamin 60x ,5,1 262 Ft,6 310 Ft
+ARANYGYÖMBÉR Kft. ,"4553 Apagy, Kossuth Lajos út 147.A.ép.",2024.03.28,2024-93,Kollagén 20x,2,4 492 Ft,8 984 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2024.04.10,2024-94,Ginseng,22,783 Ft,17 226 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2024.04.10,2024-94,Omega 3,71,1 143 Ft,81 153 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2024.04.10,2024-94,Probiotikum,23,1 625 Ft,37 375 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2024.04.10,2024-94,Vitamin D3,28,1 143 Ft,32 004 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2024.05.04,2024-95,Vitamin D3,50,1 270 Ft,63 500 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2024.05.04,2024-95,Fekete Magolaj,35,4 340 Ft,151 900 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2024.05.04,2024-95,Ginseng,28,870 Ft,24 360 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2024.05.04,2024-95,Kalcium+Vitamin D ,45,835 Ft,37 575 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2024.05.04,2024-95,Probiotikum,9,1 805 Ft,16 245 Ft
+Ábrányi Patika Bt.,"4264 Nyírábrány, Hajnal u. 1.",2024.04.08,2024-96,Probiotikum,10,1 805 Ft,18 050 Ft
+Ábrányi Patika Bt.,"4264 Nyírábrány, Hajnal u. 1.",2024.04.08,2024-96,Ginseng,2,870 Ft,1 740 Ft
+Ábrányi Patika Bt.,"4264 Nyírábrány, Hajnal u. 1.",2024.04.08,2024-96,Koenzim Q10 30 db kapszula ,5,1 400 Ft,7 000 Ft
+Ábrányi Patika Bt.,"4264 Nyírábrány, Hajnal u. 1.",2024.04.08,2024-96,Koenzim Q10 30 db kapszula ,3,5 Ft,15 Ft
+Dr. Elekes Anikó Kft.,"4071 Hortobágy, Kossuth utca 3.",2024.04.08,2024-97,Probiotikum,3,1 805 Ft,5 415 Ft
+Dr. Elekes Anikó Kft.,"4071 Hortobágy, Kossuth utca 3.",2024.04.10,2024-98,Probiotikum,3,1 805 Ft,5 415 Ft
+Dr. Elekes Anikó Kft.,"4071 Hortobágy, Kossuth utca 3.",2024.04.10,2024-98,CBD 375 mg,2,9 900 Ft,19 800 Ft
+Egyeki Pusztapharma Bt.,"4069 Egyek, Hunyadi u. 48/a.",2024.04.10,2024-99,Multi-Vitamin 60x ,5,1 182 Ft,5 910 Ft
+Egyeki Pusztapharma Bt.,"4069 Egyek, Hunyadi u. 48/a.",2024.04.10,2024-99,Probiotikum,5,1 805 Ft,9 025 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2020.04.10,2024-100,Probiotikum,40,1 625 Ft,65 000 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2020.04.10,2024-100,Ginseng,20,870 Ft,17 400 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2020.04.10,2024-100,Ginseng,13,5 Ft,65 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2020.04.10,2024-100,Kalcium+Vitamin D ,10,835 Ft,8 350 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2020.04.10,2024-100,Kalcium+Vitamin D ,6,5 Ft,30 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2020.04.10,2024-100,Omega 3,10,1 270 Ft,12 700 Ft
+Balmazpharm Kft.,"4060 Balmazújváros, Bocskai u. 2-4.",2020.04.10,2024-100,Omega 3,6,5 Ft,30 Ft
+JÓZSAI PATIKA Bt.,"4225 Debrecen, Szentgyörgyflavi utca 9.",2024.04.10,2024-101,Probiotikum,40,1 805 Ft,72 200 Ft
+HT-MARBEN Kft.,"4531 Nyírpazony, Széchenyi u. 17.",2024.04.11,2024-102,Probiotikum,5,1 625 Ft,8 123 Ft
+HT-MARBEN Kft.,"4531 Nyírpazony, Széchenyi u. 17.",2024.04.11,2024-103,Omega 3,5,1 270 Ft,6 350 Ft
+HT-MARBEN Kft.,"4531 Nyírpazony, Széchenyi u. 17.",2024.04.11,2024-103,Omega 3,3,5 Ft,15 Ft
+Varga Reformház Kft.,"4030 Debrecen, Epreskert u. 88.",2024.04.19,2024-104,Ginseng,1,870 Ft,870 Ft
+KÍGYÓ KÓTAJ Kft.,"4482 Kótaj, Kossuth utca 11.",2024.04.11,2024-105,Probiotikum,10,1 625 Ft,16 245 Ft
+Mátyás Patika Bt.,"4931 Tarpa, Kossuth u. 51/b.",2024.04.12,2024-106,Probiotikum,5,1 625 Ft,8 123 Ft
+Mátyás Patika Bt.,"4931 Tarpa, Kossuth u. 51/b.",2024.04.12,2024-107,Ginseng,5,870 Ft,4 350 Ft
+Mátyás Patika Bt.,"4931 Tarpa, Kossuth u. 51/b.",2024.04.12,2024-107,Vitamin D3,5,1 270 Ft,6 350 Ft
+Mátyás Patika Bt.,"4931 Tarpa, Kossuth u. 51/b.",2024.04.12,2024-107,Ginseng,3,5 Ft,15 Ft
+Mátyás Patika Bt.,"4931 Tarpa, Kossuth u. 51/b.",2024.04.12,2024-107,Vitamin D3,3,5 Ft,15 Ft
+FŐTÉR-KILENC Kft.,"4244 Újfehértó, Fő tér 9.",2024.04.18,2024-108,Multi-Vitamin 60x ,40,1 166 Ft,46 620 Ft
+FŐTÉR-KILENC Kft.,"4244 Újfehértó, Fő tér 9.",2024.04.18,2024-109,Vitamin D3,20,762 Ft,15 240 Ft
+FŐTÉR-KILENC Kft.,"4244 Újfehértó, Fő tér 9.",2024.04.18,2024-109,Omega 3,20,762 Ft,15 240 Ft
+FŐTÉR-KILENC Kft.,"4244 Újfehértó, Fő tér 9.",2024.04.18,2024-109,Koenzim Q10 30 db kapszula ,20,720 Ft,14 400 Ft
+FŐTÉR-KILENC Kft.,"4244 Újfehértó, Fő tér 9.",2024.04.18,2024-109,Ginseng,20,522 Ft,10 440 Ft
+FŐTÉR-KILENC Kft.,"4245 Újfehértó, Fő tér 9.",2024.04.18,2024-109,Kalcium+Vitamin D ,20,501 Ft,10 020 Ft
+teszt elek,"4030 Debrecen, teszt ss",2024.04.17,shop-2024-2,Vitamin D3,1,1 567 Ft,1 567 Ft
+teszt elek,"4030 Debrecen, teszt ss",2024.04.17,shop-2024-2,GLS házhozszállítás,1,787 Ft,787 Ft
+Istvan Mariska,"4034 Debrecen, Ruyter utca 107.",2024.04.18,shop-2024-3,Vitamin D3,1,783 Ft,783 Ft
+Istvan Mariska,"4034 Debrecen, Ruyter utca 107.",2024.04.18,shop-2024-3,GLS házhozszállítás,1,787 Ft,787 Ft
+NYÍR-BIO Kft.,"4400 Nyíregyháza, Ungvár sétány 35.",2024.04.22,2024-110,CBD 375 mg,20,4 950 Ft,99 000 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2024.04.24,2024-111,Probiotikum,60,1 625 Ft,97 470 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2024.04.24,2024-112,Omega 3,20,1 270 Ft,25 400 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2024.04.24,2024-112,Omega 3,12,5 Ft,60 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2024.04.24,2024-112,Fekete Magolaj,20,4 340 Ft,86 800 Ft
+Várda Patika Bt.,"4600 Kisvárda, Árpád u. 26.",2024.04.24,2024-112,Fekete Magolaj,12,5 Ft,60 Ft
+GS-Herc Bt,"4251 Hajdúsámson, Hunyadi utca 2.",2024.04.24,2024-113,Probiotikum,40,1 805 Ft,72 200 Ft
+"""GEDEON ÉS GEDEON"" Kft.","4600 Kisvárda, Szt. László u. 69.",2024.04.28,2024-114,Probiotikum,10,1 625 Ft,16 245 Ft
+"""GEDEON ÉS GEDEON"" Kft.","4600 Kisvárda, Szt. László u. 69.",2024.04.28,2024-114,Multi-Vitamin 60x ,10,1 184 Ft,11 835 Ft
+"""GEDEON ÉS GEDEON"" Kft.","4600 Kisvárda, Szt. László u. 69.",2024.04.28,2024-115,Omega 3,5,1 270 Ft,6 350 Ft
+"""GEDEON ÉS GEDEON"" Kft.","4600 Kisvárda, Szt. László u. 69.",2024.04.28,2024-115,Omega 3,3,5 Ft,15 Ft
+"""GEDEON ÉS GEDEON"" Kft.","4600 Kisvárda, Szt. László u. 69.",2024.04.28,2024-115,Koenzim Q10 30 db kapszula ,5,1 200 Ft,6 000 Ft
+"""GEDEON ÉS GEDEON"" Kft.","4600 Kisvárda, Szt. László u. 69.",2024.04.28,2024-115,Koenzim Q10 30 db kapszula ,3,5 Ft,15 Ft
+"""GEDEON ÉS GEDEON"" Kft.","4600 Kisvárda, Szt. László u. 69.",2024.04.28,2024-115,Fekete Magolaj,5,4 340 Ft,21 700 Ft
+"""GEDEON ÉS GEDEON"" Kft.","4600 Kisvárda, Szt. László u. 69.",2024.04.28,2024-115,Fekete Magolaj,3,5 Ft,15 Ft
+Korodi Istvan,"4034 Debrecen, Ruyter utca 107.",2024.04.30,shop-2024-4,Multi-Vitamin 60x ,1,2 354 Ft,2 354 Ft
+Korodi Istvan,"4034 Debrecen, Ruyter utca 107.",2024.04.30,shop-2024-4,CBD 375 mg,1,9 370 Ft,9 370 Ft
+Korodi Istvan,"4034 Debrecen, Ruyter utca 107.",2024.04.30,shop-2024-4,GLS házhozszállítás,1,787 Ft,787 Ft
+Korodi Istvan,"4034 Debrecen, Ruyter utca 107.",2024.04.30,shop-2024-4,CBD Yung Marbi,1,-4 683 Ft,-4 683 Ft
+Korodi Istvan,"4034 Debrecen, Ruyter utca 107.",2024.04.30,shop-2024-5,Kollagén 20x,1,6 260 Ft,6 260 Ft
+Korodi Istvan,"4034 Debrecen, Ruyter utca 107.",2024.04.30,shop-2024-5,CBD 375 mg,1,9 370 Ft,9 370 Ft
+Korodi Istvan,"4034 Debrecen, Ruyter utca 107.",2024.04.30,shop-2024-5,Kupon2024Bio,1,-1 563 Ft,-1 563 Ft
+Korodi Istvan,"4034 Debrecen, Ruyter utca 107.",2024.01.16,shop-2024-6,Kalcium+Vitamin D ,1,-1 260 Ft,-1 260 Ft
+Korodi Istvan,"4034 Debrecen, Ruyter utca 107.",2024.01.16,shop-2024-6,GLS házhozszállítás,1,-787 Ft,-787 Ft
+teszt elek,"4030 Debrecen, teszt ss",2024.04.17,shop-2024-7,Vitamin D3,1,-1 567 Ft,-1 567 Ft
+teszt elek,"4030 Debrecen, teszt ss",2024.04.17,shop-2024-7,GLS házhozszállítás,1,-787 Ft,-787 Ft
+Korodi Istvan,"4034 Debrecen, Ruyter utca 107.",2024.04.30,shop-2024-8,Kollagén 20x,1,-6 260 Ft,-6 260 Ft
+Korodi Istvan,"4034 Debrecen, Ruyter utca 107.",2024.04.30,shop-2024-8,CBD 375 mg,1,-9 370 Ft,-9 370 Ft
+Korodi Istvan,"4034 Debrecen, Ruyter utca 107.",2024.04.30,shop-2024-8,Kupon2024Bio,1,1 563 Ft,1 563 Ft
+Korodi Istvan,"4034 Debrecen, Ruyter utca 107.",2024.04.30,shop-2024-9,Multi-Vitamin 60x ,1,-2 354 Ft,-2 354 Ft
+Korodi Istvan,"4034 Debrecen, Ruyter utca 107.",2024.04.30,shop-2024-9,CBD 375 mg,1,-9 370 Ft,-9 370 Ft
+Korodi Istvan,"4034 Debrecen, Ruyter utca 107.",2024.04.30,shop-2024-9,GLS házhozszállítás,1,-787 Ft,-787 Ft
+Korodi Istvan,"4034 Debrecen, Ruyter utca 107.",2024.04.30,shop-2024-9,CBD Yung Marbi,1,4 685 Ft,4 685 Ft
+JÓZSAI PATIKA Bt.,"4225 Debrecen, Szentgyörgyflavi utca 9.",2024.04.30,2024-116,Probiotikum,20,1 805 Ft,36 100 Ft
+JÓZSAI PATIKA Bt.,"4225 Debrecen, Szentgyörgyflavi utca 9.",2024.04.30,2024-117,Multi-Vitamin 60x ,20,1 183 Ft,23 655 Ft
+"""FICTILE PHARMA"" Bt.","4029 Debrecen, Csapó utca 22. fszt.2.",2024.04.30,2024-118,Ginseng,15,870 Ft,13 050 Ft
+"""FICTILE PHARMA"" Bt.","4029 Debrecen, Csapó utca 22. fszt.2.",2024.04.30,2024-118,Omega 3,15,1 270 Ft,19 050 Ft
+"""FICTILE PHARMA"" Bt.","4029 Debrecen, Csapó utca 22. fszt.2.",2024.04.30,2024-118,Kalcium+Vitamin D ,15,835 Ft,12 525 Ft
+"""FICTILE PHARMA"" Bt.","4029 Debrecen, Csapó utca 22. fszt.2.",2024.04.30,2024-118,Ginseng,9,5 Ft,45 Ft
+"""FICTILE PHARMA"" Bt.","4029 Debrecen, Csapó utca 22. fszt.2.",2024.04.30,2024-118,Omega 3,9,5 Ft,45 Ft
+"""FICTILE PHARMA"" Bt.","4029 Debrecen, Csapó utca 22. fszt.2.",2024.04.30,2024-118,Kalcium+Vitamin D ,9,5 Ft,45 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2024.05.10,2024-119,Ginseng,44,783 Ft,34 452 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2024.05.10,2024-119,Omega 3,12,1 143 Ft,13 716 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2024.05.10,2024-119,Probiotikum,43,1 625 Ft,69 875 Ft
+BENNOVUM Kft.,"1087 Budapest, Százados u. 18.",2024.05.10,shop-2024-10,Vitamin D3,4,1 143 Ft,4 572 Ft
+Mészáros Jenő,"8100 Várpalota, Vörösmarty u. 35.",2024.05.06,shop-2024-10,Kollagén 20x,1,6 260 Ft,6 260 Ft
+Mészáros Jenő,"8100 Várpalota, Vörösmarty u. 35.",2024.05.06,shop-2024-10,FoxPost házhozszállítás,1,1 180 Ft,1 180 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2024.08.08,2024-120,Vitamin D3,52,1 270 Ft,66 040 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2024.08.08,2024-120,Fekete Magolaj,43,4 340 Ft,186 620 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2024.08.08,2024-120,Ginseng,110,870 Ft,95 700 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2024.08.08,2024-120,Kalcium+Vitamin D ,63,835 Ft,52 605 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2024.08.08,2024-120,Koenzim Q10 30 db kapszula ,33,1 200 Ft,39 600 Ft
+Bellis Egészségtár Kft.,"1151 Budapest, Károlyi Sándor út 121.",2024.08.08,2024-120,Probiotikum,10,1 805 Ft,18 050 Ft
+Varga Reformház Kft.,"4030 Debrecen, Epreskert u. 88.",2024.05.22,2024-121,Ginseng,2,870 Ft,1 740 Ft
+Arany Borostyán Patika Kft.,"4800 Vásárosnamény, Kossuth Lajos út 34. fszt. 3.",2024.05.14,2024-122,Multi-Vitamin 60x ,10,1 183 Ft,11 828 Ft
+Arany Borostyán Patika Kft.,"4800 Vásárosnamény, Kossuth Lajos út 34. fszt. 3.",2024.05.14,2024-123,Kollagén 20x,10,4 492 Ft,44 920 Ft
+Aloe Pharma Kft.,"4400 Nyíregyháza, Széchenyi u. 1.",2024.05.14,2024-124,Probiotikum,5,1 805 Ft,9 025 Ft
+Aloe Pharma Kft.,"4400 Nyíregyháza, Széchenyi u. 1.",2024.05.14,2024-124,Probiotikum,1,5 Ft,5 Ft
+Aloe Pharma Kft.,"4400 Nyíregyháza, Széchenyi u. 1.",2024.05.14,2024-124,Vitamin D3,3,635 Ft,1 905 Ft
+Hatvani István Gyógyszertár Bt.,"4032 Debrecen, Lehel u. 22.",2024.05.14,2024-125,Probiotikum,5,1 805 Ft,9 025 Ft
+Hatvani István Gyógyszertár Bt.,"4032 Debrecen, Lehel u. 22.",2024.05.14,2024-125,Probiotikum,1,1 805 Ft,1 805 Ft
+Hatvani István Gyógyszertár Bt.,"4032 Debrecen, Lehel u. 22.",2024.05.14,2024-126,Multi-Vitamin 60x ,5,1 183 Ft,5 914 Ft
+"""MÁTYÁS KIRÁLY"" Kft.","4028 Debrecen, Laktanya utca 23.",2024.05.14,2024-127,Probiotikum,100,1 202 Ft,120 158 Ft
+"""MÁTYÁS KIRÁLY"" Kft.","4028 Debrecen, Laktanya utca 23.",2024.05.14,2024-127,Ginseng,20,483 Ft,9 657 Ft
+GRAND PHARMA Kft.,"4400 Nyíregyháza, Arany János utca 4/A.",2024.05.15,2024-128,Probiotikum,5,1 805 Ft,9 025 Ft
+GRAND PHARMA Kft.,"4400 Nyíregyháza, Arany János utca 4/A.",2024.05.15,2024-128,Probiotikum,1,5 Ft,5 Ft

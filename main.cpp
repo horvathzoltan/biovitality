@@ -1,5 +1,7 @@
 #include <QApplication>
 #include <QtCharts>
+#include <helpers/signalhelper.h>
+#include <helpers/filenamehelper.h>
 #include "buildnumber.h"
 
 #include "helpers/logger.h"
@@ -9,19 +11,23 @@
 
 auto main(int argc, char *argv[]) -> int
 {
+    SignalHelper::setShutDownSignal(SignalHelper::SIGINT_); // shut down on ctrl-c
+    SignalHelper::setShutDownSignal(SignalHelper::SIGTERM_); // shut down on killall
+
 #if defined (STRINGIFY_H) && defined (STRING) && defined (TARGI)
     QString target = STRING(TARGI);
 #else
     auto target=QStringLiteral("ApplicationNameString");
-#endif
+#endif    
 
     QCoreApplication::setApplicationVersion(Buildnumber::_value);
-    QCoreApplication::setOrganizationName("LogControl Kft.");
-    QCoreApplication::setOrganizationDomain("https://www.logcontrol.hu/");
+    QCoreApplication::setOrganizationName("horvathzoltan");
+    QCoreApplication::setOrganizationDomain("https://github.com/horvathzoltan");
 
     Logger::Init(Logger::ErrLevel::INFO, Logger::DbgLevel::TRACE, true, true);
     QString user = qgetenv("USER");
-    zInfo(QStringLiteral("started ")+target+" as "+user + " build:"+ Buildnumber::_value);
+    zInfo(QStringLiteral("started ")+target+" as "+user + " build:"+ Buildnumber::_value);    
+
     //FileNameHelper::Init(QCoreApplication::applicationDirPath());
     //bool settings_ok = settings.Load(FileNameHelper::SettingsFileName());
     //if(settings_ok){
@@ -29,7 +35,9 @@ auto main(int argc, char *argv[]) -> int
     //}
 
     QApplication a(argc, argv);
-
+    FileNameHelper::Init();
+    zInfo("testdata_path:"+FileNameHelper::GetTestFolderPath());
+    zInfo("working_folder:"+FileNameHelper::GetWorkingFolder());
 
     MainWindow w;
     MainPresenter p;

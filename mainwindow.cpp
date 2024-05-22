@@ -35,3 +35,10 @@ void MainWindow::on_pushButton_clicked()
     emit PushButtonActionTriggered(this);
 }
 
+
+void MainWindow::on_pushButton_tetelImport_clicked()
+{
+    qDebug() << "TetelImportActionTriggered";
+    emit TetelImportActionTriggered(this);
+}
+

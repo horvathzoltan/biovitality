@@ -1,0 +1,156 @@
+"Számla sorszáma";"Kapcsolódó számla";Kelt;"Telj. dátum";"Fiz. hat.";"Fiz. mód";"Vevő név";"Vevő város";"Vevő irányítószám";"Vevő utca";"Vevő ország";"Vevő telefonszám";"Vevő adószám";Megjegyzés;"Nettó végösszeg";"Bruttó végösszeg";Pénznem;Árfolyam;"Nettó forintosított";"Bruttó forintosított";Fizetett;"Utolsó fizetés dátuma";"Kedvezmény típus";Kedvezmény;Bizonylatszám;"Számla típusa";"Elektronikus számla";27%
+2024-1;;2024-01-03;2024-01-11;2024-01-11;Átutalás;"BENNOVUM Kft.";Budapest;1087;"Százados u. 18.";Magyarország;;12532740-2-42;"IDŐKÖZI BIZOMÁNYOSI ELSZÁMOLÁS
+BIO VITALITY KFT
+Időszak: 2023.12.01 - 2023.12.31";36354;46170;HUF;1;36354;46170;0;;Százalék;0;;Számla;Hagyományos;9816
+2024-2;;2024-01-05;2024-02-04;2024-02-04;Átutalás;"Bellis Egészségtár Kft.";Budapest;1151;"Károlyi Sándor út 121.";Magyarország;;11843425-2-42;"Letéti jelentés BIO VITALITY KFT. 2023.12";5550;7049;HUF;1;5550;7049;0;;Százalék;0;;Számla;Hagyományos;1499
+2024-3;;2024-01-08;2024-01-08;2024-01-08;Készpénz;"""MÁTYÁS KIRÁLY"" Kft.";Debrecen;4028;"Laktanya utca 23.";Magyarország;;14526411-2-09;;72200;91694;HUF;1;72200;91694;0;2024-01-08;Százalék;0;;Számla;Hagyományos;19494
+2024-4;;2024-01-08;2024-01-08;2024-01-16;Átutalás;"Sanavita Bt.";Kunhegyes;5340;"Kossuth u. 54.";Magyarország;;26054384-2-16;;12700;16129;HUF;1;12700;16129;0;;Százalék;0;;Számla;Hagyományos;3429
+2024-5;2024-3;2024-01-08;2024-01-08;2024-01-08;Készpénz;"""MÁTYÁS KIRÁLY"" Kft.";Debrecen;4028;"Laktanya utca 23.";Magyarország;;14526411-2-09;;-72200;-91694;HUF;1;-72200;-91694;0;2024-01-08;Százalék;0;;"Storno számla";Hagyományos;-19494
+2024-6;;2024-01-08;2024-01-08;2024-01-08;Készpénz;"""MÁTYÁS KIRÁLY"" Kft.";Debrecen;4028;"Laktanya utca 23.";Magyarország;;14526411-2-09;;48013;60977;HUF;1;48013;60977;60977;2024-01-08;Százalék;33.5;;Számla;Hagyományos;12964
+2024-7;;2024-01-12;2024-01-12;2024-01-20;Átutalás;"Pappné Vass Anikó Eleonóra";Kállósemjén;4324;"Kossuth út 87.";Magyarország;06703759551;51850205-2-35;;36100;45847;HUF;1;36100;45847;0;;Százalék;0;;Számla;Hagyományos;9747
+2024-8;;2024-01-12;2024-01-12;2024-01-20;Átutalás;"Tündérfátyol Bt.";Debrecen;4028;"Szigligeti utca 7.";Magyarország;;20681612-2-09;;9900;12573;HUF;1;9900;12573;0;;Százalék;0;;Számla;Hagyományos;2673
+shop-2024-1;;2024-01-16;2024-01-16;2024-01-24;Átutalás;"Istvan I";Debrecen;4034;"Ruyter utca 70 / B";Magyarország;;;"Rendelésazonosító: 39";2046;2599;HUF;1;2046;2599;0;2024-01-16;Százalék;0;;Számla;Hagyományos;553
+2024-9;;2024-01-19;2024-01-19;2024-01-27;Átutalás;"GRANULA Bt.";Nyírkarász;4544;"Kossuth u. 1.";Magyarország;;25671292-2-15;;53675;68167;HUF;1;53675;68167;0;;Százalék;0;;Számla;Hagyományos;14492
+2024-10;;2024-01-23;2024-01-23;2024-01-31;Átutalás;"Balibio Life Kft.";Debrecen;4027;"Szegfű utca 1. 2. em. 9.";Magyarország;;25580822-2-09;;17420;22123;HUF;1;17420;22123;0;;Százalék;0;;Számla;Hagyományos;4703
+2024-11;2023-73;2024-01-23;2023-06-11;2023-06-11;Átutalás;"PHOENIX Pharma Zrt.";Fót;2151;"Keleti Márton út 19";Magyarország;;12068535-2-44;"2023.04. hó Bio Vitality kft";-44246;-56192;HUF;1;-44246;-56192;0;;Százalék;0;;"Storno számla";Hagyományos;-11946
+2024-12;;2024-01-23;2024-01-23;2024-01-27;Átutalás;"PHOENIX Pharma Zrt.";Fót;2151;"Keleti Márton út 19";Magyarország;;12068535-2-44;"2023.04. Elszámolás. Ez a számla 2023-73 storno helyett.";40826;51849;HUF;1;40826;51849;0;;Százalék;0;;Számla;Hagyományos;11023
+2024-13;2024-12;2024-01-23;2024-01-23;2024-01-27;Átutalás;"PHOENIX Pharma Zrt.";Fót;2151;"Keleti Márton út 19";Magyarország;;12068535-2-44;"2023.04. Elszámolás. Ez a számla 2023-73 storno helyett.";-40826;-51849;HUF;1;-40826;-51849;0;;Százalék;0;;"Storno számla";Hagyományos;-11023
+2024-14;;2024-01-23;2024-01-23;2024-01-26;Átutalás;"PHOENIX Pharma Zrt.";Fót;2151;"Keleti Márton út 19";Magyarország;;12068535-2-44;"2023.04. Elszámolás. Ez a számla 2023-73 storno helyett.";38480;48870;HUF;1;38480;48870;0;;Százalék;0;;Számla;Hagyományos;10390
+2024-15;2023-147;2024-01-23;2023-12-10;2023-12-10;Átutalás;"PHOENIX Pharma Zrt.";Fót;2151;"Keleti Márton út 19";Magyarország;;12068535-2-44;"Bio Vitality Kft. bizományos 2023.10. hó.";-242187;-307577;HUF;1;-242187;-307577;0;;Százalék;0;;"Storno számla";Hagyományos;-65390
+2024-16;;2024-01-23;2024-01-23;2024-01-26;Átutalás;"PHOENIX Pharma Zrt.";Fót;2151;"Keleti Márton út 19";Magyarország;;12068535-2-44;"2023.10. Elszámolásból. A 2023-147 sztornozott számla helyett.";210639;267512;HUF;1;210639;267512;0;;Százalék;0;;Számla;Hagyományos;56873
+2024-17;;2024-01-23;2024-01-23;2024-01-26;Átutalás;"PHOENIX Pharma Zrt.";Fót;2151;"Keleti Márton út 19";Magyarország;;12068535-2-44;"Ez a számla a 2023-126 sztorno helyett.";83491;106034;HUF;1;83491;106034;0;;Százalék;0;;Számla;Hagyományos;22543
+2024-18;2023-126;2024-01-23;2023-10-11;2023-10-11;Átutalás;"PHOENIX Pharma Zrt.";Fót;2151;"Keleti Márton út 19";Magyarország;;12068535-2-44;;-79480;-100940;HUF;1;-79480;-100940;0;;Százalék;0;;"Storno számla";Hagyományos;-21460
+2024-19;2023-115;2024-01-23;2023-09-03;2023-09-03;Átutalás;"PHOENIX Pharma Zrt.";Fót;2151;"Keleti Márton út 19";Magyarország;;12068535-2-44;"Bio Vitality Kft. bizományos elszámolás 2023.07.";-33736;-42845;HUF;1;-33736;-42845;0;;Százalék;0;;"Storno számla";Hagyományos;-9109
+2024-20;;2024-01-23;2024-01-23;2024-01-26;Átutalás;"PHOENIX Pharma Zrt.";Fót;2151;"Keleti Márton út 19";Magyarország;;12068535-2-44;"2023.07. Elszámolásról. 2023-115 sztornozott számla helyett.";29339;37261;HUF;1;29339;37261;0;;Százalék;0;;Számla;Hagyományos;7922
+2024-21;;2024-01-23;2024-01-23;2024-01-26;Átutalás;"PHOENIX Pharma Zrt.";Fót;2151;"Keleti Márton út 19";Magyarország;;12068535-2-44;"2023.06. Elszámolásról. A 2023-107 sztornozott helyett.";1756;2230;HUF;1;1756;2230;0;;Százalék;0;;Számla;Hagyományos;474
+2024-22;2023-107;2024-01-23;2023-08-06;2023-08-06;Átutalás;"PHOENIX Pharma Zrt.";Fót;2151;"Keleti Márton út 19";Magyarország;;12068535-2-44;"2023.06. hó.";-2020;-2565;HUF;1;-2020;-2565;0;;Százalék;0;;"Storno számla";Hagyományos;-545
+2024-23;;2024-01-23;2024-01-23;2024-01-23;Készpénz;"JÓZSAI PATIKA Bt.";Debrecen;4225;"Szentgyörgyfalvi utca 9, 17-es sorszámú gyógyszertár helyiség.";Magyarország;;21857838-2-09;;72200;91694;HUF;1;72200;91694;91694;2024-01-23;Százalék;0;;Számla;Hagyományos;19494
+2024-24;;2024-01-25;2024-01-25;2024-02-02;Átutalás;"Tündérfátyol Bt.";Debrecen;4028;"Szigligeti utca 7.";Magyarország;;20681612-2-09;;198000;251460;HUF;1;198000;251460;0;;Százalék;0;;Számla;Hagyományos;53460
+2024-25;;2024-01-25;2024-01-25;2024-02-02;Átutalás;"ELIXIRIUM Bt.";Berettyóújfalu;4100;"Bajcsy-Zsilinszky Endre u. 3-5.";Magyarország;;22866695-2-09;;66800;84836;HUF;1;66800;84836;0;;Százalék;0;;Számla;Hagyományos;18036
+2024-26;;2024-01-30;2024-01-30;2024-02-07;Átutalás;"""S.R.M. REMÉNY"" Kft.";Nyíregyháza;4400;"Nyírfa utca 23.";Magyarország;;14029309-2-15;;42875;54451;HUF;1;42875;54451;0;;Százalék;0;;Számla;Hagyományos;11576
+2024-27;;2024-01-30;2024-01-30;2024-02-07;Átutalás;"""S.R.M. REMÉNY"" Kft.";Nyíregyháza;4400;"Nyírfa utca 23.";Magyarország;;14029309-2-15;;32490;41262;HUF;1;32490;41262;0;;Százalék;10;;Számla;Hagyományos;8772
+2024-28;;2024-01-30;2024-01-30;2024-02-07;Átutalás;"""FICTILE PHARMA"" Bt.";Debrecen;4029;"Csapó utca 22. fszt. 2.";Magyarország;;22870708-2-09;;248160;315163;HUF;1;248160;315163;0;;Százalék;0;;Számla;Hagyományos;67003
+2024-29;;2024-01-30;2024-01-30;2024-02-07;Átutalás;"MIMIPHARMA Kft.";Debrecen;4026;"Hatvan utca 66.";Magyarország;;13905228-2-09;;396000;502920;HUF;1;396000;502920;0;;Százalék;0;;Számla;Hagyományos;106920
+2024-30;;2024-02-01;2024-02-01;2024-02-09;Átutalás;"Balmazpharm Kft.";Balmazújváros;4060;"Bocskai u. 2-4.";Magyarország;;10715138-2-09;;32490;41262;HUF;1;32490;41262;0;;Százalék;10;;Számla;Hagyományos;8772
+2024-31;;2024-02-01;2024-02-01;2024-02-09;Átutalás;"Balmazpharm Kft.";Balmazújváros;4060;"Bocskai u. 2-4.";Magyarország;;10715138-2-09;;398125;505619;HUF;1;398125;505619;0;;Százalék;0;;Számla;Hagyományos;107494
+2024-32;;2024-02-01;2024-02-09;2024-02-09;Átutalás;"BENNOVUM Kft.";Budapest;1087;"Százados u. 18.";Magyarország;;12532740-2-42;"BIO VITALITY KFT
+Időszak: 2024.01.01 - 2024.01.31
+IDŐKÖZI BIZOMÁNYOSI ELSZÁMOLÁS
+BE24-00220";170539;216585;HUF;1;170539;216585;0;;Százalék;0;;Számla;Hagyományos;46046
+2024-33;;2024-02-06;2024-03-07;2024-03-07;Átutalás;"Bellis Egészségtár Kft.";Budapest;1151;"Károlyi Sándor út 121.";Magyarország;;11843425-2-42;"Letéti jelentés BIO VITALITY KFT. 2024.01.";121060;153746;HUF;1;121060;153746;0;;Százalék;0;;Számla;Hagyományos;32686
+2024-34;;2024-02-09;2024-02-09;2024-02-09;Készpénz;"Dr. Kissné Lengyel Csilla Anikó";Nyíregyháza;4400;"Patkó utca 2/A";Magyarország;;;;25000;31750;HUF;1;25000;31750;31750;2024-02-09;Százalék;0;;Számla;Hagyományos;6750
+2024-35;;2024-02-12;2024-02-12;2024-02-20;Átutalás;"Ábrányi Patika Bt.";Nyírábrány;4264;"Hajnal u. 1. sz.,";Magyarország;;22866262-2-09;;66415;84347;HUF;1;66415;84347;0;;Százalék;0;;Számla;Hagyományos;17932
+2024-36;;2024-02-12;2024-02-12;2024-02-20;Átutalás;"SILVER-PHARMA Bt.";Nyíregyháza;4400;"Kossuth u. 50.";Magyarország;;21080382-2-15;;6308;8011;HUF;1;6308;8011;0;;Százalék;20;;Számla;Hagyományos;1703
+2024-37;;2024-02-12;2024-02-12;2024-02-20;Átutalás;"MIMIPHARMA Kft.";Debrecen;4026;"Hatvan utca 66.";Magyarország;;13905228-2-09;;37848;48067;HUF;1;37848;48067;0;;Százalék;20;;Számla;Hagyományos;10219
+2024-38;;2024-02-12;2024-02-12;2024-02-20;Átutalás;"""FICTILE PHARMA"" Bt.";Debrecen;4029;"Csapó utca 22. fszt. 2.";Magyarország;;22870708-2-09;;25232;32045;HUF;1;25232;32045;0;;Százalék;20;;Számla;Hagyományos;6813
+2024-39;;2024-02-12;2024-02-12;2024-02-20;Átutalás;"Balmazpharm Kft.";Balmazújváros;4060;"Bocskai utca 2-4.";Magyarország;;10715138-2-09;;255376;324328;HUF;1;255376;324328;0;;Százalék;20;;Számla;Hagyományos;68952
+2024-40;;2024-02-12;2024-02-12;2024-02-20;Átutalás;"GRANULA Bt.";Nyírkarász;4544;"Kossuth u. 1.";Magyarország;;25671292-2-15;;34216;43454;HUF;1;34216;43454;0;;Százalék;20;;Számla;Hagyományos;9238
+2024-41;;2024-02-12;2024-02-12;2024-02-20;Átutalás;"GS-Herc Bt.";Hajdúsámson;4251;"Hunyadi utca 2.";Magyarország;;22870423-2-09;;25232;32045;HUF;1;25232;32045;0;;Százalék;20;;Számla;Hagyományos;6813
+2024-42;;2024-02-12;2024-02-12;2024-02-20;Átutalás;"Sanavita Bt.";Kunhegyes;5340;"Kossuth utca 54.";Magyarország;;26054384-2-16;;12616;16022;HUF;1;12616;16022;0;;Százalék;20;;Számla;Hagyományos;3406
+2024-43;;2024-02-12;2024-02-12;2024-02-20;Átutalás;"Várda Patika Bt.";Kisvárda;4600;"Árpád u. 26.";Magyarország;;28629108-2-15;;171080;217272;HUF;1;171080;217272;0;;Százalék;20;;Számla;Hagyományos;46192
+2024-44;;2024-02-12;2024-02-12;2024-02-20;Átutalás;"""S.R.M. REMÉNY"" Kft.";Nyíregyháza;4400;"Nyírfa utca 23.";Magyarország;;14029309-2-15;;140304;178186;HUF;1;140304;178186;0;;Százalék;20;;Számla;Hagyományos;37882
+2024-45;;2024-02-12;2024-02-12;2024-02-20;Átutalás;"JÓZSAI PATIKA Bt.";Debrecen;4225;"Szentgyörgyfalvi utca 9, 17-es sorszámú gyógyszertár helyiség.";Magyarország;;21857838-2-09;;57536;73071;HUF;1;57536;73071;0;;Százalék;20;;Számla;Hagyományos;15535
+2024-46;;2024-02-12;2024-02-12;2024-02-20;Átutalás;"RANGERS V&V Kft.";Miskolc;3527;"Baross Gábor u. 16.";Magyarország;;12637041-2-05;;57536;73071;HUF;1;57536;73071;0;;Százalék;20;;Számla;Hagyományos;15535
+2024-47;;2024-02-12;2024-02-12;2024-02-20;Átutalás;"Kis-Kamilla Patika Kft.";Hajdúszoboszló;4200;"Bethlen utca 30.";Magyarország;;24380203-2-09;;28768;36535;HUF;1;28768;36535;0;;Százalék;20;;Számla;Hagyományos;7767
+2024-48;;2024-02-12;2024-02-12;2024-02-20;Átutalás;"TECTRA 95. Kft.";Hajdúszoboszló;4200;"Széchenyi u. 14.";Magyarország;;12110711-2-09;;15292;19421;HUF;1;15292;19421;0;;Százalék;20;;Számla;Hagyományos;4129
+2024-49;;2024-02-12;2024-02-12;2024-02-20;Átutalás;"Szent György Patika Investment Kft.";Budapest;1088;"Mikszáth K. tér 4.";Magyarország;;14692187-2-42;;35076;44547;HUF;1;35076;44547;0;;Százalék;20;;Számla;Hagyományos;9471
+2024-50;;2024-02-12;2024-02-12;2024-02-12;Készpénz;"""MÁTYÁS KIRÁLY"" Kft.";Debrecen;4028;"Laktanya utca 23.";Magyarország;;14526411-2-09;;17425;22130;HUF;1;17425;22130;22130;2024-02-12;Százalék;0;;Számla;Hagyományos;4705
+2024-51;;2024-02-12;2024-02-12;2024-02-20;Átutalás;"Balmazpharm Kft.";Balmazújváros;4060;"Bocskai u. 2-4.";Magyarország;;10715138-2-09;;70152;89093;HUF;1;70152;89093;0;;Százalék;20;;Számla;Hagyományos;18941
+2024-52;;2024-02-12;2024-02-12;2024-02-20;Átutalás;"Pappné Vass Anikó Eleonóra";Kállósemjén;4324;"Kossuth út 87.";Magyarország;;51850205-2-35;;21600;27432;HUF;1;21600;27432;0;;Százalék;20;;Számla;Hagyományos;5832
+2024-53;;2024-02-13;2024-02-13;2024-02-23;Átutalás;"Terra Gold Kft.";Hajdúsámson;4251;"Kiscsere utca 3.";Magyarország;;10273829-2-09;;154600;196342;HUF;1;154600;196342;0;;Százalék;0;;Számla;Hagyományos;41742
+2024-54;;2024-02-16;2024-02-16;2024-02-24;Átutalás;"FEHÉRTÓ-PATIKA Bt.";Újfehértó;4244;"Bartók Béla út 11";Magyarország;;20154053-2-15;;33425;42450;HUF;1;33425;42450;0;;Százalék;30;;Számla;Hagyományos;9025
+2024-55;;2024-02-16;2024-02-16;2024-02-24;Átutalás;"FEHÉRTÓ-PATIKA Bt.";Újfehértó;4244;"Bartók Béla út 11";Magyarország;;20154053-2-15;;16245;20631;HUF;1;16245;20631;0;;Százalék;10;;Számla;Hagyományos;4386
+2024-56;;2024-02-16;2024-02-16;2024-02-24;Átutalás;"FEHÉRTÓ-PATIKA Bt.";Újfehértó;4244;"Bartók Béla út 11";Magyarország;;20154053-2-15;;6970;8852;HUF;1;6970;8852;0;;Százalék;0;;Számla;Hagyományos;1882
+2024-57;;2024-02-16;2024-02-16;2024-02-24;Átutalás;"GS-Herc Bt.";Hajdúsámson;4251;"Hunyadi utca 2.";Magyarország;;22870423-2-09;;72200;91694;HUF;1;72200;91694;0;;Százalék;0;;Számla;Hagyományos;19494
+2024-58;;2024-02-16;2024-02-16;2024-02-24;Átutalás;"PATIKA 62. Bt.";Komádi;4138;"Fő u. 35.";Magyarország;;22859819-2-09;;56670;71971;HUF;1;56670;71971;0;;Százalék;0;;Számla;Hagyományos;15301
+2024-59;;2024-02-16;2024-02-16;2024-02-24;Átutalás;"PATIKA 62. Bt.";Komádi;4138;"Fő u. 35.";Magyarország;;22859819-2-09;;16245;20631;HUF;1;16245;20631;0;;Százalék;10;;Számla;Hagyományos;4386
+2024-60;;2024-02-20;2024-02-20;2024-02-28;Átutalás;"Sanavita Bt.";Kunhegyes;5340;"Kossuth u. 54.";Magyarország;;26054384-2-16;;97470;123787;HUF;1;97470;123787;0;;Százalék;10;;Számla;Hagyományos;26317
+2024-61;;2024-02-20;2024-02-20;2024-02-28;Átutalás;"Sanavita Bt.";Kunhegyes;5340;"Kossuth u. 54.";Magyarország;;26054384-2-16;;19600;24892;HUF;1;19600;24892;0;;Százalék;30;;Számla;Hagyományos;5292
+2024-62;;2024-02-20;2024-02-20;2024-02-20;Készpénz;"JÓZSAI PATIKA Bt.";Debrecen;4225;"Szentgyörgyfalvi utca 9, 17-es sorszámú gyógyszertár helyiség.";Magyarország;;21857838-2-09;;72200;91694;HUF;1;72200;91694;91694;2024-02-20;Százalék;0;;Számla;Hagyományos;19494
+2024-63;;2024-02-22;2024-03-23;2024-03-23;Átutalás;"Bellis Egészségtár Kft.";Budapest;1151;"Károlyi Sándor út 121.";Magyarország;;11843425-2-42;"2024.01. havi letéti jelentés alapján kiállított számla Bio Vitality kft.";121060;153746;HUF;1;121060;153746;0;;Százalék;0;;Számla;Hagyományos;32686
+2024-64;;2024-02-22;2024-02-22;2024-03-01;Átutalás;"SANITAS PATIKA Kft.";Tuzsér;4623;"Kossuth utca 64.";Magyarország;;25510692-2-15;;15930;20231;HUF;1;15930;20231;0;;Százalék;10;;Számla;Hagyományos;4301
+2024-65;;2024-02-22;2024-02-22;2024-03-01;Átutalás;"Litke '98 Bt.";Fényeslitke;4621;"Kossuth u. 137.";Magyarország;;20225528-2-15;;9900;12573;HUF;1;9900;12573;0;;Százalék;0;;Számla;Hagyományos;2673
+2024-66;;2024-02-22;2024-02-22;2024-03-01;Átutalás;"Litke '98 Bt.";Fényeslitke;4621;"Kossuth u. 137.";Magyarország;;20225528-2-15;;16245;20631;HUF;1;16245;20631;0;;Százalék;10;;Számla;Hagyományos;4386
+2024-67;;2024-02-22;2024-02-22;2024-03-01;Átutalás;"Horváthné Dr. Kamuti Gyöngyi";Váncsod;4119;"Kossuth u. 13.";Magyarország;;47768525-2-29;;33435;42462;HUF;1;33435;42462;0;;Százalék;0;;Számla;Hagyományos;9027
+2024-68;;2024-02-22;2024-02-22;2024-03-01;Átutalás;"Horváthné Dr. Kamuti Gyöngyi";Váncsod;4119;"Kossuth u. 13.";Magyarország;;47768525-2-29;;18690;23736;HUF;1;18690;23736;0;;Százalék;30;;Számla;Hagyományos;5046
+2024-69;;2024-02-22;2024-02-22;2024-03-01;Átutalás;"Horváthné Dr. Kamuti Gyöngyi";Váncsod;4119;"Kossuth u. 13.";Magyarország;;47768525-2-29;;16245;20631;HUF;1;16245;20631;0;;Százalék;10;;Számla;Hagyományos;4386
+2024-70;;2024-02-26;2024-02-26;2024-03-05;Átutalás;"Várda Patika Bt.";Kisvárda;4600;"Árpád u. 26.";Magyarország;;28629108-2-15;;198000;251460;HUF;1;198000;251460;0;;Százalék;0;;Számla;Hagyományos;53460
+2024-71;;2024-02-27;2024-02-27;2024-03-06;Átutalás;"Balmazpharm Kft.";Balmazújváros;4060;"Bocskai utca 2-4.";Magyarország;;10715138-2-09;;45475;57753;HUF;1;45475;57753;0;;Százalék;0;;Számla;Hagyományos;12278
+2024-72;;2024-02-28;2024-02-28;2024-03-07;Átutalás;"FEHÉRTÓ-PATIKA Bt.";Encsencs;4374;"Fő út 3.";Magyarország;;20154053-2-15;;33425;42450;HUF;1;33425;42450;0;;Százalék;30;;Számla;Hagyományos;9025
+2024-73;;2024-02-28;2024-02-28;2024-03-07;Átutalás;"FEHÉRTÓ-PATIKA Bt.";Encsencs;4374;"Fő út 3.";Magyarország;;20154053-2-15;;16245;20631;HUF;1;16245;20631;0;;Százalék;10;;Számla;Hagyományos;4386
+2024-74;;2024-02-28;2024-02-28;2024-03-07;Átutalás;"FEHÉRTÓ-PATIKA Bt.";Encsencs;4374;"Fő út 3.";Magyarország;;20154053-2-15;;6970;8852;HUF;1;6970;8852;0;;Százalék;0;;Számla;Hagyományos;1882
+2024-75;2024-56;2024-02-28;2024-02-16;2024-02-24;Átutalás;"FEHÉRTÓ-PATIKA Bt.";Újfehértó;4244;"Bartók Béla út 11";Magyarország;;20154053-2-15;;-6970;-8852;HUF;1;-6970;-8852;0;;Százalék;0;;"Storno számla";Hagyományos;-1882
+2024-76;2024-59;2024-02-28;2024-02-16;2024-02-24;Átutalás;"PATIKA 62. Bt.";Komádi;4138;"Fő u. 35.";Magyarország;;22859819-2-09;;-16245;-20631;HUF;1;-16245;-20631;0;;Százalék;10;;"Storno számla";Hagyományos;-4386
+2024-77;2024-54;2024-02-28;2024-02-16;2024-02-24;Átutalás;"FEHÉRTÓ-PATIKA Bt.";Újfehértó;4244;"Bartók Béla út 11";Magyarország;;20154053-2-15;;-33425;-42450;HUF;1;-33425;-42450;0;;Százalék;30;;"Storno számla";Hagyományos;-9025
+2024-78;2024-55;2024-02-28;2024-02-16;2024-02-24;Átutalás;"FEHÉRTÓ-PATIKA Bt.";Újfehértó;4244;"Bartók Béla út 11";Magyarország;;20154053-2-15;;-16245;-20631;HUF;1;-16245;-20631;0;;Százalék;10;;"Storno számla";Hagyományos;-4386
+2024-79;;2024-02-28;2024-02-28;2024-03-07;Átutalás;"PATIKA 62. Bt.";Komádi;4138;"Fő u. 35.";Magyarország;;22859819-2-09;;16245;20631;HUF;1;16245;20631;0;;Százalék;10;;Számla;Hagyományos;4386
+2024-80;;2024-02-28;2024-02-28;2024-03-07;Átutalás;"Várda Patika Bt.";Kisvárda;4600;"Árpád u. 26.";Magyarország;;28629108-2-15;;64980;82525;HUF;1;64980;82525;0;;Százalék;10;;Számla;Hagyományos;17545
+2024-81;;2024-02-28;2024-02-28;2024-03-07;Átutalás;"Várda Patika Bt.";Kisvárda;4600;"Árpád u. 26.";Magyarország;;28629108-2-15;;86900;110363;HUF;1;86900;110363;0;;Százalék;0;;Számla;Hagyományos;23463
+2024-82;;2024-02-28;2024-02-28;2024-03-07;Átutalás;"KORONA PATIKA-98 Bt.";Balmazújváros;4060;"Veres Péter u. 2/D.";Magyarország;;22894047-2-09;;71250;90488;HUF;1;71250;90488;0;;Százalék;0;;Számla;Hagyományos;19238
+2024-83;;2024-03-04;2024-03-12;2024-03-12;Átutalás;"BENNOVUM Kft.";Budapest;1087;"Százados u. 18.";Magyarország;;12532740-2-42;"IDŐKÖZI BIZOMÁNYOSI ELSZÁMOLÁS BIO VITALITY KFT
+Időszak: 2024.02.01 - 2024.02.29";52018;66063;HUF;1;52018;66063;0;;Százalék;0;;Számla;Hagyományos;14045
+2024-84;;2024-03-05;2024-04-04;2024-04-04;Átutalás;"Bellis Egészségtár Kft.";Budapest;1151;"Károlyi Sándor út 121.";Magyarország;;11843425-2-42;"Letéti jelentés BIO VITALITY KFT. 2024.02 Bio Vitality kft.";208695;265043;HUF;1;208695;265043;0;;Százalék;0;;Számla;Hagyományos;56348
+2024-85;;2024-03-14;2024-03-14;2024-03-14;Készpénz;"JÓZSAI PATIKA Bt.";Debrecen;4225;"Szentgyörgyfalvi utca 9, 17-es sorszámú gyógyszertár helyiség.";Magyarország;;21857838-2-09;;72200;91694;HUF;1;72200;91694;91694;2024-03-14;Százalék;0;;Számla;Hagyományos;19494
+2024-86;;2024-03-20;2024-03-20;2024-03-28;Átutalás;"HÁRS GYÓGYSZERTÁR Kft.";Debrecen;4030;"Pandúr utca 2/A.";Magyarország;;14744291-2-09;;36100;45847;HUF;1;36100;45847;0;;Százalék;0;;Számla;Hagyományos;9747
+2024-87;;2024-03-20;2024-03-20;2024-03-28;Átutalás;"RANGERS V&V Kft.";Miskolc;3527;"Baross Gábor u. 16.";Magyarország;;12637041-2-05;;98000;124460;HUF;1;98000;124460;0;;Százalék;0;;Számla;Hagyományos;26460
+2024-88;;2024-03-20;2024-03-20;2024-03-28;Átutalás;"Pappné Vass Anikó Eleonóra";Kállósemjén;4324;"Kossuth út 87.";Magyarország;;51850205-2-35;;36150;45911;HUF;1;36150;45911;0;;Százalék;0;;Számla;Hagyományos;9761
+2024-89;;2024-03-26;2024-03-26;2024-04-03;Átutalás;"""S.R.M. REMÉNY"" Kft.";Nyíregyháza;4400;"Nyírfa utca 23.";Magyarország;;14029309-2-15;;50464;64089;HUF;1;50464;64089;0;;Százalék;20;;Számla;Hagyományos;13625
+2024-90;;2024-03-26;2024-03-26;2024-04-03;Átutalás;"""S.R.M. REMÉNY"" Kft.";Nyíregyháza;4400;"Nyírfa utca 23.";Magyarország;;14029309-2-15;;75845;96323;HUF;1;75845;96323;0;;Százalék;0;;Számla;Hagyományos;20478
+2024-91;;2024-03-27;2024-03-27;2024-04-04;Átutalás;"GYÓGYÍR BT.";Püspökladány;4150;"Kossuth utca 5/1.";Magyarország;;22831150-2-09;;19275;24479;HUF;1;19275;24479;0;;Százalék;0;;Számla;Hagyományos;5204
+2024-92;;2024-03-27;2024-03-27;2024-04-04;Átutalás;"Sanavita Bt.";Kunhegyes;5340;"Kossuth u. 54.";Magyarország;;26054384-2-16;;67640;85903;HUF;1;67640;85903;0;;Százalék;0;;Számla;Hagyományos;18263
+2024-93;;2024-03-28;2024-03-28;2024-04-05;Átutalás;"ARANYGYÖMBÉR Kft.";Apagy;4553;"Kossuth Lajos út 147. A. ép.";Magyarország;;14940734-2-15;;123369;156679;HUF;1;123369;156679;0;;Százalék;0;;Számla;Hagyományos;33310
+2024-94;;2024-04-02;2024-04-10;2024-04-10;Átutalás;"BENNOVUM Kft.";Budapest;1087;"Százados u. 18.";Magyarország;;12532740-2-42;"IDŐKÖZI BIZOMÁNYOSI ELSZÁMOLÁS
+BIO VITALITY KFT
+Időszak: 2024.03.01 - 2024.03.31";167758;213053;HUF;1;167758;213053;0;;Százalék;0;;Számla;Hagyományos;45295
+2024-95;;2024-04-04;2024-05-04;2024-05-04;Átutalás;"Bellis Egészségtár Kft.";Budapest;1151;"Károlyi Sándor út 121.";Magyarország;;11843425-2-42;"Letéti jelentés BIO VITALITY KFT. 2024.03";293580;372847;HUF;1;293580;372847;0;;Százalék;0;;Számla;Hagyományos;79267
+2024-96;;2024-04-08;2024-04-08;2024-04-16;Átutalás;"Ábrányi Patika Bt.";Nyírábrány;4264;"Hajnal u. 1. sz.,";Magyarország;;22866262-2-09;;26805;34042;HUF;1;26805;34042;0;;Százalék;0;;Számla;Hagyományos;7237
+2024-97;;2024-04-08;2024-04-08;2024-04-16;Átutalás;"Dr. Elekes Anikó Kft.";Hortobágy;4071;"Kossuth utca 3.";Magyarország;;23597822-2-09;;5415;6877;HUF;1;5415;6877;0;;Százalék;0;;Számla;Hagyományos;1462
+2024-98;;2024-04-10;2024-04-10;2024-04-18;Átutalás;"Dr. Elekes Anikó Kft.";Hortobágy;4071;"Kossuth utca 3.";Magyarország;;23597822-2-09;;25215;32023;HUF;1;25215;32023;0;;Százalék;0;;Számla;Hagyományos;6808
+2024-99;;2024-04-10;2024-04-10;2024-04-18;Átutalás;"Egyeki Pusztapharma Bt.";Egyek;4069;"Hunyadi u. 48/a";Magyarország;;20151555-2-09;;14935;18967;HUF;1;14935;18967;0;;Százalék;0;;Számla;Hagyományos;4032
+2024-100;;2024-04-10;2024-04-10;2024-04-18;Átutalás;"Balmazpharm Kft.";Balmazújváros;4060;"Bocskai u. 2-4.";Magyarország;;10715138-2-09;"Probiotikum-1805ft  net. -10% Kedvezmény";103575;131540;HUF;1;103575;131540;0;;Százalék;0;;Számla;Hagyományos;27965
+2024-101;;2024-04-10;2024-04-10;2024-04-10;Készpénz;"JÓZSAI PATIKA Bt.";Debrecen;4225;"Szentgyörgyfalvi utca 9, 17-es sorszámú gyógyszertár helyiség.";Magyarország;;21857838-2-09;;72200;91694;HUF;1;72200;91694;91694;2024-04-10;Százalék;0;;Számla;Hagyományos;19494
+2024-102;;2024-04-11;2024-04-11;2024-04-19;Átutalás;"HT-MARBEN Kft";Nyírpazony;4531;"Széchenyi utca 17.";Magyarország;;27874109-2-15;;8123;10316;HUF;1;8123;10316;0;;Százalék;10;;Számla;Hagyományos;2193
+2024-103;;2024-04-11;2024-04-11;2024-04-19;Átutalás;"HT-MARBEN Kft";Nyírpazony;4531;"Széchenyi utca 17.";Magyarország;;27874109-2-15;;6365;8084;HUF;1;6365;8084;0;;Százalék;0;;Számla;Hagyományos;1719
+2024-104;;2024-04-11;2024-04-19;2024-04-19;Átutalás;"Varga Reformház Kft.";Debrecen;4030;"Epreskert u. 88.";Magyarország;;10510854-2-09;"Időszak kezdete
+2024.03.07
+
+Időszak vége
+2024.04.11";870;1105;HUF;1;870;1105;0;;Százalék;0;;Számla;Hagyományos;235
+2024-105;;2024-04-11;2024-04-11;2024-04-19;Átutalás;"KÍGYÓ KÓTAJ Kft.";Kótaj;4482;"Kossuth utca 11.";Magyarország;;26497817-2-15;"-10% Kedvezmény";16245;20631;HUF;1;16245;20631;0;;Százalék;10;;Számla;Hagyományos;4386
+2024-106;;2024-04-12;2024-04-12;2024-04-20;Átutalás;"Mátyás Patika Bt";Tarpa;4931;"Kossuth u. 51/b";Magyarország;;25675959-2-15;;8123;10316;HUF;1;8123;10316;0;;Százalék;10;;Számla;Hagyományos;2193
+2024-107;;2024-04-12;2024-04-12;2024-04-20;Átutalás;"Mátyás Patika Bt";Tarpa;4931;"Kossuth u. 51/b";Magyarország;;25675959-2-15;;10730;13627;HUF;1;10730;13627;0;;Százalék;0;;Számla;Hagyományos;2897
+2024-108;;2024-04-16;2024-04-16;2024-04-26;Átutalás;"FŐTÉR-KILENC Kft.";Újfehértó;4244;"Fő tér 9.";Magyarország;;24077152-2-15;;46620;59207;HUF;1;46620;59207;0;;Százalék;10;;Számla;Hagyományos;12587
+2024-109;;2024-04-16;2024-04-16;2024-04-26;Átutalás;"FŐTÉR-KILENC Kft.";Újfehértó;4244;"Fő tér 9.";Magyarország;;24077152-2-15;;65340;82982;HUF;1;65340;82982;0;;Százalék;40;;Számla;Hagyományos;17642
+shop-2024-2;;2024-04-17;2024-04-17;2024-04-25;Átutalás;"teszt elek";Debrecen;4030;"teszt  ss";Magyarország;;;"Rendelésazonosító: 40";2354;2989;HUF;1;2354;2989;0;2024-04-17;Százalék;0;;Számla;Hagyományos;635
+shop-2024-3;;2024-04-18;2024-04-18;2024-04-26;Átutalás;"Istvan Mariska";Debrecen;4034;"107 Ruyter utca";Magyarország;;;"Rendelésazonosító: 41";1570;1994;HUF;1;1570;1994;1994;2024-04-18;Százalék;0;;Számla;Hagyományos;424
+2024-110;;2024-04-22;2024-04-22;2024-05-02;Átutalás;"NYIR-BIO Kft.";Nyíregyháza;4400;"Ungvár sétány 35.";Magyarország;;13704364-2-15;;99000;125730;HUF;1;99000;125730;0;;Százalék;50;;Számla;Hagyományos;26730
+2024-111;;2024-04-24;2024-04-24;2024-05-02;Átutalás;"Várda Patika Bt.";Kisvárda;4600;"Árpád u. 26.";Magyarország;;28629108-2-15;;97470;123787;HUF;1;97470;123787;0;;Százalék;10;;Számla;Hagyományos;26317
+2024-112;;2024-04-24;2024-04-24;2024-05-02;Átutalás;"Várda Patika Bt.";Kisvárda;4600;"Árpád u. 26.";Magyarország;;28629108-2-15;;112320;142646;HUF;1;112320;142646;0;;Százalék;0;;Számla;Hagyományos;30326
+2024-113;;2024-04-24;2024-04-24;2024-05-02;Átutalás;"GS-Herc Bt.";Hajdúsámson;4251;"Hunyadi utca 2.";Magyarország;;22870423-2-09;;72200;91694;HUF;1;72200;91694;0;;Százalék;0;;Számla;Hagyományos;19494
+2024-114;;2024-04-26;2024-04-26;2024-05-04;Átutalás;"""GEDEON ÉS GEDEON"" KFT.";Kisvárda;4600;"Szt. László u. 69.";Magyarország;;23013498-2-15;;28080;35662;HUF;1;28080;35662;0;;Százalék;10;;Számla;Hagyományos;7582
+2024-115;;2024-04-26;2024-04-26;2024-05-04;Átutalás;"""GEDEON ÉS GEDEON"" KFT.";Kisvárda;4600;"Szt. László u. 69.";Magyarország;;23013498-2-15;;34095;43301;HUF;1;34095;43301;0;;Százalék;0;;Számla;Hagyományos;9206
+shop-2024-4;;2024-04-30;2024-04-30;2024-05-08;Átutalás;"Istvan Korodi";Debrecen;4034;"107 Ruyter utca";Magyarország;;;"Rendelésazonosító: 42";7826;9939;HUF;1;7826;9939;0;2024-04-30;Százalék;0;;Számla;Hagyományos;2113
+shop-2024-5;;2024-04-30;2024-04-30;2024-05-08;Átutalás;"Istvan Istvan";Debrecen;4034;"107 Ruyter utca";Magyarország;;;"Rendelésazonosító: 44";14067;17865;HUF;1;14067;17865;0;2024-04-30;Százalék;0;;Számla;Hagyományos;3798
+shop-2024-6;shop-2024-1;2024-04-30;2024-01-16;2024-01-24;Átutalás;"Istvan I";Debrecen;4034;"Ruyter utca 70 / B";Magyarország;;;"Rendelésazonosító: 39";-2046;-2599;HUF;1;-2046;-2599;0;;Százalék;0;;"Storno számla";Hagyományos;-553
+shop-2024-7;shop-2024-2;2024-04-30;2024-04-17;2024-04-25;Átutalás;"teszt elek";Debrecen;4030;"teszt  ss";Magyarország;;;"Rendelésazonosító: 40";-2354;-2989;HUF;1;-2354;-2989;0;;Százalék;0;;"Storno számla";Hagyományos;-635
+shop-2024-8;shop-2024-5;2024-04-30;2024-04-30;2024-05-08;Átutalás;"Istvan Istvan";Debrecen;4034;"107 Ruyter utca";Magyarország;;;"Rendelésazonosító: 44";-14067;-17865;HUF;1;-14067;-17865;0;;Százalék;0;;"Storno számla";Hagyományos;-3798
+shop-2024-9;shop-2024-4;2024-04-30;2024-04-30;2024-05-08;Átutalás;"Istvan Korodi";Debrecen;4034;"107 Ruyter utca";Magyarország;;;"Rendelésazonosító: 42";-7826;-9939;HUF;1;-7826;-9939;0;;Százalék;0;;"Storno számla";Hagyományos;-2113
+2024-116;;2024-04-30;2024-04-30;2024-04-30;Készpénz;"JÓZSAI PATIKA Bt.";Debrecen;4225;"Szentgyörgyfalvi utca 9, 17-es sorszámú gyógyszertár helyiség.";Magyarország;;21857838-2-09;;36100;45847;HUF;1;36100;45847;45847;2024-04-30;Százalék;0;;Számla;Hagyományos;9747
+2024-117;;2024-04-30;2024-04-30;2024-04-30;Készpénz;"JÓZSAI PATIKA Bt.";Debrecen;4225;"Szentgyörgyfalvi utca 9, 17-es sorszámú gyógyszertár helyiség.";Magyarország;;21857838-2-09;"Áprilisi Akció -25% Kedvezmény. Bio Vitality kft.";23655;30042;HUF;1;23655;30042;30042;2024-04-30;Százalék;25;;Számla;Hagyományos;6387
+2024-118;;2024-04-30;2024-04-30;2024-05-08;Átutalás;"""FICTILE PHARMA"" Bt.";Debrecen;4029;"Csapó utca 22. fszt. 2.";Magyarország;;22870708-2-09;;44760;56845;HUF;1;44760;56845;0;;Százalék;0;;Számla;Hagyományos;12085
+2024-119;;2024-05-02;2024-05-10;2024-05-10;Átutalás;"BENNOVUM Kft.";Budapest;1087;"Százados u. 18.";Magyarország;;12532740-2-42;"IDŐKÖZI BIZOMÁNYOSI ELSZÁMOLÁS BIO VITALITY KFT
+Időszak: 2024.04.01 - 2024.04.30
+BE24-00836";122615;155721;HUF;1;122615;155721;0;;Százalék;0;;Számla;Hagyományos;33106
+shop-2024-10;;2024-05-06;2024-05-06;2024-05-14;Bankkártya;"Mészáros Jenő";Várpalota;8100;"Vörösmarty 35";Magyarország;;;"Rendelésazonosító: 45";7440;9449;HUF;1;7440;9449;9449;2024-05-06;Százalék;0;;Számla;Hagyományos;2009
+2024-120;;2024-05-07;2024-06-06;2024-06-06;Átutalás;"Bellis Egészségtár Kft.";Budapest;1151;"Károlyi S. út 121.";Magyarország;;11843425;;458615;582441;HUF;1;458615;582441;0;;Százalék;0;;Számla;Hagyományos;123826
+2024-121;;2024-05-14;2024-05-22;2024-05-22;Átutalás;"Varga Reformház Kft.";Debrecen;4030;"Epreskert u. 88.";Magyarország;;10510854-2-09;"D2414112/D02823
+Időszak kezdete
+2024.04.11
+Időszak vége
+2024.05.06";1740;2210;HUF;1;1740;2210;0;;Százalék;0;;Számla;Hagyományos;470
+2024-122;;2024-05-14;2024-05-14;2024-05-22;Átutalás;"Arany Borostyán Patika Kft.";Vásárosnamény;4800;"Kossuth Lajos út 34. fszt. 3.";Magyarország;;13904966-2-15;;11828;15021;HUF;1;11828;15021;0;;Százalék;25;;Számla;Hagyományos;3193
+2024-123;;2024-05-14;2024-05-14;2024-05-22;Átutalás;"Arany Borostyán Patika Kft.";Vásárosnamény;4800;"Kossuth Lajos út 34. fszt. 3.";Magyarország;;13904966-2-15;;44920;57048;HUF;1;44920;57048;0;;Százalék;20;;Számla;Hagyományos;12128
+2024-124;;2024-05-14;2024-05-14;2024-05-22;Átutalás;"Aloe Pharma Kft";Nyíregyháza;4400;"Széchenyi utca 1.";Magyarország;;25744202-2-15;"50% kedvezmény a Bio Vitality Vitamin D3 60db lágy zselé kapszula készítményre.";10935;13887;HUF;1;10935;13887;0;;Százalék;0;;Számla;Hagyományos;2952
+2024-125;;2024-05-14;2024-05-14;2024-05-22;Átutalás;"Hatvani István Gyógyszertár Bt.";Debrecen;4032;"Lehel u. 22.";Magyarország;;22873512-2-09;;10830;13754;HUF;1;10830;13754;0;;Százalék;0;;Számla;Hagyományos;2924
+2024-126;;2024-05-14;2024-05-14;2024-05-22;Átutalás;"Hatvani István Gyógyszertár Bt.";Debrecen;4032;"Lehel u. 22.";Magyarország;;22873512-2-09;;5914;7510;HUF;1;5914;7510;0;;Százalék;25;;Számla;Hagyományos;1597
+2024-127;;2024-05-14;2024-05-14;2024-05-22;Készpénz;"""MÁTYÁS KIRÁLY"" Kft.";Debrecen;4028;"Laktanya utca 23.";Magyarország;;14526411-2-09;;129815;164864;HUF;1;129815;164864;0;;Százalék;44.5;;Számla;Hagyományos;35050

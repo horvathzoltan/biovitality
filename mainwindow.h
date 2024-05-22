@@ -21,7 +21,9 @@ public:
     ~MainWindow();
 signals:
     void PushButtonActionTriggered(IMainView *sender);
+    void TetelImportActionTriggered(IMainView *sender);
 private slots:    
     void on_pushButton_clicked();
+    void on_pushButton_tetelImport_clicked();
 };
 #endif // MAINWINDOW_H

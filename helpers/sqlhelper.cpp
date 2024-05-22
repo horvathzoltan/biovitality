@@ -22,7 +22,7 @@ auto SQLHelper::GetDriverName() -> QString{
 }
 
 //https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-setup-tools?view=sql-server-ver15#ubuntu
-QSqlDatabase SQLHelper::Connect(const SQLSettings& s, const QString& name)
+QSqlDatabase SQLHelper::Connect(const SQLSettings& s, const QString& name, int timeout)
 {
     QSqlDatabase db;
     const HostPort* h=nullptr;
@@ -30,23 +30,24 @@ QSqlDatabase SQLHelper::Connect(const SQLSettings& s, const QString& name)
     {
         //zInfo("host: "+i.host+":"+QString::number(i.port));
         if(NetworkHelper::Ping(i.host)) {
-            zInfo("reachable: "+i.host+":"+QString::number(i.port));
+            QString msg = "host: "+i.host+":"+QString::number(i.port);
             QTcpSocket s;
             s.connectToHost(i.host, i.port);
-            auto isok = s.waitForConnected(1000);
+            auto isok = s.waitForConnected(timeout);
             if(isok){
                 s.disconnectFromHost();
                 if (s.state() != QAbstractSocket::UnconnectedState) s.waitForDisconnected();
                 h=&(i);
-                zInfo("socket ok");
+                msg+=" socket ok";
                 break;
             }
             else{
-                zInfo("socket err");
+                msg+=" socket err";
             }
+            zInfo(msg);
         }
         else{
-            zInfo("unreachable:"+i.host);
+            zInfo("host unreachable:"+i.host);
         }
     }
 

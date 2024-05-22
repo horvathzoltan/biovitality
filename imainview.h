@@ -16,6 +16,7 @@ public:
 
 public: // signals
     virtual void PushButtonActionTriggered(IMainView *sender) = 0;
+    virtual void TetelImportActionTriggered(IMainView *sender) = 0;
 };
 
 #endif // IMAINVIEW_H

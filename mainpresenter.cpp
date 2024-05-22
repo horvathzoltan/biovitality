@@ -3,6 +3,7 @@
 #include "helpers/sqlhelper.h"
 #include "mainviewmodel.h"
 #include "dowork.h"
+#include "operations.h"
 
 #include <QFileDialog>
 #include <QDateTime>
@@ -14,7 +15,7 @@
 
 #include <helpers/sqlhelper.h>
 
-MainPresenter::MainPresenter(QObject *parent) :QObject(parent)
+MainPresenter::MainPresenter(QObject *parent):Presenter(parent)
 {
 
 }
@@ -28,6 +29,9 @@ void MainPresenter::appendView(IMainView *w)
 
     QObject::connect(view_obj, SIGNAL(PushButtonActionTriggered(IMainView *)),
                      this, SLOT(processPushButtonAction(IMainView *)));
+
+    QObject::connect(view_obj, SIGNAL(TetelImportActionTriggered(IMainView *)),
+                     this, SLOT(processTetelImportAction(IMainView *)));
 
     //refreshView(w);
 }
@@ -47,12 +51,12 @@ void MainPresenter::initView(IMainView *w) const {
         "Aladar123"
     };
     SQLHelper sqlh;
-    auto db = sqlh.Connect(sql_settings, conn);
+    auto db = sqlh.Connect(sql_settings, conn, 5000);
 
     if(db.isValid()){
-        zInfo("DB is valid");
+        zInfo("DB "+sql_settings.dbname+" is valid");
     } else{
-        zInfo("DB is invalid");
+        zInfo("DB "+sql_settings.dbname+" is invalid");
     }
 };
 
@@ -61,5 +65,12 @@ void MainPresenter::processPushButtonAction(IMainView *sender){
     auto m = sender->get_DoWorkModel();
     auto rm = DoWork::Work1(m);
     sender->set_DoWorkRModel(rm);
+}
+
+void MainPresenter::processTetelImportAction(IMainView *sender)
+{
+    qDebug() << "processTetelImportAction";
+
+    Operations::instance().foo();
 }
 

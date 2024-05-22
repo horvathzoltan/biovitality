@@ -7,10 +7,11 @@
 #include <QList>
 #include <QObject>
 #include "imainview.h"
+#include "presenter.h"
 
 class IMainView;
 
-class MainPresenter : public QObject
+class MainPresenter : public Presenter
 {
     Q_OBJECT
 
@@ -26,6 +27,7 @@ private:
 
 private slots:
     void processPushButtonAction(IMainView *sender);
+    void processTetelImportAction(IMainView *sender);
 };
 
 #endif // MAINPRESENTER_H
