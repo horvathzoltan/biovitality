@@ -3,12 +3,13 @@
 
 #include "mainviewmodel.h"
 
+#include <IView.h>
 #include <QColor>
 #include <QPointF>
 #include <QRect>
 #include <QSet>
 
-class IMainView
+class IMainView : public IView
 {
 public:
     virtual void set_DoWorkRModel(const MainViewModel::DoWorkRModel& m) = 0;

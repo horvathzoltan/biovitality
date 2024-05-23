@@ -69,8 +69,10 @@ void MainPresenter::processPushButtonAction(IMainView *sender){
 
 void MainPresenter::processTetelImportAction(IMainView *sender)
 {
-    qDebug() << "processTetelImportAction";
+    //qDebug() << "processTetelImportAction";
 
-    Operations::instance().foo();
+    QUuid opId = Operations::instance().start(this, sender, __FUNCTION__);
+
+    Operations::instance().stop(opId);
 }
 

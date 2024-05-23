@@ -32,6 +32,7 @@ SOURCES += \
 
 HEADERS += \
     #actions.h \
+    IView.h \
     Singleton.h \
     buildnumber.h \
     dowork.h \

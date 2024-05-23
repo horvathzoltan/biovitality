@@ -4,24 +4,27 @@
 #include "helpers/logger.h"
 #include "presenter.h"
 
-#include <QObject>
+#include <QString>
 #include <QUuid>
-#include <QWidget>
+#include <IView.h>
 #include <Singleton.h>
+#include <QMap>
 
 class Operations :public Singleton<Operations>
 {
-public:    
-    class Operation{
-        QUuid id;
-        Presenter presenter;
-        QWidget view;
-    };
-
 public:
-    void foo(){
-        zInfo("foo");
-    }
+    class Operation{
+    public:
+        QUuid id;
+        Presenter* presenter;
+        IView* view;
+        QString name;
+    };
+private:
+    QMap<QUuid, Operation> _operations;
+public:
+    QUuid start(Presenter *presenter, IView *sender, const QString& name);
+    void stop(QUuid id);
 };
 
 #endif // OPERATIONS_H
