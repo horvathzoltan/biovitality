@@ -18,6 +18,9 @@
 
 #include <bi/models/solditem.h>
 
+#include <repositories/solditemrepository.h>
+#include <repositories/solditemrepository.h>
+
 MainPresenter::MainPresenter(QObject *parent):Presenter(parent)
 {
 
@@ -83,6 +86,7 @@ void MainPresenter::processTetelImportAction(IMainView *sender)
         zInfo("file ok");
         QList<SoldItem> items = SoldItem::ImportCSV(csvModel.records);
 
+        SoldItemRepository::InsertOrUpdate(items);
     } else{
         zInfo("file failed");
     }

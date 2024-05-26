@@ -29,7 +29,8 @@ SOURCES += \
     mainpresenter.cpp \
     mainwindow.cpp \
     operations.cpp \
-    presenter.cpp
+    presenter.cpp \
+    repositories/solditemrepository.cpp
     #model.cpp \
      #updates.cpp
 
@@ -55,7 +56,8 @@ HEADERS += \
     mainviewmodel.h \
     mainwindow.h \
     operations.h \
-    presenter.h
+    presenter.h \
+    repositories/solditemrepository.h
     #model.h \
      #updates.h
 

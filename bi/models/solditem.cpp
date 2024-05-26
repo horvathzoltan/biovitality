@@ -1,5 +1,6 @@
 #include "solditem.h"
 
+#include <QRegularExpression>
 #include <QVarLengthArray>
 
 #include <helpers/stringhelper.h>
@@ -41,12 +42,17 @@ QList<SoldItem> SoldItem::ImportCSV(const QList<QVarLengthArray<QString>>& recor
         SoldItem item;
         item.partnerName = GetData(row, partnerName_KEY, ixs).toString();
         item.partnerHq = GetData(row, partnerHq_KEY, ixs).toString();
-        item.fullfillment = GetData(row, fullfillment_KEY, ixs).toString();
+        item.fullfillment = GetData(row, fullfillment_KEY, ixs).toDateTime();
         item.accountNr = GetData(row, accountNr_KEY, ixs).toString();
         item.productName = GetData(row, productName_KEY, ixs).toString();
-        item.units = GetData(row, units_KEY, ixs).toString();
-        item.unitPrice = GetData(row, unitPrice_KEY, ixs).toString();
-        item.netPrice = GetData(row, netPrice_KEY, ixs).toString();
+        item.units = GetData(row, units_KEY, ixs).toUInt();
+
+        auto up = GetPrice(GetData(row, unitPrice_KEY, ixs));
+        item.unitPrice = up.amount;
+        item.currency = up.currency;
+
+        auto up2 = GetPrice(GetData(row, netPrice_KEY, ixs));
+        item.netPrice = up2.amount;
 
         if(item.isValid()){
             m.append(item);
@@ -80,9 +86,24 @@ bool SoldItem::isValid()
 {
     if(partnerName.isEmpty()) return false;
     if(partnerHq.isEmpty()) return false;
-    if(units.isEmpty()) return false;
-    if(netPrice.isEmpty()) return false;
+    if(units<=0) return false;
+    if(netPrice<=0) return false;
     return true;
+}
+
+SoldItem::PriceModel SoldItem::GetPrice(const QVariant v)
+{
+    QRegularExpression p(R"(([\d\W]*)\s*([a-zA-Z]*))");
+    QRegularExpression space(R"(\W)");
+    QRegularExpressionMatch m = p.match(v.toString());
+    bool hasMatch = m.hasMatch();
+    int lastCapturedIndex= m.lastCapturedIndex();
+    if(hasMatch && lastCapturedIndex>=2){
+        bool ok;
+        qreal a = m.captured(1).remove(space).toDouble(&ok);
+        if(ok) return {.amount=a, .currency=m.captured(2)};
+    }
+    return {};
 }
 
 QVariant SoldItem::GetData(const QVarLengthArray<QString> &row, int ix){
