@@ -13,7 +13,10 @@
 #include <QSqlQuery>
 #include <QDebug>
 
+#include <helpers/filehelper.h>
 #include <helpers/sqlhelper.h>
+
+#include <bi/models/solditem.h>
 
 MainPresenter::MainPresenter(QObject *parent):Presenter(parent)
 {
@@ -39,7 +42,7 @@ void MainPresenter::appendView(IMainView *w)
 void MainPresenter::refreshView(IMainView *w) const { Q_UNUSED(w) };
 
 void MainPresenter::initView(IMainView *w) const {
-    MainViewModel::DoWorkRModel rm{"1"};
+    MainViewModel::StringModel rm{"1"};
     w->set_DoWorkRModel(rm);
 
     static const QString conn = QStringLiteral("conn1");
@@ -73,6 +76,16 @@ void MainPresenter::processTetelImportAction(IMainView *sender)
 
     QUuid opId = Operations::instance().start(this, sender, __FUNCTION__);
 
+    MainViewModel::StringModel fn = sender->get_TetelCSVFileName();
+
+    FileHelper::CSVModel csvModel = FileHelper::LoadCSV(fn.str);
+    if(csvModel.error == FileHelper::Ok){
+        zInfo("file ok");
+        QList<SoldItem> items = SoldItem::ImportCSV(csvModel.records);
+
+    } else{
+        zInfo("file failed");
+    }
     Operations::instance().stop(opId);
 }
 

@@ -5,7 +5,7 @@
 
 //}
 
-auto DoWork::Work1(MainViewModel::DoWorkModel m) -> MainViewModel::DoWorkRModel
+auto DoWork::Work1(MainViewModel::DoWorkModel m) -> MainViewModel::StringModel
 {
     return {QString::number(m.i+1)};
 }

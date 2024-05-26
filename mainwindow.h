@@ -14,8 +14,9 @@ class MainWindow : public QMainWindow, public IMainView
 
 private:
     Ui::MainWindow *ui;
-    void set_DoWorkRModel(const MainViewModel::DoWorkRModel& m);
+    void set_DoWorkRModel(const MainViewModel::StringModel& m);
     MainViewModel::DoWorkModel get_DoWorkModel();
+    MainViewModel::StringModel get_TetelCSVFileName();
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
@@ -24,6 +25,6 @@ signals:
     void TetelImportActionTriggered(IMainView *sender);
 private slots:    
     void on_pushButton_clicked();
-    void on_pushButton_tetelImport_clicked();
+    void on_pushButton_tetelImport_clicked();    
 };
 #endif // MAINWINDOW_H

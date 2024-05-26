@@ -3,7 +3,7 @@ QT       += core gui charts network sql
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 # gcc -v --help 2> /dev/null | sed -n '/^ *-std=\([^<][^ ]\+\).*/ {s//\1/p}'
-CONFIG += c++17
+CONFIG += c++20
 
 DEFINES += TARGI=$$TARGET
 message( "TARGET = "$$TARGET )
@@ -14,14 +14,17 @@ message( "TARGET = "$$TARGET )
 
 SOURCES += \
     #actions.cpp \
+    bi/models/solditem.cpp \
     buildnumber.cpp \
     dowork.cpp \
+    helpers/filehelper.cpp \
     helpers/filenamehelper.cpp \
     helpers/logger.cpp \
     helpers/networkhelper.cpp \
     helpers/processhelper.cpp \
     helpers/signalhelper.cpp \
     helpers/sqlhelper.cpp \
+    helpers/stringhelper.cpp \
     main.cpp \
     mainpresenter.cpp \
     mainwindow.cpp \
@@ -34,15 +37,18 @@ HEADERS += \
     #actions.h \
     IView.h \
     Singleton.h \
+    bi/models/solditem.h \
     buildnumber.h \
     dowork.h \
     global.h \
+    helpers/filehelper.h \
     helpers/filenamehelper.h \
     helpers/logger.h \
     helpers/networkhelper.h \
     helpers/processhelper.h \
     helpers/signalhelper.h \
     helpers/sqlhelper.h \
+    helpers/stringhelper.h \
     helpers/stringify.h \
     imainview.h \
     mainpresenter.h \

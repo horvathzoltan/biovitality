@@ -1,5 +1,6 @@
 #ifndef SINGLETON_H
 #define SINGLETON_H
+#include <type_traits>
 
 template <typename T, typename D = T>
 class Singleton

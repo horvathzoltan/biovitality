@@ -3,6 +3,10 @@
 #include "QDebug"
 #include "imainview.h"
 
+#include <QFileDialog>
+
+#include <helpers/filenamehelper.h>
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
       , ui(new Ui::MainWindow)
@@ -15,9 +19,9 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::set_DoWorkRModel(const MainViewModel::DoWorkRModel& m)
+void MainWindow::set_DoWorkRModel(const MainViewModel::StringModel& m)
 {
-    ui->label->setText(m.txt);
+    ui->label->setText(m.str);
 };
 
 auto MainWindow::get_DoWorkModel() -> MainViewModel::DoWorkModel
@@ -27,7 +31,19 @@ auto MainWindow::get_DoWorkModel() -> MainViewModel::DoWorkModel
     int i = t.toInt(&isok, 10);
     if(!isok) return {-1};
     return {i};
-};
+}
+
+MainViewModel::StringModel MainWindow::get_TetelCSVFileName()
+    {
+    MainViewModel::StringModel r;
+
+    QString folderPath = FileNameHelper::GetTestFolderPath();
+    r.str = QFileDialog::getOpenFileName(this,
+                                         tr("Open File"),
+                                         folderPath,
+                                         tr("CSV Files (*.csv *.txt)"));
+    return r;
+    };
 
 void MainWindow::on_pushButton_clicked()
 {

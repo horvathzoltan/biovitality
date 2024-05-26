@@ -1,11 +1,6 @@
 Partner neve,Székhelye,Teljesítés,Számlaszám,Termék megnevezése,Db,Egységár,Nettó ár
-# eladott tételek/eladások
-# az egysegar az eladaskori egysegar
-# a nettó ár kiszámolható-e az egységár és a db szorzatából, az 5-ft-os kerekítés hogy lett figyelembevéve???
-# partnerID,teljesítés,számlaszám,termékId,db,egysegar,nettoAr
-Korodi Istvan,"4024 Debecen,
-Jászai Mari utca 7.
-fszt. 3.",2022.04.27,shop-2022-1,Ginseng,1,1 102 Ft,1 102 Ft
+Korodi Istvan,"4024 Debecen, Jászai Mari utca 7. fszt. 3.",2022.04.27,shop-2022-1,Ginseng,1,1 102 Ft,1 102 Ft
+Korodi Istvan,"4024 Debecen, Jászai Mari utca 7. fszt. 3.",2022.04.27,shop-2022-1,Ginseng,1,1 102 Ft,1 102 Ft
 Korodi Istvan,"4024 Debecen, Jászai Mari utca 7. fszt. 3.",2022.04.27,shop-2022-1,GLS házhozszállítás,1,1 700 Ft,1 700 Ft
 Alaszka Kft.,"4030 Debrecen,  Vágóhíd út 4.b.",2022.04.27,2022-1,Fekete Magolaj,20,4 340 Ft,86 800 Ft
 Alaszka Kft.,"4030 Debrecen,  Vágóhíd út 4.b.",2022.04.27,2022-1,Ginseng,20,870 Ft,17 400 Ft
@@ -1159,3 +1154,160 @@ Hatvani István Gyógyszertár Bt.,"4032 Debrecen, Lehel u. 22.",2024.05.14,2024
 """MÁTYÁS KIRÁLY"" Kft.","4028 Debrecen, Laktanya utca 23.",2024.05.14,2024-127,Ginseng,20,483 Ft,9 657 Ft
 GRAND PHARMA Kft.,"4400 Nyíregyháza, Arany János utca 4/A.",2024.05.15,2024-128,Probiotikum,5,1 805 Ft,9 025 Ft
 GRAND PHARMA Kft.,"4400 Nyíregyháza, Arany János utca 4/A.",2024.05.15,2024-128,Probiotikum,1,5 Ft,5 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft
+,,,,,,,0 Ft

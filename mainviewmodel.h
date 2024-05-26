@@ -13,8 +13,8 @@ public:
         int i;
     };
 
-    struct DoWorkRModel{
-        QString txt;
+    struct StringModel{
+        QString str;
     };
 };
 
