@@ -70,5 +70,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
+    testdata/BillingoZolinak.csv \
     testdata/teszt1.csv \
     testdata/teszt2.csv
+
