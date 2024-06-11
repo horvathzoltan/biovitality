@@ -117,7 +117,7 @@ FileHelper::CSVModel FileHelper::LoadCSV(const QString& filename){
     QTextStream st(&f);
     SetUtf8Encoding(&st);
 
-    m.records = LoadCSV_reader(&st);
+    m.records = LoadCSV_reader(&st, ';');
     f.close();
 
     m.error= FileErrors::Ok;
@@ -135,7 +135,7 @@ QStringList FileHelper::LoadLines_reader(QTextStream *st){
     return e;
 }
 
-QList<QVarLengthArray<QString>> FileHelper::LoadCSV_reader(QTextStream *st){
+QList<QVarLengthArray<QString>> FileHelper::LoadCSV_reader(QTextStream *st, const QChar& separator){
     QList<QVarLengthArray<QString>> rows;
     QVarLengthArray<QString> fields;
     QString s;
@@ -168,7 +168,7 @@ QList<QVarLengthArray<QString>> FileHelper::LoadCSV_reader(QTextStream *st){
             }
 
             if(!inQuote){
-                if(a==','){
+                if(a==separator){
                     fields.append(s);
                     s.clear();
                 }

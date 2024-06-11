@@ -86,6 +86,13 @@ void MainPresenter::processTetelImportAction(IMainView *sender)
         zInfo("file ok");
         QList<SoldItem> items = SoldItem::ImportCSV(csvModel.records);
 
+        // megvan a modell lista, egyenként meg kell nézni id szerint, hogy
+        // ha létezik, update
+        // ha nem, insert
+        // todo 001 storno flag
+        // todo 002 partner törzs - partner id bevezetése
+        // - 1. partner import
+        // - 2. tétel import
         SoldItemRepository::InsertOrUpdate(items);
     } else{
         zInfo("file failed");

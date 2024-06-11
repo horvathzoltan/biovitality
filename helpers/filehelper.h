@@ -40,7 +40,7 @@ private:
     static bool Validate_Save(const QString& filename, FileErrors *err);
 
     static QStringList LoadLines_reader(QTextStream *st);
-    static QList<QVarLengthArray<QString>> LoadCSV_reader(QTextStream *st);
+    static QList<QVarLengthArray<QString>> LoadCSV_reader(QTextStream *st, const QChar& sqparator );
 };
 
 #endif // FILEHELPER_H
