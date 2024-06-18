@@ -39,6 +39,13 @@
        </widget>
       </item>
       <item>
+       <widget class="QPushButton" name="pushButton_dbtest">
+        <property name="text">
+         <string>DBtest</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <spacer name="horizontalSpacer">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>

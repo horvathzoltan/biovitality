@@ -1,10 +1,11 @@
 #ifndef SQLHELPER_H
 #define SQLHELPER_H
 
+#include <QVector>
+#include <QString>
 #include <QFileInfo>
 #include <QSqlDatabase>
-#include <QString>
-
+#include <QVariant>
 
 class SQLHelper
 {
@@ -27,7 +28,8 @@ public:
     SQLHelper(){
 
     }
-    QSqlDatabase Connect(const SQLSettings& s, const QString &name, int timeout);
+    QSqlDatabase Connect_odbc(const SQLSettings& s, const QString &name, int timeout);
+    QSqlDatabase Connect_mariadb(const SQLSettings& s, const QString &name, int timeout);
 
     static QFileInfo GetMostRecent(const QString &path, const QString &pattern);
 

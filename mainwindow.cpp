@@ -58,3 +58,10 @@ void MainWindow::on_pushButton_tetelImport_clicked()
     emit TetelImportActionTriggered(this);
 }
 
+
+void MainWindow::on_pushButton_dbtest_clicked()
+{
+    qDebug() << "DBTestActionTriggered";
+    emit DBTestActionTriggered(this);
+}
+

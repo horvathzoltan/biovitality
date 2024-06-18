@@ -32,6 +32,7 @@ public:
     QPushButton *pushButton;
     QLabel *label;
     QPushButton *pushButton_tetelImport;
+    QPushButton *pushButton_dbtest;
     QSpacerItem *horizontalSpacer;
     QSpacerItem *verticalSpacer;
     QMenuBar *menubar;
@@ -62,6 +63,11 @@ public:
         pushButton_tetelImport->setObjectName("pushButton_tetelImport");
 
         horizontalLayout->addWidget(pushButton_tetelImport);
+
+        pushButton_dbtest = new QPushButton(centralwidget);
+        pushButton_dbtest->setObjectName("pushButton_dbtest");
+
+        horizontalLayout->addWidget(pushButton_dbtest);
 
         horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
 
@@ -94,6 +100,7 @@ public:
         pushButton->setText(QCoreApplication::translate("MainWindow", "PushButton", nullptr));
         label->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
         pushButton_tetelImport->setText(QCoreApplication::translate("MainWindow", "T\303\251telImport", nullptr));
+        pushButton_dbtest->setText(QCoreApplication::translate("MainWindow", "DBtest", nullptr));
     } // retranslateUi
 
 };

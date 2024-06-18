@@ -15,6 +15,7 @@ message( "TARGET = "$$TARGET )
 SOURCES += \
     #actions.cpp \
     bi/models/solditem.cpp \
+    bi/repositories/solditemrepository.cpp \
     buildnumber.cpp \
     dowork.cpp \
     helpers/filehelper.cpp \
@@ -30,7 +31,8 @@ SOURCES += \
     mainwindow.cpp \
     operations.cpp \
     presenter.cpp \
-    repositories/solditemrepository.cpp
+    #repositories/solditemrepository.cpp \
+    settings.cpp
     #model.cpp \
      #updates.cpp
 
@@ -39,6 +41,7 @@ HEADERS += \
     IView.h \
     Singleton.h \
     bi/models/solditem.h \
+    bi/repositories/solditemrepository.h \
     buildnumber.h \
     dowork.h \
     global.h \
@@ -57,7 +60,8 @@ HEADERS += \
     mainwindow.h \
     operations.h \
     presenter.h \
-    repositories/solditemrepository.h
+    #repositories/solditemrepository.h \
+    settings.h
     #model.h \
      #updates.h
 

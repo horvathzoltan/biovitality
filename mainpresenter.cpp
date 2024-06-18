@@ -4,6 +4,7 @@
 #include "mainviewmodel.h"
 #include "dowork.h"
 #include "operations.h"
+#include "settings.h"
 
 #include <QFileDialog>
 #include <QDateTime>
@@ -12,14 +13,17 @@
 #include <QSqlError>
 #include <QSqlQuery>
 #include <QDebug>
+#include <QStringLiteral>
 
 #include <helpers/filehelper.h>
 #include <helpers/sqlhelper.h>
 
 #include <bi/models/solditem.h>
 
-#include <repositories/solditemrepository.h>
-#include <repositories/solditemrepository.h>
+#include <bi/repositories/solditemrepository.h>
+
+
+extern Settings _settings;
 
 MainPresenter::MainPresenter(QObject *parent):Presenter(parent)
 {
@@ -39,6 +43,9 @@ void MainPresenter::appendView(IMainView *w)
     QObject::connect(view_obj, SIGNAL(TetelImportActionTriggered(IMainView *)),
                      this, SLOT(processTetelImportAction(IMainView *)));
 
+    QObject::connect(view_obj, SIGNAL(DBTestActionTriggered(IMainView *)),
+                     this, SLOT(processDBTestAction(IMainView *)));
+
     //refreshView(w);
 }
 
@@ -49,21 +56,22 @@ void MainPresenter::initView(IMainView *w) const {
     w->set_DoWorkRModel(rm);
 
     static const QString conn = QStringLiteral("conn1");
-    SQLHelper::SQLSettings sql_settings{
-        "QMARIADB",
-        "biovitality",
-            {{"192.168.1.105", 3306}},
-        "zoli",
-        "Aladar123"
-    };
+    // SQLHelper::SQLSettings sql_settings{
+    //     "QMARIADB",
+    //     "biovitality",
+    //         {{"192.168.1.105", 3306}},
+    //     "zoli",
+    //     "Aladar123"
+    // };
     SQLHelper sqlh;
-    auto db = sqlh.Connect(sql_settings, conn, 5000);
+    auto db = sqlh.Connect_mariadb(_settings._sql_settings, conn, 5000);
 
     if(db.isValid()){
-        zInfo("DB "+sql_settings.dbname+" is valid");
+        zInfo("DB "+_settings._sql_settings.dbname+" is valid");
     } else{
-        zInfo("DB "+sql_settings.dbname+" is invalid");
+        zInfo("DB "+_settings._sql_settings.dbname+" is invalid");
     }
+     db.close();
 };
 
 void MainPresenter::processPushButtonAction(IMainView *sender){
@@ -93,10 +101,55 @@ void MainPresenter::processTetelImportAction(IMainView *sender)
         // todo 002 partner törzs - partner id bevezetése
         // - 1. partner import
         // - 2. tétel import
-        SoldItemRepository::InsertOrUpdate(items);
+        //SoldItemRepository::InsertOrUpdate(items);
     } else{
         zInfo("file failed");
     }
     Operations::instance().stop(opId);
 }
+
+void MainPresenter::processDBTestAction(IMainView *sender)
+{
+    SQLHelper sqlh;
+    static const QString conn = QStringLiteral("conn2");
+    auto db = sqlh.Connect_mariadb(_settings._sql_settings, conn, 5000);
+
+    if(db.isValid()){
+        zInfo("DB "+_settings._sql_settings.dbname+" is valid");
+    } else{
+        zInfo("DB "+_settings._sql_settings.dbname+" is invalid");
+    }
+
+
+    QSqlQuery query(db);
+    bool isok = db.open();
+    if(isok) {
+
+        isok = query.exec(QStringLiteral("SELECT id,partnerName FROM SoldItem;"));
+
+        if(isok && query.size()){
+            while (query.next()) {
+                QVariant id = query.value("id");
+                QVariant partnerName = query.value("partnerName");
+                QString msg = QStringLiteral("id:%1 partnerName:%2")
+                                  .arg(id.toString())
+                                  .arg(partnerName.toString());
+                zInfo(msg);
+            }
+        }
+    }
+    else{
+
+        Error(query.lastError());
+        Error(db.lastError());
+    }
+    db.close();
+    return;
+}
+
+void MainPresenter::Error(const QSqlError& err)
+{
+    if(err.isValid()) zInfo(QStringLiteral("QSqlError: %1 - %2").arg(err.type()).arg(err.text()));
+}
+
 
