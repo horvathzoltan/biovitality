@@ -3,13 +3,21 @@
 
 #include <bi/models/solditem.h>
 
+class RepositoryBase{
+public:
+    static const QString CONTAINS_CMD;
+    static const QString TABLE_NAME;
 
-class SoldItemRepository
+    bool Contains(int id);
+};
+
+class SoldItemRepository : public RepositoryBase
 {
 public:
     SoldItemRepository();
 
-    // bool Contains(int id);
+
+    //bool Contains(int id);
     // void Add(const SoldItem& m);
     // SoldItem Get(int id);
     // QList<SoldItem> GetAll();
