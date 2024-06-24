@@ -74,6 +74,8 @@ void MainPresenter::initView(IMainView *w) const {
         zInfo("DB "+_settings._sql_settings.dbname+" is invalid");
     }
     //_db.close();
+
+    SoldItem::_meta.Init();
 };
 
 void MainPresenter::processPushButtonAction(IMainView *sender){
@@ -153,13 +155,14 @@ void MainPresenter::processDBTestAction(IMainView *sender)
     //sqlh.SetSettings(_settings._sql_settings);
 
     SoldItemRepository sr;
-    bool a1 = sr.Contains(1);
-    zInfo(QStringLiteral("a1:")+(a1?"true":"false"))
-    bool a2 = sr.Contains(2);
-    zInfo(QStringLiteral("a2:")+(a2?"true":"false"))
-    bool a3 = sr.Contains(3);
-    zInfo(QStringLiteral("a3:")+(a3?"true":"false"))
+    // bool a1 = sr.Contains(1);
+    // zInfo(QStringLiteral("a1:")+(a1?"true":"false"))
+    // bool a2 = sr.Contains(2);
+    // zInfo(QStringLiteral("a2:")+(a2?"true":"false"))
+    // bool a3 = sr.Contains(3);
+    // zInfo(QStringLiteral("a3:")+(a3?"true":"false"))
 
+    auto a = sr.Get(1);
     return;
 }
 
