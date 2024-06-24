@@ -81,7 +81,8 @@ SoldItem SoldItemRepository::Get(int id)
         QVariant v = f.value();
         QMetaType targetType = f.metaType();// v.metaType();//QMetaType::fromType<>();
 
-        //s.partnerName = v.value<QString>(); //qvariant_cast<QString>(v);
+        //s.partnerName = v.value<QString>(); //
+        auto b = qvariant_cast<QString>(v);
 
         QMetaType::convert(v.metaType(), v.constData(), targetType, &s.partnerName);
 

@@ -164,25 +164,26 @@ QVariant SoldItem::GetData(const QVarLengthArray<QString> &row, int ix){
 void Meta::Init()
 {
     _isInited = false;
-    AddField(QT_STRINGIFY(id));
-    AddField(QT_STRINGIFY(partnerName));
-    AddField(QT_STRINGIFY(partnerHq));
-    AddField(QT_STRINGIFY(county));
-    AddField(QT_STRINGIFY(fullfillment));
-    AddField(QT_STRINGIFY(accountNr));
-    AddField(QT_STRINGIFY(productName));
-    AddField(QT_STRINGIFY(units));
-    AddField(QT_STRINGIFY(unitPrice));
-    AddField(QT_STRINGIFY(unitCurrency));
-    AddField(QT_STRINGIFY(netPrice));
-    AddField(QT_STRINGIFY(netCurrency));
+    kurutty(SoldItem, id)
+    kurutty(SoldItem, partnerName);
+    kurutty(SoldItem, partnerHq);
+    kurutty(SoldItem, county);
+    kurutty(SoldItem, fullfillment);
+    kurutty(SoldItem, accountNr);
+    kurutty(SoldItem, productName);
+    kurutty(SoldItem, units);
+    kurutty(SoldItem, unitPrice);
+    kurutty(SoldItem, unitCurrency);
+    kurutty(SoldItem, netPrice);
+    kurutty(SoldItem, netCurrency);
     _isInited = true;
 }
 
-void Meta::AddField(const QString &name)
+void Meta::AddField(const QString &name, const QMetaType& t)
 {
     MetaField f;
     f.name=name;
+    f.type = t;
     _fields.append(f);
 }
 

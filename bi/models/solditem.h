@@ -7,9 +7,12 @@
 
 #include <helpers/filehelper.h>
 
+#define kurutty(a,b) AddField(#b, QMetaType::fromType<decltype(a::b)>());
+
 struct MetaField{
 public:
     QString name;
+    QMetaType type;
 };
 
 class Meta{
@@ -17,7 +20,7 @@ class Meta{
     QList<MetaField> _fields;
 public:
     void Init();
-    void AddField(const QString& name);
+    void AddField(const QString& name, const QMetaType& t);
     QString GetFieldList();
 };
 
