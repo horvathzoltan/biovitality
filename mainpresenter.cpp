@@ -75,7 +75,7 @@ void MainPresenter::initView(IMainView *w) const {
     }
     //_db.close();
 
-    SoldItem::_meta.Init();
+    SoldItem::MetaInit();
 };
 
 void MainPresenter::processPushButtonAction(IMainView *sender){

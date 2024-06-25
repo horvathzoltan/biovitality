@@ -1,28 +1,13 @@
 #ifndef SOLDITEM_H
 #define SOLDITEM_H
 
+#include "bi/meta/meta.h"
 #include <QDateTime>
 #include <QList>
 #include <QVariant>
 
 #include <helpers/filehelper.h>
 
-#define kurutty(a,b) AddField(#b, QMetaType::fromType<decltype(a::b)>());
-
-struct MetaField{
-public:
-    QString name;
-    QMetaType type;
-};
-
-class Meta{
-    bool _isInited = false;
-    QList<MetaField> _fields;
-public:
-    void Init();
-    void AddField(const QString& name, const QMetaType& t);
-    QString GetFieldList();
-};
 
 class SoldItem
 {
@@ -42,12 +27,8 @@ public:
     qreal netPrice=0;
     QString netCurrency;
 
-    // struct PriceModel{
-    //     qreal amount=0;
-    //     QString currency="";
-    // };
+    static void MetaInit();
 
-    static Meta _meta;
     static QList<SoldItem> ImportCSV(const QList<QVarLengthArray<QString>>& records);
     static QVariant GetData(const QVarLengthArray<QString>& row, int ix);
     static QVariant GetData(const QVarLengthArray<QString>& row, const QString &columnName, const QMap<QString, int>& ixs);
@@ -56,8 +37,11 @@ public:
     static qreal GetPrice2(const QVariant& v, const QLocale& locale);
     static int GetId(const QVariant& v);
 
+    static QString GetMetaFieldList(){ return _meta.GetFieldList();}
 
 private:
+    static Meta<SoldItem> _meta;
+
     static int indexOf(const QVarLengthArray<QString>& row, const QString & column_name);
 };
 

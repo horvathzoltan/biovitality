@@ -40,6 +40,7 @@ HEADERS += \
     #actions.h \
     IView.h \
     Singleton.h \
+    bi/meta/meta.h \
     bi/models/solditem.h \
     bi/repositories/solditemrepository.h \
     buildnumber.h \

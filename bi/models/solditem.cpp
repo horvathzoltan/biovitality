@@ -6,9 +6,25 @@
 
 #include <helpers/stringhelper.h>
 
-Meta SoldItem::_meta;
+Meta<SoldItem> SoldItem::_meta;
 
 SoldItem::SoldItem() {}
+
+void SoldItem::MetaInit()
+{
+    AddMetaField(id);
+    AddMetaField(partnerName);
+    AddMetaField(partnerHq);
+    AddMetaField(county);
+    AddMetaField(fullfillment);
+    AddMetaField(accountNr);
+    AddMetaField(productName);
+    AddMetaField(units);
+    AddMetaField(unitPrice);
+    AddMetaField(unitCurrency);
+    AddMetaField(netPrice);
+    AddMetaField(netCurrency);
+}
 
 /*
 ID;Partner neve;Székhelye;Megye;Teljesítés;Számlaszám;Termék megnevezése;Db;Egységár;Eá. Pénznem;Nettó ár;Nettó pénznem
@@ -161,40 +177,38 @@ QVariant SoldItem::GetData(const QVarLengthArray<QString> &row, int ix){
 }
 
 
-void Meta::Init()
-{
-    _isInited = false;
-    kurutty(SoldItem, id)
-    kurutty(SoldItem, partnerName);
-    kurutty(SoldItem, partnerHq);
-    kurutty(SoldItem, county);
-    kurutty(SoldItem, fullfillment);
-    kurutty(SoldItem, accountNr);
-    kurutty(SoldItem, productName);
-    kurutty(SoldItem, units);
-    kurutty(SoldItem, unitPrice);
-    kurutty(SoldItem, unitCurrency);
-    kurutty(SoldItem, netPrice);
-    kurutty(SoldItem, netCurrency);
-    _isInited = true;
-}
+// void Meta::Init()
+// {
+//     _isInited = false;
 
-void Meta::AddField(const QString &name, const QMetaType& t)
-{
-    MetaField f;
-    f.name=name;
-    f.type = t;
-    _fields.append(f);
-}
+//     _isInited = true;
+// }
 
-QString Meta::GetFieldList()
-{
-    if(!_isInited) return {};
-    QString e;
-    for(auto&a:_fields){
-        if(a.name.toLower()=="id") continue;
-        if(!e.isEmpty()) e+=",";
-        e+=a.name;
-    }
-    return e;
-}
+// int Meta::GetOffset(){
+//     SoldItem i[2];
+//     char* p0 = (char*)&i[0];
+//     char* r0 =  (char*)(&(i[0].id));
+//     int o0 = r0-p0;
+//     return o0;
+// }
+
+// void Meta::AddField(const QString &name, const QMetaType& t, int o)
+// {
+//     MetaField f;
+//     f.name=name;
+//     f.type = t;
+//     f._offset = o;
+//     _fields.append(f);
+// }
+
+// QString Meta::GetFieldList()
+// {
+//     if(!_isInited) return {};
+//     QString e;
+//     for(auto&a:_fields){
+//         if(a.name.toLower()=="id") continue;
+//         if(!e.isEmpty()) e+=",";
+//         e+=a.name;
+//     }
+//     return e;
+// }

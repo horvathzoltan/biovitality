@@ -67,7 +67,7 @@ bool SoldItemRepository::ContainsBy_ExcelId(int id)
 
 SoldItem SoldItemRepository::Get(int id)
 {
-    QString fieldList=SoldItem::_meta.GetFieldList();
+    QString fieldList=SoldItem::GetMetaFieldList();
 
     QString cmd=GET_CMD.arg(TABLE_NAME).arg(id).arg(fieldList);
     zInfo("cmd:"+cmd);
