@@ -39,6 +39,7 @@ public:
 
     static QString GetMetaFieldList(){ return _meta.GetFieldList();}
 
+    static SoldItem FromMetaValues(const QList<MetaValue>& m);
 private:
     static Meta<SoldItem> _meta;
 

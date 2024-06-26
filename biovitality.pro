@@ -14,6 +14,7 @@ message( "TARGET = "$$TARGET )
 
 SOURCES += \
     #actions.cpp \
+    bi/helpers/sqlmetahelper.cpp \
     bi/models/solditem.cpp \
     bi/repositories/solditemrepository.cpp \
     buildnumber.cpp \
@@ -40,6 +41,7 @@ HEADERS += \
     #actions.h \
     IView.h \
     Singleton.h \
+    bi/helpers/sqlmetahelper.h \
     bi/meta/meta.h \
     bi/models/solditem.h \
     bi/repositories/solditemrepository.h \

@@ -5,15 +5,23 @@
 #include <QList>
 #include <QMetaType>
 #include <QString>
+#include <QVariant>
 
 
 #define AddMetaField(b) _meta.AddField(#b, QMetaType::fromType<decltype(_meta._instance.b)>(), (char*)(&_meta._instance.b));
+
 
 struct MetaField{
 public:
     QString name;
     QMetaType type;
     int _offset;
+};
+
+struct MetaValue{
+public:
+    QString name;
+    QVariant value;
 };
 
 template<typename T>
@@ -47,6 +55,14 @@ public:
             e+=a.name;
         }
         return e;
+    }
+
+
+    MetaField* GetField(const QString& name){
+        for(auto&a:_fields){
+            if(a.name==name) return &a;
+        }
+        return nullptr;
     }
 
 };

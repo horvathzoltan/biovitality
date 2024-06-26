@@ -145,6 +145,7 @@ int SoldItem::GetId(const QVariant& v){
     return -1;
 }
 
+
 qreal SoldItem::GetPrice2(const QVariant& v, const QLocale& locale){
     QString txt = v.toString().remove(' ');
 
@@ -212,3 +213,33 @@ QVariant SoldItem::GetData(const QVarLengthArray<QString> &row, int ix){
 //     }
 //     return e;
 // }
+
+
+/*SoldItem s = SoldItem::FromSQL(r);
+        QSqlField f = records.first().field("partnerName");
+        QVariant v = f.value();
+        QMetaType targetType = f.metaType();// v.metaType();//QMetaType::fromType<>();
+
+
+        //s.partnerName = v.value<QString>(); //
+        auto b = qvariant_cast<QString>(v);
+
+        QMetaType::convert(v.metaType(), v.constData(), targetType, &s.partnerName);
+
+
+        zTrace();*/
+//}
+SoldItem SoldItem::FromMetaValues(const QList<MetaValue> &metaValues)
+{
+    SoldItem s;
+    for(auto&m:metaValues){
+        MetaField* f = _meta.GetField(m.name);
+        if(f){
+            QVariant v = m.value;
+
+            char* ptr = ((char*)&s) + f->_offset;
+            QMetaType::convert(v.metaType(), v.constData(), f->type, ptr);
+        }
+    }
+    return s;
+}

@@ -71,24 +71,17 @@ SoldItem SoldItemRepository::Get(int id)
 
     QString cmd=GET_CMD.arg(TABLE_NAME).arg(id).arg(fieldList);
     zInfo("cmd:"+cmd);
-     QList<QSqlRecord> records =
-         _sqlHelper.DoQuery(cmd);
-
-    SoldItem s;
-
-    if(!records.isEmpty()){
-        QSqlField f = records.first().field("partnerName");
-        QVariant v = f.value();
-        QMetaType targetType = f.metaType();// v.metaType();//QMetaType::fromType<>();
-
-        //s.partnerName = v.value<QString>(); //
-        auto b = qvariant_cast<QString>(v);
-
-        QMetaType::convert(v.metaType(), v.constData(), targetType, &s.partnerName);
+    QList<QSqlRecord> records =
+        _sqlHelper.DoQuery(cmd);
 
 
-        zTrace();
+    if(!records.isEmpty())
+    {
+        QSqlRecord r = records.first();
+        QList<MetaValue> m = SQLHelper::RecordToMetaValues(r);
+        SoldItem s = SoldItem::FromMetaValues(m);
+        return s;
     }
 
-    return s;
+
 }
