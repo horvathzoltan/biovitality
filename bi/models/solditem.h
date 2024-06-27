@@ -8,13 +8,16 @@
 
 #include <helpers/filehelper.h>
 
+// enum MetaFieldListTypes{
+//     Select, Update, Insert
+// };
 
 class SoldItem
 {
 public:
     SoldItem();
 
-    int id;
+    int id=-1;
     QString partnerName;
     QString partnerHq;
     QString county;
@@ -37,9 +40,12 @@ public:
     static qreal GetPrice2(const QVariant& v, const QLocale& locale);
     static int GetId(const QVariant& v);
 
-    static QString GetMetaFieldList(){ return _meta.GetFieldList();}
+    // meta
 
-    static SoldItem FromMetaValues(const QList<MetaValue>& m);
+    static QString GetMetaFieldList(){ return _meta.GetFieldList();}
+    static QString GetMetaFieldList_UPDATE(){ return _meta.GetFieldList_UPDATE();}
+
+    static SoldItem FromMetaValues(const QList<MetaValue> &v){return _meta.FromMetaValues(v);}
 private:
     static Meta<SoldItem> _meta;
 

@@ -267,6 +267,13 @@ QFileInfo SQLHelper::GetMostRecent(const QString& path, const QString& pattern)
 //     db.close();
 //     return project_id;
 // }
+QSqlQuery SQLHelper::GetQuery()
+{
+    //if(!_db.isValid()) return QSqlQuery();
+    QSqlQuery query(_db);
+    return query;
+}
+
 
 QList<QSqlRecord> SQLHelper::DoQuery(const QString &cmd)
 {

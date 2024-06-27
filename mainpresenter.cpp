@@ -114,55 +114,11 @@ void MainPresenter::processTetelImportAction(IMainView *sender)
 
 void MainPresenter::processDBTestAction(IMainView *sender)
 {
-    // SQLHelper sqlh;
-    // sqlh.SetSettings(_settings._sql_settings);
-
-    // static const QString conn = QStringLiteral("conn2");
-    // auto db = sqlh.Connect_mariadb(conn, 5000);
-
-    // if(db.isValid()){
-    //     zInfo("DB "+_settings._sql_settings.dbname+" is valid");
-    // } else{
-    //     zInfo("DB "+_settings._sql_settings.dbname+" is invalid");
-    // }
-
-
-    // QSqlQuery query(db);
-    // bool isok = db.open();
-    // if(isok) {
-
-    //     isok = query.exec(QStringLiteral("SELECT id,partnerName FROM SoldItem;"));
-
-    //     if(isok && query.size()){
-    //         while (query.next()) {
-    //             QVariant id = query.value("id");
-    //             QVariant partnerName = query.value("partnerName");
-    //             QString msg = QStringLiteral("id:%1 partnerName:%2")
-    //                               .arg(id.toString())
-    //                               .arg(partnerName.toString());
-    //             zInfo(msg);
-    //         }
-    //     }
-    // }
-    // else{
-
-    //     Error(query.lastError());
-    //     Error(db.lastError());
-    // }
-    // db.close();
-
-    //SQLHelper sqlh;
-    //sqlh.SetSettings(_settings._sql_settings);
-
     SoldItemRepository sr;
-    // bool a1 = sr.Contains(1);
-    // zInfo(QStringLiteral("a1:")+(a1?"true":"false"))
-    // bool a2 = sr.Contains(2);
-    // zInfo(QStringLiteral("a2:")+(a2?"true":"false"))
-    // bool a3 = sr.Contains(3);
-    // zInfo(QStringLiteral("a3:")+(a3?"true":"false"))
-
-    auto a = sr.Get(1);
+    auto a = sr.Get(2);
+    //auto a = sr.GetAll();
+    a.partnerHq = "hq55"
+    bool b = sr.Update(a);
     return;
 }
 

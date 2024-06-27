@@ -56,7 +56,8 @@ public:
 
     static QString GetDriverName();
 
-    QList<QSqlRecord> DoQuery(const QString& cmd);        
+    QList<QSqlRecord> DoQuery(const QString& cmd);
+    QSqlQuery GetQuery();
 };
 
 #endif // SQLHELPER_H

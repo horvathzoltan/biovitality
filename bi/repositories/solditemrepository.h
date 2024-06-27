@@ -8,6 +8,8 @@ public:
     static const QString CONTAINS_CMD;
     static const QString CONTAINS_EXCEL_ID_CMD;
     static const QString GET_CMD;
+    static const QString GETALL_CMD;
+    static const QString UPDATE_CMD;
 
     static const QString TABLE_NAME;
 
@@ -23,8 +25,8 @@ public:
     //void Add(const SoldItem& m);
 
     SoldItem Get(int id);
-    // QList<SoldItem> GetAll();
-    // void Update(const SoldItem& m);
+    QList<SoldItem> GetAll();
+    bool Update(const SoldItem& m);
     // void Remove(int id);
 };
 

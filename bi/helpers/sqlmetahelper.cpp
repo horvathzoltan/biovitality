@@ -18,3 +18,13 @@ QList<MetaValue> SqlMetaHelper::RecordToMetaValues(const QSqlRecord& r)
     }
     return m;
 }
+
+void SqlMetaHelper::Prepare(QSqlQuery *q, const QString& cmd, const QList<MetaValue>& metaValues)
+{
+    if(!q) return;
+    q->prepare(cmd);
+
+    for(auto&m:metaValues){
+        q->bindValue(":"+m.name, m.value);
+    }
+}

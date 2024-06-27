@@ -50,9 +50,20 @@ public:
         if(_fields.isEmpty()) return {};
         QString e;
         for(auto&a:_fields){
-            if(a.name.toLower()=="id") continue;
+            //if(a.name.toLower()=="id") continue;
             if(!e.isEmpty()) e+=",";
             e+=a.name;
+        }
+        return e;
+    }
+
+    QString GetFieldList_UPDATE(){
+        if(_fields.isEmpty()) return {};
+        QString e;
+        for(auto&a:_fields){
+            //if(a.name.toLower()=="id") continue;
+            if(!e.isEmpty()) e+=",";
+            e+=a.name+":="+a.name;
         }
         return e;
     }
@@ -65,6 +76,19 @@ public:
         return nullptr;
     }
 
+    T FromMetaValues(const QList<MetaValue>& metaValues){
+        T s;
+        for(auto&m:metaValues){
+            MetaField* f = GetField(m.name);
+            if(f){
+                QVariant v = m.value;
+
+                char* ptr = ((char*)&s) + f->_offset;
+                QMetaType::convert(v.metaType(), v.constData(), f->type, ptr);
+            }
+        }
+        return s;
+    }
 };
 
 
