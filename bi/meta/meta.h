@@ -11,17 +11,36 @@
 #define AddMetaField(b) _meta.AddField(#b, QMetaType::fromType<decltype(_meta._instance.b)>(), (char*)(&_meta._instance.b));
 
 
+struct MetaValue{
+private:
+    MetaValue(){};
+public:
+    MetaValue(const QString& _name, const QMetaType& type){
+        name = _name;
+        value = QVariant(type);
+    }
+
+    QString name;
+    QVariant value;
+};
+
 struct MetaField{
 public:
     QString name;
     QMetaType type;
     int _offset;
-};
 
-struct MetaValue{
-public:
-    QString name;
-    QVariant value;
+    char* GetPtr(char* s){ return s+ _offset; }
+
+    MetaValue GetMetaValue(char* s){
+        MetaValue mv(name, type);
+
+        char* ptr = GetPtr(s);
+        mv.value = QVariant(type, ptr);
+        //QMetaType::convert(type, ptr, type, &mv.value);
+
+        return mv;
+    }
 };
 
 template<typename T>
@@ -60,10 +79,11 @@ public:
     QString GetFieldList_UPDATE(){
         if(_fields.isEmpty()) return {};
         QString e;
-        for(auto&a:_fields){
-            //if(a.name.toLower()=="id") continue;
+        int i = 0;
+        for(auto&a:_fields){            
+            if(a.name.toLower()=="id") continue;
             if(!e.isEmpty()) e+=",";
-            e+=a.name+":="+a.name;
+            e+=a.name+"=:"+a.name;
         }
         return e;
     }
@@ -81,14 +101,36 @@ public:
         for(auto&m:metaValues){
             MetaField* f = GetField(m.name);
             if(f){
-                QVariant v = m.value;
-
-                char* ptr = ((char*)&s) + f->_offset;
-                QMetaType::convert(v.metaType(), v.constData(), f->type, ptr);
+                char* ptr = f->GetPtr((char*)&s);
+                QMetaType::convert(m.value.metaType(), m.value.constData(), f->type, ptr);
             }
         }
         return s;
     }
+
+    QList<MetaValue> ToMetaValues(const T* s){
+        QList<MetaValue> m;
+        if(s){
+            for (MetaField &f : _fields) {
+                MetaValue mv =  f.GetMetaValue((char*)s);
+                m.append(mv);
+            }
+        }
+        return m;
+    }
+
+    QMap<QString,QVariant> ToMetaValues2(const T* s){
+        QMap<QString,QVariant> m;
+        if(s){
+            for (MetaField &f : _fields) {
+                //if(f.name.toLower()=="id") continue;
+                MetaValue mv =  f.GetMetaValue((char*)s);
+                m.insert(mv.name, mv.value);
+            }
+        }
+        return m;
+    }
+
 };
 
 

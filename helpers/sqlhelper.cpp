@@ -153,9 +153,9 @@ bool SQLHelper::Connect_mariadb(const QString& connName, int timeout)
     return connected;
 }
 
-void Error(const QSqlError& err)
+void SQLHelper::Error(const QString& p, const QSqlError& err)
 {
-    if(err.isValid()) zInfo(QStringLiteral("QSqlError: %1 - %2").arg(err.type()).arg(err.text()));
+    if(err.isValid()) zInfo(QStringLiteral("QSqlError_%3: %1 - %2").arg(err.type()).arg(err.text()).arg(p));
 }
 
 // int SQLHelper::GetBuildNum(QSqlDatabase& db, int project)
@@ -267,15 +267,25 @@ QFileInfo SQLHelper::GetMostRecent(const QString& path, const QString& pattern)
 //     db.close();
 //     return project_id;
 // }
-QSqlQuery SQLHelper::GetQuery()
-{
-    //if(!_db.isValid()) return QSqlQuery();
-    QSqlQuery query(_db);
-    return query;
-}
+// bool isok = _db.open();
+// QSqlQuery SQLHelper::GetQuery()
+// {
+//     //if(!_db.isValid()) return QSqlQuery();
+//     QSqlQuery query(_db);
+//     return query;
+// }
 
+// QSqlQuery SQLHelper::GetQuery(const QString& cmd)
+// {
+//     //if(!_db.isValid()) return QSqlQuery();
+//     QSqlQuery query(_db);
+//     //bool isok = _db.open();
+//     query.prepare(cmd);
+//     return query;
+// }
 
-QList<QSqlRecord> SQLHelper::DoQuery(const QString &cmd)
+// ROWID=:rowid
+QList<QSqlRecord> SQLHelper::DoQuery(const QString& cmd, const QMap<QString,QVariant>& params)
 {
     //static const QString conn = QStringLiteral("conn1");
     //auto db = Connect_mariadb( conn, 5000);
@@ -290,28 +300,49 @@ QList<QSqlRecord> SQLHelper::DoQuery(const QString &cmd)
 
     QList<QSqlRecord> e;
     QSqlQuery query(_db);
+
+    int s = -1;
+
     bool isok = _db.open();
     if(isok) {
+        query.prepare(cmd);
+        if(!params.isEmpty()){
+            QStringList names = params.keys();
+            for(auto&n:names){
+                QVariant v = params.value(n);
+                if(v.isValid()){
+                    query.bindValue(":"+n,v);
+                }
+                zInfo(QStringLiteral("param: ")+":"+n+","+v.toString()
+                      +" "+(v.isValid()?"valid":"invalid") +
+                      " "+v.metaType().name());
+            }
+        }
+        isok = query.exec();
 
-        isok = query.exec(cmd);
+        if(query.isSelect()){
+            s = query.size();
+            if(s==-1) isok = false;
+        } else{
+            s = query.numRowsAffected();
+            if(s==-1) isok = false;
+        }
 
-        if(isok && query.size()){
+        if(isok && query.isSelect() && s>0){
             while (query.next()) {
                 QSqlRecord rec = query.record();
                 e.append(rec);
-                // QVariant id = query.value("id");
-                // QVariant partnerName = query.value("partnerName");
-                // QString msg = QStringLiteral("id:%1 partnerName:%2")
-                //                   .arg(id.toString())
-                //                   .arg(partnerName.toString());
-                // zInfo(msg);
             }
         }
     }
-    else{
 
-        Error(query.lastError());
-        Error(_db.lastError());
+    if(!isok){
+        Error("db", _db.lastError());
+        Error("query", query.lastError());
+    } else {
+        zInfo((s>0)
+            ?"Rows affected:"+QString::number(s)
+            :"No rows affected");
     }
     _db.close();
     return e;

@@ -20,13 +20,13 @@ const QString RepositoryBase::CONTAINS_EXCEL_ID_CMD =
     QStringLiteral("SELECT EXISTS(SELECT 1 FROM %1 WHERE excelId = %2) AS _exists;");
 
 const QString RepositoryBase::GET_CMD =
-    QStringLiteral("SELECT %3 FROM %1 WHERE id = %2;");
+    QStringLiteral("SELECT %1 FROM %2 WHERE id = %3;");
 
 const QString RepositoryBase::GETALL_CMD =
     QStringLiteral("SELECT %2 FROM %1;");
 
 const QString RepositoryBase::UPDATE_CMD =
-    QStringLiteral("UPDATE %3 SET %1 WHERE id = %2;");
+    QStringLiteral("UPDATE %1 SET %2 WHERE id=:id;");
 
 
 const QString RepositoryBase::TABLE_NAME =
@@ -37,8 +37,10 @@ bool RepositoryBase::Contains(int id)
 {
     bool exists = false;
 
-    QList<QSqlRecord> records =
-        _sqlHelper.DoQuery(CONTAINS_CMD.arg(TABLE_NAME).arg(id));
+    QString cmd = CONTAINS_CMD.arg(TABLE_NAME).arg(id);
+    zInfo("cmd:"+cmd);
+    //QSqlQuery q = _sqlHelper.GetQuery(cmd);
+    QList<QSqlRecord> records =_sqlHelper.DoQuery(cmd);
 
     if(!records.isEmpty()){
         QVariant a = records.first().value("_exists");
@@ -52,8 +54,10 @@ bool SoldItemRepository::ContainsBy_ExcelId(int id)
 {
     bool exists = false;
 
-    QList<QSqlRecord> records =
-        _sqlHelper.DoQuery(CONTAINS_EXCEL_ID_CMD.arg(TABLE_NAME).arg(id));
+    QString cmd = CONTAINS_EXCEL_ID_CMD.arg(TABLE_NAME).arg(id);
+    zInfo("cmd:"+cmd);
+    //QSqlQuery q = _sqlHelper.GetQuery(cmd);
+    QList<QSqlRecord> records =_sqlHelper.DoQuery(cmd);
 
     if(!records.isEmpty()){
         QVariant a = records.first().value("_exists");
@@ -68,10 +72,10 @@ SoldItem SoldItemRepository::Get(int id)
 {
     QString fieldList=SoldItem::GetMetaFieldList();
 
-    QString cmd=GET_CMD.arg(TABLE_NAME).arg(id).arg(fieldList);
+    QString cmd=GET_CMD.arg(fieldList).arg(TABLE_NAME).arg(id);
     zInfo("cmd:"+cmd);
-    QList<QSqlRecord> records =
-        _sqlHelper.DoQuery(cmd);
+    //QSqlQuery q = _sqlHelper.GetQuery(cmd);
+    QList<QSqlRecord> records = _sqlHelper.DoQuery(cmd);
 
     if(!records.isEmpty())
     {
@@ -93,8 +97,8 @@ QList<SoldItem> SoldItemRepository::GetAll()
 
     QString cmd=GETALL_CMD.arg(TABLE_NAME).arg(fieldList);
     zInfo("cmd:"+cmd);
-    QList<QSqlRecord> records =
-        _sqlHelper.DoQuery(cmd);
+    //QSqlQuery q = _sqlHelper.GetQuery(cmd);
+    QList<QSqlRecord> records = _sqlHelper.DoQuery(cmd);
 
     QList<SoldItem> items;
     if(!records.isEmpty())
@@ -117,13 +121,13 @@ QList<SoldItem> SoldItemRepository::GetAll()
 bool SoldItemRepository::Update(const SoldItem &m)
 {
     QString fieldList=SoldItem::GetMetaFieldList_UPDATE();
-    QString cmd=UPDATE_CMD.arg(TABLE_NAME).arg(fieldList);
+
+    QString cmd=UPDATE_CMD.arg(TABLE_NAME).arg(fieldList);//.arg(m.id);
     zInfo("cmd:"+cmd);
 
-    auto q = _sqlHelper.GetQuery();
+    QMap<QString,QVariant> params = m.GetQueryParams();
+    QList<QSqlRecord> records = _sqlHelper.DoQuery(cmd, params);
 
-    QList<MetaValue> metaValues = m.GetMetaValues();
-    SqlMetaHelper::Prepare(&q, cmd, metaValues);
-
-    _sqlHelper.Execute(&q);
+    zTrace()
+    return true;
 }

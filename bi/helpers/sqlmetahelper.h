@@ -10,8 +10,9 @@ class SqlMetaHelper
 {
 public:
     static QList<MetaValue> RecordToMetaValues(const QSqlRecord& r);
+    //static QMap<QString,QVariant> RecordToMetaValues2(const QSqlRecord& r);
 
-    static void Prepare(QSqlQuery* q, const QString& cmd, const QList<MetaValue>& m);
+    //static void Prepare(QSqlQuery* q, const QString& cmd, const QList<MetaValue>& m);
 };
 
 #endif // SQLMETAHELPER_H

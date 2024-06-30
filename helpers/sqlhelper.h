@@ -37,6 +37,7 @@ private:
     bool Connect_odbc(const QString &name, int timeout);
     bool Connect_mariadb(const QString &name, int timeout);
 
+    void Error(const QString& p, const QSqlError& err);
 
 public:    
     void Init(const SQLSettings& v);
@@ -56,8 +57,10 @@ public:
 
     static QString GetDriverName();
 
-    QList<QSqlRecord> DoQuery(const QString& cmd);
-    QSqlQuery GetQuery();
+    QList<QSqlRecord> DoQuery(const QString& cmd, const QMap<QString,QVariant>& params = {});
+
+    //QSqlQuery GetQuery();
+    //QSqlQuery GetQuery(const QString& cmd);
 };
 
 #endif // SQLHELPER_H

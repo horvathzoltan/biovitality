@@ -46,6 +46,8 @@ public:
     static QString GetMetaFieldList_UPDATE(){ return _meta.GetFieldList_UPDATE();}
 
     static SoldItem FromMetaValues(const QList<MetaValue> &v){return _meta.FromMetaValues(v);}
+    QList<MetaValue> GetMetaValues()const { return _meta.ToMetaValues(this);}
+    QMap<QString,QVariant> GetQueryParams()const { return _meta.ToMetaValues2(this);}
 private:
     static Meta<SoldItem> _meta;
 
