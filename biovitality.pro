@@ -16,7 +16,8 @@ SOURCES += \
     #actions.cpp \
     bi/helpers/sqlmetahelper.cpp \
     bi/models/solditem.cpp \
-    bi/repositories/solditemrepository.cpp \
+    bi/repositories/sqlexcelrepository.cpp \
+    bi/repositories/sqlrepository.cpp \
     buildnumber.cpp \
     dowork.cpp \
     helpers/filehelper.cpp \
@@ -44,7 +45,8 @@ HEADERS += \
     bi/helpers/sqlmetahelper.h \
     bi/meta/meta.h \
     bi/models/solditem.h \
-    bi/repositories/solditemrepository.h \
+    bi/repositories/sqlexcelrepository.h \
+    bi/repositories/sqlrepository.h \
     buildnumber.h \
     dowork.h \
     global.h \

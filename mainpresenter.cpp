@@ -20,7 +20,7 @@
 
 #include <bi/models/solditem.h>
 
-#include <bi/repositories/solditemrepository.h>
+#include <bi/repositories/sqlrepository.h>
 
 
 extern Settings _settings;
@@ -114,14 +114,14 @@ void MainPresenter::processTetelImportAction(IMainView *sender)
 
 void MainPresenter::processDBTestAction(IMainView *sender)
 {
-    SoldItemRepository sr;
+    SqlRepository<SoldItem> sr("SoldItem");
     auto a = sr.Get(2);
     //auto a = sr.GetAll();
-    a.partnerHq = "aaa111";
-    a.partnerName = "maki111";
+    a.partnerHq = "aaa11";
+    a.partnerName = "maki1";
     bool b = sr.Update(a);
-    a.partnerHq = "aaa114_uj";
-    a.partnerName = "maki114_uj";
+    a.partnerHq = "aaa117_uj";
+    a.partnerName = "maki117_uj";
     bool c = sr.Add(a);
 
     return;
