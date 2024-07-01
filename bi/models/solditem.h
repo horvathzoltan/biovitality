@@ -7,6 +7,7 @@
 #include <QVariant>
 
 #include <helpers/filehelper.h>
+#include <helpers/sqlhelper.h>
 
 // enum MetaFieldListTypes{
 //     Select, Update, Insert
@@ -43,11 +44,11 @@ public:
     // meta
 
     static QString GetMetaFieldList(){ return _meta.GetFieldList();}
-    static QString GetMetaFieldList_UPDATE(){ return _meta.GetFieldList_UPDATE();}
+    //static QString GetMetaFieldList_UPDATE(){ return _meta.GetFieldList_UPDATE();}
 
     static SoldItem FromMetaValues(const QList<MetaValue> &v){return _meta.FromMetaValues(v);}
     QList<MetaValue> GetMetaValues()const { return _meta.ToMetaValues(this);}
-    QMap<QString,QVariant> GetQueryParams()const { return _meta.ToMetaValues2(this);}
+    QList<SQLHelper::SQLParam> GetQueryParams()const { return _meta.ToMetaValues2(this);}
 private:
     static Meta<SoldItem> _meta;
 

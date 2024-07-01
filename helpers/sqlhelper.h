@@ -12,6 +12,12 @@
 class SQLHelper
 {
 public:
+    struct SQLParam{
+        QString paramName;
+        QString fieldName;
+        QVariant fieldValue;
+    };
+
     struct HostPort
     {
         QString host;// = "172.16.1.5";
@@ -57,8 +63,9 @@ public:
 
     static QString GetDriverName();
 
-    QList<QSqlRecord> DoQuery(const QString& cmd, const QMap<QString,QVariant>& params = {});
+    QList<QSqlRecord> DoQuery(const QString& cmd, const QList<SQLParam>& params = {});
 
+    static QString GetFieldList_UPDATE(const QList<SQLHelper::SQLParam>& params);
     //QSqlQuery GetQuery();
     //QSqlQuery GetQuery(const QString& cmd);
 };

@@ -285,7 +285,7 @@ QFileInfo SQLHelper::GetMostRecent(const QString& path, const QString& pattern)
 // }
 
 // ROWID=:rowid
-QList<QSqlRecord> SQLHelper::DoQuery(const QString& cmd, const QMap<QString,QVariant>& params)
+QList<QSqlRecord> SQLHelper::DoQuery(const QString& cmd, const QList<SQLHelper::SQLParam>& params)
 {
     //static const QString conn = QStringLiteral("conn1");
     //auto db = Connect_mariadb( conn, 5000);
@@ -307,15 +307,16 @@ QList<QSqlRecord> SQLHelper::DoQuery(const QString& cmd, const QMap<QString,QVar
     if(isok) {
         query.prepare(cmd);
         if(!params.isEmpty()){
-            QStringList names = params.keys();
-            for(auto&n:names){
-                QVariant v = params.value(n);
-                if(v.isValid()){
-                    query.bindValue(":"+n,v);
+            //QStringList names = params.keys();
+            for(auto&n:params){
+                //QVariant v = params.value(n);
+                if(n.fieldValue.isValid()){
+                    query.bindValue(":"+n.paramName,n.fieldValue);
                 }
-                zInfo(QStringLiteral("param: ")+":"+n+","+v.toString()
-                      +" "+(v.isValid()?"valid":"invalid") +
-                      " "+v.metaType().name());
+
+                zInfo(n.paramName+":"+n.fieldName+"="+n.fieldValue.toString()
+                      +" "+(n.fieldValue.isValid()?"valid":"invalid") +
+                      " "+n.fieldValue.metaType().name());
             }
         }
         isok = query.exec();
@@ -345,5 +346,17 @@ QList<QSqlRecord> SQLHelper::DoQuery(const QString& cmd, const QMap<QString,QVar
             :"No rows affected");
     }
     _db.close();
+    return e;
+}
+
+QString SQLHelper::GetFieldList_UPDATE(const QList<SQLHelper::SQLParam>& params){
+    if(params.isEmpty()) return {};
+    QString e;
+    //int i = 0;
+    for(auto&a:params){
+        if(a.fieldName.toLower()=="id") continue;
+        if(!e.isEmpty()) e+=",";
+        e+=a.fieldName+"=:"+a.paramName;
+    }
     return e;
 }

@@ -120,14 +120,11 @@ QList<SoldItem> SoldItemRepository::GetAll()
 // UPDATE SET clients ClientName=:name, ClientCity=:city, ClientAddress=:address, ClientMol=:mol, ClientEik=:eik, ClientVat=:vat, ClientTel=:tel, ClientMail=:mail WHERE ROWID=:rowid
 bool SoldItemRepository::Update(const SoldItem &m)
 {
-    QString fieldList=SoldItem::GetMetaFieldList_UPDATE();
-
-    QString cmd=UPDATE_CMD.arg(TABLE_NAME).arg(fieldList);//.arg(m.id);
+    QList<SQLHelper::SQLParam> params = m.GetQueryParams();
+    QString fieldList=SQLHelper::GetFieldList_UPDATE(params);
+    QString cmd=UPDATE_CMD.arg(TABLE_NAME).arg(fieldList);
     zInfo("cmd:"+cmd);
-
-    QMap<QString,QVariant> params = m.GetQueryParams();
     QList<QSqlRecord> records = _sqlHelper.DoQuery(cmd, params);
 
-    zTrace()
     return true;
 }

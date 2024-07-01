@@ -6,6 +6,7 @@
 #include <QMetaType>
 #include <QString>
 #include <QVariant>
+#include <helpers/sqlhelper.h>
 
 
 #define AddMetaField(b) _meta.AddField(#b, QMetaType::fromType<decltype(_meta._instance.b)>(), (char*)(&_meta._instance.b));
@@ -76,17 +77,17 @@ public:
         return e;
     }
 
-    QString GetFieldList_UPDATE(){
-        if(_fields.isEmpty()) return {};
-        QString e;
-        int i = 0;
-        for(auto&a:_fields){            
-            if(a.name.toLower()=="id") continue;
-            if(!e.isEmpty()) e+=",";
-            e+=a.name+"=:"+a.name;
-        }
-        return e;
-    }
+    // QString GetFieldList_UPDATE(){
+    //     if(_fields.isEmpty()) return {};
+    //     QString e;
+    //     int i = 0;
+    //     for(auto&a:_fields){
+    //         if(a.name.toLower()=="id") continue;
+    //         if(!e.isEmpty()) e+=",";
+    //         e+=a.name+"=:"+a.name;
+    //     }
+    //     return e;
+    // }
 
 
     MetaField* GetField(const QString& name){
@@ -119,13 +120,19 @@ public:
         return m;
     }
 
-    QMap<QString,QVariant> ToMetaValues2(const T* s){
-        QMap<QString,QVariant> m;
+    QList<SQLHelper::SQLParam> ToMetaValues2(const T* s){
+        QList<SQLHelper::SQLParam> m;
         if(s){
+            int i=1;
             for (MetaField &f : _fields) {
-                //if(f.name.toLower()=="id") continue;
+                bool isId = f.name.toLower()=="id";
                 MetaValue mv =  f.GetMetaValue((char*)s);
-                m.insert(mv.name, mv.value);
+
+                SQLHelper::SQLParam p;
+                p.paramName = isId?"id":"p"+QString::number(i++);
+                p.fieldName = mv.name;
+                p.fieldValue = mv.value;
+                m.append(p);
             }
         }
         return m;
