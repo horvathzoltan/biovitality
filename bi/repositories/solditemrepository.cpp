@@ -28,6 +28,8 @@ const QString RepositoryBase::GETALL_CMD =
 const QString RepositoryBase::UPDATE_CMD =
     QStringLiteral("UPDATE %1 SET %2 WHERE id=:id;");
 
+const QString RepositoryBase::INSERT_CMD =
+    QStringLiteral("INSERT INTO %1 (%2) VALUES (%3);");
 
 const QString RepositoryBase::TABLE_NAME =
     QStringLiteral("SoldItem");
@@ -127,4 +129,17 @@ bool SoldItemRepository::Update(const SoldItem &m)
     QList<QSqlRecord> records = _sqlHelper.DoQuery(cmd, params);
 
     return true;
+}
+
+bool SoldItemRepository::Add(const SoldItem &m){
+    QList<SQLHelper::SQLParam> params = m.GetQueryParams();
+    QString fieldList=SQLHelper::GetFieldList_INSERT(params);
+    QString paramList=SQLHelper::GetParamList_INSERT(params);
+
+    QString cmd=INSERT_CMD.arg(TABLE_NAME).arg(fieldList).arg(paramList);
+    zInfo("cmd:"+cmd);
+    QList<QSqlRecord> records = _sqlHelper.DoQuery(cmd, params);
+
+    return true;
+
 }

@@ -360,3 +360,29 @@ QString SQLHelper::GetFieldList_UPDATE(const QList<SQLHelper::SQLParam>& params)
     }
     return e;
 }
+
+
+
+QString SQLHelper::GetFieldList_INSERT(const QList<SQLHelper::SQLParam>& params){
+    if(params.isEmpty()) return {};
+    QString e;
+    //int i = 0;
+    for(auto&a:params){
+        if(a.fieldName.toLower()=="id") continue;
+        if(!e.isEmpty()) e+=",";
+        e+=a.fieldName;
+    }
+    return e;
+}
+
+QString SQLHelper::GetParamList_INSERT(const QList<SQLHelper::SQLParam>& params){
+    if(params.isEmpty()) return {};
+    QString e;
+    //int i = 0;
+    for(auto&a:params){
+        if(a.fieldName.toLower()=="id") continue;
+        if(!e.isEmpty()) e+=",";
+        e+=':'+a.paramName;
+    }
+    return e;
+}

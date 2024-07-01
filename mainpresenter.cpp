@@ -117,12 +117,12 @@ void MainPresenter::processDBTestAction(IMainView *sender)
     SoldItemRepository sr;
     auto a = sr.Get(2);
     //auto a = sr.GetAll();
-    a.partnerHq = "aaa113";
-    a.partnerName = "maki113";
+    a.partnerHq = "aaa111";
+    a.partnerName = "maki111";
     bool b = sr.Update(a);
-    //a.partnerHq = "aaa114_uj";
-    //a.partnerName = "maki114_uj";
-    //bool c = sr.Insert(a);
+    a.partnerHq = "aaa114_uj";
+    a.partnerName = "maki114_uj";
+    bool c = sr.Add(a);
 
     return;
 }
