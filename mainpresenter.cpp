@@ -25,6 +25,7 @@
 
 extern Settings _settings;
 SQLHelper _sqlHelper;
+SqlRepository<SoldItem> sr("SoldItem");
 
 MainPresenter::MainPresenter(QObject *parent):Presenter(parent)
 {
@@ -86,9 +87,7 @@ void MainPresenter::processPushButtonAction(IMainView *sender){
 }
 
 void MainPresenter::processTetelImportAction(IMainView *sender)
-{
-    //qDebug() << "processTetelImportAction";
-
+{    
     QUuid opId = Operations::instance().start(this, sender, __FUNCTION__);
 
     MainViewModel::StringModel fn = sender->get_TetelCSVFileName();
@@ -98,7 +97,7 @@ void MainPresenter::processTetelImportAction(IMainView *sender)
         zInfo("file ok");
         QList<SoldItem> items = SoldItem::ImportCSV(csvModel.records);
 
-        // megvan a modell lista, egyenként meg kell nézni id szerint, hogy
+        // megvan a modell lista, egyenként meg kell nézni excel_id szerint, hogy
         // ha létezik, update
         // ha nem, insert
         // todo 001 storno flag
@@ -106,6 +105,34 @@ void MainPresenter::processTetelImportAction(IMainView *sender)
         // - 1. partner import
         // - 2. tétel import
         //SoldItemRepository::InsertOrUpdate(items);
+        if(!items.isEmpty())
+        {
+            int i_all=0, u_all=0;
+            int i_ok=0, u_ok=0;
+            for(auto&i:items){
+                bool contains = sr.ContainsBy_ExcelId(i.excelId);
+                if(contains){
+                    int id = sr.GetIdBy_ExcelId(i.excelId); // meg kell szerezni az id-t
+                    if(id!=-1)
+                    {
+                        i.id = id;
+                        u_all++;
+                        bool ok = sr.Update(i);
+                        if(ok) u_ok++;
+                    } else{
+                        zInfo("no id for excelId: "+QString::number(i.excelId));
+                    }
+                } else{
+                    i_all++;
+                    bool ok = sr.Add(i);
+                    if(ok) i_ok++;
+                }
+            }
+            zInfo(QStringLiteral("Updated: %1/%2").arg(u_ok).arg(u_all))
+            zInfo(QStringLiteral("Inserted: %1/%2").arg(i_ok).arg(i_all))
+        } else{
+            zInfo("no items to import");
+        }
     } else{
         zInfo("file failed");
     }
@@ -114,14 +141,15 @@ void MainPresenter::processTetelImportAction(IMainView *sender)
 
 void MainPresenter::processDBTestAction(IMainView *sender)
 {
-    SqlRepository<SoldItem> sr("SoldItem");
+    //SqlRepository<SoldItem> sr("SoldItem");
     auto a = sr.Get(2);
     //auto a = sr.GetAll();
-    a.partnerHq = "aaa11";
-    a.partnerName = "maki1";
+    a.partnerHq = "aaa12";
+    a.partnerName = "maki12";
     bool b = sr.Update(a);
-    a.partnerHq = "aaa117_uj";
-    a.partnerName = "maki117_uj";
+    zInfo(QStringLiteral("Update:")+(b?"ok":"failed"));
+    a.partnerHq = "aaa118_uj";
+    a.partnerName = "maki118_uj";
     bool c = sr.Add(a);
 
     return;

@@ -24,6 +24,7 @@ void SoldItem::MetaInit()
     AddMetaField(unitCurrency);
     AddMetaField(netPrice);
     AddMetaField(netCurrency);
+    AddMetaField(excelId);
 }
 
 /*
@@ -45,7 +46,7 @@ QList<SoldItem> SoldItem::ImportCSV(const QList<QVarLengthArray<QString>>& recor
 
     QMap<QString,int> ixs;
 
-    QString ID_KEY(QT_STRINGIFY(id));
+    QString excelId_KEY(QT_STRINGIFY(id));
     QString partnerName_KEY(QT_STRINGIFY(partnerName));
     QString partnerHq_KEY(QT_STRINGIFY(partnerHq));
     QString county_KEY(QT_STRINGIFY(county));
@@ -58,7 +59,8 @@ QList<SoldItem> SoldItem::ImportCSV(const QList<QVarLengthArray<QString>>& recor
     QString netPrice_KEY(QT_STRINGIFY(netPrice));
     QString netCurrency_KEY(QT_STRINGIFY(netCurrency));
 
-    ixs.insert(ID_KEY,indexOf(header,"ID"));
+
+    ixs.insert(excelId_KEY,indexOf(header,"ID"));
     ixs.insert(partnerName_KEY,indexOf(header,"Partner neve"));
     ixs.insert(partnerHq_KEY,indexOf(header,"Szekhelye"));
     ixs.insert(county_KEY,indexOf(header,"Megye"));
@@ -76,9 +78,10 @@ QList<SoldItem> SoldItem::ImportCSV(const QList<QVarLengthArray<QString>>& recor
     for(int i = 1;i<L;i++){
         QVarLengthArray<QString> row = records[i];
         SoldItem item;
-        QVariant idValue = GetData(row, ID_KEY, ixs);
+        QVariant excelIdValue = GetData(row, excelId_KEY, ixs);
 
-        item.id = GetId(idValue);
+        item.id = 0;
+        item.excelId = GetId(excelIdValue);
         item.partnerName = GetData(row, partnerName_KEY, ixs).toString();
         item.partnerHq = GetData(row, partnerHq_KEY, ixs).toString();
         item.county = GetData(row, county_KEY, ixs).toString();
@@ -99,7 +102,7 @@ QList<SoldItem> SoldItem::ImportCSV(const QList<QVarLengthArray<QString>>& recor
         if(item.isValid()){
             m.append(item);
         } else{
-            zInfo("invalid row:"+QString::number(i+1)+" id:"+idValue.toString());
+            zInfo("invalid row:"+QString::number(i+1)+" excelId:"+excelIdValue.toString());
         }
     }
 
@@ -128,7 +131,7 @@ QVariant SoldItem::GetData(const QVarLengthArray<QString>& row, const QString& c
 
 bool SoldItem::isValid()
 {
-    if(id<=0) return false;
+    if(id<0) return false;
     if(partnerName.isEmpty()) return false;
     if(partnerHq.isEmpty()) return false;
     //if(units<=0) return false; // ha minusz a darabszám, stornós
@@ -229,5 +232,6 @@ QVariant SoldItem::GetData(const QVarLengthArray<QString> &row, int ix){
 
         zTrace();*/
 //}
+
 
 

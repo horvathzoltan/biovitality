@@ -14,8 +14,11 @@ public:
 
 protected:
     static const QString CONTAINS_EXCEL_ID_CMD;
+    static const QString GET_ID_BY_EXCEL_ID_CMD;
+
 public:
     bool ContainsBy_ExcelId(int id);
+    int GetIdBy_ExcelId(int id);
     QString tableName2(){return _tableName;}
 };
 
