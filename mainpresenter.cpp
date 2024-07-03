@@ -141,6 +141,20 @@ void MainPresenter::processTetelImportAction(IMainView *sender)
 
 void MainPresenter::processDBTestAction(IMainView *sender)
 {
+    QLocale hu(QLocale::Hungarian);
+
+    zInfo("hu:"+hu.dateFormat());
+    QString str = QStringLiteral("2020.04.10.");
+    QDate fullfillment = hu.toDate(str);
+    zInfo("fullfillment("+str+"):"+fullfillment.toString());
+
+    fullfillment = hu.toDate(str,"yyyy.M.d");
+    zInfo("fullfillment("+str+"):"+fullfillment.toString());
+
+    //str = QStringLiteral("2020.04.10.");
+    fullfillment = hu.toDate(str,"yyyy.M.d");
+    zInfo("fullfillment("+str+"):"+fullfillment.toString());
+    /*
     //SqlRepository<SoldItem> sr("SoldItem");
     auto a = sr.Get(2);
     //auto a = sr.GetAll();
@@ -151,7 +165,7 @@ void MainPresenter::processDBTestAction(IMainView *sender)
     a.partnerHq = "aaa118_uj";
     a.partnerName = "maki118_uj";
     bool c = sr.Add(a);
-
+*/
     return;
 }
 

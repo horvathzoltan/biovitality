@@ -76,6 +76,7 @@ QList<SoldItem> SoldItem::ImportCSV(const QList<QVarLengthArray<QString>>& recor
     QLocale hu(QLocale::Hungarian);
 
     for(int i = 1;i<L;i++){
+        //if(i>=3)break;
         QVarLengthArray<QString> row = records[i];
         SoldItem item;
         QVariant excelIdValue = GetData(row, excelId_KEY, ixs);
@@ -85,8 +86,9 @@ QList<SoldItem> SoldItem::ImportCSV(const QList<QVarLengthArray<QString>>& recor
         item.partnerName = GetData(row, partnerName_KEY, ixs).toString();
         item.partnerHq = GetData(row, partnerHq_KEY, ixs).toString();
         item.county = GetData(row, county_KEY, ixs).toString();
-
-        item.fullfillment = hu.toDate(GetData(row, fullfillment_KEY, ixs).toString());
+        //"2020.04.10"
+        QVariant d1 = GetData(row, fullfillment_KEY, ixs);
+        item.fullfillment = hu.toDate(d1.toString(),"yyyy.M.d");
         item.accountNr = GetData(row, accountNr_KEY, ixs).toString();
         item.productName = GetData(row, productName_KEY, ixs).toString();
         item.units = GetData(row, units_KEY, ixs).toUInt();
@@ -103,7 +105,7 @@ QList<SoldItem> SoldItem::ImportCSV(const QList<QVarLengthArray<QString>>& recor
             m.append(item);
         } else{
             zInfo("invalid row:"+QString::number(i+1)+" excelId:"+excelIdValue.toString());
-        }
+        }                
     }
 
     return m;
