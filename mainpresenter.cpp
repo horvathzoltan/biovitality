@@ -4,6 +4,7 @@
 #include "mainviewmodel.h"
 #include "dowork.h"
 #include "operations.h"
+#include "settings.h"
 
 #include <QFileDialog>
 #include <QDateTime>
@@ -12,14 +13,19 @@
 #include <QSqlError>
 #include <QSqlQuery>
 #include <QDebug>
+#include <QStringLiteral>
 
 #include <helpers/filehelper.h>
 #include <helpers/sqlhelper.h>
 
 #include <bi/models/solditem.h>
 
-#include <repositories/solditemrepository.h>
-#include <repositories/solditemrepository.h>
+#include <bi/repositories/sqlrepository.h>
+
+
+extern Settings _settings;
+SQLHelper _sqlHelper;
+SqlRepository<SoldItem> sr("SoldItem");
 
 MainPresenter::MainPresenter(QObject *parent):Presenter(parent)
 {
@@ -39,6 +45,9 @@ void MainPresenter::appendView(IMainView *w)
     QObject::connect(view_obj, SIGNAL(TetelImportActionTriggered(IMainView *)),
                      this, SLOT(processTetelImportAction(IMainView *)));
 
+    QObject::connect(view_obj, SIGNAL(DBTestActionTriggered(IMainView *)),
+                     this, SLOT(processDBTestAction(IMainView *)));
+
     //refreshView(w);
 }
 
@@ -49,21 +58,25 @@ void MainPresenter::initView(IMainView *w) const {
     w->set_DoWorkRModel(rm);
 
     static const QString conn = QStringLiteral("conn1");
-    SQLHelper::SQLSettings sql_settings{
-        "QMARIADB",
-        "biovitality",
-            {{"192.168.1.105", 3306}},
-        "zoli",
-        "Aladar123"
-    };
-    SQLHelper sqlh;
-    auto db = sqlh.Connect(sql_settings, conn, 5000);
+    // SQLHelper::SQLSettings sql_settings{
+    //     "QMARIADB",
+    //     "biovitality",
+    //         {{"192.168.1.105", 3306}},
+    //     "zoli",
+    //     "Aladar123"
+    // };
+    //SQLHelper sqlh;
+    _sqlHelper.Init(_settings._sql_settings);
+    bool ok = _sqlHelper.Connect();
 
-    if(db.isValid()){
-        zInfo("DB "+sql_settings.dbname+" is valid");
+    if(_sqlHelper.dbIsValid()){
+        zInfo("DB "+_settings._sql_settings.dbname+" is valid");
     } else{
-        zInfo("DB "+sql_settings.dbname+" is invalid");
+        zInfo("DB "+_settings._sql_settings.dbname+" is invalid");
     }
+    //_db.close();
+
+    SoldItem::MetaInit();
 };
 
 void MainPresenter::processPushButtonAction(IMainView *sender){
@@ -74,9 +87,7 @@ void MainPresenter::processPushButtonAction(IMainView *sender){
 }
 
 void MainPresenter::processTetelImportAction(IMainView *sender)
-{
-    //qDebug() << "processTetelImportAction";
-
+{    
     QUuid opId = Operations::instance().start(this, sender, __FUNCTION__);
 
     MainViewModel::StringModel fn = sender->get_TetelCSVFileName();
@@ -86,10 +97,67 @@ void MainPresenter::processTetelImportAction(IMainView *sender)
         zInfo("file ok");
         QList<SoldItem> items = SoldItem::ImportCSV(csvModel.records);
 
-        SoldItemRepository::InsertOrUpdate(items);
+        // megvan a modell lista, egyenként meg kell nézni excel_id szerint, hogy
+        // ha létezik, update
+        // ha nem, insert
+        // todo 001 storno flag
+        // todo 002 partner törzs - partner id bevezetése
+        // - 1. partner import
+        // - 2. tétel import
+        //SoldItemRepository::InsertOrUpdate(items);
+        if(!items.isEmpty())
+        {
+            int i_all=0, u_all=0;
+            int i_ok=0, u_ok=0;
+            for(auto&i:items){
+                bool contains = sr.ContainsBy_ExcelId(i.excelId);
+                if(contains){
+                    int id = sr.GetIdBy_ExcelId(i.excelId); // meg kell szerezni az id-t
+                    if(id!=-1)
+                    {
+                        i.id = id;
+                        u_all++;
+                        bool ok = sr.Update(i);
+                        if(ok) u_ok++;
+                    } else{
+                        zInfo("no id for excelId: "+QString::number(i.excelId));
+                    }
+                } else{
+                    i_all++;
+                    bool ok = sr.Add(i);
+                    if(ok) i_ok++;
+                }
+            }
+            zInfo(QStringLiteral("Updated: %1/%2").arg(u_ok).arg(u_all))
+            zInfo(QStringLiteral("Inserted: %1/%2").arg(i_ok).arg(i_all))
+        } else{
+            zInfo("no items to import");
+        }
     } else{
         zInfo("file failed");
     }
     Operations::instance().stop(opId);
 }
+
+void MainPresenter::processDBTestAction(IMainView *sender)
+{
+    //SqlRepository<SoldItem> sr("SoldItem");
+    auto a = sr.Get(2);
+    //auto a = sr.GetAll();
+    a.partnerHq = "aaa12";
+    a.partnerName = "maki12";
+    bool b = sr.Update(a);
+    zInfo(QStringLiteral("Update:")+(b?"ok":"failed"));
+    a.partnerHq = "aaa118_uj";
+    a.partnerName = "maki118_uj";
+    bool c = sr.Add(a);
+
+    return;
+}
+
+void MainPresenter::Error(const QSqlError& err)
+{
+    if(err.isValid()) zInfo(QStringLiteral("QSqlError: %1 - %2").arg(err.type()).arg(err.text()));
+}
+
 

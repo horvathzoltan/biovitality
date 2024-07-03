@@ -8,6 +8,16 @@
 #include "helpers/stringify.h"
 #include "mainwindow.h"
 #include "mainpresenter.h"
+#include "settings.h"
+
+Settings _settings(
+    {
+        "QMARIADB",
+        "biovitality",
+        {{"192.168.1.105", 3306}},
+        "zoli",
+        "Aladar123"
+    } );
 
 auto main(int argc, char *argv[]) -> int
 {

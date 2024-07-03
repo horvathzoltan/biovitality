@@ -6,6 +6,7 @@
 
 #include <QList>
 #include <QObject>
+#include <QSqlError>
 #include "imainview.h"
 #include "presenter.h"
 
@@ -23,11 +24,11 @@ private:
     QList<IMainView*> _views;
 
     void refreshView(IMainView *w) const;
-
-
+    void Error(const QSqlError& err);
 private slots:
     void processPushButtonAction(IMainView *sender);
     void processTetelImportAction(IMainView *sender);
+    void processDBTestAction(IMainView *sender);
 };
 
 #endif // MAINPRESENTER_H
