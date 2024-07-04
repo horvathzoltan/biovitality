@@ -65,3 +65,11 @@ void MainWindow::on_pushButton_dbtest_clicked()
     emit DBTestActionTriggered(this);
 }
 
+
+void MainWindow::on_pushButton_AddSoldItem_clicked()
+{
+    qDebug() << "AddSoldItemActionTriggered";
+    emit AddSoldItemActionTriggered(this);
+
+}
+

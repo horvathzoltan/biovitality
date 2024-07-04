@@ -20,6 +20,7 @@ SOURCES += \
     bi/repositories/sqlrepository.cpp \
     buildnumber.cpp \
     dowork.cpp \
+    globals.cpp \
     helpers/filehelper.cpp \
     helpers/filenamehelper.cpp \
     helpers/logger.cpp \
@@ -50,6 +51,7 @@ HEADERS += \
     buildnumber.h \
     dowork.h \
     global.h \
+    globals.h \
     helpers/filehelper.h \
     helpers/filenamehelper.h \
     helpers/logger.h \

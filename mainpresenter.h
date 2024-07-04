@@ -29,6 +29,8 @@ private slots:
     void processPushButtonAction(IMainView *sender);
     void processTetelImportAction(IMainView *sender);
     void processDBTestAction(IMainView *sender);
+    void processSoldItemAction(IMainView *sender);
+
 };
 
 #endif // MAINPRESENTER_H

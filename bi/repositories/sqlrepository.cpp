@@ -1,6 +1,7 @@
 #include "sqlrepository.h"
 #include "bi/models/solditem.h"
 
+#include "globals.h"
 #include "helpers/logger.h"
 #include <helpers/sqlhelper.h>
 
@@ -9,8 +10,7 @@
 
 #include <bi/helpers/sqlmetahelper.h>
 
-extern Settings _settings;
-extern SQLHelper _sqlHelper;
+extern Globals _globals;
 
 template<class T>
 SqlRepository<T>::SqlRepository(const QString& tname) : SqlExcelRepository(tname), RepositoryBase(tname) {}
@@ -38,7 +38,7 @@ bool RepositoryBase::Contains(int id)
     QString cmd = CONTAINS_CMD.arg(tableName()).arg(id);
     zInfo("cmd:"+cmd);
     //QSqlQuery q = _sqlHelper.GetQuery(cmd);
-    QList<QSqlRecord> records =_sqlHelper.DoQuery(cmd);
+    QList<QSqlRecord> records = _globals._helpers._sqlHelper.DoQuery(cmd);
 
     if(!records.isEmpty()){
         QVariant a = records.first().value("_exists");
@@ -55,7 +55,7 @@ T SqlRepository<T>::Get(int id)
 
     QString cmd=GET_CMD.arg(fieldList).arg(tableName()).arg(id);
     zInfo("cmd:"+cmd);
-    QList<QSqlRecord> records = _sqlHelper.DoQuery(cmd);
+    QList<QSqlRecord> records = _globals._helpers._sqlHelper.DoQuery(cmd);
 
     if(!records.isEmpty())
     {
@@ -79,7 +79,7 @@ QList<T> SqlRepository<T>::GetAll()
     QString cmd=GETALL_CMD.arg(tableName()).arg(fieldList);
     zInfo("cmd:"+cmd);
     //QSqlQuery q = _sqlHelper.GetQuery(cmd);
-    QList<QSqlRecord> records = _sqlHelper.DoQuery(cmd);
+    QList<QSqlRecord> records = _globals._helpers._sqlHelper.DoQuery(cmd);
 
     QList<T> items;
     if(!records.isEmpty())
@@ -105,7 +105,7 @@ bool SqlRepository<T>::Update(const T &m)
     QString fieldList=SQLHelper::GetFieldList_UPDATE(params);
     QString cmd=UPDATE_CMD.arg(tableName()).arg(fieldList);
     zInfo("cmd:"+cmd);
-    QList<QSqlRecord> records = _sqlHelper.DoQuery(cmd, params);
+    QList<QSqlRecord> records = _globals._helpers._sqlHelper.DoQuery(cmd, params);
 
     return true;
 }
@@ -118,7 +118,7 @@ bool SqlRepository<T>::Add(const T &m){
 
     QString cmd=INSERT_CMD.arg(tableName()).arg(fieldList).arg(paramList);
     zInfo("cmd:"+cmd);
-    QList<QSqlRecord> records = _sqlHelper.DoQuery(cmd, params);
+    QList<QSqlRecord> records = _globals._helpers._sqlHelper.DoQuery(cmd, params);
 
     return true;
 

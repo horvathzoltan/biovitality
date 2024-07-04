@@ -29,7 +29,7 @@ public:
     QWidget *centralwidget;
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout;
-    QPushButton *pushButton;
+    QPushButton *pushButton_AddSoldItem;
     QLabel *label;
     QPushButton *pushButton_tetelImport;
     QPushButton *pushButton_dbtest;
@@ -49,10 +49,10 @@ public:
         verticalLayout->setObjectName("verticalLayout");
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName("horizontalLayout");
-        pushButton = new QPushButton(centralwidget);
-        pushButton->setObjectName("pushButton");
+        pushButton_AddSoldItem = new QPushButton(centralwidget);
+        pushButton_AddSoldItem->setObjectName("pushButton_AddSoldItem");
 
-        horizontalLayout->addWidget(pushButton);
+        horizontalLayout->addWidget(pushButton_AddSoldItem);
 
         label = new QLabel(centralwidget);
         label->setObjectName("label");
@@ -97,7 +97,7 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
-        pushButton->setText(QCoreApplication::translate("MainWindow", "PushButton", nullptr));
+        pushButton_AddSoldItem->setText(QCoreApplication::translate("MainWindow", "AddSoldItem", nullptr));
         label->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
         pushButton_tetelImport->setText(QCoreApplication::translate("MainWindow", "T\303\251telImport", nullptr));
         pushButton_dbtest->setText(QCoreApplication::translate("MainWindow", "DBtest", nullptr));

@@ -4,7 +4,8 @@
 #include "mainviewmodel.h"
 #include "dowork.h"
 #include "operations.h"
-#include "settings.h"
+//#include "settings.h"
+#include "globals.h"
 
 #include <QFileDialog>
 #include <QDateTime>
@@ -23,9 +24,8 @@
 #include <bi/repositories/sqlrepository.h>
 
 
-extern Settings _settings;
-SQLHelper _sqlHelper;
-SqlRepository<SoldItem> sr("SoldItem");
+extern Globals _globals;
+
 
 MainPresenter::MainPresenter(QObject *parent):Presenter(parent)
 {
@@ -48,6 +48,10 @@ void MainPresenter::appendView(IMainView *w)
     QObject::connect(view_obj, SIGNAL(DBTestActionTriggered(IMainView *)),
                      this, SLOT(processDBTestAction(IMainView *)));
 
+    QObject::connect(view_obj, SIGNAL(AddSoldItemActionTriggered(IMainView *)),
+                     this, SLOT(processSoldItemAction(IMainView *)));
+
+
     //refreshView(w);
 }
 
@@ -66,13 +70,13 @@ void MainPresenter::initView(IMainView *w) const {
     //     "Aladar123"
     // };
     //SQLHelper sqlh;
-    _sqlHelper.Init(_settings._sql_settings);
-    bool ok = _sqlHelper.Connect();
+    _globals._helpers._sqlHelper.Init(_globals._settings._sql_settings);
+    bool ok = _globals._helpers._sqlHelper.Connect();
 
-    if(_sqlHelper.dbIsValid()){
-        zInfo("DB "+_settings._sql_settings.dbname+" is valid");
+    if(_globals._helpers._sqlHelper.dbIsValid()){
+        zInfo("DB "+_globals._settings._sql_settings.dbname+" is valid");
     } else{
-        zInfo("DB "+_settings._sql_settings.dbname+" is invalid");
+        zInfo("DB "+_globals._settings._sql_settings.dbname+" is invalid");
     }
     //_db.close();
 
@@ -110,21 +114,21 @@ void MainPresenter::processTetelImportAction(IMainView *sender)
             int i_all=0, u_all=0;
             int i_ok=0, u_ok=0;
             for(auto&i:items){
-                bool contains = sr.ContainsBy_ExcelId(i.excelId);
+                bool contains = _globals._repositories.sr.ContainsBy_ExcelId(i.excelId);
                 if(contains){
-                    int id = sr.GetIdBy_ExcelId(i.excelId); // meg kell szerezni az id-t
+                    int id =  _globals._repositories.sr.GetIdBy_ExcelId(i.excelId); // meg kell szerezni az id-t
                     if(id!=-1)
                     {
                         i.id = id;
                         u_all++;
-                        bool ok = sr.Update(i);
+                        bool ok =  _globals._repositories.sr.Update(i);
                         if(ok) u_ok++;
                     } else{
                         zInfo("no id for excelId: "+QString::number(i.excelId));
                     }
                 } else{
                     i_all++;
-                    bool ok = sr.Add(i);
+                    bool ok =  _globals._repositories.sr.Add(i);
                     if(ok) i_ok++;
                 }
             }
@@ -174,4 +178,7 @@ void MainPresenter::Error(const QSqlError& err)
     if(err.isValid()) zInfo(QStringLiteral("QSqlError: %1 - %2").arg(err.type()).arg(err.text()));
 }
 
+void MainPresenter::processSoldItemAction(IMainView *sender){
+    zTrace();
+}
 
