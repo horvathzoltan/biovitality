@@ -19,6 +19,7 @@ SOURCES += \
     bi/repositories/sqlexcelrepository.cpp \
     bi/repositories/sqlrepository.cpp \
     buildnumber.cpp \
+    dataform.cpp \
     dowork.cpp \
     globals.cpp \
     helpers/filehelper.cpp \
@@ -49,6 +50,7 @@ HEADERS += \
     bi/repositories/sqlexcelrepository.h \
     bi/repositories/sqlrepository.h \
     buildnumber.h \
+    dataform.h \
     dowork.h \
     global.h \
     globals.h \
@@ -73,6 +75,7 @@ HEADERS += \
      #updates.h
 
 FORMS += \
+    dataform.ui \
     mainwindow.ui
 
 # Default rules for deployment.

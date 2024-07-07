@@ -5,6 +5,7 @@
 #include "dowork.h"
 #include "operations.h"
 //#include "settings.h"
+#include "dataform.h"
 #include "globals.h"
 
 #include <QFileDialog>
@@ -180,5 +181,8 @@ void MainPresenter::Error(const QSqlError& err)
 
 void MainPresenter::processSoldItemAction(IMainView *sender){
     zTrace();
+
+    auto dataForm = new DataForm();
+    dataForm->show();
 }
 
