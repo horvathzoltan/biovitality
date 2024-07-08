@@ -24,6 +24,8 @@
 
 #include <bi/repositories/sqlrepository.h>
 
+#include <bi/helpers/sqlmetahelper.h>
+
 
 extern Globals _globals;
 
@@ -182,7 +184,16 @@ void MainPresenter::Error(const QSqlError& err)
 void MainPresenter::processSoldItemAction(IMainView *sender){
     zTrace();
 
+    int excelId = 806;
+
+    int id = _globals._repositories.sr.GetIdBy_ExcelId(excelId);
+    SoldItem data = _globals._repositories.sr.Get(id);
+
+    QList<MetaValue> m = data.GetMetaValues();
+
     auto dataForm = new DataForm();
+    //dataForm.SetMetaValues(m);
+
     dataForm->show();
 }
 
