@@ -14,6 +14,8 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QDialogButtonBox>
+#include <QtWidgets/QVBoxLayout>
+#include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
 
@@ -21,6 +23,8 @@ class Ui_DataForm
 {
 public:
     QDialogButtonBox *buttonBox;
+    QWidget *verticalLayoutWidget;
+    QVBoxLayout *verticalLayout;
 
     void setupUi(QDialog *DataForm)
     {
@@ -32,6 +36,12 @@ public:
         buttonBox->setGeometry(QRect(30, 240, 341, 32));
         buttonBox->setOrientation(Qt::Horizontal);
         buttonBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
+        verticalLayoutWidget = new QWidget(DataForm);
+        verticalLayoutWidget->setObjectName("verticalLayoutWidget");
+        verticalLayoutWidget->setGeometry(QRect(10, 0, 381, 231));
+        verticalLayout = new QVBoxLayout(verticalLayoutWidget);
+        verticalLayout->setObjectName("verticalLayout");
+        verticalLayout->setContentsMargins(0, 0, 0, 0);
 
         retranslateUi(DataForm);
         QObject::connect(buttonBox, &QDialogButtonBox::accepted, DataForm, qOverload<>(&QDialog::accept));

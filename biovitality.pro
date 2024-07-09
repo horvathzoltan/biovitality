@@ -20,6 +20,7 @@ SOURCES += \
     bi/repositories/sqlrepository.cpp \
     buildnumber.cpp \
     dataform.cpp \
+    datarowwidget.cpp \
     dowork.cpp \
     globals.cpp \
     helpers/filehelper.cpp \
@@ -51,6 +52,7 @@ HEADERS += \
     bi/repositories/sqlrepository.h \
     buildnumber.h \
     dataform.h \
+    datarowwidget.h \
     dowork.h \
     global.h \
     globals.h \

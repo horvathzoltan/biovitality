@@ -6,6 +6,7 @@
 #include "operations.h"
 //#include "settings.h"
 #include "dataform.h"
+#include "datarowwidget.h"
 #include "globals.h"
 
 #include <QFileDialog>
@@ -191,7 +192,13 @@ void MainPresenter::processSoldItemAction(IMainView *sender){
 
     QList<MetaValue> m = data.GetMetaValues();
 
-    auto dataForm = new DataForm();
+
+    DataForm *dataForm = new DataForm();
+
+    for(auto&a:m){
+        DataRowWidget* w = new DataRowWidget(a.name);
+        dataForm->
+    }
     //dataForm.SetMetaValues(m);
 
     dataForm->show();
