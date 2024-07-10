@@ -14,34 +14,47 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QDialog>
 #include <QtWidgets/QDialogButtonBox>
+#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QVBoxLayout>
-#include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
 
 class Ui_DataForm
 {
 public:
-    QDialogButtonBox *buttonBox;
-    QWidget *verticalLayoutWidget;
+    QVBoxLayout *verticalLayout_2;
     QVBoxLayout *verticalLayout;
+    QSpacerItem *verticalSpacer;
+    QDialogButtonBox *buttonBox;
 
     void setupUi(QDialog *DataForm)
     {
         if (DataForm->objectName().isEmpty())
             DataForm->setObjectName("DataForm");
-        DataForm->resize(400, 300);
+        DataForm->resize(400, 60);
+        verticalLayout_2 = new QVBoxLayout(DataForm);
+        verticalLayout_2->setObjectName("verticalLayout_2");
+        verticalLayout = new QVBoxLayout();
+        verticalLayout->setObjectName("verticalLayout");
+
+        verticalLayout_2->addLayout(verticalLayout);
+
+        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Expanding);
+
+        verticalLayout_2->addItem(verticalSpacer);
+
         buttonBox = new QDialogButtonBox(DataForm);
         buttonBox->setObjectName("buttonBox");
-        buttonBox->setGeometry(QRect(30, 240, 341, 32));
+        QSizePolicy sizePolicy(QSizePolicy::Policy::Preferred, QSizePolicy::Policy::Preferred);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(buttonBox->sizePolicy().hasHeightForWidth());
+        buttonBox->setSizePolicy(sizePolicy);
         buttonBox->setOrientation(Qt::Horizontal);
         buttonBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
-        verticalLayoutWidget = new QWidget(DataForm);
-        verticalLayoutWidget->setObjectName("verticalLayoutWidget");
-        verticalLayoutWidget->setGeometry(QRect(10, 0, 381, 231));
-        verticalLayout = new QVBoxLayout(verticalLayoutWidget);
-        verticalLayout->setObjectName("verticalLayout");
-        verticalLayout->setContentsMargins(0, 0, 0, 0);
+
+        verticalLayout_2->addWidget(buttonBox);
+
 
         retranslateUi(DataForm);
         QObject::connect(buttonBox, &QDialogButtonBox::accepted, DataForm, qOverload<>(&QDialog::accept));

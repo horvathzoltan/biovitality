@@ -194,13 +194,30 @@ void MainPresenter::processSoldItemAction(IMainView *sender){
 
 
     DataForm *dataForm = new DataForm();
+    QVBoxLayout *layout = dataForm->GetLayout();
 
+    int h = 0;
     for(auto&a:m){
-        DataRowWidget* w = new DataRowWidget(a.name);
-        dataForm->
+        //DataRowWidget* w = new DataRowWidget(a.name);
+        QLabel* w = new QLabel();
+        w->setText(a.name);
+        w->setMinimumHeight(20);
+        w->setMinimumWidth(100);
+        w->setMaximumHeight(40);
+        w->setMaximumWidth(100);
+        w->setBackgroundRole(QPalette::Base);
+        w->setAutoFillBackground(true);
+
+
+        layout->addWidget(w);
+        //w->setLayout(layout);
+        w->show();
+       // h+=40;
     }
     //dataForm.SetMetaValues(m);
-
+    //layout->res
+    QSize size( 400, h+120 );
+    dataForm->resize(size);
     dataForm->show();
 }
 

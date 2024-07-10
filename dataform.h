@@ -1,7 +1,9 @@
 #ifndef DATAFORM_H
 #define DATAFORM_H
 
+#include "ui_dataform.h"
 #include <QDialog>
+#include <QVBoxLayout>
 
 namespace Ui {
 class DataForm;
@@ -15,6 +17,8 @@ public:
     explicit DataForm(QWidget *parent = nullptr);
     ~DataForm();
 
+
+
 private slots:
     void on_buttonBox_accepted();
 
@@ -23,6 +27,9 @@ private slots:
 
 private:
     Ui::DataForm *ui;
+
+public:
+    QVBoxLayout* GetLayout(){ return ui->verticalLayout;}
 };
 
 #endif // DATAFORM_H
