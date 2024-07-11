@@ -28,3 +28,11 @@ void DataForm::on_buttonBox_rejected()
     this->done(QDialog::Rejected);
 }
 
+void DataForm::AddWidget(QWidget *w)
+{
+    if(w==nullptr) return;
+
+    ui->verticalLayout->addWidget(w);
+    //w->setLayout(ui->verticalLayout);
+}
+

@@ -4,6 +4,7 @@
 #include "ui_dataform.h"
 #include <QDialog>
 #include <QVBoxLayout>
+#include <datarowwidget.h>
 
 namespace Ui {
 class DataForm;
@@ -29,7 +30,8 @@ private:
     Ui::DataForm *ui;
 
 public:
-    QVBoxLayout* GetLayout(){ return ui->verticalLayout;}
+    //QVBoxLayout* GetLayout(){ return ui->verticalLayout;}
+    void AddWidget(QWidget* w);
 };
 
 #endif // DATAFORM_H

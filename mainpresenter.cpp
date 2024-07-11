@@ -194,25 +194,33 @@ void MainPresenter::processSoldItemAction(IMainView *sender){
 
 
     DataForm *dataForm = new DataForm();
-    QVBoxLayout *layout = dataForm->GetLayout();
+    QColor color1 = Qt::green;//status?Qt::green:Qt::red;
+    QPalette pal1 = QPalette();
 
     int h = 0;
     for(auto&a:m){
-        //DataRowWidget* w = new DataRowWidget(a.name);
-        QLabel* w = new QLabel();
-        w->setText(a.name);
-        w->setMinimumHeight(20);
-        w->setMinimumWidth(100);
-        w->setMaximumHeight(40);
-        w->setMaximumWidth(100);
-        w->setBackgroundRole(QPalette::Base);
-        w->setAutoFillBackground(true);
+        DataRowWidget* w = new DataRowWidget(a.name);
+
+        // QLabel* _label = new QLabel();
+        // pal1.setColor(_label->backgroundRole(), color1);
+
+        // _label->setMinimumHeight(20);
+        // _label->setMinimumWidth(100);
+        // //_label->setBackgroundRole(QPalette::Base);
+        // _label->setAutoFillBackground(true);
 
 
-        layout->addWidget(w);
-        //w->setLayout(layout);
+        // QFont f1 = _label->font();
+        // f1.setPointSize(10);
+
+        // _label->setFont(f1);
+
+        // _label->setText(a.name);
+
+        dataForm->AddWidget(w);
+
         w->show();
-       // h+=40;
+        h+=40;
     }
     //dataForm.SetMetaValues(m);
     //layout->res
