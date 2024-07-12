@@ -2,6 +2,7 @@
 #define DATAROWWIDGET_H
 
 #include <QLabel>
+#include <QLineEdit>
 #include <QWidget>
 
 class DataRowWidget: public QWidget
@@ -10,8 +11,9 @@ class DataRowWidget: public QWidget
 
 private:
     QLabel* _label;
+    QLineEdit* _edit;
 public:
-    DataRowWidget(const QString& label);
+    DataRowWidget(const QString& label, int w);
 
     ~DataRowWidget();
 };

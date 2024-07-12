@@ -197,29 +197,23 @@ void MainPresenter::processSoldItemAction(IMainView *sender){
     QColor color1 = Qt::green;//status?Qt::green:Qt::red;
     QPalette pal1 = QPalette();
 
+    int w0=0;
+    QLabel l0;
+    QFont f0 = l0.font();
+    f0.setPointSize(10);
+
+    for(auto&a:m){
+        int i = l0.fontMetrics().boundingRect(a.name).width();
+        if(i>w0)w0=i;
+    }
+
     int h = 0;
     for(auto&a:m){
-        DataRowWidget* w = new DataRowWidget(a.name);
-
-        // QLabel* _label = new QLabel();
-        // pal1.setColor(_label->backgroundRole(), color1);
-
-        // _label->setMinimumHeight(20);
-        // _label->setMinimumWidth(100);
-        // //_label->setBackgroundRole(QPalette::Base);
-        // _label->setAutoFillBackground(true);
-
-
-        // QFont f1 = _label->font();
-        // f1.setPointSize(10);
-
-        // _label->setFont(f1);
-
-        // _label->setText(a.name);
+        DataRowWidget* w = new DataRowWidget(a.name, w0);
 
         dataForm->AddWidget(w);
 
-        w->show();
+//        w->show();
         h+=40;
     }
     //dataForm.SetMetaValues(m);
