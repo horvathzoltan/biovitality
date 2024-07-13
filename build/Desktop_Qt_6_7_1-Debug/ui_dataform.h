@@ -31,10 +31,11 @@ public:
     {
         if (DataForm->objectName().isEmpty())
             DataForm->setObjectName("DataForm");
-        DataForm->resize(400, 60);
+        DataForm->resize(400, 68);
         verticalLayout_2 = new QVBoxLayout(DataForm);
         verticalLayout_2->setObjectName("verticalLayout_2");
         verticalLayout = new QVBoxLayout();
+        verticalLayout->setSpacing(0);
         verticalLayout->setObjectName("verticalLayout");
 
         verticalLayout_2->addLayout(verticalLayout);

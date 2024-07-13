@@ -30,7 +30,7 @@ public:
     QString unitCurrency;
     qreal netPrice=0;
     QString netCurrency;
-    int excelId;
+    int excelId=-1;
 
     static void MetaInit();
 

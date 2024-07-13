@@ -3,7 +3,10 @@
 
 #include <QLabel>
 #include <QLineEdit>
+#include <QSpacerItem>
 #include <QWidget>
+
+#include <bi/meta/meta.h>
 
 class DataRowWidget: public QWidget
 {
@@ -12,8 +15,9 @@ class DataRowWidget: public QWidget
 private:
     QLabel* _label;
     QLineEdit* _edit;
+    QSpacerItem* _spacer;
 public:
-    DataRowWidget(const QString& label, int w);
+    DataRowWidget(const MetaValue& m, int w,bool isLight);
 
     ~DataRowWidget();
 };
