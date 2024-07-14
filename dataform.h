@@ -29,6 +29,7 @@ private slots:
 private:
     Ui::DataForm *ui;
 
+    void accept();
 public:
     //QVBoxLayout* GetLayout(){ return ui->verticalLayout;}
     void AddWidget(QWidget* w);

@@ -185,7 +185,7 @@ void MainPresenter::Error(const QSqlError& err)
 void MainPresenter::processSoldItemAction(IMainView *sender){
     zTrace();
 
-    int excelId = 806;
+    //int excelId = 806;
 
     //int id = _globals._repositories.sr.GetIdBy_ExcelId(excelId);
     //SoldItem data = _globals._repositories.sr.Get(id);
@@ -195,7 +195,6 @@ void MainPresenter::processSoldItemAction(IMainView *sender){
     data.county="teszt county 1";
 
     QList<MetaValue> m = data.GetMetaValues();
-
 
     DataForm *dataForm = new DataForm();
 
@@ -209,19 +208,12 @@ void MainPresenter::processSoldItemAction(IMainView *sender){
         if(i>w0)w0=i;
     }
 
-    //int h = 0;
     int i = 0;
     for (MetaValue &a : m) {
-
         DataRowWidget *w = new DataRowWidget(a, w0, i++%2==0);
-
         dataForm->AddWidget(w);
-      //   h+=30;
     }
-    //dataForm.SetMetaValues(m);
-    //layout->res
-    //QSize size( 400, h+120 );
-    //dataForm->resize(size);
     dataForm->show();
+   // zInfo("platty");
 }
 
