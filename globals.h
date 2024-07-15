@@ -5,10 +5,11 @@
 #include "bi/repositories/sqlrepository.h"
 #include "settings.h"
 #include <QLocale>
+#include <helpers/translator.h>
 
 class Helpers{
 public:
-    SQLHelper _sqlHelper;
+    SQLHelper _sqlHelper;    
 };
 
 class Repositories
@@ -34,7 +35,7 @@ public:
     Helpers _helpers;
     Repositories _repositories;
     QLocale hu;
-
+    Translator _translator;
 public:
     Globals():hu(QLocale::Hungarian){};
 };

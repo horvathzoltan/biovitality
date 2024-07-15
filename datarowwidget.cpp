@@ -23,7 +23,9 @@ DataRowWidget::DataRowWidget(const MetaValue &m, int w, bool isLight)
     QFont f1 = _label->font();
     f1.setPointSize(10);
     _label->setFont(f1);
-    _label->setText(m.name);
+
+    QString m_name = (!m.translatedName.isEmpty()?m.translatedName:m.wcode)+':';
+    _label->setText(m_name);
 
     _label->setGeometry(QRect(0, 0, l1_width, height));
     _label->setMinimumSize(l1_width, height);

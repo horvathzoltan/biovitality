@@ -11,7 +11,7 @@ QList<MetaValue> SqlMetaHelper::RecordToMetaValues(const QSqlRecord& r)
     int L = r.count();
     for(int i=0;i<L;i++){
         QSqlField f = r.field(i);
-        MetaValue v(f.name(), f.metaType());
+        MetaValue v(f.name(), "", f.metaType());
         //v.name = f.name();
         v.value = f.value();
         m.append(v);

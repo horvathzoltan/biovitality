@@ -31,6 +31,7 @@ SOURCES += \
     helpers/signalhelper.cpp \
     helpers/sqlhelper.cpp \
     helpers/stringhelper.cpp \
+    helpers/translator.cpp \
     main.cpp \
     mainpresenter.cpp \
     mainwindow.cpp \
@@ -65,6 +66,7 @@ HEADERS += \
     helpers/sqlhelper.h \
     helpers/stringhelper.h \
     helpers/stringify.h \
+    helpers/translator.h \
     imainview.h \
     mainpresenter.h \
     mainviewmodel.h \

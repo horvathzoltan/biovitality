@@ -49,6 +49,7 @@ public:
 
     static SoldItem FromMetaValues(const QList<MetaValue> &v){return _meta.FromMetaValues(v);}
     QList<MetaValue> GetMetaValues()const { return _meta.ToMetaValues(this);}
+    QString GetBaseTypeName() {return _meta.GetBaseTypeName();}
     QList<SQLHelper::SQLParam> GetQueryParams()const { return _meta.ToMetaValues2(this);}
 private:
     static Meta<SoldItem> _meta;

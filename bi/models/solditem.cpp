@@ -12,6 +12,7 @@ SoldItem::SoldItem() {}
 
 void SoldItem::MetaInit()
 {
+    AddMetaBase(SoldItem);
     AddMetaField(id);
     AddMetaField(partnerName);
     AddMetaField(partnerHq);

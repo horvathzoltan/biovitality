@@ -10,31 +10,35 @@
 
 
 #define AddMetaField(b) _meta.AddField(#b, QMetaType::fromType<decltype(_meta._instance.b)>(), (char*)(&_meta._instance.b));
-
+#define AddMetaBase(b) _meta.AddBaseName(#b, sizeof(b));
 
 struct MetaValue{
 private:
     MetaValue(){};
 public:
-    MetaValue(const QString& _name, const QMetaType& type){
+    MetaValue(const QString& _name, const QString& _wcode,const QMetaType& type ){
         name = _name;
+        wcode = _wcode;
         value = QVariant(type);
     }
 
     QString name;
+    QString translatedName;
+    QString wcode;
     QVariant value;
 };
 
 struct MetaField{
 public:
     QString name;
+    QString wcode;
     QMetaType type;
     int _offset;
 
     char* GetPtr(char* s){ return s+ _offset; }
 
     MetaValue GetMetaValue(char* s){
-        MetaValue mv(name, type);
+        MetaValue mv(name, wcode, type);
 
         char* ptr = GetPtr(s);
         mv.value = QVariant(type, ptr);
@@ -50,10 +54,14 @@ class Meta{
 public:
     T _instance;
 
+    QString _baseName;
+    QString _baseWcode;
+
     void AddField(const QString& name, const QMetaType& t, char* field_ptr)
     {
         MetaField f;
         f.name=name;
+        f.wcode = _baseWcode+"::"+f.name;
         f.type = t;
         int offset = field_ptr - (char*)(&_instance);
         f._offset = offset;
@@ -75,6 +83,15 @@ public:
             e+=a.name;
         }
         return e;
+    }
+
+    void AddBaseName(char const *y, unsigned long){
+        _baseName = QString(y);
+        _baseWcode = "WCodes::"+_baseName;
+    }
+
+    QString GetBaseTypeName() {
+        return _baseName;
     }
 
     // QString GetFieldList_UPDATE(){

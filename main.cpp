@@ -43,6 +43,9 @@ auto main(int argc, char *argv[]) -> int
     zInfo("testdata_path:"+FileNameHelper::GetTestFolderPath());
     zInfo("working_folder:"+FileNameHelper::GetWorkingFolder());
 
+    SoldItem data;
+    _globals._translator.Init();
+
     MainWindow w;
     MainPresenter p;
     p.appendView(&w);

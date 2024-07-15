@@ -84,7 +84,8 @@ void MainPresenter::initView(IMainView *w) const {
     }
     //_db.close();
 
-    SoldItem::MetaInit();
+
+    SoldItem::MetaInit();    
 };
 
 void MainPresenter::processPushButtonAction(IMainView *sender){
@@ -188,13 +189,16 @@ void MainPresenter::processSoldItemAction(IMainView *sender){
     //int excelId = 806;
 
     //int id = _globals._repositories.sr.GetIdBy_ExcelId(excelId);
-    //SoldItem data = _globals._repositories.sr.Get(id);
+    //SoldItem data = _globals._repositories.sr.Get(id);        
 
     SoldItem data;
     data.partnerName="teszt partner 1";
     data.county="teszt county 1";
 
     QList<MetaValue> m = data.GetMetaValues();
+
+    QString baseTypeName = data.GetBaseTypeName();
+    zInfo("baseTypeName:"+baseTypeName);
 
     DataForm *dataForm = new DataForm();
 
@@ -203,9 +207,11 @@ void MainPresenter::processSoldItemAction(IMainView *sender){
     QFont f0 = l0.font();
     f0.setPointSize(10);
 
-    for(auto&a:m){
-        int i = l0.fontMetrics().boundingRect(a.name).width();
-        if(i>w0)w0=i;
+    for (MetaValue &a : m) {
+        a.translatedName = _globals._translator.tr(a.wcode);
+        int i = l0.fontMetrics().boundingRect(a.translatedName).width();
+        if (i > w0)
+            w0 = i;
     }
 
     int i = 0;
