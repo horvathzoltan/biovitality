@@ -2,7 +2,7 @@
 
 //Operations::Operations() {}
 
-QUuid Operations::start(Presenter *presenter, IView *sender, const QString& name)
+QUuid Operations::startNew(Presenter *presenter, IView *sender, const QString& name)
 {
     Operation o;
     o.id = QUuid::createUuid();

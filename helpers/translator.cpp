@@ -7,7 +7,7 @@ void Translator::AddTranslation(const QString &lcode, const QString &key, const 
     _translations[key]=value;
 }
 
-QString Translator::tr(const QString &key){
+QString Translator::Translate(const QString &key){
     bool c = _translations.contains(key);
     if(!c) return key;
     return _translations.value(key);
@@ -15,6 +15,8 @@ QString Translator::tr(const QString &key){
 
 void Translator::Init()
 {
+    AddTr("hu", WCodes::AddSoldItem, "Új számla tétel hozzáadása");
+
     AddTr("hu", WCodes::SoldItem, "Számla tétel");
     AddTr("hu", WCodes::SoldItem::id , "ID");
     AddTr("hu", WCodes::SoldItem::partnerName , "Partner neve");

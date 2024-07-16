@@ -23,7 +23,7 @@ public:
 private:
     QMap<QUuid, Operation> _operations;
 public:
-    QUuid start(Presenter *presenter, IView *sender, const QString& name);
+    QUuid startNew(Presenter *presenter, IView *sender, const QString& name);
     void stop(QUuid id);
 };
 

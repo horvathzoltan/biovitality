@@ -6,6 +6,7 @@
 
 class WCodes{
 public:
+    class AddSoldItem{};
     class SoldItem{
     public:
         int id;
@@ -25,8 +26,8 @@ public:
 };
 
 #define AddTr(a, b, c) AddTr2(a, #b, c,  sizeof(b));
-
-
+#define GetWCode(b) _globals._translator.GetWCode2(QStringLiteral(#b), sizeof(b))
+#define _tr(b) _globals._translator.Translate(b);
 
 class Translator
 {
@@ -38,13 +39,27 @@ public:
 
     void AddTranslation(const QString &lcode, const QString& key, const QString& value);
 
-    QString tr(const QString& key);
+    QString tr(const QString& key){ return Translate(key);}
+    QString Translate(const QString& key);
 
     void Init();
 
-    void AddTr2(const QString &lcode, const QString& key, const QString& value, unsigned long e){
+    void AddTr2(const QString &lcode, const QString& key, const QString& value, unsigned long l){
+        Q_UNUSED(l)
         AddTranslation(lcode, key, value);
     }
+
+    QString GetWCode2(const QString& key, unsigned long l){
+        Q_UNUSED(l)
+        return key;
+    }
+
+    QString Translate2(const QString& key, unsigned long l){
+        Q_UNUSED(l)
+        return Translate(key);
+    }
+
 };
 
 #endif // TRANSLATOR_H
+

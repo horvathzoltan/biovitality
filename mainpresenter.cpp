@@ -96,8 +96,8 @@ void MainPresenter::processPushButtonAction(IMainView *sender){
 }
 
 void MainPresenter::processTetelImportAction(IMainView *sender)
-{    
-    QUuid opId = Operations::instance().start(this, sender, __FUNCTION__);
+{
+    QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
     MainViewModel::StringModel fn = sender->get_TetelCSVFileName();
 
@@ -166,7 +166,7 @@ void MainPresenter::processDBTestAction(IMainView *sender)
     /*
     //SqlRepository<SoldItem> sr("SoldItem");
     auto a = sr.Get(2);
-    //auto a = sr.GetAll();
+    //auto a = sr.GetAll();https://www.facebook.com/
     a.partnerHq = "aaa12";
     a.partnerName = "maki12";
     bool b = sr.Update(a);
@@ -185,6 +185,7 @@ void MainPresenter::Error(const QSqlError& err)
 
 void MainPresenter::processSoldItemAction(IMainView *sender){
     zTrace();
+    QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
     //int excelId = 806;
 
@@ -202,13 +203,16 @@ void MainPresenter::processSoldItemAction(IMainView *sender){
 
     DataForm *dataForm = new DataForm();
 
+    QString title = _tr(GetWCode(WCodes::AddSoldItem));
+    dataForm->setWindowTitle(title);
+
     int w0=0;
     QLabel l0;
     QFont f0 = l0.font();
     f0.setPointSize(10);
 
     for (MetaValue &a : m) {
-        a.translatedName = _globals._translator.tr(a.wcode);
+        a.translatedName = _tr(a.wcode);
         int i = l0.fontMetrics().boundingRect(a.translatedName).width();
         if (i > w0)
             w0 = i;
