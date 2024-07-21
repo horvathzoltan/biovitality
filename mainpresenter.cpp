@@ -187,6 +187,9 @@ void MainPresenter::processSoldItemAction(IMainView *sender){
     zTrace();
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
+    AddSoldItemModel* model = new AddSoldItemModel();
+
+
     //int excelId = 806;
 
     //int id = _globals._repositories.sr.GetIdBy_ExcelId(excelId);
@@ -195,6 +198,17 @@ void MainPresenter::processSoldItemAction(IMainView *sender){
     SoldItem data;
     data.partnerName="teszt partner 1";
     data.county="teszt county 1";
+    model->data = data;
+    Operations::instance().setData(opId, model);
+
+    OperationModel *a = Operations::instance().data(opId);
+    AddSoldItemModel *b = reinterpret_cast<AddSoldItemModel*>(a);
+
+    if(b){
+        zInfo("county:"+b->data.county);
+    } else{
+        zInfo("b is nullptr");
+    }
 
     QList<MetaValue> m = data.GetMetaValues();
 
@@ -225,5 +239,7 @@ void MainPresenter::processSoldItemAction(IMainView *sender){
     }
     dataForm->show();
    // zInfo("platty");
+
+
 }
 
