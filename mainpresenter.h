@@ -7,6 +7,7 @@
 #include <QList>
 #include <QObject>
 #include <QSqlError>
+#include <QUuid>
 #include "imainview.h"
 #include "presenter.h"
 
@@ -32,6 +33,7 @@ private slots:
     void processDBTestAction(IMainView *sender);
     void processSoldItemAction(IMainView *sender);
 
+    void processAcceptAction(QUuid opId);
 };
 
 #endif // MAINPRESENTER_H

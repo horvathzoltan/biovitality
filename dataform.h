@@ -3,6 +3,7 @@
 
 #include "ui_dataform.h"
 #include <QDialog>
+#include <QUuid>
 #include <QVBoxLayout>
 #include <datarowwidget.h>
 
@@ -15,24 +16,28 @@ class DataForm : public QDialog
     Q_OBJECT
 
 public:
-    explicit DataForm(QWidget *parent = nullptr);
+    explicit DataForm(QUuid opId, QWidget *parent = nullptr);
     ~DataForm();
 
 
 
-private slots:
-    void on_buttonBox_accepted();
+//private slots:
+    //void on_buttonBox_accepted();
 
-    void on_buttonBox_rejected();
+    //void on_buttonBox_rejected();
 
 
 private:
     Ui::DataForm *ui;
+    QUuid _opId;
 
     void accept();
 public:
     //QVBoxLayout* GetLayout(){ return ui->verticalLayout;}
     void AddWidget(QWidget* w);
+
+signals:
+    void AcceptActionTriggered(QUuid);
 };
 
 #endif // DATAFORM_H

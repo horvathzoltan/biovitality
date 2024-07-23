@@ -3,6 +3,7 @@
 
 #include "bi/models/solditem.h"
 #include "helpers/logger.h"
+#include "dataform.h"
 #include "presenter.h"
 
 #include <QString>
@@ -20,6 +21,7 @@ class AddSoldItemModel: public OperationModel
 public:
     //QUuid opId
     SoldItem data;
+    DataForm* dataForm;
 };
 
 class Operations :public Singleton<Operations>

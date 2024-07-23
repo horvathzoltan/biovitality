@@ -189,7 +189,6 @@ void MainPresenter::processSoldItemAction(IMainView *sender){
 
     AddSoldItemModel* model = new AddSoldItemModel();
 
-
     //int excelId = 806;
 
     //int id = _globals._repositories.sr.GetIdBy_ExcelId(excelId);
@@ -215,10 +214,9 @@ void MainPresenter::processSoldItemAction(IMainView *sender){
     QString baseTypeName = data.GetBaseTypeName();
     zInfo("baseTypeName:"+baseTypeName);
 
-    DataForm *dataForm = new DataForm();
-
+    model->dataForm = new DataForm(opId);
     QString title = _tr(GetWCode(WCodes::AddSoldItem));
-    dataForm->setWindowTitle(title);
+    model->dataForm->setWindowTitle(title);
 
     int w0=0;
     QLabel l0;
@@ -235,11 +233,27 @@ void MainPresenter::processSoldItemAction(IMainView *sender){
     int i = 0;
     for (MetaValue &a : m) {
         DataRowWidget *w = new DataRowWidget(a, w0, i++%2==0);
-        dataForm->AddWidget(w);
+        model->dataForm->AddWidget(w);
     }
-    dataForm->show();
+    model->dataForm->show();
+    QObject::connect(model->dataForm, SIGNAL(AcceptActionTriggered(QUuid)),
+                     this, SLOT(processAcceptAction(QUuid)));
+
+
    // zInfo("platty");
 
 
+}
+
+void MainPresenter::processAcceptAction(QUuid opId)
+{
+    zInfo("processAcceptAction");
+
+    OperationModel *a = Operations::instance().data(opId);
+    AddSoldItemModel *b = reinterpret_cast<AddSoldItemModel*>(a);
+
+    if(b){
+        b->dataForm->done(1);
+    }
 }
 
