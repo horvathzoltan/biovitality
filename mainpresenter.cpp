@@ -223,6 +223,9 @@ void MainPresenter::processSoldItemAction(IMainView *sender){
     QFont f0 = l0.font();
     f0.setPointSize(10);
 
+    // todo 001 az m-et át lehet adni a formnak, hogy építse föl magát
+    // todo 002 a modelben át lehetne adni az értékkészletet amiből választani lehet
+    // todo3
     for (MetaValue &a : m) {
         a.translatedName = _tr(a.wcode);
         int i = l0.fontMetrics().boundingRect(a.translatedName).width();
@@ -250,10 +253,13 @@ void MainPresenter::processAcceptAction(QUuid opId)
     zInfo("processAcceptAction");
 
     OperationModel *a = Operations::instance().data(opId);
-    AddSoldItemModel *b = reinterpret_cast<AddSoldItemModel*>(a);
+    AddSoldItemModel *b = reinterpret_cast<AddSoldItemModel*>(a);        
 
     if(b){
-        b->dataForm->done(1);
+        QList<MetaValue> m = b->dataForm->GetMetaValues();
+
+        b->dataForm->done(1);        
     }
+
 }
 

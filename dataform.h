@@ -19,7 +19,7 @@ public:
     explicit DataForm(QUuid opId, QWidget *parent = nullptr);
     ~DataForm();
 
-
+    QList<MetaValue> GetMetaValues();
 
 //private slots:
     //void on_buttonBox_accepted();

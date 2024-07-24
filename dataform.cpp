@@ -15,6 +15,21 @@ DataForm::~DataForm()
     delete ui;
 }
 
+QList<MetaValue> DataForm::GetMetaValues()
+{
+    QList<MetaValue> m;
+
+    for(int L=ui->verticalLayout->count(),i=0;i<L;i++){
+        QWidget *w = ui->verticalLayout->itemAt(i)->widget();
+        if(w != nullptr){
+            w->
+            MetaValue v()
+
+        }
+    }
+    return m;
+}
+
 // void DataForm::on_buttonBox_accepted()
 // {
 //     // zInfo("DataForm: Accepted");
