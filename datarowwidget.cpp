@@ -4,6 +4,8 @@
 
 DataRowWidget::DataRowWidget(const MetaValue &m, int w, bool isLight)
 {
+    _metaValue = m;
+
     QColor color1 = Qt::green;//status?Qt::green:Qt::red;
     QColor color2 = Qt::darkGray;//status?Qt::green:Qt::red;
     QPalette pal = QPalette();

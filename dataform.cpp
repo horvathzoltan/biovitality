@@ -1,6 +1,9 @@
 #include "dataform.h"
+#include "globals.h"
 #include "ui_dataform.h"
 #include "helpers/logger.h"
+
+extern Globals _globals;
 
 DataForm::DataForm(QUuid opId, QWidget *parent)
     : QDialog(parent)
@@ -15,19 +18,45 @@ DataForm::~DataForm()
     delete ui;
 }
 
-QList<MetaValue> DataForm::GetMetaValues()
+QList<MetaValue> DataForm::metaValues()
 {
     QList<MetaValue> m;
 
     for(int L=ui->verticalLayout->count(),i=0;i<L;i++){
         QWidget *w = ui->verticalLayout->itemAt(i)->widget();
         if(w != nullptr){
-            w->
-            MetaValue v()
-
+            DataRowWidget *dataRowWidget = reinterpret_cast<DataRowWidget*>(w);
+            if(dataRowWidget){
+                MetaValue v = dataRowWidget->metaValue();
+                //v.value =
+                m.append(v);
+            }
         }
     }
     return m;
+}
+
+void DataForm::setMetaValues(QList<MetaValue> m)
+{
+    int w0=0;
+    QLabel l0;
+    QFont f0 = l0.font();
+    f0.setPointSize(10);
+
+    // todo 001 az m-et át lehet adni a formnak, hogy építse föl magát
+    // todo 002 a modelben át lehetne adni az értékkészletet amiből választani lehet
+    // todo3
+    for (MetaValue &a : m) {
+        a.translatedName = _tr(a.wcode);
+        int i = l0.fontMetrics().boundingRect(a.translatedName).width();
+        if (i > w0) w0 = i;
+    }
+
+    int i = 0;
+    for (MetaValue &a : m) {
+        DataRowWidget *w = new DataRowWidget(a, w0, i++%2==0);
+        AddWidget(w);
+    }
 }
 
 // void DataForm::on_buttonBox_accepted()

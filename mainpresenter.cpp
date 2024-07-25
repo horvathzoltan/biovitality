@@ -6,7 +6,7 @@
 #include "operations.h"
 //#include "settings.h"
 #include "dataform.h"
-#include "datarowwidget.h"
+//#include "datarowwidget.h"
 #include "globals.h"
 
 #include <QFileDialog>
@@ -198,46 +198,20 @@ void MainPresenter::processSoldItemAction(IMainView *sender){
     data.partnerName="teszt partner 1";
     data.county="teszt county 1";
     model->data = data;
+
     Operations::instance().setData(opId, model);
-
-    OperationModel *a = Operations::instance().data(opId);
-    AddSoldItemModel *b = reinterpret_cast<AddSoldItemModel*>(a);
-
-    if(b){
-        zInfo("county:"+b->data.county);
-    } else{
-        zInfo("b is nullptr");
-    }
 
     QList<MetaValue> m = data.GetMetaValues();
 
-    QString baseTypeName = data.GetBaseTypeName();
-    zInfo("baseTypeName:"+baseTypeName);
+    // QString baseTypeName = data.GetBaseTypeName();
+    // zInfo("baseTypeName:"+baseTypeName);
 
     model->dataForm = new DataForm(opId);
+
     QString title = _tr(GetWCode(WCodes::AddSoldItem));
-    model->dataForm->setWindowTitle(title);
+    model->dataForm->setWindowTitle(title);    
+    model->dataForm->setMetaValues(m);
 
-    int w0=0;
-    QLabel l0;
-    QFont f0 = l0.font();
-    f0.setPointSize(10);
-
-    // todo 001 az m-et át lehet adni a formnak, hogy építse föl magát
-    // todo 002 a modelben át lehetne adni az értékkészletet amiből választani lehet
-    // todo3
-    for (MetaValue &a : m) {
-        a.translatedName = _tr(a.wcode);
-        int i = l0.fontMetrics().boundingRect(a.translatedName).width();
-        if (i > w0)
-            w0 = i;
-    }
-
-    int i = 0;
-    for (MetaValue &a : m) {
-        DataRowWidget *w = new DataRowWidget(a, w0, i++%2==0);
-        model->dataForm->AddWidget(w);
-    }
     model->dataForm->show();
     QObject::connect(model->dataForm, SIGNAL(AcceptActionTriggered(QUuid)),
                      this, SLOT(processAcceptAction(QUuid)));
@@ -256,7 +230,7 @@ void MainPresenter::processAcceptAction(QUuid opId)
     AddSoldItemModel *b = reinterpret_cast<AddSoldItemModel*>(a);        
 
     if(b){
-        QList<MetaValue> m = b->dataForm->GetMetaValues();
+        QList<MetaValue> m = b->dataForm->metaValues();
 
         b->dataForm->done(1);        
     }

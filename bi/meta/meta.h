@@ -14,7 +14,7 @@
 
 struct MetaValue{
 private:
-    MetaValue(){};
+    MetaValue(){};    
 public:
     MetaValue(const QString& _name, const QString& _wcode,const QMetaType& type ){
         name = _name;
@@ -26,6 +26,7 @@ public:
     QString translatedName;
     QString wcode;
     QVariant value;
+
 };
 
 struct MetaField{

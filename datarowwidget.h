@@ -16,9 +16,10 @@ private:
     QLabel* _label;
     QLineEdit* _edit;
     QSpacerItem* _spacer;
+    MetaValue _metaValue {"", "", QMetaType()};
 public:
     DataRowWidget(const MetaValue& m, int w,bool isLight);
-
+    MetaValue metaValue(){return _metaValue;}
     ~DataRowWidget();
 };
 
