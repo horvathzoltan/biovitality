@@ -90,6 +90,10 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 DISTFILES += \
     testdata/BillingoZolinak.csv \
     testdata/Billingo_2024-07-03_CSV.csv \
+    testdata/Cikktorzs_Zolinak.csv \
+    testdata/Cimtorzs_Zolinak.csv \
+    testdata/Megyek_Zolinak.csv \
+    testdata/Partnertorzs_Zolinak.csv \
     testdata/teszt1.csv \
     testdata/teszt2.csv
 
