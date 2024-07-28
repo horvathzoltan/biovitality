@@ -23,6 +23,10 @@ public:
         int netCurrency;
         int excelId=-1;
     };
+    class Validation{
+    public:
+        int CannotConvert;
+    };
 };
 
 #define AddTr(a, b, c) AddTr2(a, #b, c,  sizeof(b));

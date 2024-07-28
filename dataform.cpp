@@ -2,7 +2,7 @@
 #include "globals.h"
 #include "ui_dataform.h"
 #include "helpers/logger.h"
-
+#include "helpers/translator.h"
 extern Globals _globals;
 
 DataForm::DataForm(QUuid opId, QWidget *parent)
@@ -18,9 +18,21 @@ DataForm::~DataForm()
     delete ui;
 }
 
-QList<MetaValue> DataForm::metaValues()
+DataRowWidget *DataForm::FindWidget(const QString &name)
 {
-    QList<MetaValue> m;
+    for(int L=ui->verticalLayout->count(),i=0;i<L;i++){
+        QWidget *w = ui->verticalLayout->itemAt(i)->widget();
+        if(w != nullptr){
+            DataRowWidget *dataRowWidget = reinterpret_cast<DataRowWidget*>(w);
+            if(dataRowWidget && dataRowWidget->name()==name) return dataRowWidget;
+        }
+    }
+    return nullptr;
+}
+
+DataModel DataForm::metaValues()
+{
+    DataModel m;
 
     for(int L=ui->verticalLayout->count(),i=0;i<L;i++){
         QWidget *w = ui->verticalLayout->itemAt(i)->widget();
@@ -28,13 +40,38 @@ QList<MetaValue> DataForm::metaValues()
             DataRowWidget *dataRowWidget = reinterpret_cast<DataRowWidget*>(w);
             if(dataRowWidget){
                 MetaValue v = dataRowWidget->metaValue();
-                //v.value =
-                m.append(v);
+                QVariant v2 = dataRowWidget->value();
+                bool ok = v2.convert(v.value.metaType());
+                if(ok){
+                    v.value.setValue(v2);
+                    dataRowWidget->SetValidateLabel("");
+                } else{
+                    MetaValidationMessage e{
+                        .name = v.name,
+                        .wcode = GetWCode(WCodes::Validation::CannotConvert),
+                        .value = dataRowWidget->text()
+                    };
+                    m.validations.append(e);
+                    //dataRowWidget->SetValidateLabel(e.wcode);
+                }
+                m.values.append(v);
             }
         }
     }
     return m;
 }
+
+void DataForm::SetValidations(QList<MetaValidationMessage> validations)
+{
+    for(auto&validation:validations){
+        DataRowWidget* w = FindWidget(validation.name);
+        if(w){
+            w->SetValidateLabel(validation.wcode);
+        }
+    }
+}
+
+
 
 void DataForm::setMetaValues(QList<MetaValue> m)
 {
@@ -78,6 +115,8 @@ void DataForm::accept()
      //zInfo("dialog accept");
     emit AcceptActionTriggered(_opId);
 }
+
+
 
 void DataForm::AddWidget(QWidget *w)
 {

@@ -26,7 +26,12 @@ public:
     QString translatedName;
     QString wcode;
     QVariant value;
+};
 
+struct MetaValidationMessage{
+    QString name;
+    QString wcode;
+    QString value;
 };
 
 struct MetaField{

@@ -230,9 +230,13 @@ void MainPresenter::processAcceptAction(QUuid opId)
     AddSoldItemModel *b = reinterpret_cast<AddSoldItemModel*>(a);        
 
     if(b){
-        QList<MetaValue> m = b->dataForm->metaValues();
-
-        b->dataForm->done(1);        
+        DataModel m = b->dataForm->metaValues();
+        if(m.isValid()){
+            b->dataForm->done(1);
+        }
+        else{
+            b->dataForm->SetValidations(m.validations);
+        }
     }
 
 }

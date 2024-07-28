@@ -11,6 +11,14 @@ namespace Ui {
 class DataForm;
 }
 
+struct DataModel{
+public:
+    QList<MetaValue> values;
+    QList<MetaValidationMessage> validations;
+
+    bool isValid(){return validations.isEmpty();}
+};
+
 class DataForm : public QDialog
 {
     Q_OBJECT
@@ -20,7 +28,8 @@ public:
     ~DataForm();
 
     void setMetaValues(QList<MetaValue> m);
-    QList<MetaValue> metaValues();
+    DataModel metaValues();
+    void SetValidations(QList<MetaValidationMessage> validations);
 
 //private slots:
     //void on_buttonBox_accepted();
@@ -33,6 +42,7 @@ private:
     QUuid _opId;
 
     void accept();
+    DataRowWidget* FindWidget(const QString& name);
 public:
     //QVBoxLayout* GetLayout(){ return ui->verticalLayout;}
     void AddWidget(QWidget* w);

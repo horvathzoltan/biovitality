@@ -60,11 +60,24 @@ DataRowWidget::DataRowWidget(const MetaValue &m, int w, bool isLight)
 
     _edit->setAutoFillBackground(true);
 
+    _validateLabel = new QLabel();
+    f1 = _validateLabel->font();
+    f1.setPointSize(10);
+    _validateLabel->setFont(f1);
+
+    _validateLabel->setGeometry(QRect(0, 0, l1_width, height));
+    _validateLabel->setMinimumSize(l1_width, height);
+    //_validateLabel->setMaximumSize(l1_width, height);
+
+    _validateLabel->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+    _validateLabel->setAlignment(Qt::AlignVCenter|Qt::AlignRight);
+
     // spacer
     _spacer = new QSpacerItem(1,1, QSizePolicy::Expanding, QSizePolicy::Fixed);
 
     lay->addWidget(_label);
     lay->addWidget(_edit);
+    lay->addWidget(_validateLabel);
     lay->addSpacerItem(_spacer);
     // widget
     //setMinimumSize(l1_width+e1_width+10, height);
@@ -87,6 +100,21 @@ DataRowWidget::DataRowWidget(const MetaValue &m, int w, bool isLight)
     }
 
     //_label->show();
+}
+
+QVariant DataRowWidget::value()
+{
+    if(_edit == nullptr) return QVariant();
+    QString txt = _edit->text();
+    QVariant v(txt);
+    return v;
+}
+
+QString DataRowWidget::text()
+{
+    if(_edit == nullptr) return QString();
+    QString txt = _edit->text();
+    return txt;
 }
 
 DataRowWidget::~DataRowWidget()
