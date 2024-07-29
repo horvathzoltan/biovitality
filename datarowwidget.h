@@ -18,6 +18,8 @@ private:
     QLabel* _validateLabel;
     QSpacerItem* _spacer;
     MetaValue _metaValue {"", "", QMetaType()};
+
+
 public:
     DataRowWidget(const MetaValue& m, int w,bool isLight);
     MetaValue metaValue(){return _metaValue;}
