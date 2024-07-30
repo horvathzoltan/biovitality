@@ -18,6 +18,7 @@ public:
     Repositories():sr("SoldItem"){}
 
     SqlRepository<SoldItem> sr;
+    //Repository<SoldItem> counties;
 };
 
 class Globals

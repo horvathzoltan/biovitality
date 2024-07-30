@@ -19,6 +19,14 @@ public:
     bool isValid(){return validations.isEmpty();}
 };
 
+
+
+struct DataRowDefaultModel{
+public:
+    QString name;
+    QList<IdMegnev> values;
+};
+
 class DataForm : public QDialog
 {
     Q_OBJECT
@@ -30,6 +38,7 @@ public:
     void setMetaValues(QList<MetaValue> m);
     DataModel metaValues();
     void SetValidations(QList<MetaValidationMessage> validations);
+    void SetDataRowDefaults(QList<DataRowDefaultModel> v);
 
 //private slots:
     //void on_buttonBox_accepted();

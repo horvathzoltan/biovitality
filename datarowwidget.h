@@ -8,6 +8,13 @@
 
 #include <bi/meta/meta.h>
 
+class IdMegnev{
+public:
+    int id = -1;
+    QString name;
+    QString code;
+};
+
 class DataRowWidget: public QWidget
 {
     Q_OBJECT
@@ -19,7 +26,7 @@ private:
     QSpacerItem* _spacer;
     MetaValue _metaValue {"", "", QMetaType()};
 
-
+    QList<IdMegnev> _defaultValues;
 public:
     DataRowWidget(const MetaValue& m, int w,bool isLight);
     MetaValue metaValue(){return _metaValue;}
@@ -29,6 +36,7 @@ public:
     ~DataRowWidget();
 
     QString name(){return _metaValue.name;}
+    void SetDataRowDefault(QList<IdMegnev> v){_defaultValues = v;}
 };
 
 #endif // DATAROWWIDGET_H

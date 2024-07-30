@@ -12,11 +12,7 @@
 // enum MetaFieldListTypes{
 //     Select, Update, Insert
 // };
-class IdMegnev{
-public:
-    int id = -1;
-    QString name;
-};
+
 
 class SoldItem
 {

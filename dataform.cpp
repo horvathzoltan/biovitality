@@ -71,6 +71,15 @@ void DataForm::SetValidations(QList<MetaValidationMessage> validations)
     }
 }
 
+void DataForm::SetDataRowDefaults(QList<DataRowDefaultModel> values){
+    for(auto&v:values){
+        DataRowWidget* w = FindWidget(v.name);
+        if(w){
+            w->SetDataRowDefault(v.values);
+        }
+    }
+}
+
 
 
 void DataForm::setMetaValues(QList<MetaValue> m)
