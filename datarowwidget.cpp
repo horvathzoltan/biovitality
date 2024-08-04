@@ -60,6 +60,7 @@ DataRowWidget::DataRowWidget(const MetaValue &m, int w, bool isLight)
 
     _edit->setAutoFillBackground(true);
 
+    _edit->connect(_edit, &QLineEdit::textEdited, this, &DataRowWidget::on_textEdited ); //textEdited, this, on_textEdited);
     _validateLabel = new QLabel();
     f1 = _validateLabel->font();
     f1.setPointSize(10);
@@ -120,4 +121,8 @@ QString DataRowWidget::text()
 DataRowWidget::~DataRowWidget()
 {
     delete(_label);
+}
+
+void DataRowWidget::on_textEdited(const QString &text){
+
 }
