@@ -121,8 +121,12 @@ QString DataRowWidget::text()
 DataRowWidget::~DataRowWidget()
 {
     delete(_label);
+    delete(_edit);
+    delete(_validateLabel);
+    delete(_spacer);
 }
 
 void DataRowWidget::on_textEdited(const QString &text){
+    zTrace();
 
 }

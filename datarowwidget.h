@@ -27,6 +27,7 @@ private:
     MetaValue _metaValue {"", "", QMetaType()};
     QList<IdMegnev> _defaultValues;
 
+
 public:
     DataRowWidget(const MetaValue& m, int w,bool isLight);
     MetaValue metaValue(){return _metaValue;}
@@ -38,7 +39,7 @@ public:
     QString name(){return _metaValue.name;}
     void SetDataRowDefault(const QList<IdMegnev>& v){_defaultValues = v;}
 
-signals:
+private slots:
     void on_textEdited(const QString &text);
 };
 
