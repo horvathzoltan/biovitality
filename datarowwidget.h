@@ -4,6 +4,7 @@
 #include <QLabel>
 #include <QLineEdit>
 #include <QSpacerItem>
+#include <QTimer>
 #include <QWidget>
 
 #include <bi/meta/meta.h>
@@ -25,8 +26,8 @@ private:
     QLabel* _validateLabel;
     QSpacerItem* _spacer;
     MetaValue _metaValue {"", "", QMetaType()};
-    QList<IdMegnev> _defaultValues;
-
+    QList<IdMegnev> _defaultValues;    
+    QTimer _editTimer;
 
 public:
     DataRowWidget(const MetaValue& m, int w,bool isLight);
@@ -39,8 +40,13 @@ public:
     QString name(){return _metaValue.name;}
     void SetDataRowDefault(const QList<IdMegnev>& v){_defaultValues = v;}
 
+    QStringList GetDefaultValue_ByName_Start(const QString& txt);
+    QStringList GetDefaultValue_ByName_Contains(const QString& txt);
+    QStringList GetDefaultValue_ByCode(const QString& txt);
+
 private slots:
     void on_textEdited(const QString &text);
+    void on_timeout();
 };
 
 #endif // DATAROWWIDGET_H

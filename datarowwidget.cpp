@@ -1,4 +1,5 @@
 #include "datarowwidget.h"
+#include "helpers/stringhelper.h"
 
 #include <QLayout>
 
@@ -55,7 +56,7 @@ DataRowWidget::DataRowWidget(const MetaValue &m, int w, bool isLight)
     _edit->setMinimumSize(e1_width, height);
     //_edit->setMaximumSize(e1_width, height);
 
-    _edit->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+    _edit->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
     _edit->setAlignment(Qt::AlignVCenter|Qt::AlignLeft);
 
     _edit->setAutoFillBackground(true);
@@ -100,6 +101,9 @@ DataRowWidget::DataRowWidget(const MetaValue &m, int w, bool isLight)
         update();
     }
 
+    _editTimer.setInterval(3000);
+    _editTimer.setSingleShot(true);
+    connect(&_editTimer, &QTimer::timeout, this, &DataRowWidget::on_timeout);
     //_label->show();
 }
 
@@ -128,5 +132,72 @@ DataRowWidget::~DataRowWidget()
 
 void DataRowWidget::on_textEdited(const QString &text){
     zTrace();
+    if(text.length()>0){
+        _editTimer.start();
+    }
+}
 
+void DataRowWidget::on_timeout()
+{
+    zTrace();
+    QString txt = _edit->text();
+    QStringList a = GetDefaultValue_ByCode(txt);
+    if(a.length()==1){
+        _edit->setText(a[0]);
+    } else{
+        if(txt.length()>=3){
+            a = GetDefaultValue_ByName_Start(txt);
+            if(a.length()==1){
+                _edit->setText(a[0]);
+            } else{
+                a = GetDefaultValue_ByName_Contains(txt);
+                if(a.length()==1){
+                    _edit->setText(a[0]);
+                }
+            }
+        }
+    }
+}
+
+QStringList DataRowWidget::GetDefaultValue_ByName_Start(const QString &txt)
+{
+    if(txt.isEmpty()) return {};
+    QString n_txt = StringHelper::Normalize(txt);
+    QStringList m;
+    for(auto&a:_defaultValues){
+        QString b = StringHelper::Normalize(a.name);
+        if(b.startsWith(n_txt)){
+            m.append(a.name);
+        }
+    }
+    return m;
+}
+
+QStringList DataRowWidget::GetDefaultValue_ByName_Contains(const QString &txt)
+{
+    if(txt.isEmpty()) return {};
+    QString n_txt = StringHelper::Normalize(txt);
+    QStringList m;
+    for(auto&a:_defaultValues){
+        QString b = StringHelper::Normalize(a.name);
+        if(b.contains(n_txt)){
+            m.append(a.name);
+        }
+    }
+    return m;
+}
+
+
+QStringList DataRowWidget::GetDefaultValue_ByCode(const QString &txt)
+{
+    if(txt.isEmpty()) return {};
+    QString n_txt = StringHelper::Normalize(txt);
+    QStringList m;
+    for(auto&a:_defaultValues){
+        QString b = StringHelper::Normalize(a.code);
+        if(b.startsWith(n_txt)){
+            m.append(a.name);
+        }
+    }
+    return m;
 }
