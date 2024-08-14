@@ -15,10 +15,16 @@ public:
     County();
 
     int id=-1;
-    QString partnerName;
+    QString name;
     QString KSH_code;
 
-    //static void MetaInit();
+    static void MetaInit();
+
+    bool isValid();
+
+private:
+    static Meta<County> _meta;
+
 };
 
 #endif // COUNTY_H
