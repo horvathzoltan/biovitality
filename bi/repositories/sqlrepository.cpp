@@ -125,6 +125,7 @@ bool SqlRepository<T>::Add(const T &m){
 }
 
 template class SqlRepository<SoldItem>;
+//template class SqlRepository<County>;
 
 /**/
 

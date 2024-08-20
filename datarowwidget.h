@@ -9,13 +9,6 @@
 
 #include <bi/meta/meta.h>
 
-class IdMegnev{
-public:
-    int id = -1;
-    QString name;
-    QString code;
-};
-
 class DataRowWidget: public QWidget
 {
     Q_OBJECT

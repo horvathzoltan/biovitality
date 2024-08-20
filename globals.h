@@ -2,9 +2,11 @@
 #define GLOBALS_H
 
 #include "bi/models/solditem.h"
+//#include "bi/models/county.h"
 #include "bi/repositories/sqlrepository.h"
 #include "settings.h"
 #include <QLocale>
+
 #include <helpers/translator.h>
 
 class Helpers{
@@ -15,10 +17,10 @@ public:
 class Repositories
 {
 public:
-    Repositories():sr("SoldItem"){}
+    Repositories():sr("SoldItem"){}//,cr("County"){}
 
     SqlRepository<SoldItem> sr;
-    //Repository<SoldItem> counties;
+    //SqlRepository<County> cr;
 };
 
 class Globals

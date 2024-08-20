@@ -43,7 +43,9 @@ auto main(int argc, char *argv[]) -> int
     zInfo("testdata_path:"+FileNameHelper::GetTestFolderPath());
     zInfo("working_folder:"+FileNameHelper::GetWorkingFolder());
 
-    SoldItem data;
+    //SoldItem data;
+    //County c;
+
     _globals._translator.Init();
 
     MainWindow w;

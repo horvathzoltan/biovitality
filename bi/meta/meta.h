@@ -12,6 +12,14 @@
 #define AddMetaField(b) _meta.AddField(#b, QMetaType::fromType<decltype(_meta._instance.b)>(), (char*)(&_meta._instance.b));
 #define AddMetaBase(b) _meta.AddBaseName(#b, sizeof(b));
 
+
+class IdMegnev{
+public:
+    int id = -1;
+    QString name;
+    QString code;
+};
+
 struct MetaValue{
 private:
     MetaValue(){};    
@@ -54,9 +62,17 @@ public:
     }
 };
 
+struct IdMegnevIxs{
+public:
+    int id = -1;
+    int megnev = -1;
+    int code = -1;
+};
+
 template<typename T>
 class Meta{
     QList<MetaField> _fields;
+    IdMegnevIxs _idMegnevIxs;
 public:
     T _instance;
 
@@ -160,7 +176,34 @@ public:
         }
         return m;
     }
+    
+    void MetaIdMegnevIndex(int i, int m, int c){
+        _idMegnevIxs.id = i;
+        _idMegnevIxs.megnev = m;
+        _idMegnevIxs.code = c;
+    }
+    
+    IdMegnev ToIdMegnev(const T* s){
+        IdMegnev e;
+        if(_idMegnevIxs.id>-1){
+            MetaField idf = _fields[_idMegnevIxs.id];
+            MetaValue mv =  idf.GetMetaValue((char*)s);
+            e.id = mv.value.toInt();
+        }
 
+        if(_idMegnevIxs.megnev>-1){
+            MetaField idn = _fields[_idMegnevIxs.megnev];
+            MetaValue mv2 =  idn.GetMetaValue((char*)s);
+            e.name = mv2.value.toString();
+        }
+
+        if(_idMegnevIxs.code>-1){
+            MetaField idc = _fields[_idMegnevIxs.code];
+            MetaValue mv3 =  idc.GetMetaValue((char*)s);
+            e.code = mv3.value.toString();
+        }
+        return e;
+    }
 };
 
 
