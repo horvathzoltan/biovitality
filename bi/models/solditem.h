@@ -45,9 +45,9 @@ public:
 
     // meta
 
+    // sqlrepo
     static QString GetMetaFieldList(){ return _meta.GetFieldList();}
     //static QString GetMetaFieldList_UPDATE(){ return _meta.GetFieldList_UPDATE();}
-
     static SoldItem FromMetaValues(const QList<MetaValue> &v){return _meta.FromMetaValues(v);}
     QList<MetaValue> GetMetaValues()const { return _meta.ToMetaValues(this);}
     QString GetBaseTypeName() {return _meta.GetBaseTypeName();}
