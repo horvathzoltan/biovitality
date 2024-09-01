@@ -21,9 +21,10 @@ private:
     MetaValue _metaValue {"", "", QMetaType()};
     QList<IdMegnev> _defaultValues;    
     QTimer _editTimer;
+    //int _autoCompleteMillisec;
 
 public:
-    DataRowWidget(const MetaValue& m, int w,bool isLight);
+    DataRowWidget(const MetaValue& m, int w,bool isLight, int autoCompleteMillisec);
     MetaValue metaValue(){return _metaValue;}
     QVariant value();
     QString text();

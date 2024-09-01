@@ -215,7 +215,10 @@ void MainPresenter::processSoldItemAction(IMainView *sender){
     model->dataForm->setMetaValues(m);
 
     // a county defaultjai:
-    DataRowDefaultModel cd = County::To_DataRowDefaultModel();
+    // rekordok az sql-ből
+    QList<County> counties = _globals._repositories.cr.GetAll();
+    // rekordok -> model lista
+    DataRowDefaultModel cd = County::To_DataRowDefaultModel(counties);
     cd.name = QT_STRINGIFY(county); // ennek a mezőnek lesznek ezek a defaultjai
     QList<DataRowDefaultModel> d {{cd}};
     model->dataForm->SetDataRowDefaults(d);
@@ -226,8 +229,6 @@ void MainPresenter::processSoldItemAction(IMainView *sender){
 
 
    // zInfo("platty");
-
-
 }
 
 void MainPresenter::processAcceptAction(QUuid opId)
@@ -241,6 +242,7 @@ void MainPresenter::processAcceptAction(QUuid opId)
         DataModel m = b->dataForm->metaValues();
         if(m.isValid()){
             b->dataForm->done(1);
+            // itt van az hogy le kéne a változtatott rekordot menteni
         }
         else{
             b->dataForm->SetValidations(m.validations);

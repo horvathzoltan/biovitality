@@ -100,7 +100,7 @@ void DataForm::setMetaValues(QList<MetaValue> m)
 
     int i = 0;
     for (MetaValue &a : m) {
-        DataRowWidget *w = new DataRowWidget(a, w0, i++%2==0);
+        DataRowWidget *w = new DataRowWidget(a, w0, i++%2==0, _globals._settings._autoComplete_millisec);
         AddWidget(w);
     }
 }

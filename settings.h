@@ -7,6 +7,7 @@ class Settings
 {
 public:
     SQLHelper::SQLSettings _sql_settings;
+    int _autoComplete_millisec = 1500;
     //int _project = 99;
 
     Settings(const SQLHelper::SQLSettings&a);

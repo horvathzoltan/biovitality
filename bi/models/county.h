@@ -51,15 +51,15 @@ public:
     County(int i, const QString& n, const QString& k);
 
     int id=-1;
-    QString name;
-    QString KSH_code;
+    QString countyName;
+    QString KSHCode;
 
     static void MetaInit();
 
     bool isValid();
 
-    static DataRowDefaultModel To_DataRowDefaultModel();
-    IdMegnev ToIdMegnev(){return _meta.ToIdMegnev(this); }
+    static DataRowDefaultModel To_DataRowDefaultModel(const QList<County>& data);
+    IdMegnev ToIdMegnev() const {return _meta.ToIdMegnev(this); }
 // sqlrepo
     static QString GetMetaFieldList(){ return _meta.GetFieldList();}
     static County FromMetaValues(const QList<MetaValue> &v){return _meta.FromMetaValues(v);}

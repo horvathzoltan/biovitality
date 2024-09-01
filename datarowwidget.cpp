@@ -3,7 +3,7 @@
 
 #include <QLayout>
 
-DataRowWidget::DataRowWidget(const MetaValue &m, int w, bool isLight)
+DataRowWidget::DataRowWidget(const MetaValue &m, int w, bool isLight, int autoCompleteMillisec)
 {
     _metaValue = m;
 
@@ -101,7 +101,7 @@ DataRowWidget::DataRowWidget(const MetaValue &m, int w, bool isLight)
         update();
     }
 
-    _editTimer.setInterval(3000);
+    _editTimer.setInterval(autoCompleteMillisec);
     _editTimer.setSingleShot(true);
     connect(&_editTimer, &QTimer::timeout, this, &DataRowWidget::on_timeout);
     //_label->show();
