@@ -243,6 +243,8 @@ void MainPresenter::processAcceptAction(QUuid opId)
         if(m.isValid()){
             b->dataForm->done(1);
             // itt van az hogy le kéne a változtatott rekordot menteni
+            SoldItem data = SoldItem::FromMetaValues(m.values);
+            _globals._repositories.sr.Add(data);
         }
         else{
             b->dataForm->SetValidations(m.validations);
