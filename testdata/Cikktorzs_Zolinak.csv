@@ -1,17 +1,18 @@
-ID;Termék megnevezése
+ID;Termék megnevezése;Vonalkód
 1;CBD 375 mg
 2;Fekete Magolaj
-3;FoxPost csomagautomata
-4;FoxPost házhozszállítás
 5;Ginseng
-6;GLS házhozszállítás
 7;Kalcium+Vitamin D
 8;Koenzim Q10 30 db kapszula
 9;Kollagén 20x
-10;Kupon2024Bio
 11;Multi-Vitamin 60x
 12;Omega 3
 13;Probiotikum
 14;Vitamin D3
+
+3;FoxPost csomagautomata
+4;FoxPost házhozszállítás
+6;GLS házhozszállítás
+10;Kupon2024Bio
 15;onlinePénztárca utólagos kedvezmény
 16;Postaköltség
