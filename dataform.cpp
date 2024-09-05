@@ -67,15 +67,20 @@ void DataForm::SetValidations(QList<MetaValidationMessage> validations)
         DataRowWidget* w = FindWidget(validation.name);
         if(w){
             w->SetValidateLabel(validation.wcode);
+        }else{
+            zInfo("Cannot set validation:"+validation.name);
         }
     }
 }
 
-void DataForm::SetDataRowDefaults(QList<DataRowDefaultModel> values){
+void DataForm::SetDataRowDefaults(QList<DataRowDefaultModel> values)
+{
     for(auto&v:values){
         DataRowWidget* w = FindWidget(v.name);
         if(w){
-            w->SetDataRowDefault(v.values);
+            w->SetDataRowDefault(v.values);        
+        }else{
+            zInfo("Cannot set defaults:"+v.name);
         }
     }
 }

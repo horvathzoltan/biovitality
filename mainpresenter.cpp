@@ -21,7 +21,9 @@
 #include <helpers/filehelper.h>
 #include <helpers/sqlhelper.h>
 
+#include <bi/models/article.h>
 #include <bi/models/county.h>
+#include <bi/models/article.h>
 #include <bi/models/solditem.h>
 
 #include <bi/repositories/sqlrepository.h>
@@ -88,6 +90,7 @@ void MainPresenter::initView(IMainView *w) const {
 
     SoldItem::MetaInit();
     County::MetaInit();
+    Article::MetaInit();
 };
 
 void MainPresenter::processPushButtonAction(IMainView *sender){
@@ -213,7 +216,7 @@ void MainPresenter::processSoldItemAction(IMainView *sender){
     QString title = _tr(GetWCode(WCodes::AddSoldItem));
     model->dataForm->setWindowTitle(title);    
     model->dataForm->setMetaValues(m);
-
+    {
     // a county defaultjai:
     // rekordok az sql-ből
     QList<County> counties = _globals._repositories.cr.GetAll();
@@ -222,7 +225,15 @@ void MainPresenter::processSoldItemAction(IMainView *sender){
     cd.name = QT_STRINGIFY(county); // ennek a mezőnek lesznek ezek a defaultjai
     QList<DataRowDefaultModel> d {{cd}};
     model->dataForm->SetDataRowDefaults(d);
-
+    }
+    {
+    QList<Article> articles = _globals._repositories.ar.GetAll();
+    // rekordok -> model lista
+    DataRowDefaultModel ad = Article::To_DataRowDefaultModel(articles);
+    ad.name = QT_STRINGIFY(articles); // ennek a mezőnek lesznek ezek a defaultjai
+    QList<DataRowDefaultModel> da {{ad}};
+    model->dataForm->SetDataRowDefaults(da);
+    }
     model->dataForm->show();
     QObject::connect(model->dataForm, SIGNAL(AcceptActionTriggered(QUuid)),
                      this, SLOT(processAcceptAction(QUuid)));

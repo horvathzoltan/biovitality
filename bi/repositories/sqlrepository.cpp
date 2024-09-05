@@ -1,5 +1,5 @@
 #include "sqlrepository.h"
-#include "bi/models/solditem.h"
+//#include "bi/models/solditem.h"
 
 #include "globals.h"
 #include "helpers/logger.h"
@@ -126,6 +126,7 @@ bool SqlRepository<T>::Add(const T &m){
 
 template class SqlRepository<SoldItem>;
 template class SqlRepository<County>;
+template class SqlRepository<Article>;
 
 /**/
 

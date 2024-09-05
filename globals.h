@@ -9,6 +9,8 @@
 
 #include <helpers/translator.h>
 
+#include <bi/models/article.h>
+
 class Helpers{
 public:
     SQLHelper _sqlHelper;    
@@ -17,10 +19,13 @@ public:
 class Repositories
 {
 public:
-    Repositories():sr("SoldItem"),cr("County"){}
+    Repositories():sr("SoldItem")
+        ,cr("County")
+        ,ar("Article"){}
 
     SqlRepository<SoldItem> sr;
     SqlRepository<County> cr;
+    SqlRepository<Article> ar;
 };
 
 class Globals
