@@ -44,9 +44,9 @@ public:
     };
 
     enum ErrLevel:int {
-        ERROR_,
-        WARNING,
         INFO,
+        WARNING,
+        ERROR_,
     };
 
     enum DbgLevel:int {
@@ -63,6 +63,7 @@ private:
     static bool _isBreakOnError;
     static bool _isVerbose;
     static bool _isInited;
+    static std::function<void(const QString& str)> _func;
 
     static QString ToString(ErrLevel, const QString&, const QString&, const QString&);
     static QString ToString(DbgLevel level, const QString &msg, const QString &loci, const QString &st);
@@ -80,6 +81,8 @@ public:
     static void info2(const QString& msg, const LocInfo& l);
     static void info2(const QStringList& msg, const LocInfo& l);
     static void message(const QString& msg);
+
+    static void SetFunction(std::function<void(const QString& str)> f){ _func = f;};
 };
 
 #endif // LOGGER_H

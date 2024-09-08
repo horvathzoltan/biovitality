@@ -33,6 +33,7 @@
 
 extern Globals _globals;
 
+IMainView* MainPresenter::_logView = nullptr;
 
 MainPresenter::MainPresenter(QObject *parent):Presenter(parent)
 {
@@ -42,6 +43,12 @@ MainPresenter::MainPresenter(QObject *parent):Presenter(parent)
 void MainPresenter::appendView(IMainView *w)
 {
     if(_views.contains(w)) return;
+
+    if(_views.length()==0){
+        _logView = w;
+        Logger::SetFunction(&MainPresenter::Log);
+    }
+
     _views.append(w);
 
     auto *view_obj = dynamic_cast<QObject*>(w);
@@ -59,14 +66,37 @@ void MainPresenter::appendView(IMainView *w)
                      this, SLOT(processSoldItemAction(IMainView *)));
 
 
+
     //refreshView(w);
 }
 
 void MainPresenter::refreshView(IMainView *w) const { Q_UNUSED(w) };
 
+QString MainPresenter::ColorizeLog2(const QString& str, const QString& c){
+    return QStringLiteral("<p style='color: ")+c+"'>"+str+"</p>";
+}
+
+QString MainPresenter::ColorizeLog(const QString& str){
+    if(str.startsWith("ERROR:")) return ColorizeLog2(str, "red");
+    if(str.startsWith("WARNING:")) return ColorizeLog2(str, "orange>");
+    if(str.startsWith("DEBUG:")) return ColorizeLog2(str, "yellow>");
+    if(str.startsWith("TRACE:")) return ColorizeLog2(str, "green");
+    return str;
+}
+
+void MainPresenter::Log(const QString& str){
+
+    if(_logView){
+        QString msg = ColorizeLog(str);
+        _logView->set_StatusLine({msg});
+    }
+}
+
 void MainPresenter::initView(IMainView *w) const {
     MainViewModel::StringModel rm{"1"};
     w->set_DoWorkRModel(rm);
+
+
 
     static const QString conn = QStringLiteral("conn1");
     // SQLHelper::SQLSettings sql_settings{
@@ -217,24 +247,26 @@ void MainPresenter::processSoldItemAction(IMainView *sender){
     QString title = _tr(GetWCode(WCodes::AddSoldItem));
     model->dataForm->setWindowTitle(title);    
     model->dataForm->setMetaValues(m);
-    {
+
     // a county defaultjai:
     // rekordok az sql-ből
     QList<County> counties = _globals._repositories.cr.GetAll();
     // rekordok -> model lista
     DataRowDefaultModel cd = County::To_DataRowDefaultModel(counties);
     cd.name = QT_STRINGIFY(county); // ennek a mezőnek lesznek ezek a defaultjai
-    QList<DataRowDefaultModel> d {{cd}};
-    model->dataForm->SetDataRowDefaults(d);
-    }
-    {
+    //QList<DataRowDefaultModel> d {{cd}};
+    //model->dataForm->SetDataRowDefaults(d);
+
+
     QList<Article> articles = _globals._repositories.ar.GetAll();
     // rekordok -> model lista
     DataRowDefaultModel ad = Article::To_DataRowDefaultModel(articles);
-    ad.name = QT_STRINGIFY(articles); // ennek a mezőnek lesznek ezek a defaultjai
-    QList<DataRowDefaultModel> da {{ad}};
+    ad.name = QT_STRINGIFY(productName); // ennek a mezőnek lesznek ezek a defaultjai
+
+    QList<DataRowDefaultModel> da {cd,ad};
+
     model->dataForm->SetDataRowDefaults(da);
-    }
+
     model->dataForm->show();
     QObject::connect(model->dataForm, SIGNAL(AcceptActionTriggered(QUuid)),
                      this, SLOT(processAcceptAction(QUuid)));

@@ -68,7 +68,7 @@ void DataForm::SetValidations(QList<MetaValidationMessage> validations)
         if(w){
             w->SetValidateLabel(validation.wcode);
         }else{
-            zInfo("Cannot set validation:"+validation.name);
+            zError("Cannot set validation:"+validation.name);
         }
     }
 }
@@ -80,7 +80,7 @@ void DataForm::SetDataRowDefaults(QList<DataRowDefaultModel> values)
         if(w){
             w->SetDataRowDefault(v.values);        
         }else{
-            zInfo("Cannot set defaults:"+v.name);
+            zError("Cannot set defaults:"+v.name);
         }
     }
 }

@@ -28,9 +28,7 @@ auto main(int argc, char *argv[]) -> int
     QCoreApplication::setOrganizationName("horvathzoltan");
     QCoreApplication::setOrganizationDomain("https://github.com/horvathzoltan");
 
-    Logger::Init(Logger::ErrLevel::INFO, Logger::DbgLevel::TRACE, true, true);
-    QString user = qgetenv("USER");
-    zInfo(QStringLiteral("started ")+target+" as "+user + " build:"+ Buildnumber::_value);    
+    Logger::Init(Logger::ErrLevel::INFO, Logger::DbgLevel::TRACE, false, true);
 
     //FileNameHelper::Init(QCoreApplication::applicationDirPath());
     //bool settings_ok = settings.Load(FileNameHelper::SettingsFileName());
@@ -40,8 +38,6 @@ auto main(int argc, char *argv[]) -> int
 
     QApplication a(argc, argv);
     FileNameHelper::Init();
-    zInfo("testdata_path:"+FileNameHelper::GetTestFolderPath());
-    zInfo("working_folder:"+FileNameHelper::GetWorkingFolder());
 
     //SoldItem data;
     //County c;
@@ -51,8 +47,18 @@ auto main(int argc, char *argv[]) -> int
     MainWindow w;
     MainPresenter p;
     p.appendView(&w);
+
+    // innen tudunk loggolni
+    QString user = qgetenv("USER");
+    zInfo(QStringLiteral("started ")+target+" as "+user + " build:"+ Buildnumber::_value);
+
+    zInfo("testdata_path:"+FileNameHelper::GetTestFolderPath());
+    zInfo("working_folder:"+FileNameHelper::GetWorkingFolder());
+
+
     w.show();    
     p.initView(&w);
+
 
     return a.exec();
 }

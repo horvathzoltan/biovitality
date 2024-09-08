@@ -13,6 +13,8 @@ bool Logger::_isBreakOnError = false;
 bool Logger::_isVerbose = false;
 bool Logger::_isInited = false;
 
+std::function<void(const QString& str)> Logger::_func = nullptr;
+
 void Logger::Init(ErrLevel errlevel,
                   DbgLevel dbglevel,
                   bool isBreakOnError, bool isVerbose)
@@ -26,6 +28,8 @@ void Logger::Init(ErrLevel errlevel,
     //_GUILogger = ez;
     //_ui=uiptr;
 }
+
+
 
 Logger::LocInfo::LocInfo(const char *func, const char *file, int line)
 {
@@ -115,6 +119,11 @@ void Logger::dbg_message(DbgLevel level, const QString& msg)
         break;
     }
 
+    if(_func)
+    {
+        _func(msg);
+    }
+
 #ifdef Q_OS_LINUX
     if((level ==DbgLevel::DEBUG) && _isBreakOnError) std::raise(SIGTRAP);
 #endif
@@ -150,9 +159,10 @@ void Logger::err_message(ErrLevel level, const QString& msg)
         //guimode = GUIModes::INFO;
         break;
     }
-//    if(_GUILogger) {
-//        _GUILogger(guimode, msg, "", "", _ui, flag);
-//    }
+    if(_func)
+    {
+        _func(msg);
+    }
 #ifdef Q_OS_LINUX
     if((level==ErrLevel::ERROR_) && _isBreakOnError) std::raise(SIGTRAP);
 #endif

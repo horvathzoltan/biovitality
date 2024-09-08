@@ -61,7 +61,7 @@ void MainWindow::set_StatusLine(const MainViewModel::StringModel &m)
             ui->plainTextEdit_status->setTextCursor(cursor);
         } else if (a == '\n') {
             if(!u.isEmpty()){
-                ui->plainTextEdit_status->appendPlainText(u);//a.join('\n'));//setPlainText(a.join('\n'));
+                ui->plainTextEdit_status->appendHtml(u);//a.join('\n'));//setPlainText(a.join('\n'));
                 u.clear();
             }
         }
@@ -70,7 +70,7 @@ void MainWindow::set_StatusLine(const MainViewModel::StringModel &m)
         }
     }
     if(!u.isEmpty()){
-        ui->plainTextEdit_status->appendPlainText(u);
+        ui->plainTextEdit_status->appendHtml(u);
     }
 }
 

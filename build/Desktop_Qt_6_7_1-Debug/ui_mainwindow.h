@@ -14,10 +14,9 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
-#include <QtWidgets/QMenuBar>
+#include <QtWidgets/QPlainTextEdit>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
-#include <QtWidgets/QStatusBar>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -35,8 +34,7 @@ public:
     QPushButton *pushButton_dbtest;
     QSpacerItem *horizontalSpacer;
     QSpacerItem *verticalSpacer;
-    QMenuBar *menubar;
-    QStatusBar *statusbar;
+    QPlainTextEdit *plainTextEdit_status;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -80,14 +78,13 @@ public:
 
         verticalLayout->addItem(verticalSpacer);
 
+        plainTextEdit_status = new QPlainTextEdit(centralwidget);
+        plainTextEdit_status->setObjectName("plainTextEdit_status");
+        plainTextEdit_status->setTextInteractionFlags(Qt::TextInteractionFlag::NoTextInteraction);
+
+        verticalLayout->addWidget(plainTextEdit_status);
+
         MainWindow->setCentralWidget(centralwidget);
-        menubar = new QMenuBar(MainWindow);
-        menubar->setObjectName("menubar");
-        menubar->setGeometry(QRect(0, 0, 986, 22));
-        MainWindow->setMenuBar(menubar);
-        statusbar = new QStatusBar(MainWindow);
-        statusbar->setObjectName("statusbar");
-        MainWindow->setStatusBar(statusbar);
 
         retranslateUi(MainWindow);
 
