@@ -45,6 +45,35 @@ MainViewModel::StringModel MainWindow::get_TetelCSVFileName()
     return r;
     };
 
+
+void MainWindow::set_StatusLine(const MainViewModel::StringModel &m)
+{
+    if(m.str.isEmpty()) return;
+
+    QString u;
+    for(auto&a:m.str){
+        if(a == '\r'){
+            QTextCursor cursor = ui->plainTextEdit_status->textCursor();
+            cursor.movePosition(QTextCursor::End);
+            cursor.select(QTextCursor::LineUnderCursor);
+            cursor.removeSelectedText();
+            cursor.deletePreviousChar(); // Added to trim the newline char when removing last line
+            ui->plainTextEdit_status->setTextCursor(cursor);
+        } else if (a == '\n') {
+            if(!u.isEmpty()){
+                ui->plainTextEdit_status->appendPlainText(u);//a.join('\n'));//setPlainText(a.join('\n'));
+                u.clear();
+            }
+        }
+        else{
+            u.append(a);
+        }
+    }
+    if(!u.isEmpty()){
+        ui->plainTextEdit_status->appendPlainText(u);
+    }
+}
+
 void MainWindow::on_pushButton_clicked()
 {
     qDebug() << "PushButtonActionTriggered";

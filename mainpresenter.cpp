@@ -80,11 +80,12 @@ void MainPresenter::initView(IMainView *w) const {
     _globals._helpers._sqlHelper.Init(_globals._settings._sql_settings);
     bool ok = _globals._helpers._sqlHelper.Connect();
 
-    if(_globals._helpers._sqlHelper.dbIsValid()){
+    if(_globals._helpers._sqlHelper.dbIsValid()){        
         zInfo("DB "+_globals._settings._sql_settings.dbname+" is valid");
     } else{
         zInfo("DB "+_globals._settings._sql_settings.dbname+" is invalid");
     }
+    w->set_StatusLine({""});
     //_db.close();
 
 

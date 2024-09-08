@@ -17,6 +17,7 @@ private:
     void set_DoWorkRModel(const MainViewModel::StringModel& m);
     MainViewModel::DoWorkModel get_DoWorkModel();
     MainViewModel::StringModel get_TetelCSVFileName();
+    void set_StatusLine(const MainViewModel::StringModel &m);
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();

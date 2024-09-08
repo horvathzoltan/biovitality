@@ -58,8 +58,13 @@ public:
 
     bool isValid();
 
-    static DataRowDefaultModel To_DataRowDefaultModel(const QList<County>& data);
+    //static DataRowDefaultModel To_DataRowDefaultModel(const QList<County>& data);
     IdMegnev ToIdMegnev() const {return _meta.ToIdMegnev(this); }
+    static DataRowDefaultModel To_DataRowDefaultModel(const QList<County>& data)
+    {
+        return _meta.ToIdMegnevs(data);
+    }
+
 // sqlrepo
     static QString GetMetaFieldList(){ return _meta.GetFieldList();}
     static County FromMetaValues(const QList<MetaValue> &v){return _meta.FromMetaValues(v);}

@@ -21,11 +21,7 @@ public:
 
 
 
-struct DataRowDefaultModel{
-public:
-    QString name;
-    QList<IdMegnev> values;
-};
+
 
 class DataForm : public QDialog
 {

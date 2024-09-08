@@ -28,17 +28,17 @@ bool Article::isValid()
     return true;
 }
 
-DataRowDefaultModel Article::To_DataRowDefaultModel(const QList<Article>& data)
-{
-    DataRowDefaultModel e;
-    e.name = _meta._baseName;
+// DataRowDefaultModel Article::To_DataRowDefaultModel(const QList<Article>& data)
+// {
+//     DataRowDefaultModel e;
+//     e.name = _meta._baseName;
 
-    //QList<County> data = _globals._repositories.cr.GetAll();
+//     //QList<County> data = _globals._repositories.cr.GetAll();
 
-    for(auto&a:data){
-        IdMegnev i = a.ToIdMegnev();
-        e.values.append(i);
-    }
+//     for(auto&a:data){
+//         IdMegnev i = a.ToIdMegnev();
+//         e.values.append(i);
+//     }
 
-    return e;
-}
+//     return e;
+// }

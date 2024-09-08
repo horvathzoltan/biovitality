@@ -44,20 +44,18 @@ bool County::isValid()
     return true;
 }
 
-DataRowDefaultModel County::To_DataRowDefaultModel(const QList<County>& data)
-{
-    DataRowDefaultModel e;
-    e.name = _meta._baseName;
+// DataRowDefaultModel County::To_DataRowDefaultModel(const QList<County>& data)
+// {
+//     DataRowDefaultModel e;
+//     e.name = _meta._baseName;
 
-    //QList<County> data = _globals._repositories.cr.GetAll();
+//     for(auto&a:data){
+//         IdMegnev i = a.ToIdMegnev();
+//         e.values.append(i);
+//     }
 
-    for(auto&a:data){
-        IdMegnev i = a.ToIdMegnev();
-        e.values.append(i);
-    }
-
-    return e;
-}
+//     return e;
+// }
 
 County::County() {}
 

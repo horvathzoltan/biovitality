@@ -26,7 +26,11 @@ public:
 
     bool isValid();
 
-    static DataRowDefaultModel To_DataRowDefaultModel(const QList<Article>& data);
+    //static DataRowDefaultModel To_DataRowDefaultModel(const QList<Article>& data);
+    static DataRowDefaultModel To_DataRowDefaultModel(const QList<Article>& data)
+    {
+        return _meta.ToIdMegnevs(data);
+    }
     IdMegnev ToIdMegnev() const {return _meta.ToIdMegnev(this); }
     // sqlrepo
     // template class SqlRepository<Article>;

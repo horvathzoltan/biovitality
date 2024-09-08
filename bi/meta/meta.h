@@ -69,6 +69,12 @@ public:
     int code = -1;
 };
 
+struct DataRowDefaultModel{
+public:
+    QString name;
+    QList<IdMegnev> values;
+};
+
 template<typename T>
 class Meta{
     QList<MetaField> _fields;
@@ -202,6 +208,19 @@ public:
             MetaValue mv3 =  idc.GetMetaValue((char*)s);
             e.code = mv3.value.toString();
         }
+        return e;
+    }
+
+
+    DataRowDefaultModel ToIdMegnevs(const QList<T>& data){
+        DataRowDefaultModel e;
+        e.name = _baseName;
+
+        for(auto&a:data){
+            IdMegnev i = a.ToIdMegnev();
+            e.values.append(i);
+        }
+
         return e;
     }
 };
