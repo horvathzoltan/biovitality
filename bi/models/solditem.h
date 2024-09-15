@@ -33,18 +33,20 @@ public:
     QString netCurrency;
     int excelId=-1;
 
-    static void MetaInit();
+    bool isValid();
 
     static QList<SoldItem> ImportCSV(const QList<QVarLengthArray<QString>>& records);
     static QVariant GetData(const QVarLengthArray<QString>& row, int ix);
-    static QVariant GetData(const QVarLengthArray<QString>& row, const QString &columnName, const QMap<QString, int>& ixs);
-    bool isValid();
+    static QVariant GetData(const QVarLengthArray<QString>& row, const QString &columnName, const QMap<QString, int>& ixs);    
     //static PriceModel GetPrice(const QVariant& v);
     static qreal GetPrice2(const QVariant& v, const QLocale& locale);
     static int GetId(const QVariant& v);
 
     // meta
-
+private:
+    static Meta<SoldItem> _meta;
+public:
+    static void MetaInit();
     // sqlrepo
     static QString GetMetaFieldList(){ return _meta.GetFieldList();}
     //static QString GetMetaFieldList_UPDATE(){ return _meta.GetFieldList_UPDATE();}
@@ -52,9 +54,8 @@ public:
     QList<MetaValue> GetMetaValues()const { return _meta.ToMetaValues(this);}
     QString GetBaseTypeName() {return _meta.GetBaseTypeName();}
     QList<SQLHelper::SQLParam> GetQueryParams()const { return _meta.ToMetaValues2(this);}
-private:
-    static Meta<SoldItem> _meta;
 
+private:
     static int indexOf(const QVarLengthArray<QString>& row, const QString & column_name);
 };
 

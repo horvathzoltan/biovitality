@@ -15,6 +15,7 @@ message( "TARGET = "$$TARGET )
 SOURCES += \
     #actions.cpp \
     bi/helpers/sqlmetahelper.cpp \
+    bi/models/address.cpp \
     bi/models/article.cpp \
     bi/models/county.cpp \
     bi/models/solditem.cpp \
@@ -50,6 +51,7 @@ HEADERS += \
     Singleton.h \
     bi/helpers/sqlmetahelper.h \
     bi/meta/meta.h \
+    bi/models/address.h \
     bi/models/article.h \
     bi/models/county.h \
     bi/models/solditem.h \
