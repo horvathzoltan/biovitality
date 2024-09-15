@@ -30,6 +30,7 @@ public:
     QHBoxLayout *horizontalLayout;
     QPushButton *pushButton_AddSoldItem;
     QLabel *label;
+    QPushButton *pushButton_addressImport;
     QPushButton *pushButton_tetelImport;
     QPushButton *pushButton_dbtest;
     QSpacerItem *horizontalSpacer;
@@ -56,6 +57,11 @@ public:
         label->setObjectName("label");
 
         horizontalLayout->addWidget(label);
+
+        pushButton_addressImport = new QPushButton(centralwidget);
+        pushButton_addressImport->setObjectName("pushButton_addressImport");
+
+        horizontalLayout->addWidget(pushButton_addressImport);
 
         pushButton_tetelImport = new QPushButton(centralwidget);
         pushButton_tetelImport->setObjectName("pushButton_tetelImport");
@@ -96,7 +102,8 @@ public:
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
         pushButton_AddSoldItem->setText(QCoreApplication::translate("MainWindow", "AddSoldItem", nullptr));
         label->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
-        pushButton_tetelImport->setText(QCoreApplication::translate("MainWindow", "T\303\251telImport", nullptr));
+        pushButton_addressImport->setText(QCoreApplication::translate("MainWindow", "C\303\255m Import", nullptr));
+        pushButton_tetelImport->setText(QCoreApplication::translate("MainWindow", "T\303\251tel Import", nullptr));
         pushButton_dbtest->setText(QCoreApplication::translate("MainWindow", "DBtest", nullptr));
     } // retranslateUi
 

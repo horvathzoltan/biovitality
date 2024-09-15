@@ -10,6 +10,11 @@
 
 #include <bi/helpers/sqlmetahelper.h>
 
+// template class SqlRepository<SoldItem>;
+// template class SqlRepository<County>;
+// template class SqlRepository<Article>;
+// template class SqlRepository<Address>;
+
 extern Globals _globals;
 
 template<class T>
@@ -124,9 +129,7 @@ bool SqlRepository<T>::Add(const T &m){
 
 }
 
-template class SqlRepository<SoldItem>;
-template class SqlRepository<County>;
-template class SqlRepository<Article>;
+
 
 /**/
 

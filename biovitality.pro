@@ -14,6 +14,7 @@ message( "TARGET = "$$TARGET )
 
 SOURCES += \
     #actions.cpp \
+    bi/helpers/csvhelper.cpp \
     bi/helpers/sqlmetahelper.cpp \
     bi/models/address.cpp \
     bi/models/article.cpp \
@@ -49,6 +50,7 @@ HEADERS += \
     #actions.h \
     IView.h \
     Singleton.h \
+    bi/helpers/csvhelper.h \
     bi/helpers/sqlmetahelper.h \
     bi/meta/meta.h \
     bi/models/address.h \

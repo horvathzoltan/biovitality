@@ -34,11 +34,15 @@ private:
     static QString ColorizeLog2(const QString &str, const QString &c);
 private slots:
     void processPushButtonAction(IMainView *sender);
-    void processTetelImportAction(IMainView *sender);
+
     void processDBTestAction(IMainView *sender);
     void processSoldItemAction(IMainView *sender);
-
     void processAcceptAction(QUuid opId);
+
+    // CSV Import Tétel
+    void processTetelImportAction(IMainView *sender);
+    // CSV Import Cim
+    void processCimImportAction(IMainView *sender);
 };
 
 #endif // MAINPRESENTER_H

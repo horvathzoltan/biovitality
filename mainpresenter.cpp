@@ -25,6 +25,7 @@
 #include <bi/models/county.h>
 #include <bi/models/article.h>
 #include <bi/models/solditem.h>
+#include <bi/models/address.h>
 
 #include <bi/repositories/sqlrepository.h>
 
@@ -65,7 +66,9 @@ void MainPresenter::appendView(IMainView *w)
     QObject::connect(view_obj, SIGNAL(AddSoldItemActionTriggered(IMainView *)),
                      this, SLOT(processSoldItemAction(IMainView *)));
 
-
+    // CSV_Import Cím
+    QObject::connect(view_obj, SIGNAL(CimImportActionTriggered(IMainView *)),
+                     this, SLOT(processCimImportAction(IMainView *)));
 
     //refreshView(w);
 }
@@ -96,8 +99,6 @@ void MainPresenter::initView(IMainView *w) const {
     MainViewModel::StringModel rm{"1"};
     w->set_DoWorkRModel(rm);
 
-
-
     static const QString conn = QStringLiteral("conn1");
     // SQLHelper::SQLSettings sql_settings{
     //     "QMARIADB",
@@ -118,11 +119,10 @@ void MainPresenter::initView(IMainView *w) const {
     w->set_StatusLine({""});
     //_db.close();
 
-
-    SoldItem::MetaInit();
-    County::MetaInit();
-    Article::MetaInit();
+    Repositories::MetaInit();
 };
+
+
 
 void MainPresenter::processPushButtonAction(IMainView *sender){
     qDebug() << "processPushButtonAction";
@@ -140,7 +140,7 @@ void MainPresenter::processTetelImportAction(IMainView *sender)
     FileHelper::CSVModel csvModel = FileHelper::LoadCSV(fn.str);
     if(csvModel.error == FileHelper::Ok){
         zInfo("file ok");
-        QList<SoldItem> items = SoldItem::ImportCSV(csvModel.records);
+        QList<SoldItem> items = SoldItem::CSV_Import(csvModel.records);
 
         // megvan a modell lista, egyenként meg kell nézni excel_id szerint, hogy
         // ha létezik, update
@@ -297,3 +297,60 @@ void MainPresenter::processAcceptAction(QUuid opId)
 
 }
 
+//
+
+void MainPresenter::processCimImportAction(IMainView *sender)
+{
+    QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
+
+    MainViewModel::StringModel fn = sender->get_CimCSVFileName();
+
+    FileHelper::CSVModel csvModel = FileHelper::LoadCSV(fn.str);
+    if(csvModel.error == FileHelper::Ok){
+        zInfo("file ok");
+        QList<Address> items = Address::CSV_Import(csvModel.records);
+
+        // megvan a modell lista, egyenként meg kell nézni excel_id szerint, hogy
+        // ha létezik, update
+        // ha nem, insert
+        // todo 001 storno flag
+        // todo 002 partner törzs - partner id bevezetése
+        // - 1. partner import
+        // - 2. tétel import
+        //SoldItemRepository::InsertOrUpdate(items);
+
+        SqlRepository<Address>& repo =  _globals._repositories.address;
+
+        if(!items.isEmpty())
+        {
+            int i_all=0, u_all=0;
+            int i_ok=0, u_ok=0;
+            for(auto&i:items){
+                bool contains = repo.ContainsBy_ExcelId(i.excelId);
+                if(contains){
+                    int id =  repo.GetIdBy_ExcelId(i.excelId); // meg kell szerezni az id-t
+                    if(id!=-1)
+                    {
+                        i.id = id;
+                        u_all++;
+                        bool ok =  repo.Update(i);
+                        if(ok) u_ok++;
+                    } else{
+                        zInfo("no id for excelId: "+QString::number(i.excelId));
+                    }
+                } else{
+                    i_all++;
+                    bool ok =  repo.Add(i);
+                    if(ok) i_ok++;
+                }
+            }
+            zInfo(QStringLiteral("Updated: %1/%2").arg(u_ok).arg(u_all))
+                zInfo(QStringLiteral("Inserted: %1/%2").arg(i_ok).arg(i_all))
+        } else{
+            zInfo("no items to import");
+        }
+    } else{
+        zInfo("file failed");
+    }
+    Operations::instance().stop(opId);
+}

@@ -9,6 +9,7 @@
 
 #include <helpers/translator.h>
 
+#include <bi/models/address.h>
 #include <bi/models/article.h>
 
 class Helpers{
@@ -19,14 +20,29 @@ public:
 class Repositories
 {
 public:
-    Repositories():sr("SoldItem")
+    Repositories()
+        :sr("SoldItem")
         ,cr("County")
-        ,ar("Article"){}
+        ,ar("Article")
+        ,address("Address"){}
 
     SqlRepository<SoldItem> sr;
     SqlRepository<County> cr;
     SqlRepository<Article> ar;
+    SqlRepository<Address> address;
+
+    static void MetaInit(){
+        SoldItem::MetaInit();
+        County::MetaInit();
+        Article::MetaInit();
+        Address::MetaInit();
+    }
 };
+
+template class SqlRepository<SoldItem>;
+template class SqlRepository<County>;
+template class SqlRepository<Article>;
+template class SqlRepository<Address>;
 
 class Globals
 {

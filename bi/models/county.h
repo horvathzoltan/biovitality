@@ -11,39 +11,6 @@
 
 #include <dataform.h>
 
-/*
-1;Bács-Kiskun vármegye;03
-2;Baranya vármegye;02
-3;Békés vármegye;04
-4;Borsod-Abaúj-Zemplén vármegye;05
-5;Budapest;01
-6;Csongrád-Csanád vármegye;06
-7;Fejér vármegye;07
-8;Győr-Moson-Sopron vármegye;08
-9;Hadjú-Bihar vármegye;09
-10;Heves vármegye;10
-11;Jász-Nagykun Szolnok vármegye;16
-12;Komárom-Esztergom vármegye;11
-13;Nógrád vármegye;12
-14;Pest vármegye;13
-15;Szabolcs-Szatmár-Bereg vármegye;15
-16;Tolna vármegye;17
-17;Vas vármegye;18
-18;Veszprém vármegye;19
-19;Zala vármegye;20
-20;Somogy vármegye;14
-*/
-
-// sqlrepository.cpp
-// template class SqlRepository<County>;
-
-// mainpresenter.cpp initView
-// County::MetaInit();
-
-// globals.h
-// Repositories() ... ,cr("County"){}
-// SqlRepository<County> cr;
-
 class County
 {
 public:
@@ -54,25 +21,36 @@ public:
     QString countyName;
     QString KSHCode;
 
-    static void MetaInit();
 
+public:
     bool isValid();
 
-    //static DataRowDefaultModel To_DataRowDefaultModel(const QList<County>& data);
+    // meta
+private:
+    static Meta<County> _meta;
+public:
+    static void MetaInit();    
+    // sqlrepo
+    // home/zoli/source/repos/biovitality/bi/repositories/sqlrepository.cpp
+    // template class SqlRepository<County>;
+    //
+    // static void MetaInit(){ ...
+    // County::MetaInit();
+    //
+    // home/zoli/source/repos/biovitality/bi/repositories/sqlrepository.cpp
+    // template class SqlRepository<County>;
+
+    static QString GetMetaFieldList(){ return _meta.GetFieldList();}
+    static County FromMetaValues(const QList<MetaValue> &v){return _meta.FromMetaValues(v);}
+    QList<SQLHelper::SQLParam> GetQueryParams()const { return _meta.ToMetaValues2(this);}
+
+// DataForm
     IdMegnev ToIdMegnev() const {return _meta.ToIdMegnev(this); }
     static DataRowDefaultModel To_DataRowDefaultModel(const QList<County>& data)
     {
         return _meta.ToIdMegnevs(data);
     }
 
-// sqlrepo
-    static QString GetMetaFieldList(){ return _meta.GetFieldList();}
-    static County FromMetaValues(const QList<MetaValue> &v){return _meta.FromMetaValues(v);}
-    QList<SQLHelper::SQLParam> GetQueryParams()const { return _meta.ToMetaValues2(this);}
-
-private:
-    static QList<County> _data;
-    static Meta<County> _meta;    
 };
 
 #endif // COUNTY_H

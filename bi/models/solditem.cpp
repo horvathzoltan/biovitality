@@ -6,6 +6,8 @@
 
 #include <helpers/stringhelper.h>
 
+#include <bi/helpers/csvhelper.h>
+
 Meta<SoldItem> SoldItem::_meta;
 
 SoldItem::SoldItem() {}
@@ -28,6 +30,16 @@ void SoldItem::MetaInit()
     AddMetaField(excelId);
 }
 
+bool SoldItem::isValid()
+{
+    if(id<0) return false;
+    if(partnerName.isEmpty()) return false;
+    if(partnerHq.isEmpty()) return false;
+    //if(units<=0) return false; // ha minusz a darabszám, stornós
+    //if(netPrice<=0) return false; // ha minusz az ár, stornós
+    return true;
+}
+
 /*
 ID;Partner neve;Székhelye;Megye;Teljesítés;Számlaszám;Termék megnevezése;Db;Egységár;Eá. Pénznem;Nettó ár;Nettó pénznem
 806.;Balmazpharm Kft.;4060 Balmazújváros, Bocskai u. 2-4.;HAJDÚ-BIHAR MEGYE;2020.04.10;2024-100;Probiotikum;40;1 625,00   ;HUF;65 000   ;HUF
@@ -35,7 +47,7 @@ ID;Partner neve;Székhelye;Megye;Teljesítés;Számlaszám;Termék megnevezése;
 808.;Balmazpharm Kft.;4060 Balmazújváros, Bocskai u. 2-4.;HAJDÚ-BIHAR MEGYE;2020.04.10;2024-100;Ginseng;13;5,00   ;HUF;65   ;HUF
 */
 
-QList<SoldItem> SoldItem::ImportCSV(const QList<QVarLengthArray<QString>>& records)
+QList<SoldItem> SoldItem::CSV_Import(const QList<QVarLengthArray<QString>>& records)
 {
     QList<SoldItem> m;
     // 1. rekord fejléc:
@@ -61,18 +73,18 @@ QList<SoldItem> SoldItem::ImportCSV(const QList<QVarLengthArray<QString>>& recor
     QString netCurrency_KEY(QT_STRINGIFY(netCurrency));
 
 
-    ixs.insert(excelId_KEY,indexOf(header,"ID"));
-    ixs.insert(partnerName_KEY,indexOf(header,"Partner neve"));
-    ixs.insert(partnerHq_KEY,indexOf(header,"Szekhelye"));
-    ixs.insert(county_KEY,indexOf(header,"Megye"));
-    ixs.insert(fullfillment_KEY,indexOf(header,"Teljesítés"));
-    ixs.insert(accountNr_KEY,indexOf(header,"Számlaszám"));
-    ixs.insert(productName_KEY,indexOf(header,"Termék megnevezése"));
-    ixs.insert(units_KEY,indexOf(header,"Db"));
-    ixs.insert(unitPrice_KEY,indexOf(header,"Egységár"));
-    ixs.insert(unitCurrency_KEY,indexOf(header,"Eá. Pénznem"));
-    ixs.insert(netPrice_KEY,indexOf(header,"Nettó ár"));
-    ixs.insert(netCurrency_KEY,indexOf(header,"Nettó pénznem"));
+    ixs.insert(excelId_KEY,CSVHelper::IndexOfRow(header,"ID"));
+    ixs.insert(partnerName_KEY,CSVHelper::IndexOfRow(header,"Partner neve"));
+    ixs.insert(partnerHq_KEY,CSVHelper::IndexOfRow(header,"Szekhelye"));
+    ixs.insert(county_KEY,CSVHelper::IndexOfRow(header,"Megye"));
+    ixs.insert(fullfillment_KEY,CSVHelper::IndexOfRow(header,"Teljesítés"));
+    ixs.insert(accountNr_KEY,CSVHelper::IndexOfRow(header,"Számlaszám"));
+    ixs.insert(productName_KEY,CSVHelper::IndexOfRow(header,"Termék megnevezése"));
+    ixs.insert(units_KEY,CSVHelper::IndexOfRow(header,"Db"));
+    ixs.insert(unitPrice_KEY,CSVHelper::IndexOfRow(header,"Egységár"));
+    ixs.insert(unitCurrency_KEY,CSVHelper::IndexOfRow(header,"Eá. Pénznem"));
+    ixs.insert(netPrice_KEY,CSVHelper::IndexOfRow(header,"Nettó ár"));
+    ixs.insert(netCurrency_KEY,CSVHelper::IndexOfRow(header,"Nettó pénznem"));
 
     QLocale hu(QLocale::Hungarian);
 
@@ -80,26 +92,26 @@ QList<SoldItem> SoldItem::ImportCSV(const QList<QVarLengthArray<QString>>& recor
         //if(i>=3)break;
         QVarLengthArray<QString> row = records[i];
         SoldItem item;
-        QVariant excelIdValue = GetData(row, excelId_KEY, ixs);
+        QVariant excelIdValue = CSVHelper::GetData(row, excelId_KEY, ixs);
 
         item.id = 0;
-        item.excelId = GetId(excelIdValue);
-        item.partnerName = GetData(row, partnerName_KEY, ixs).toString();
-        item.partnerHq = GetData(row, partnerHq_KEY, ixs).toString();
-        item.county = GetData(row, county_KEY, ixs).toString();
+        item.excelId = CSVHelper::GetId(excelIdValue);
+        item.partnerName = CSVHelper::GetData(row, partnerName_KEY, ixs).toString();
+        item.partnerHq = CSVHelper::GetData(row, partnerHq_KEY, ixs).toString();
+        item.county = CSVHelper::GetData(row, county_KEY, ixs).toString();
         //"2020.04.10"
-        QVariant d1 = GetData(row, fullfillment_KEY, ixs);
+        QVariant d1 = CSVHelper::GetData(row, fullfillment_KEY, ixs);
         item.fullfillment = hu.toDate(d1.toString(),"yyyy.M.d");
-        item.accountNr = GetData(row, accountNr_KEY, ixs).toString();
-        item.productName = GetData(row, productName_KEY, ixs).toString();
-        item.units = GetData(row, units_KEY, ixs).toUInt();
+        item.accountNr = CSVHelper::GetData(row, accountNr_KEY, ixs).toString();
+        item.productName = CSVHelper::GetData(row, productName_KEY, ixs).toString();
+        item.units = CSVHelper::GetData(row, units_KEY, ixs).toUInt();
 
 
-        item.unitPrice = GetPrice2(GetData(row, unitPrice_KEY, ixs), hu);
-        item.unitCurrency = GetData(row, unitCurrency_KEY, ixs).toString();
+        item.unitPrice = GetPrice2(CSVHelper::GetData(row, unitPrice_KEY, ixs), hu);
+        item.unitCurrency = CSVHelper::GetData(row, unitCurrency_KEY, ixs).toString();
 
-        item.netPrice = GetPrice2(GetData(row, netPrice_KEY, ixs), hu);
-        item.netCurrency = GetData(row, netCurrency_KEY, ixs).toString();
+        item.netPrice = GetPrice2(CSVHelper::GetData(row, netPrice_KEY, ixs), hu);
+        item.netCurrency = CSVHelper::GetData(row, netCurrency_KEY, ixs).toString();
 
 
         if(item.isValid()){
@@ -111,46 +123,6 @@ QList<SoldItem> SoldItem::ImportCSV(const QList<QVarLengthArray<QString>>& recor
 
     return m;
 }
-
-int SoldItem::indexOf(const QVarLengthArray<QString>& row, const QString &column_name)
-{
-    int L = row.length();
-    for (int i = 0;i<L;i++) {
-        QString a =row[i];
-        QString a2 = StringHelper::Normalize(a);
-        QString column_name2 = StringHelper::Normalize(column_name);
-        if (a2 == column_name2) return i;
-    }
-    return -1;
-}
-
-QVariant SoldItem::GetData(const QVarLengthArray<QString>& row, const QString& columnName, const QMap<QString,int>& ixs){
-    if(ixs.contains(columnName)){
-        int ix = ixs.value(columnName);
-        return GetData(row, ix);
-    }
-    return {};
-}
-
-bool SoldItem::isValid()
-{
-    if(id<0) return false;
-    if(partnerName.isEmpty()) return false;
-    if(partnerHq.isEmpty()) return false;
-    //if(units<=0) return false; // ha minusz a darabszám, stornós
-    //if(netPrice<=0) return false; // ha minusz az ár, stornós
-    return true;
-}
-
-int SoldItem::GetId(const QVariant& v){
-    QString txt = v.toString();
-    if(txt.endsWith('.')) txt = txt.left(txt.length()-1);
-    bool ok;
-    int i = txt.toInt(&ok);
-    if(ok) return i;
-    return -1;
-}
-
 
 qreal SoldItem::GetPrice2(const QVariant& v, const QLocale& locale){
     QString txt = v.toString().remove(' ');
@@ -176,12 +148,6 @@ qreal SoldItem::GetPrice2(const QVariant& v, const QLocale& locale){
 //     return {};
 // }
 
-QVariant SoldItem::GetData(const QVarLengthArray<QString> &row, int ix){
-     if(ix<0) return {};
-     if(ix>=row.length()) return {};
-
-     return QVariant(row[ix]);
-}
 
 
 // void Meta::Init()

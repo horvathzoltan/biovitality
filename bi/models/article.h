@@ -22,25 +22,36 @@ public:
     QString Barcode;
     int excelId=-1;
 
-    static void MetaInit();
+private:
+    static Meta<Article> _meta;
+    //static QList<Article> _data;
 
+public:
     bool isValid();
 
-    //static DataRowDefaultModel To_DataRowDefaultModel(const QList<Article>& data);
+// meta
+    static void MetaInit();
+    // sqlrepo
+    // home/zoli/source/repos/biovitality/bi/repositories/sqlrepository.cpp
+    // template class SqlRepository<Article>;
+    //
+    // static void MetaInit(){ ...
+    // Article::MetaInit();
+    //
+    // home/zoli/source/repos/biovitality/bi/repositories/sqlrepository.cpp
+    // template class SqlRepository<Article>;
+
+    static QString GetMetaFieldList(){ return _meta.GetFieldList();}
+    static Article FromMetaValues(const QList<MetaValue> &v){return _meta.FromMetaValues(v);}
+    QList<SQLHelper::SQLParam> GetQueryParams()const { return _meta.ToMetaValues2(this);}
+
+// DataForm
     static DataRowDefaultModel To_DataRowDefaultModel(const QList<Article>& data)
     {
         return _meta.ToIdMegnevs(data);
     }
     IdMegnev ToIdMegnev() const {return _meta.ToIdMegnev(this); }
-    // sqlrepo
-    // template class SqlRepository<Article>;
-    static QString GetMetaFieldList(){ return _meta.GetFieldList();}
-    static Article FromMetaValues(const QList<MetaValue> &v){return _meta.FromMetaValues(v);}
-    QList<SQLHelper::SQLParam> GetQueryParams()const { return _meta.ToMetaValues2(this);}
 
-private:
-    static QList<Article> _data;
-    static Meta<Article> _meta;
 };
 
 #endif // ARTICLE_H

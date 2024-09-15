@@ -34,7 +34,7 @@ auto MainWindow::get_DoWorkModel() -> MainViewModel::DoWorkModel
 }
 
 MainViewModel::StringModel MainWindow::get_TetelCSVFileName()
-    {
+{
     MainViewModel::StringModel r;
 
     QString folderPath = FileNameHelper::GetTestFolderPath();
@@ -42,9 +42,25 @@ MainViewModel::StringModel MainWindow::get_TetelCSVFileName()
                                          tr("Open File"),
                                          folderPath,
                                          tr("CSV Files (*.csv *.txt)"));
-    return r;
-    };
 
+    // todo 0001a legutóbbi tétel file path elmentése
+    return r;
+};
+
+MainViewModel::StringModel MainWindow::get_CimCSVFileName()
+{
+    MainViewModel::StringModel r;
+
+    QString folderPath = FileNameHelper::GetTestFolderPath();
+    r.str = QFileDialog::getOpenFileName(this,
+                                         tr("Open File"),
+                                         folderPath,
+                                         tr("CSV Files (*.csv *.txt)"));
+
+    // todo 0001b legutóbbi cím file path elmentése
+    // kellene egy nemtommi kulcs-érték párok
+    return r;
+};
 
 void MainWindow::set_StatusLine(const MainViewModel::StringModel &m)
 {
@@ -100,5 +116,12 @@ void MainWindow::on_pushButton_AddSoldItem_clicked()
     qDebug() << "AddSoldItemActionTriggered";
     emit AddSoldItemActionTriggered(this);
 
+}
+
+
+void MainWindow::on_pushButton_addressImport_clicked()
+{
+    qDebug() << "CimImportActionTriggered";
+    emit CimImportActionTriggered(this);
 }
 

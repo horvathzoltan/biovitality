@@ -25,6 +25,15 @@ private:
 public:
     static void MetaInit();
     // sqlrepo
+    // home/zoli/source/repos/biovitality/bi/repositories/sqlrepository.cpp
+    // template class SqlRepository<Address>;
+    //
+    // static void MetaInit(){ ...
+    // Address::MetaInit();
+    //
+    // home/zoli/source/repos/biovitality/bi/repositories/sqlrepository.cpp
+    // template class SqlRepository<Address>;
+
     static QString GetMetaFieldList(){ return _meta.GetFieldList();}
     //static QString GetMetaFieldList_UPDATE(){ return _meta.GetFieldList_UPDATE();}
     static Address FromMetaValues(const QList<MetaValue> &v){return _meta.FromMetaValues(v);}
@@ -32,6 +41,8 @@ public:
     QString GetBaseTypeName() {return _meta.GetBaseTypeName();}
     QList<SQLHelper::SQLParam> GetQueryParams()const { return _meta.ToMetaValues2(this);}
 
+// CSV import
+    static QList<Address> CSV_Import(const QList<QVarLengthArray<QString>>& records);
 };
 
 #endif // ADDRESS_H

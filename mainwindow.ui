@@ -32,9 +32,16 @@
        </widget>
       </item>
       <item>
+       <widget class="QPushButton" name="pushButton_addressImport">
+        <property name="text">
+         <string>Cím Import</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QPushButton" name="pushButton_tetelImport">
         <property name="text">
-         <string>TételImport</string>
+         <string>Tétel Import</string>
         </property>
        </widget>
       </item>
