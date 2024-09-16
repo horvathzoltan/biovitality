@@ -44,6 +44,8 @@ auto main(int argc, char *argv[]) -> int
 
     _globals._translator.Init();
 
+
+
     MainWindow w;
     MainPresenter p;
     p.appendView(&w);

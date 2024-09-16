@@ -4,6 +4,7 @@
 #include "imainview.h"
 
 #include <QFileDialog>
+#include <QSettings>
 
 #include <helpers/filenamehelper.h>
 
@@ -51,11 +52,25 @@ MainViewModel::StringModel MainWindow::get_CimCSVFileName()
 {
     MainViewModel::StringModel r;
 
+    QSettings files("files.ini", QSettings::IniFormat);
+    files.beginGroup("files");
+    QString address = files.value("addressFile").toString();
+    files.endGroup();
+
     QString folderPath = FileNameHelper::GetTestFolderPath();
+    if(address.isEmpty()) address = folderPath;
+
     r.str = QFileDialog::getOpenFileName(this,
                                          tr("Open File"),
-                                         folderPath,
+                                         address,
                                          tr("CSV Files (*.csv *.txt)"));
+
+    //QSettings files("files.ini", QSettings::IniFormat);
+    if(!r.str.isEmpty()){
+        files.beginGroup("files");
+        files.setValue("addressFile", r.str);
+        files.endGroup();
+    }
 
     // todo 0001b legutóbbi cím file path elmentése
     // kellene egy nemtommi kulcs-érték párok

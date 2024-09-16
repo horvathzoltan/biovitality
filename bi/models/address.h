@@ -43,6 +43,9 @@ public:
 
 // CSV import
     static QList<Address> CSV_Import(const QList<QVarLengthArray<QString>>& records);
+
+private:
+    void Parse(const QString& c);
 };
 
 #endif // ADDRESS_H

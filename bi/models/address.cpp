@@ -1,4 +1,5 @@
 #include "address.h"
+#include "qregularexpression.h"
 
 #include <bi/helpers/csvhelper.h>
 
@@ -65,6 +66,7 @@ QList<Address> Address::CSV_Import(const QList<QVarLengthArray<QString>>& record
 
         QVariant d1 = CSVHelper::GetData(row, cim_KEY, ixs);
 
+        item.Parse(d1.toString());
 
         if(item.isValid()){
             m.append(item);
@@ -74,6 +76,24 @@ QList<Address> Address::CSV_Import(const QList<QVarLengthArray<QString>>& record
     }
 
     return m;
+}
+
+void Address::Parse(const QString &c)
+{
+    if(c.isEmpty()) return;
+
+    static QRegularExpression r(QStringLiteral(R"((\d+)\s*(\w+)\s*,?\s*([\w\W]+))"));
+    QRegularExpressionMatch m = r.match(c);
+    if(m.hasMatch()){
+        if(m.capturedLength()==3){
+            bool ok;
+            int i = m.captured(1).toInt(&ok);
+            if(ok) postalCode = i;
+
+            settlementName= m.captured(2);
+            publicAreaName= m.captured(3);
+        }
+    }
 }
 
 
