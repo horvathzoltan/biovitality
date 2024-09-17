@@ -47,7 +47,6 @@ template class SqlRepository<Address>;
 class Globals
 {
 public:
-
     Settings _settings{{
                         "QMARIADB",
                          "biovitality",

@@ -1,7 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "QDebug"
-#include "imainview.h"
+//#include "imainview.h"
+#include "settings.h"
 
 #include <QFileDialog>
 #include <QSettings>
@@ -38,13 +39,15 @@ MainViewModel::StringModel MainWindow::get_TetelCSVFileName()
 {
     MainViewModel::StringModel r;
 
-    QString folderPath = FileNameHelper::GetTestFolderPath();
+    QString fileName = Settings::Get_TetelCSVFileName();
+    if(fileName.isEmpty()) fileName = FileNameHelper::GetTestFolderPath();;
+
     r.str = QFileDialog::getOpenFileName(this,
                                          tr("Open File"),
-                                         folderPath,
+                                         fileName,
                                          tr("CSV Files (*.csv *.txt)"));
 
-    // todo 0001a legutóbbi tétel file path elmentése
+    if(!r.str.isEmpty()) Settings::Set_TetelCSVFileName(r.str);
     return r;
 };
 
@@ -52,28 +55,15 @@ MainViewModel::StringModel MainWindow::get_CimCSVFileName()
 {
     MainViewModel::StringModel r;
 
-    QSettings files("files.ini", QSettings::IniFormat);
-    files.beginGroup("files");
-    QString address = files.value("addressFile").toString();
-    files.endGroup();
-
-    QString folderPath = FileNameHelper::GetTestFolderPath();
-    if(address.isEmpty()) address = folderPath;
+    QString fileName = Settings::Get_CimCSVFileName();
+    if(fileName.isEmpty()) fileName = FileNameHelper::GetTestFolderPath();;
 
     r.str = QFileDialog::getOpenFileName(this,
                                          tr("Open File"),
-                                         address,
+                                         fileName,
                                          tr("CSV Files (*.csv *.txt)"));
 
-    //QSettings files("files.ini", QSettings::IniFormat);
-    if(!r.str.isEmpty()){
-        files.beginGroup("files");
-        files.setValue("addressFile", r.str);
-        files.endGroup();
-    }
-
-    // todo 0001b legutóbbi cím file path elmentése
-    // kellene egy nemtommi kulcs-érték párok
+    if(!r.str.isEmpty()) Settings::Set_CimCSVFileName(r.str);
     return r;
 };
 
