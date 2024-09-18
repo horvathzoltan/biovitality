@@ -44,14 +44,14 @@ QList<Address> Address::CSV_Import(const QList<QVarLengthArray<QString>>& record
     QMap<QString,int> ixs;
 
     // excel id az excel csv-ben csak sima id-ként szerepel
-    QString excelId_KEY(QT_STRINGIFY(id));
+    QString excelId_KEY("ID");
 
     //QString postalCode_KEY(QT_STRINGIFY(postalCode));
-    QString cim_KEY("Cim");
+    QString cim_KEY("Cím");
     //QString publicAreaName_KEY(QT_STRINGIFY(publicAreaName));
 
     ixs.insert(excelId_KEY,CSVHelper::IndexOfRow(header,"ID"));
-    ixs.insert(cim_KEY,CSVHelper::IndexOfRow(header,"Cim"));
+    ixs.insert(cim_KEY,CSVHelper::IndexOfRow(header,"Cím"));
 
     QLocale hu(QLocale::Hungarian);
 
@@ -64,9 +64,9 @@ QList<Address> Address::CSV_Import(const QList<QVarLengthArray<QString>>& record
         item.id = 0;
         item.excelId = CSVHelper::GetId(excelIdValue);
 
-        QVariant d1 = CSVHelper::GetData(row, cim_KEY, ixs);
+        QString d1 = CSVHelper::GetData(row, cim_KEY, ixs).toString();
 
-        item.Parse(d1.toString());
+        item.Parse(d1);
 
         if(item.isValid()){
             m.append(item);
@@ -85,7 +85,8 @@ void Address::Parse(const QString &c)
     static QRegularExpression r(QStringLiteral(R"((\d+)\s*(\w+)\s*,?\s*([\w\W]+))"));
     QRegularExpressionMatch m = r.match(c);
     if(m.hasMatch()){
-        if(m.capturedLength()==3){
+        auto L = m.capturedLength();
+        if(L==3){
             bool ok;
             int i = m.captured(1).toInt(&ok);
             if(ok) postalCode = i;
