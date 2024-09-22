@@ -34,21 +34,18 @@
 
 extern Globals _globals;
 
-IMainView* MainPresenter::_logView = nullptr;
+//IMainView* MainPresenter::_logView = nullptr;
 
-MainPresenter::MainPresenter(QObject *parent):Presenter(parent)
-{
-
-}
+MainPresenter::MainPresenter(QObject *parent):Presenter(parent){}
 
 void MainPresenter::appendView(IMainView *w)
 {
     if(_views.contains(w)) return;
 
-    if(_views.length()==0){
-        _logView = w;
-        Logger::SetFunction(&MainPresenter::Log);
-    }
+    // if(_views.length()==0){
+    //     _logView = w;
+    //     Logger::SetFunction(&MainPresenter::Log);
+    // }
 
     _views.append(w);
 
@@ -75,25 +72,8 @@ void MainPresenter::appendView(IMainView *w)
 
 void MainPresenter::refreshView(IMainView *w) const { Q_UNUSED(w) };
 
-QString MainPresenter::ColorizeLog2(const QString& str, const QString& c){
-    return QStringLiteral("<p style='color: ")+c+"'>"+str+"</p>";
-}
 
-QString MainPresenter::ColorizeLog(const QString& str){
-    if(str.startsWith("ERROR:")) return ColorizeLog2(str, "red");
-    if(str.startsWith("WARNING:")) return ColorizeLog2(str, "orange>");
-    if(str.startsWith("DEBUG:")) return ColorizeLog2(str, "yellow>");
-    if(str.startsWith("TRACE:")) return ColorizeLog2(str, "green");
-    return str;
-}
 
-void MainPresenter::Log(const QString& str){
-
-    if(_logView){
-        QString msg = ColorizeLog(str);
-        _logView->set_StatusLine({msg});
-    }
-}
 
 void MainPresenter::initView(IMainView *w) const {
     MainViewModel::StringModel rm{"1"};

@@ -9,7 +9,7 @@
 #include "helpers/stringify.h"
 #include "mainwindow.h"
 #include "mainpresenter.h"
-//#include "settings.h"
+#include "presenters/logpresenter.h"
 
 Globals _globals;
 
@@ -44,11 +44,14 @@ auto main(int argc, char *argv[]) -> int
 
     _globals._translator.Init();
 
-
-
     MainWindow w;
-    MainPresenter p;
+    MainPresenter p;        
     p.appendView(&w);
+
+    LogPresenter logPresenter;
+    logPresenter.appendView(&w);
+    Logger::SetFunction(&LogPresenter::Log);
+
 
     // innen tudunk loggolni
     QString user = qgetenv("USER");

@@ -82,10 +82,11 @@ void Address::Parse(const QString &c)
 {
     if(c.isEmpty()) return;
 
-    static QRegularExpression r(QStringLiteral(R"((\d+)\s*(\w+)\s*,?\s*([\w\W]+))"));
+    static QRegularExpression r(QStringLiteral(R"((\d+)\s*(\w+)\s*,?\s*([\w\W]+))"), QRegularExpression::UseUnicodePropertiesOption	);
+
     QRegularExpressionMatch m = r.match(c);
     if(m.hasMatch()){
-        auto L = m.capturedLength();
+        auto L = m.lastCapturedIndex();
         if(L==3){
             bool ok;
             int i = m.captured(1).toInt(&ok);

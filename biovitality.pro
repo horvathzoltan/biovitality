@@ -42,6 +42,7 @@ SOURCES += \
     operations.cpp \
     presenter.cpp \
     #repositories/solditemrepository.cpp \
+    presenters/logpresenter.cpp \
     settings.cpp
     #model.cpp \
      #updates.cpp
@@ -76,12 +77,14 @@ HEADERS += \
     helpers/stringify.h \
     helpers/translator.h \
     imainview.h \
+    interfaces/ilogview.h \
     mainpresenter.h \
     mainviewmodel.h \
     mainwindow.h \
     operations.h \
     presenter.h \
     #repositories/solditemrepository.h \
+    presenters/logpresenter.h \
     settings.h
     #model.h \
      #updates.h
