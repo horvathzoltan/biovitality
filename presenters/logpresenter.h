@@ -22,6 +22,10 @@ private:
     static QString ColorizeLog(const QString &str);
     static QString ColorizeLog2(const QString &str, const QString &c);
 
+private slots:
+    void processToClipBoard_Action(IMainView *sender);
+    void processToLogFile_Action(IMainView *sender);
+
 };
 
 #endif // LOGPRESENTER_H

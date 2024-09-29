@@ -21,7 +21,9 @@ public: // signals
     virtual void PushButtonActionTriggered(IMainView *sender) = 0;
     virtual void TetelImportActionTriggered(IMainView *sender) = 0;
     virtual void AddSoldItemActionTriggered(IMainView *sender) = 0;
-    virtual void CimImportActionTriggered(IMainView *sender) = 0;
+    virtual void CimImport_ActionTriggered(IMainView *sender) = 0;
+    virtual void ToClipBoard_ActionTriggered(IMainView *sender) = 0;
+    virtual void ToLogFile_ActionTriggered(IMainView *sender) = 0;
 };
 
 #endif // IMAINVIEW_H

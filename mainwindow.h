@@ -19,6 +19,8 @@ private:
     MainViewModel::StringModel get_TetelCSVFileName() override;
     MainViewModel::StringModel get_CimCSVFileName() override;
     void set_StatusLine(const MainViewModel::StringModel &m) override;
+
+    //MainViewModel::StringModel get_CimCSVFileName() override;
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
@@ -26,14 +28,19 @@ signals:
     void PushButtonActionTriggered(IMainView *sender) override;
     void TetelImportActionTriggered(IMainView *sender) override;
     void AddSoldItemActionTriggered(IMainView *sender) override;
-    void CimImportActionTriggered(IMainView *sender) override;
+    void CimImport_ActionTriggered(IMainView *sender) override;
+    //log
+    void ToClipBoard_ActionTriggered(IMainView *sender) override;
+    void ToLogFile_ActionTriggered(IMainView *sender) override;
 
     void DBTestActionTriggered(IMainView *sender);
-private slots:    
-    void on_pushButton_clicked();
+
+private slots:        
     void on_pushButton_tetelImport_clicked();
     void on_pushButton_dbtest_clicked();
     void on_pushButton_AddSoldItem_clicked();
     void on_pushButton_addressImport_clicked();
+    void on_pushButton_ToClipBoard_clicked();
+    void on_pushButton_ToLogFile_clicked();
 };
 #endif // MAINWINDOW_H

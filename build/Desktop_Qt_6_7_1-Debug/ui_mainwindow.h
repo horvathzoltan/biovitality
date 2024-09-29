@@ -35,7 +35,12 @@ public:
     QPushButton *pushButton_dbtest;
     QSpacerItem *horizontalSpacer;
     QSpacerItem *verticalSpacer;
+    QHBoxLayout *horizontalLayout_2;
     QPlainTextEdit *plainTextEdit_status;
+    QVBoxLayout *verticalLayout_2;
+    QSpacerItem *verticalSpacer_2;
+    QPushButton *pushButton_ToClipBoard;
+    QPushButton *pushButton_ToLogFile;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -84,11 +89,35 @@ public:
 
         verticalLayout->addItem(verticalSpacer);
 
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setObjectName("horizontalLayout_2");
         plainTextEdit_status = new QPlainTextEdit(centralwidget);
         plainTextEdit_status->setObjectName("plainTextEdit_status");
         plainTextEdit_status->setTextInteractionFlags(Qt::TextInteractionFlag::NoTextInteraction);
 
-        verticalLayout->addWidget(plainTextEdit_status);
+        horizontalLayout_2->addWidget(plainTextEdit_status);
+
+        verticalLayout_2 = new QVBoxLayout();
+        verticalLayout_2->setObjectName("verticalLayout_2");
+        verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Expanding);
+
+        verticalLayout_2->addItem(verticalSpacer_2);
+
+        pushButton_ToClipBoard = new QPushButton(centralwidget);
+        pushButton_ToClipBoard->setObjectName("pushButton_ToClipBoard");
+
+        verticalLayout_2->addWidget(pushButton_ToClipBoard);
+
+        pushButton_ToLogFile = new QPushButton(centralwidget);
+        pushButton_ToLogFile->setObjectName("pushButton_ToLogFile");
+
+        verticalLayout_2->addWidget(pushButton_ToLogFile);
+
+
+        horizontalLayout_2->addLayout(verticalLayout_2);
+
+
+        verticalLayout->addLayout(horizontalLayout_2);
 
         MainWindow->setCentralWidget(centralwidget);
 
@@ -105,6 +134,8 @@ public:
         pushButton_addressImport->setText(QCoreApplication::translate("MainWindow", "C\303\255m Import", nullptr));
         pushButton_tetelImport->setText(QCoreApplication::translate("MainWindow", "T\303\251tel Import", nullptr));
         pushButton_dbtest->setText(QCoreApplication::translate("MainWindow", "DBtest", nullptr));
+        pushButton_ToClipBoard->setText(QCoreApplication::translate("MainWindow", "ToClipBoard", nullptr));
+        pushButton_ToLogFile->setText(QCoreApplication::translate("MainWindow", "ToLogFile", nullptr));
     } // retranslateUi
 
 };

@@ -95,11 +95,6 @@ void MainWindow::set_StatusLine(const MainViewModel::StringModel &m)
     }
 }
 
-void MainWindow::on_pushButton_clicked()
-{
-    qDebug() << "PushButtonActionTriggered";
-    emit PushButtonActionTriggered(this);
-}
 
 
 void MainWindow::on_pushButton_tetelImport_clicked()
@@ -127,6 +122,20 @@ void MainWindow::on_pushButton_AddSoldItem_clicked()
 void MainWindow::on_pushButton_addressImport_clicked()
 {
     qDebug() << "CimImportActionTriggered";
-    emit CimImportActionTriggered(this);
+    emit CimImport_ActionTriggered(this);
+}
+
+
+void MainWindow::on_pushButton_ToClipBoard_clicked()
+{
+    qDebug() << "ToClipBoard_ActionTriggered";
+    emit ToClipBoard_ActionTriggered(this);
+}
+
+
+void MainWindow::on_pushButton_ToLogFile_clicked()
+{
+    qDebug() << "ToLogFile_ActionTriggered";
+    emit ToLogFile_ActionTriggered(this);
 }
 
