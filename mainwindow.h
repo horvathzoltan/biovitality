@@ -19,7 +19,7 @@ private:
     MainViewModel::StringModel get_TetelCSVFileName() override;
     MainViewModel::StringModel get_CimCSVFileName() override;
     void set_StatusLine(const MainViewModel::StringModel &m) override;
-
+    MainViewModel::StringModel get_StatusLine() override;
     //MainViewModel::StringModel get_CimCSVFileName() override;
 public:
     explicit MainWindow(QWidget *parent = nullptr);

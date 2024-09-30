@@ -17,6 +17,8 @@ public:
     static QString GetTestFolderPath();
     static QString GetWorkingFolder();
     static void SetTestMode(bool v){_isTest=v;};
+
+    static QString GetLogFileName();
 };
 
 #endif // FILENAMEHELPER_H

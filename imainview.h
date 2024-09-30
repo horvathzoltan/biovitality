@@ -17,6 +17,7 @@ public:
     virtual MainViewModel::StringModel get_TetelCSVFileName() = 0;
     virtual MainViewModel::StringModel get_CimCSVFileName() = 0;
     virtual void set_StatusLine(const MainViewModel::StringModel &m) = 0;
+    virtual MainViewModel::StringModel get_StatusLine() = 0;
 public: // signals
     virtual void PushButtonActionTriggered(IMainView *sender) = 0;
     virtual void TetelImportActionTriggered(IMainView *sender) = 0;

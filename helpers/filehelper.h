@@ -34,6 +34,12 @@ public:
 
     static TXTLinesModel LoadLines(const QString& filename);
     static CSVModel LoadCSV(const QString& filename);
+
+    enum SaveModes{
+        Overwrite, Append
+    };
+
+    static bool Save(const QString& txt, const QString& filename, FileErrors *err, SaveModes isAppend);
 private:
     static void SetUtf8Encoding(QTextStream* st);
     static bool Validate_Load(const QString& filename, FileErrors *err);
@@ -41,6 +47,7 @@ private:
 
     static QStringList LoadLines_reader(QTextStream *st);
     static QList<QVarLengthArray<QString>> LoadCSV_reader(QTextStream *st, const QChar& sqparator );
+
 };
 
 #endif // FILEHELPER_H

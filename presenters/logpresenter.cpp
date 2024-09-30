@@ -1,7 +1,10 @@
 #include "logpresenter.h"
 
 #include "globals.h"
+#include "helpers/filenamehelper.h"
 #include "imainview.h"
+
+#include <QClipboard>
 
 extern Globals _globals;
 
@@ -48,10 +51,23 @@ QString LogPresenter::ColorizeLog(const QString& str){
 void LogPresenter::processToClipBoard_Action(IMainView *sender)
 {
     zInfo("processToClipBoard_Action");
-    _logView.Get_Log();
+    MainViewModel::StringModel r = _logView->get_StatusLine();
+    QClipboard *clipboard = QGuiApplication::clipboard();
+    clipboard->setText(r.str);
 }
 
 void LogPresenter::processToLogFile_Action(IMainView *sender)
 {
     zInfo("processToLogFile_Action");
+    MainViewModel::StringModel r  = _logView->get_StatusLine();
+
+    if(!r.str.isEmpty())
+    {
+        QString fileName = FileNameHelper::GetLogFileName();
+
+        FileHelper::FileErrors err;
+        bool ok = FileHelper::Save(r.str, fileName, &err, FileHelper::SaveModes::Overwrite);
+
+        zInfo("Log file:"+fileName+" save:"+(ok?"success":"failed"));
+    }
 }

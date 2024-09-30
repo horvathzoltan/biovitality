@@ -200,6 +200,33 @@ QList<QVarLengthArray<QString>> FileHelper::LoadCSV_reader(QTextStream *st, cons
 
 
 
+bool FileHelper::Save(const QString& txt, const QString& filename, FileErrors *err, SaveModes saveMode) {
+    bool valid = FileHelper::Validate_Save(filename, err);
+    if(!valid) return false;
+
+    QFile f(filename);
+
+    auto om = QIODevice::WriteOnly | QIODevice::Text; // openmode
+    if(saveMode == SaveModes::Append) om |= QIODevice::Append;
+
+    bool opened = f.open(om);
+
+    if (!opened){
+        if(_verbose) zInfo(QStringLiteral("cannot write file (%1): %2").arg(f.errorString(),filename));
+        if(err != nullptr) *err= FileErrors::CannotWrite;
+        return false;
+    }
+
+    if(_verbose) zInfo(QStringLiteral("Save: %1").arg(filename));
+    QTextStream out(&f);
+    SetUtf8Encoding(&out);
+    out << txt;
+    f.close();
+
+    if(err != nullptr) *err= FileErrors::Ok;
+    return true;
+}
+
 
 /*
 QStringList FileHelper::LineReader_CSV(QTextStream *st){

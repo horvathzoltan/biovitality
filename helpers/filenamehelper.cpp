@@ -45,3 +45,10 @@ QString FileNameHelper::GetWorkingFolder()
     QString workingFolder = _isTest?FileNameHelper::GetTestFolderPath():qApp->applicationDirPath();
     return workingFolder;
 }
+
+QString FileNameHelper::GetLogFileName()
+{
+    QDateTime now = QDateTime::currentDateTime();
+    QString timestamp = now.toString(QLatin1String("yyyyMMdd-hhmmss"));
+    return timestamp;
+}

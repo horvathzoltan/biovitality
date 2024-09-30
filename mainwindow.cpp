@@ -95,6 +95,14 @@ void MainWindow::set_StatusLine(const MainViewModel::StringModel &m)
     }
 }
 
+MainViewModel::StringModel MainWindow::get_StatusLine() {
+    MainViewModel::StringModel r;
+
+    r.str = ui->plainTextEdit_status->toPlainText();
+
+    return r;
+}
+
 
 
 void MainWindow::on_pushButton_tetelImport_clicked()
