@@ -54,18 +54,19 @@ void MainPresenter::appendView(IMainView *w)
     QObject::connect(view_obj, SIGNAL(PushButtonActionTriggered(IMainView *)),
                      this, SLOT(processPushButtonAction(IMainView *)));
 
-    QObject::connect(view_obj, SIGNAL(TetelImportActionTriggered(IMainView *)),
-                     this, SLOT(processTetelImportAction(IMainView *)));
-
     QObject::connect(view_obj, SIGNAL(DBTestActionTriggered(IMainView *)),
                      this, SLOT(processDBTestAction(IMainView *)));
 
     QObject::connect(view_obj, SIGNAL(AddSoldItemActionTriggered(IMainView *)),
                      this, SLOT(processSoldItemAction(IMainView *)));
 
+    // CSV_Imoort tetel
+    QObject::connect(view_obj, SIGNAL(TetelImport_ActionTriggered(IMainView *)),
+                     this, SLOT(process_TetelImport_Action(IMainView *)));
+
     // CSV_Import Cím
-    QObject::connect(view_obj, SIGNAL(CimImportActionTriggered(IMainView *)),
-                     this, SLOT(processCimImportAction(IMainView *)));
+    QObject::connect(view_obj, SIGNAL(CimImport_ActionTriggered(IMainView *)),
+                     this, SLOT(process_CimImport_Action(IMainView *)));
 
     //refreshView(w);
 }
@@ -94,7 +95,7 @@ void MainPresenter::initView(IMainView *w) const {
     if(_globals._helpers._sqlHelper.dbIsValid()){        
         zInfo("DB "+_globals._settings._sql_settings.dbname+" is valid");
     } else{
-        zInfo("DB "+_globals._settings._sql_settings.dbname+" is invalid");
+        zWarning("DB "+_globals._settings._sql_settings.dbname+" is invalid");
     }
     w->set_StatusLine({""});
     //_db.close();
@@ -105,13 +106,13 @@ void MainPresenter::initView(IMainView *w) const {
 
 
 void MainPresenter::processPushButtonAction(IMainView *sender){
-    qDebug() << "processPushButtonAction";
+    zTrace();
     auto m = sender->get_DoWorkModel();
     auto rm = DoWork::Work1(m);
     sender->set_DoWorkRModel(rm);
 }
 
-void MainPresenter::processTetelImportAction(IMainView *sender)
+void MainPresenter::process_TetelImport_Action(IMainView *sender)
 {
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
@@ -279,58 +280,68 @@ void MainPresenter::processAcceptAction(QUuid opId)
 
 //
 
-void MainPresenter::processCimImportAction(IMainView *sender)
+void MainPresenter::process_CimImport_Action(IMainView *sender)
 {
+    zTrace();
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
-    MainViewModel::StringModel fn = sender->get_CimCSVFileName();
+    bool isDbValid = _globals._helpers._sqlHelper.dbIsValid();
+    if(isDbValid){
+        MainViewModel::StringModel fn = sender->get_CimCSVFileName();
 
-    FileHelper::CSVModel csvModel = FileHelper::LoadCSV(fn.str);
-    if(csvModel.error == FileHelper::Ok){
-        zInfo("file ok");
-        QList<Address> items = Address::CSV_Import(csvModel.records);
+        FileHelper::CSVModel csvModel = FileHelper::LoadCSV(fn.str);
+        if(csvModel.error == FileHelper::Ok){
+            zInfo("file ok");
+            QList<Address> items = Address::CSV_Import(csvModel.records);
 
-        // megvan a modell lista, egyenként meg kell nézni excel_id szerint, hogy
-        // ha létezik, update
-        // ha nem, insert
-        // todo 001 storno flag
-        // todo 002 partner törzs - partner id bevezetése
-        // - 1. partner import
-        // - 2. tétel import
-        //SoldItemRepository::InsertOrUpdate(items);
+            // megvan a modell lista, egyenként meg kell nézni excel_id szerint, hogy
+            // ha létezik, update
+            // ha nem, insert
+            // todo 001 storno flag
+            // todo 002 partner törzs - partner id bevezetése
+            // - 1. partner import
+            // - 2. tétel import
+            //SoldItemRepository::InsertOrUpdate(items);
 
-        SqlRepository<Address>& repo =  _globals._repositories.address;
+            SqlRepository<Address>& repo =  _globals._repositories.address;
 
-        if(!items.isEmpty())
-        {
-            int i_all=0, u_all=0;
-            int i_ok=0, u_ok=0;
-            for(auto&i:items){
-                bool contains = repo.ContainsBy_ExcelId(i.excelId);
-                if(contains){
-                    int id =  repo.GetIdBy_ExcelId(i.excelId); // meg kell szerezni az id-t
-                    if(id!=-1)
-                    {
-                        i.id = id;
-                        u_all++;
-                        bool ok =  repo.Update(i);
-                        if(ok) u_ok++;
+            if(!items.isEmpty())
+            {
+                int i_all=0, u_all=0;
+                int i_ok=0, u_ok=0;
+                for(auto&i:items){
+                    bool contains = repo.ContainsBy_ExcelId(i.excelId);
+                    if(contains){
+                        int id =  repo.GetIdBy_ExcelId(i.excelId); // meg kell szerezni az id-t
+                        if(id!=-1)
+                        {
+                            i.id = id;
+                            u_all++;
+                            bool ok =  repo.Update(i);
+                            if(ok) u_ok++;
+                        } else{
+                            zInfo("no id for excelId: "+QString::number(i.excelId));
+                        }
                     } else{
-                        zInfo("no id for excelId: "+QString::number(i.excelId));
+                        i_all++;
+                        bool ok =  repo.Add(i);
+                        if(ok) i_ok++;
                     }
-                } else{
-                    i_all++;
-                    bool ok =  repo.Add(i);
-                    if(ok) i_ok++;
                 }
+                zInfo(QStringLiteral("Updated: %1/%2").arg(u_ok).arg(u_all))
+                    zInfo(QStringLiteral("Inserted: %1/%2").arg(i_ok).arg(i_all))
+            } else{
+                zInfo("no items to import");
             }
-            zInfo(QStringLiteral("Updated: %1/%2").arg(u_ok).arg(u_all))
-                zInfo(QStringLiteral("Inserted: %1/%2").arg(i_ok).arg(i_all))
-        } else{
-            zInfo("no items to import");
         }
-    } else{
-        zInfo("file failed");
+        else
+        {
+            zWarning("file failed");
+        }
+    }
+    else
+    {
+        zWarning("db is invalid");
     }
     Operations::instance().stop(opId);
 }

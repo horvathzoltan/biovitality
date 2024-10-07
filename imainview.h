@@ -20,7 +20,7 @@ public:
     virtual MainViewModel::StringModel get_StatusLine() = 0;
 public: // signals
     virtual void PushButtonActionTriggered(IMainView *sender) = 0;
-    virtual void TetelImportActionTriggered(IMainView *sender) = 0;
+    virtual void TetelImport_ActionTriggered(IMainView *sender) = 0;
     virtual void AddSoldItemActionTriggered(IMainView *sender) = 0;
     virtual void CimImport_ActionTriggered(IMainView *sender) = 0;
     virtual void ToClipBoard_ActionTriggered(IMainView *sender) = 0;

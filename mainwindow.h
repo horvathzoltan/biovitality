@@ -26,7 +26,7 @@ public:
     ~MainWindow();
 signals:
     void PushButtonActionTriggered(IMainView *sender) override;
-    void TetelImportActionTriggered(IMainView *sender) override;
+    void TetelImport_ActionTriggered(IMainView *sender) override;
     void AddSoldItemActionTriggered(IMainView *sender) override;
     void CimImport_ActionTriggered(IMainView *sender) override;
     //log

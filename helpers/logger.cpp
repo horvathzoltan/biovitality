@@ -330,7 +330,7 @@ void Logger::warning2(const QString& msg, const LocInfo& locinfo){
     if(_errlevel>ErrLevel::WARNING) return;
     auto li = locinfo.ToString();
     auto msg2 = ToString(ErrLevel::WARNING, msg, li, nullptr);
-    err_message(ErrLevel::WARNING, msg);
+    err_message(ErrLevel::WARNING, msg2);
 }
 
 void Logger::debug2(const LocInfo& locinfo){

@@ -38,9 +38,9 @@ private slots:
     void processAcceptAction(QUuid opId);
 
     // CSV Import Tétel
-    void processTetelImportAction(IMainView *sender);
+    void process_TetelImport_Action(IMainView *sender);
     // CSV Import Cim
-    void processCimImportAction(IMainView *sender);
+    void process_CimImport_Action(IMainView *sender);
 };
 
 #endif // MAINPRESENTER_H

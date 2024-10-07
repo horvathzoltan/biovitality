@@ -25,6 +25,11 @@ bool SqlExcelRepository::ContainsBy_ExcelId(int id)
         QVariant a = records.first().value("_exists");
 
         exists = a.toBool();
+    } else{
+        bool isDbValid = _globals._helpers._sqlHelper.dbIsValid();
+        if(!isDbValid){
+            zWarning("db is invalid");
+        }
     }
 
     return exists;

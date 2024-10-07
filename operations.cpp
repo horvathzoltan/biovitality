@@ -20,9 +20,9 @@ void Operations::stop(QUuid id)
     if(contains){
         auto o = _operations.value(id);
         _operations.remove(id);
-        zInfo("operation "+o.name+ " started");
+        zInfo("operation "+o.name+ " stopped");
     } else {
-        zInfo("no operation:"+id.toString());
+        zWarning("no operation:"+id.toString());
     }
 }
 

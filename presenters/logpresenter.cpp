@@ -42,8 +42,8 @@ QString LogPresenter::ColorizeLog2(const QString& str, const QString& c){
 
 QString LogPresenter::ColorizeLog(const QString& str){
     if(str.startsWith("ERROR:")) return ColorizeLog2(str, "red");
-    if(str.startsWith("WARNING:")) return ColorizeLog2(str, "orange>");
-    if(str.startsWith("DEBUG:")) return ColorizeLog2(str, "yellow>");
+    if(str.startsWith("WARNING:")) return ColorizeLog2(str, "orange");
+    if(str.startsWith("DEBUG:")) return ColorizeLog2(str, "yellow");
     if(str.startsWith("TRACE:")) return ColorizeLog2(str, "green");
     return str;
 }

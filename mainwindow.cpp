@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "helpers/logger.h"
 #include "ui_mainwindow.h"
 #include "QDebug"
 //#include "imainview.h"
@@ -107,21 +108,21 @@ MainViewModel::StringModel MainWindow::get_StatusLine() {
 
 void MainWindow::on_pushButton_tetelImport_clicked()
 {
-    qDebug() << "TetelImportActionTriggered";
-    emit TetelImportActionTriggered(this);
+    zTrace();
+    emit TetelImport_ActionTriggered(this);
 }
 
 
 void MainWindow::on_pushButton_dbtest_clicked()
 {
-    qDebug() << "DBTestActionTriggered";
+    zTrace();
     emit DBTestActionTriggered(this);
 }
 
 
 void MainWindow::on_pushButton_AddSoldItem_clicked()
 {
-    qDebug() << "AddSoldItemActionTriggered";
+    zTrace();
     emit AddSoldItemActionTriggered(this);
 
 }
@@ -129,21 +130,21 @@ void MainWindow::on_pushButton_AddSoldItem_clicked()
 
 void MainWindow::on_pushButton_addressImport_clicked()
 {
-    qDebug() << "CimImportActionTriggered";
+    zTrace();
     emit CimImport_ActionTriggered(this);
 }
 
 
 void MainWindow::on_pushButton_ToClipBoard_clicked()
 {
-    qDebug() << "ToClipBoard_ActionTriggered";
+    zTrace();
     emit ToClipBoard_ActionTriggered(this);
 }
 
 
 void MainWindow::on_pushButton_ToLogFile_clicked()
 {
-    qDebug() << "ToLogFile_ActionTriggered";
+    zTrace();
     emit ToLogFile_ActionTriggered(this);
 }
 
