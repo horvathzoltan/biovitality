@@ -28,7 +28,7 @@ auto main(int argc, char *argv[]) -> int
     QCoreApplication::setOrganizationName("horvathzoltan");
     QCoreApplication::setOrganizationDomain("https://github.com/horvathzoltan");
 
-    Logger::Init(Logger::ErrLevel::INFO, Logger::DbgLevel::TRACE, false, true);
+    Logger::Init(Logger::ErrLevel::INFO, Logger::DbgLevel::TRACE, false, false);
 
     //FileNameHelper::Init(QCoreApplication::applicationDirPath());
     //bool settings_ok = settings.Load(FileNameHelper::SettingsFileName());

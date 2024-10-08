@@ -51,6 +51,7 @@ public:
         return _meta.ToIdMegnevs(data);
     }
 
+    static void SetMetaVerbose(bool v){ _meta.SetVerbose(v);}
 };
 
 #endif // COUNTY_H

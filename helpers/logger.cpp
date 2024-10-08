@@ -80,23 +80,41 @@ QString Logger::ToString(DbgLevel level, const QString &msg, const QString &loci
 QString Logger::ToString(ErrLevel errlevel, const QString &msg, const QString &loci, const QString &st)
 {
     auto level = ToString(errlevel);
-    QString msg3;
-
-    switch(errlevel)
+    QString msg3 = ToString(errlevel)+": "+msg;
+    if(!loci.isEmpty())
     {
-    case ErrLevel::ERROR_:
-        msg3= level+": "+msg+"\n"+loci+"\n"+st;
-        break;
-    case ErrLevel::WARNING:
-        msg3= level+": "+msg+"\n"+loci;
-        break;
-
-    case ErrLevel::INFO:
-        msg3= level+": "+msg;
-        if(_isVerbose) msg3+="\n"+loci;
-        break;
-    default: break;
+        msg3+="\n"+loci;
     }
+    if(!st.isEmpty())
+    {
+        msg3+="\n"+st;
+    }
+    // switch(errlevel)
+    // {
+    // case ErrLevel::ERROR_:
+    //     msg3= level+": "+msg;//+"\n"+loci+"\n"+st;
+    //     if(!loci.isEmpty()){
+    //         msg3+="\n"+loci;
+    //     }
+    //     if(!st.isEmpty()){
+    //         msg3+="\n"+st;
+    //     }
+    //     break;
+    // case ErrLevel::WARNING:
+    //     msg3= level+": "+msg;
+    //     if(!loci.isEmpty()){
+    //         msg3+="\n"+loci;
+    //     }
+    //     break;
+
+    // case ErrLevel::INFO:
+    //     msg3= level+": "+msg;
+    //     if(!loci.isEmpty()){
+    //         msg3+="\n"+loci;
+    //     }
+    //     break;
+    // default: break;
+    // }
 
     return msg3;
 }
@@ -300,11 +318,13 @@ void Logger::info2(const QStringList& msgl, const LocInfo& locinfo)
         li = locinfo.ToString();
     }
 
-    for(auto&msg:msgl)
-    {
-        auto msg2 = ToString(ErrLevel::INFO, msg, nullptr, nullptr);
-        err_message(ErrLevel::INFO, msg2);
-    }
+    //auto msg = msgl.join('\n');
+
+    //for(auto&msg:msgl)
+    //{
+    auto msg2 = ToString(ErrLevel::INFO, msgl.join('\n'), li, nullptr);
+    err_message(ErrLevel::INFO, msg2);
+    //}
 }
 
 void Logger::message(const QString& msg)
@@ -328,7 +348,11 @@ void Logger::error2(const QString& msg,  const LocInfo& locinfo){
 void Logger::warning2(const QString& msg, const LocInfo& locinfo){
     if(!_isInited) return;
     if(_errlevel>ErrLevel::WARNING) return;
-    auto li = locinfo.ToString();
+    QString li;
+    if(_isVerbose)
+    {
+        li = locinfo.ToString();
+    }
     auto msg2 = ToString(ErrLevel::WARNING, msg, li, nullptr);
     err_message(ErrLevel::WARNING, msg2);
 }

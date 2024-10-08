@@ -31,9 +31,15 @@ bool SQLHelper::Connect()
         msg+="@"+_host->host+":"+QString::number(_host->port);
     }
     msg+="]: "+_settings.dbname+" is "+(connected?"connected":"not connected");
-    zInfo(msg)
 
-
+    if(connected)
+    {
+        zInfo(msg)
+    }
+    else
+    {
+        zWarning(msg);
+    }
 
     //zInfo("available host found: "+h->host+":"+QString::number(h->port));
     return connected;

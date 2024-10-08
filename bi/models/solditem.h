@@ -57,7 +57,7 @@ public:
     QList<MetaValue> GetMetaValues()const { return _meta.ToMetaValues(this);}
     QString GetBaseTypeName() {return _meta.GetBaseTypeName();}
     QList<SQLHelper::SQLParam> GetQueryParams()const { return _meta.ToMetaValues2(this);}
-
+    static void SetMetaVerbose(bool v){ _meta.SetVerbose(v);}
 public:
 // CSV import
     static QList<SoldItem> CSV_Import(const QList<QVarLengthArray<QString>>& records);

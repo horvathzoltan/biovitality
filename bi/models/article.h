@@ -51,7 +51,7 @@ public:
         return _meta.ToIdMegnevs(data);
     }
     IdMegnev ToIdMegnev() const {return _meta.ToIdMegnev(this); }
-
+    static void SetMetaVerbose(bool v){ _meta.SetVerbose(v);}
 };
 
 #endif // ARTICLE_H

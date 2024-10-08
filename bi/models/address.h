@@ -43,7 +43,7 @@ public:
 
 // CSV import
     static QList<Address> CSV_Import(const QList<QVarLengthArray<QString>>& records);
-
+    static void SetMetaVerbose(bool v){ _meta.SetVerbose(v);}
 private:
     void Parse(const QString& c);
 };

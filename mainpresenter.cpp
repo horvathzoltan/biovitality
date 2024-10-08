@@ -100,6 +100,11 @@ void MainPresenter::initView(IMainView *w) const {
     w->set_StatusLine({""});
     //_db.close();
 
+    SoldItem::SetMetaVerbose(false);
+    Article::SetMetaVerbose(false);
+    County::SetMetaVerbose(false);
+    //Address::SetMetaVerbose(false);
+
     Repositories::MetaInit();
 };
 
@@ -116,51 +121,60 @@ void MainPresenter::process_TetelImport_Action(IMainView *sender)
 {
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
-    MainViewModel::StringModel fn = sender->get_TetelCSVFileName();
+    bool isDbValid = _globals._helpers._sqlHelper.dbIsValid();
+    if(isDbValid){
+        MainViewModel::StringModel fn = sender->get_TetelCSVFileName();
 
-    FileHelper::CSVModel csvModel = FileHelper::LoadCSV(fn.str);
-    if(csvModel.error == FileHelper::Ok){
-        zInfo("file ok");
-        QList<SoldItem> items = SoldItem::CSV_Import(csvModel.records);
+        FileHelper::CSVModel csvModel = FileHelper::LoadCSV(fn.str);
+        if(csvModel.error == FileHelper::Ok){
+            zInfo("file ok");
+            QList<SoldItem> items = SoldItem::CSV_Import(csvModel.records);
 
-        // megvan a modell lista, egyenként meg kell nézni excel_id szerint, hogy
-        // ha létezik, update
-        // ha nem, insert
-        // todo 001 storno flag
-        // todo 002 partner törzs - partner id bevezetése
-        // - 1. partner import
-        // - 2. tétel import
-        //SoldItemRepository::InsertOrUpdate(items);
-        if(!items.isEmpty())
-        {
-            int i_all=0, u_all=0;
-            int i_ok=0, u_ok=0;
-            for(auto&i:items){
-                bool contains = _globals._repositories.sr.ContainsBy_ExcelId(i.excelId);
-                if(contains){
-                    int id =  _globals._repositories.sr.GetIdBy_ExcelId(i.excelId); // meg kell szerezni az id-t
-                    if(id!=-1)
-                    {
-                        i.id = id;
-                        u_all++;
-                        bool ok =  _globals._repositories.sr.Update(i);
-                        if(ok) u_ok++;
+            // megvan a modell lista, egyenként meg kell nézni excel_id szerint, hogy
+            // ha létezik, update
+            // ha nem, insert
+            // todo 001 storno flag
+            // todo 002 partner törzs - partner id bevezetése
+            // - 1. partner import
+            // - 2. tétel import
+            //SoldItemRepository::InsertOrUpdate(items);
+            if(!items.isEmpty())
+            {
+                int i_all=0, u_all=0;
+                int i_ok=0, u_ok=0;
+                for(auto&i:items){
+                    bool contains = _globals._repositories.sr.ContainsBy_ExcelId(i.excelId);
+                    if(contains){
+                        int id =  _globals._repositories.sr.GetIdBy_ExcelId(i.excelId); // meg kell szerezni az id-t
+                        if(id!=-1)
+                        {
+                            i.id = id;
+                            u_all++;
+                            bool ok =  _globals._repositories.sr.Update(i);
+                            if(ok) u_ok++;
+                        } else{
+                            zInfo("no id for excelId: "+QString::number(i.excelId));
+                        }
                     } else{
-                        zInfo("no id for excelId: "+QString::number(i.excelId));
+                        i_all++;
+                        bool ok =  _globals._repositories.sr.Add(i);
+                        if(ok) i_ok++;
                     }
-                } else{
-                    i_all++;
-                    bool ok =  _globals._repositories.sr.Add(i);
-                    if(ok) i_ok++;
                 }
+                zInfo(QStringLiteral("Updated: %1/%2").arg(u_ok).arg(u_all))
+                zInfo(QStringLiteral("Inserted: %1/%2").arg(i_ok).arg(i_all))
+            } else{
+                zInfo("no items to import");
             }
-            zInfo(QStringLiteral("Updated: %1/%2").arg(u_ok).arg(u_all))
-            zInfo(QStringLiteral("Inserted: %1/%2").arg(i_ok).arg(i_all))
-        } else{
-            zInfo("no items to import");
         }
-    } else{
-        zInfo("file failed");
+        else
+        {
+            zWarning("file failed");
+        }
+    }
+    else
+    {
+        zWarning("db is invalid");
     }
     Operations::instance().stop(opId);
 }
@@ -203,6 +217,7 @@ void MainPresenter::Error(const QSqlError& err)
 void MainPresenter::processSoldItemAction(IMainView *sender){
     zTrace();
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
+
 
     AddSoldItemModel* model = new AddSoldItemModel();
 

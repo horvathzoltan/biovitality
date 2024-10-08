@@ -79,11 +79,14 @@ template<typename T>
 class Meta{
     QList<MetaField> _fields;
     IdMegnevIxs _idMegnevIxs;
+    bool _verbose = true;
 public:
     T _instance;
 
     QString _baseName;
     QString _baseWcode;
+
+    void SetVerbose(bool v){_verbose = v;};
 
     void AddField(const QString& name, const QMetaType& t, char* field_ptr)
     {
@@ -94,11 +97,15 @@ public:
         int offset = field_ptr - (char*)(&_instance);
         f._offset = offset;
 
-        QString msg = QStringLiteral("AddField:")
-                      +QString::number(offset)
-                      +" "+t.name() + '('+QString::number(t.sizeOf())+")"
-                      +" "+name;
-        zInfo(msg);
+        if(_verbose){
+            QString msg = QStringLiteral("AddField:")
+                          +QString::number(offset)
+                          +" "+t.name() + '('+QString::number(t.sizeOf())+")"
+                          +" "+name
+                          +" to "+ _baseName;
+            zInfo(msg);
+        }
+
         _fields.append(f);        
     }
 
