@@ -154,6 +154,11 @@ bool SQLHelper::Connect_mariadb(const QString& connName, int timeout)
     }
     bool connected =_db.isValid();
 
+    if(!connected)
+    {
+        Error("db", _db.lastError());
+    }
+
     _db.close();
 
     return connected;
@@ -161,7 +166,13 @@ bool SQLHelper::Connect_mariadb(const QString& connName, int timeout)
 
 void SQLHelper::Error(const QString& p, const QSqlError& err)
 {
-    if(err.isValid()) zInfo(QStringLiteral("QSqlError_%3: %1 - %2").arg(err.type()).arg(err.text()).arg(p));
+    if(err.isValid())
+    {
+        zWarning(QStringLiteral("QSqlError_%3: %1 - %2")
+                     .arg(err.type())
+                     .arg(err.text())
+                     .arg(p));
+    }
 }
 
 // int SQLHelper::GetBuildNum(QSqlDatabase& db, int project)
@@ -327,18 +338,23 @@ QList<QSqlRecord> SQLHelper::DoQuery(const QString& cmd, const QList<SQLHelper::
         }
         isok = query.exec();
 
-        if(query.isSelect()){
-            s = query.size();
-            if(s==-1) isok = false;
-        } else{
-            s = query.numRowsAffected();
-            if(s==-1) isok = false;
-        }
+        if(isok){
 
-        if(isok && query.isSelect() && s>0){
-            while (query.next()) {
-                QSqlRecord rec = query.record();
-                e.append(rec);
+                //bool hasRecords = true;
+
+            if(query.isSelect()){
+                s = query.size();
+            //    if(s==-1) hasRecords = false;
+            } else{
+                s = query.numRowsAffected();
+            //    if(s==-1) hasRecords = false;
+            }
+
+            if(query.isSelect() && s>0){
+                while (query.next()) {
+                    QSqlRecord rec = query.record();
+                    e.append(rec);
+                }
             }
         }
     }
