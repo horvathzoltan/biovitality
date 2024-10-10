@@ -336,6 +336,7 @@ QList<QSqlRecord> SQLHelper::DoQuery(const QString& cmd, const QList<SQLHelper::
                       " "+n.fieldValue.metaType().name());
             }
         }
+
         isok = query.exec();
 
         if(isok){
@@ -350,6 +351,19 @@ QList<QSqlRecord> SQLHelper::DoQuery(const QString& cmd, const QList<SQLHelper::
             //    if(s==-1) hasRecords = false;
             }
 
+             query.prepare("SELECT @table_type;");
+             query.exec();
+             if(query.isSelect()){
+                 s = query.size();
+                 //    if(s==-1) hasRecords = false;
+             } else{
+                 s = query.numRowsAffected();
+                 //    if(s==-1) hasRecords = false;
+             }
+            // query.first();
+            // auto v = query.value(0);
+            // auto v1 = query.result();
+            // auto v2 = query.record().value(0);
             if(query.isSelect() && s>0){
                 while (query.next()) {
                     QSqlRecord rec = query.record();

@@ -20,6 +20,8 @@ extern Globals _globals;
 template<class T>
 SqlRepository<T>::SqlRepository(const QString& tname) : SqlExcelRepository(tname), RepositoryBase(tname) {}
 
+
+
 const QString RepositoryBase::CONTAINS_CMD =
     QStringLiteral("SELECT EXISTS(SELECT 1 FROM %1 WHERE id = %2) AS _exists;");
 
@@ -35,6 +37,8 @@ const QString RepositoryBase::UPDATE_CMD =
 const QString RepositoryBase::INSERT_CMD =
     QStringLiteral("INSERT INTO %1 (%2) VALUES (%3);");
 
+const QString RepositoryBase::TABLE_EXISTS_CMD =
+    QStringLiteral("call sys.table_exists('%1', '%2', @table_type); SELECT @table_type;");
 
 bool RepositoryBase::Contains(int id)
 {
@@ -129,6 +133,27 @@ bool SqlRepository<T>::Add(const T &m){
 
 }
 
+template<typename T>
+bool SqlRepository<T>::isTableExists()
+{
+    QString dbName = _globals._helpers._sqlHelper.dbName();
+    //QString cmd=TABLE_EXISTS_CMD.arg(dbName).arg("Article");//tableName());
+    //QString cmd="SELECT COUNT(*) FROM Article;";
+    QString cmd="call sys.table_exists('biovitality', 'Article', @table_type);";
+    QString cmd1="SELECT @table_type;";
+    zInfo("cmd:"+cmd);
+    QList<QSqlRecord> records = _globals._helpers._sqlHelper.DoQuery(cmd, {});
+    //QList<QSqlRecord> records1 = _globals._helpers._sqlHelper.DoQuery(cmd1, {});
+
+
+    if(!records.isEmpty())
+    {
+        auto r = records.first();
+        auto rr = r.value(0).toString();
+        zInfo("r:"+rr);
+    }
+    return false;
+}
 
 
 /**/

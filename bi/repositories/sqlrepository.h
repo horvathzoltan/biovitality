@@ -22,6 +22,7 @@ protected:
     static const QString GETALL_CMD;
     static const QString UPDATE_CMD;
     static const QString INSERT_CMD;
+    static const QString TABLE_EXISTS_CMD;
 
 public:
     QString tableName(){return _tableName;}
@@ -52,6 +53,7 @@ private:
 public:
     SqlRepository(const QString& tname);
 
+    bool isTableExists();
     T Get(int id);
     QList<T> GetAll();
     bool Update(const T& m);

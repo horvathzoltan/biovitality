@@ -49,6 +49,7 @@ public:
     void Init(const SQLSettings& v);
 
     bool dbIsValid(){ return _isInited ? _db.isValid() : false; }
+    QString dbName(){ return _isInited ? _db.databaseName() : ""; }
     //void SetSettings(const SQLSettings& v){_settings = v;}
 
     SQLHelper(){}

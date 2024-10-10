@@ -301,6 +301,9 @@ void MainPresenter::process_CimImport_Action(IMainView *sender)
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
     bool isDbValid = _globals._helpers._sqlHelper.dbIsValid();
+    bool isTableExists = _globals._repositories.address.isTableExists();
+
+    zInfo(QStringLiteral("isTableExists:")+((isTableExists)?"ok":"false"));
     if(isDbValid){
         MainViewModel::StringModel fn = sender->get_CimCSVFileName();
 
