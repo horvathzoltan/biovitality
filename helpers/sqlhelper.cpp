@@ -340,30 +340,12 @@ QList<QSqlRecord> SQLHelper::DoQuery(const QString& cmd, const QList<SQLHelper::
         isok = query.exec();
 
         if(isok){
-
-                //bool hasRecords = true;
-
             if(query.isSelect()){
                 s = query.size();
-            //    if(s==-1) hasRecords = false;
             } else{
                 s = query.numRowsAffected();
-            //    if(s==-1) hasRecords = false;
             }
 
-             query.prepare("SELECT @table_type;");
-             query.exec();
-             if(query.isSelect()){
-                 s = query.size();
-                 //    if(s==-1) hasRecords = false;
-             } else{
-                 s = query.numRowsAffected();
-                 //    if(s==-1) hasRecords = false;
-             }
-            // query.first();
-            // auto v = query.value(0);
-            // auto v1 = query.result();
-            // auto v2 = query.record().value(0);
             if(query.isSelect() && s>0){
                 while (query.next()) {
                     QSqlRecord rec = query.record();
@@ -421,4 +403,99 @@ QString SQLHelper::GetParamList_INSERT(const QList<SQLHelper::SQLParam>& params)
         e+=':'+a.paramName;
     }
     return e;
+}
+
+QList<QSqlRecord> SQLHelper::Call(const QString& cmd)//, const QList<SQLHelper::SQLParam>& params){
+{
+    //static const QString conn = QStringLiteral("conn1");
+    //auto db = Connect_mariadb( conn, 5000);
+
+    // if(db.isValid()){
+    //     zInfo("DB "+_settings.dbname+" is valid");
+    // } else{
+    //     zInfo("DB "+_settings.dbname+" is invalid");
+    // }
+    if(!_db.isValid()) return {};
+    QString select = GetCallSelect(cmd);
+    if(select.isEmpty()) return {};
+    QString call = "call "+cmd;
+
+    zInfo("cmd:"+call);
+    zInfo("cmd:"+select);
+
+    QList<QSqlRecord> e;
+    QSqlQuery query(_db);
+
+    int s = -1;
+
+    bool isok = _db.open();
+    if(isok) {
+        query.prepare(call);
+
+        isok = query.exec();
+
+        if(isok){
+            // if(query.isSelect()){
+            //     s = query.size();
+            // } else{
+            //     s = query.numRowsAffected();
+            // }
+
+            //"SELECT @table_type;"
+
+            query.prepare(select);
+
+            query.exec();
+            if(query.isSelect()){
+                s = query.size();
+                //    if(s==-1) hasRecords = false;
+            } else{
+                s = query.numRowsAffected();
+                //    if(s==-1) hasRecords = false;
+            }
+            // query.first();
+            // auto v = query.value(0);
+            // auto v1 = query.result();
+            // auto v2 = query.record().value(0);
+            if(query.isSelect() && s>0){
+                while (query.next()) {
+                    QSqlRecord rec = query.record();
+                    e.append(rec);
+                }
+            }
+        }
+    }
+
+    if(!isok){
+        Error("db", _db.lastError());
+        Error("query", query.lastError());
+    } else {
+        zInfo((s>0)
+              ?"Rows affected:"+QString::number(s)
+              :"No rows affected");
+    }
+    _db.close();
+    return e;
+}
+
+QString SQLHelper::GetCallSelect(const QString &call)
+{
+    //QString s = "SELECT";
+    QRegularExpression r(R"(\s*(@\w*))");
+
+    QStringList t;
+    QRegularExpressionMatchIterator a = r.globalMatch(call);
+    while(a.hasNext()){
+        QRegularExpressionMatch m = a.next();
+        int capturedLength = m.lastCapturedIndex();
+        bool hasValidCapture = capturedLength>=1;
+        if(hasValidCapture){
+            QString c0 = m.captured(1);
+            t.append(c0);
+        }
+    }
+    if(t.isEmpty()) return {};
+
+    QString s = "SELECT "+t.join(", ")+';';
+    return s;
 }

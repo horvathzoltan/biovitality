@@ -38,7 +38,7 @@ const QString RepositoryBase::INSERT_CMD =
     QStringLiteral("INSERT INTO %1 (%2) VALUES (%3);");
 
 const QString RepositoryBase::TABLE_EXISTS_CMD =
-    QStringLiteral("call sys.table_exists('%1', '%2', @table_type); SELECT @table_type;");
+    QStringLiteral("sys.table_exists('%1', '%2', @table_type);");
 
 bool RepositoryBase::Contains(int id)
 {
@@ -137,22 +137,23 @@ template<typename T>
 bool SqlRepository<T>::isTableExists()
 {
     QString dbName = _globals._helpers._sqlHelper.dbName();
-    //QString cmd=TABLE_EXISTS_CMD.arg(dbName).arg("Article");//tableName());
+    QString cmd=TABLE_EXISTS_CMD.arg(dbName).arg(tableName());
     //QString cmd="SELECT COUNT(*) FROM Article;";
-    QString cmd="call sys.table_exists('biovitality', 'Article', @table_type);";
-    QString cmd1="SELECT @table_type;";
-    zInfo("cmd:"+cmd);
-    QList<QSqlRecord> records = _globals._helpers._sqlHelper.DoQuery(cmd, {});
+    //QString cmd="sys.table_exists('biovitality', 'Article', @table_type);";
+    //QString cmd1="SELECT @table_type;";
+    //zInfo("cmd:"+cmd);
+    QList<QSqlRecord> records = _globals._helpers._sqlHelper.Call(cmd);
     //QList<QSqlRecord> records1 = _globals._helpers._sqlHelper.DoQuery(cmd1, {});
 
-
+    bool isTable = false;
     if(!records.isEmpty())
     {
         auto r = records.first();
-        auto rr = r.value(0).toString();
-        zInfo("r:"+rr);
+        auto table_type = r.value(0).toString();
+        //zInfo("table_type:"+table_type); //'BASE TABLE', 'VIEW', 'TEMPORARY'
+        isTable = table_type == "BASE TABLE";
     }
-    return false;
+    return isTable;
 }
 
 

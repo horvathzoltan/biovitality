@@ -303,8 +303,8 @@ void MainPresenter::process_CimImport_Action(IMainView *sender)
     bool isDbValid = _globals._helpers._sqlHelper.dbIsValid();
     bool isTableExists = _globals._repositories.address.isTableExists();
 
-    zInfo(QStringLiteral("isTableExists:")+((isTableExists)?"ok":"false"));
-    if(isDbValid){
+    //zInfo(QStringLiteral("isTableExists:")+((isTableExists)?"ok":"false"));
+    if(isDbValid && isTableExists){
         MainViewModel::StringModel fn = sender->get_CimCSVFileName();
 
         FileHelper::CSVModel csvModel = FileHelper::LoadCSV(fn.str);
@@ -359,7 +359,12 @@ void MainPresenter::process_CimImport_Action(IMainView *sender)
     }
     else
     {
-        zWarning("db is invalid");
+        if(!isDbValid){
+            zWarning("db is invalid");
+        }
+        if(!isTableExists){
+            zWarning("address table is not exists");
+        }
     }
     Operations::instance().stop(opId);
 }

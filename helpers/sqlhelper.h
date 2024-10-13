@@ -44,7 +44,7 @@ private:
     bool Connect_mariadb(const QString &name, int timeout);
 
     void Error(const QString& p, const QSqlError& err);
-
+    QString GetCallSelect(const QString& call);
 public:    
     void Init(const SQLSettings& v);
 
@@ -71,6 +71,7 @@ public:
     static QString GetParamList_INSERT(const QList<SQLHelper::SQLParam>& params);
     //QSqlQuery GetQuery();
     //QSqlQuery GetQuery(const QString& cmd);
+    QList<QSqlRecord> Call(const QString& cmd);    
 };
 
 #endif // SQLHELPER_H
