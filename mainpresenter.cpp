@@ -121,8 +121,11 @@ void MainPresenter::process_TetelImport_Action(IMainView *sender)
 {
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
-    bool isDbValid = _globals._helpers._sqlHelper.dbIsValid();
-    if(isDbValid){
+    DbErr err;
+    err.isDbValid = _globals._helpers._sqlHelper.dbIsValid();
+    err.isTableExists = _globals._repositories.sr.isTableExists();
+
+    if(err.isValid()){
         MainViewModel::StringModel fn = sender->get_TetelCSVFileName();
 
         FileHelper::CSVModel csvModel = FileHelper::LoadCSV(fn.str);
@@ -214,6 +217,15 @@ void MainPresenter::Error(const QSqlError& err)
     if(err.isValid()) zInfo(QStringLiteral("QSqlError: %1 - %2").arg(err.type()).arg(err.text()));
 }
 
+void MainPresenter::Error2(DbErr err)
+{
+    if(!err.isDbValid){
+        zWarning("db is invalid");
+    }else if(!err.isTableExists){
+        zWarning("address table is not exists");
+    }
+}
+
 void MainPresenter::processSoldItemAction(IMainView *sender){
     zTrace();
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
@@ -300,11 +312,12 @@ void MainPresenter::process_CimImport_Action(IMainView *sender)
     zTrace();
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
-    bool isDbValid = _globals._helpers._sqlHelper.dbIsValid();
-    bool isTableExists = _globals._repositories.address.isTableExists();
+    DbErr err;
+    err.isDbValid = _globals._helpers._sqlHelper.dbIsValid();
+    err.isTableExists = _globals._repositories.address.isTableExists();
 
     //zInfo(QStringLiteral("isTableExists:")+((isTableExists)?"ok":"false"));
-    if(isDbValid && isTableExists){
+    if(err.isValid()){
         MainViewModel::StringModel fn = sender->get_CimCSVFileName();
 
         FileHelper::CSVModel csvModel = FileHelper::LoadCSV(fn.str);
@@ -359,12 +372,10 @@ void MainPresenter::process_CimImport_Action(IMainView *sender)
     }
     else
     {
-        if(!isDbValid){
-            zWarning("db is invalid");
-        }
-        if(!isTableExists){
-            zWarning("address table is not exists");
-        }
+        Error2(err);
     }
     Operations::instance().stop(opId);
 }
+
+
+

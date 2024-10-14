@@ -30,6 +30,16 @@ private:
 
     void refreshView(IMainView *w) const;
     void Error(const QSqlError& err);
+
+    struct DbErr{
+        bool isDbValid=false;
+        bool isTableExists=false;
+
+        bool isValid(){return isDbValid && isTableExists;}
+    };
+
+    void Error2(DbErr err);
+
 private slots:
     void processPushButtonAction(IMainView *sender);
 
