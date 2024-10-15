@@ -23,9 +23,8 @@ SOURCES += \
     bi/repositories/sqlexcelrepository.cpp \
     bi/repositories/sqlrepository.cpp \
     buildnumber.cpp \
-    dataform.cpp \
-    datarowwidget.cpp \
-    dowork.cpp \
+    views/dataform.cpp \
+    views/datarowwidget.cpp \
     globals.cpp \
     helpers/filehelper.cpp \
     helpers/filenamehelper.cpp \
@@ -37,10 +36,10 @@ SOURCES += \
     helpers/stringhelper.cpp \
     helpers/translator.cpp \
     main.cpp \
-    mainpresenter.cpp \
-    mainwindow.cpp \
-    operations.cpp \
-    presenter.cpp \
+    presenters/mainpresenter.cpp \
+    views/mainwindow.cpp \
+    bi/operations.cpp \
+    presenters/presenter.cpp \
     #repositories/solditemrepository.cpp \
     presenters/logpresenter.cpp \
     settings.cpp
@@ -49,7 +48,7 @@ SOURCES += \
 
 HEADERS += \
     #actions.h \
-    IView.h \
+    views/IView.h \
     Singleton.h \
     bi/helpers/csvhelper.h \
     bi/helpers/sqlmetahelper.h \
@@ -61,9 +60,8 @@ HEADERS += \
     bi/repositories/sqlexcelrepository.h \
     bi/repositories/sqlrepository.h \
     buildnumber.h \
-    dataform.h \
-    datarowwidget.h \
-    dowork.h \
+    views/dataform.h \
+    views/datarowwidget.h \
     global.h \
     globals.h \
     helpers/filehelper.h \
@@ -76,13 +74,13 @@ HEADERS += \
     helpers/stringhelper.h \
     helpers/stringify.h \
     helpers/translator.h \
-    imainview.h \
+    interfaces/imainview.h \
     interfaces/ilogview.h \
-    mainpresenter.h \
-    mainviewmodel.h \
-    mainwindow.h \
-    operations.h \
-    presenter.h \
+    presenters/mainpresenter.h \
+    views/mainviewmodel.h \
+    views/mainwindow.h \
+    bi/operations.h \
+    presenters/presenter.h \
     #repositories/solditemrepository.h \
     presenters/logpresenter.h \
     settings.h
@@ -90,8 +88,8 @@ HEADERS += \
      #updates.h
 
 FORMS += \
-    dataform.ui \
-    mainwindow.ui
+    views/dataform.ui \
+    views/mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
