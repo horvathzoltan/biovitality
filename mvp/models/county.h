@@ -1,7 +1,7 @@
 #ifndef COUNTY_H
 #define COUNTY_H
 
-#include "bi/meta/meta.h"
+#include "meta/meta.h"
 #include <QDateTime>
 #include <QList>
 #include <QVariant>
@@ -9,7 +9,7 @@
 #include <helpers/filehelper.h>
 #include <helpers/sqlhelper.h>
 
-#include <dataform.h>
+#include <mvp/views/dataform.h>
 
 class County
 {

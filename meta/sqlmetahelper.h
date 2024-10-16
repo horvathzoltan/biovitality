@@ -1,7 +1,7 @@
 #ifndef SQLMETAHELPER_H
 #define SQLMETAHELPER_H
 
-#include <bi/meta/meta.h>
+#include <meta/meta.h>
 #include <QSqlQuery>
 #include <QSqlRecord>
 

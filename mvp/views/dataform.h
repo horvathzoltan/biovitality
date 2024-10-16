@@ -5,7 +5,7 @@
 #include <QDialog>
 #include <QUuid>
 #include <QVBoxLayout>
-#include <datarowwidget.h>
+#include <mvp/views/datarowwidget.h>
 
 namespace Ui {
 class DataForm;

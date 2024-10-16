@@ -1,7 +1,7 @@
 #include "address.h"
 #include "qregularexpression.h"
 
-#include <bi/helpers/csvhelper.h>
+#include <meta/csvhelper.h>
 
 Meta<Address> Address::_meta;
 

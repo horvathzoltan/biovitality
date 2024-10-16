@@ -1,15 +1,15 @@
 #ifndef OPERATIONS_H
 #define OPERATIONS_H
 
-#include "bi/models/solditem.h"
+#include "mvp/models/solditem.h"
 #include "helpers/logger.h"
-#include "dataform.h"
-#include "presenter.h"
+#include "mvp/views/dataform.h"
+#include "mvp/presenters/presenter.h"
 
 #include <QString>
 #include <QUuid>
-#include <IView.h>
-#include <Singleton.h>
+#include <mvp/viewinterfaces/iview.h>
+#include <patterns/singleton.h>
 #include <QMap>
 
 class OperationModel{

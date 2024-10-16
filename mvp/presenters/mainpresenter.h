@@ -8,7 +8,7 @@
 #include <QObject>
 #include <QSqlError>
 #include <QUuid>
-#include "imainview.h"
+#include "mvp/viewinterfaces/imainview.h"
 #include "presenter.h"
 
 

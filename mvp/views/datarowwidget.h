@@ -7,7 +7,7 @@
 #include <QTimer>
 #include <QWidget>
 
-#include <bi/meta/meta.h>
+#include <meta/meta.h>
 
 class DataRowWidget: public QWidget
 {

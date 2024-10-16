@@ -14,18 +14,18 @@ message( "TARGET = "$$TARGET )
 
 SOURCES += \
     #actions.cpp \
-    bi/helpers/csvhelper.cpp \
-    bi/helpers/sqlmetahelper.cpp \
-    bi/models/address.cpp \
-    bi/models/article.cpp \
-    bi/models/county.cpp \
-    bi/models/solditem.cpp \
-    bi/repositories/sqlexcelrepository.cpp \
-    bi/repositories/sqlrepository.cpp \
-    buildnumber.cpp \
-    views/dataform.cpp \
-    views/datarowwidget.cpp \
-    globals.cpp \
+    meta/csvhelper.cpp \
+    meta/sqlmetahelper.cpp \
+    mvp/models/address.cpp \
+    mvp/models/article.cpp \
+    mvp/models/county.cpp \
+    mvp/models/solditem.cpp \
+    repositories/sqlexcelrepository.cpp \
+    repositories/sqlrepository.cpp \
+    infrastructure/buildnumber.cpp \
+    mvp/views/dataform.cpp \
+    mvp/views/datarowwidget.cpp \
+    infrastructure/globals.cpp \
     helpers/filehelper.cpp \
     helpers/filenamehelper.cpp \
     helpers/logger.cpp \
@@ -36,34 +36,34 @@ SOURCES += \
     helpers/stringhelper.cpp \
     helpers/translator.cpp \
     main.cpp \
-    presenters/mainpresenter.cpp \
-    views/mainwindow.cpp \
+    mvp/presenters/mainpresenter.cpp \
+    mvp/views/mainwindow.cpp \
     bi/operations.cpp \
-    presenters/presenter.cpp \
+    mvp/presenters/presenter.cpp \
     #repositories/solditemrepository.cpp \
-    presenters/logpresenter.cpp \
-    settings.cpp
+    mvp/presenters/logpresenter.cpp \
+    infrastructure/settings.cpp
     #model.cpp \
-     #updates.cpp
+    #updates.cpp
 
 HEADERS += \
     #actions.h \
-    views/IView.h \
-    Singleton.h \
-    bi/helpers/csvhelper.h \
-    bi/helpers/sqlmetahelper.h \
-    bi/meta/meta.h \
-    bi/models/address.h \
-    bi/models/article.h \
-    bi/models/county.h \
-    bi/models/solditem.h \
-    bi/repositories/sqlexcelrepository.h \
-    bi/repositories/sqlrepository.h \
-    buildnumber.h \
-    views/dataform.h \
-    views/datarowwidget.h \
-    global.h \
-    globals.h \
+    mvp/viewinterfaces/iview.h \
+    patterns/singleton.h \
+    meta/csvhelper.h \
+    meta/sqlmetahelper.h \
+    meta/meta.h \
+    mvp/models/address.h \
+    mvp/models/article.h \
+    mvp/models/county.h \
+    mvp/models/solditem.h \
+    repositories/sqlexcelrepository.h \
+    repositories/sqlrepository.h \
+    infrastructure/buildnumber.h \
+    mvp/views/dataform.h \
+    mvp/views/datarowwidget.h \
+    infrastructure/global.h \
+    infrastructure/globals.h \
     helpers/filehelper.h \
     helpers/filenamehelper.h \
     helpers/logger.h \
@@ -74,22 +74,22 @@ HEADERS += \
     helpers/stringhelper.h \
     helpers/stringify.h \
     helpers/translator.h \
-    interfaces/imainview.h \
-    interfaces/ilogview.h \
-    presenters/mainpresenter.h \
-    views/mainviewmodel.h \
-    views/mainwindow.h \
+    mvp/viewinterfaces/imainview.h \
+    mvp/viewinterfaces/ilogview.h \
+    mvp/presenters/mainpresenter.h \
+    mvp/viewmodels/mainviewmodel.h \
+    mvp/views/mainwindow.h \
     bi/operations.h \
-    presenters/presenter.h \
+    mvp/presenters/presenter.h \
     #repositories/solditemrepository.h \
-    presenters/logpresenter.h \
-    settings.h
+    mvp/presenters/logpresenter.h \
+    infrastructure/settings.h
     #model.h \
-     #updates.h
+    #updates.h
 
 FORMS += \
-    views/dataform.ui \
-    views/mainwindow.ui
+    mvp/views/dataform.ui \
+    mvp/views/mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

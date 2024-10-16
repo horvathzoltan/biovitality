@@ -3,7 +3,7 @@
 #include "ui_mainwindow.h"
 #include "QDebug"
 //#include "imainview.h"
-#include "settings.h"
+#include "infrastructure/settings.h"
 
 #include <QFileDialog>
 #include <QSettings>

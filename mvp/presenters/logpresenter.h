@@ -1,7 +1,7 @@
 #ifndef LOGPRESENTER_H
 #define LOGPRESENTER_H
 
-#include "interfaces/ilogview.h"
+#include "mvp/viewinterfaces/ilogview.h"
 #include "presenter.h"
 
 class IMainView;

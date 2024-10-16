@@ -1,16 +1,18 @@
 #ifndef GLOBALS_H
 #define GLOBALS_H
 
-#include "bi/models/solditem.h"
-#include "bi/models/county.h"
-#include "bi/repositories/sqlrepository.h"
+#include "mvp/models/solditem.h"
+#include "mvp/models/county.h"
+#include "mvp/models/address.h"
+#include "mvp/models/article.h"
+
+
+#include "repositories/sqlrepository.h"
 #include "settings.h"
 #include <QLocale>
 
 #include <helpers/translator.h>
 
-#include <bi/models/address.h>
-#include <bi/models/article.h>
 
 class Helpers{
 public:

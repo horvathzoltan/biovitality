@@ -1,8 +1,8 @@
 #include "logpresenter.h"
 
-#include "globals.h"
+#include "infrastructure/globals.h"
 #include "helpers/filenamehelper.h"
-#include "imainview.h"
+#include "mvp/viewinterfaces/imainview.h"
 
 #include <QClipboard>
 

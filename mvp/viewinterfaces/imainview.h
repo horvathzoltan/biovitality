@@ -1,9 +1,9 @@
 #ifndef IMAINVIEW_H
 #define IMAINVIEW_H
 
-#include "mainviewmodel.h"
+#include "mvp/viewmodels/mainviewmodel.h"
 
-#include <IView.h>
+#include <mvp/viewinterfaces/iview.h>
 #include <QColor>
 #include <QPointF>
 #include <QRect>

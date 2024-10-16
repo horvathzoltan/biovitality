@@ -1,8 +1,7 @@
 #ifndef ADDRESS_H
 #define ADDRESS_H
 
-#include "bi/meta/meta.h"
-#include "bi/meta/meta.h"
+#include "meta/meta.h"
 #include <QVariant>
 
 class Address

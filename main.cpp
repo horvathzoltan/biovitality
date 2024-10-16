@@ -1,15 +1,14 @@
 #include <QApplication>
 #include <QtCharts>
-#include <globals.h>
+#include <infrastructure/globals.h>
 #include <helpers/signalhelper.h>
 #include <helpers/filenamehelper.h>
-#include "buildnumber.h"
-
+#include "infrastructure/buildnumber.h"
 #include "helpers/logger.h"
 #include "helpers/stringify.h"
-#include "mainwindow.h"
-#include "mainpresenter.h"
-#include "presenters/logpresenter.h"
+#include "mvp/views/mainwindow.h"
+#include "mvp/presenters/mainpresenter.h"
+#include "mvp/presenters/logpresenter.h"
 
 Globals _globals;
 

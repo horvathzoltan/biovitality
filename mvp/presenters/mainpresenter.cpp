@@ -1,13 +1,13 @@
 #include "mainpresenter.h"
 #include "helpers/logger.h"
 #include "helpers/sqlhelper.h"
-#include "mainviewmodel.h"
-#include "dowork.h"
-#include "operations.h"
+#include "mvp/viewmodels/mainviewmodel.h"
+//#include "dowork.h"
+#include "bi/operations.h"
 //#include "settings.h"
-#include "dataform.h"
+#include "mvp/views/dataform.h"
 //#include "datarowwidget.h"
-#include "globals.h"
+#include "infrastructure/globals.h"
 
 #include <QFileDialog>
 #include <QDateTime>
@@ -21,15 +21,14 @@
 #include <helpers/filehelper.h>
 #include <helpers/sqlhelper.h>
 
-#include <bi/models/article.h>
-#include <bi/models/county.h>
-#include <bi/models/article.h>
-#include <bi/models/solditem.h>
-#include <bi/models/address.h>
+#include <mvp/models/county.h>
+#include <mvp/models/article.h>
+#include <mvp/models/solditem.h>
+#include <mvp/models/address.h>
 
-#include <bi/repositories/sqlrepository.h>
+#include <repositories/sqlrepository.h>
 
-#include <bi/helpers/sqlmetahelper.h>
+#include <meta/sqlmetahelper.h>
 
 
 extern Globals _globals;
@@ -112,9 +111,9 @@ void MainPresenter::initView(IMainView *w) const {
 
 void MainPresenter::processPushButtonAction(IMainView *sender){
     zTrace();
-    auto m = sender->get_DoWorkModel();
-    auto rm = DoWork::Work1(m);
-    sender->set_DoWorkRModel(rm);
+    //auto m = sender->get_DoWorkModel();
+    //auto rm = DoWork::Work1(m);
+    //sender->set_DoWorkRModel(rm);
 }
 
 void MainPresenter::process_TetelImport_Action(IMainView *sender)

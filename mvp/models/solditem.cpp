@@ -6,7 +6,7 @@
 
 #include <helpers/stringhelper.h>
 
-#include <bi/helpers/csvhelper.h>
+#include <meta/csvhelper.h>
 
 Meta<SoldItem> SoldItem::_meta;
 

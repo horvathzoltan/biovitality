@@ -1,5 +1,5 @@
 #include "dataform.h"
-#include "globals.h"
+#include "infrastructure/globals.h"
 #include "ui_dataform.h"
 #include "helpers/logger.h"
 #include "helpers/translator.h"

@@ -1,7 +1,7 @@
 #ifndef SOLDITEM_H
 #define SOLDITEM_H
 
-#include "bi/meta/meta.h"
+#include "meta/meta.h"
 #include <QDateTime>
 #include <QList>
 #include <QVariant>
