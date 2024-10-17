@@ -19,6 +19,7 @@ SOURCES += \
     mvp/models/address.cpp \
     mvp/models/article.cpp \
     mvp/models/county.cpp \
+    mvp/models/partner.cpp \
     mvp/models/solditem.cpp \
     repositories/sqlexcelrepository.cpp \
     repositories/sqlrepository.cpp \
@@ -48,6 +49,7 @@ SOURCES += \
 
 HEADERS += \
     #actions.h \
+    mvp/models/partner.h \
     mvp/viewinterfaces/iview.h \
     patterns/singleton.h \
     meta/csvhelper.h \

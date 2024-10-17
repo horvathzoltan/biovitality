@@ -42,5 +42,6 @@ private slots:
     void on_pushButton_addressImport_clicked();
     void on_pushButton_ToClipBoard_clicked();
     void on_pushButton_ToLogFile_clicked();
+    void on_pushButton_clicked();
 };
 #endif // MAINWINDOW_H

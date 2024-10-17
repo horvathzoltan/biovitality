@@ -148,3 +148,10 @@ void MainWindow::on_pushButton_ToLogFile_clicked()
     emit ToLogFile_ActionTriggered(this);
 }
 
+
+void MainWindow::on_pushButton_clicked()
+{
+    zTrace();
+    emit ToLogFile_ActionTriggered(this);
+}
+
