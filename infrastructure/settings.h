@@ -10,6 +10,8 @@ private:
     static const QString FilesIni_Group;
     static const QString FilesIni_CimCSVFileName;
     static const QString FilesIni_TetelCSVFileName;
+    static const QString FilesIni_PartnerCSVFileName;
+
 public:
     SQLHelper::SQLSettings _sql_settings;
     int _autoComplete_millisec = 1500;
@@ -19,6 +21,9 @@ public:
 
     static QString Get_CimCSVFileName();
     static void Set_CimCSVFileName(const QString& v);
+
+    static QString Get_PartnerCSVFileName();
+    static void Set_PartnerCSVFileName(const QString& v);
 
     static QString Get_TetelCSVFileName();
     static void Set_TetelCSVFileName(const QString& v);

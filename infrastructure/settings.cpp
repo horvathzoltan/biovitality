@@ -5,6 +5,8 @@
 const QString Settings::FilesIni_FileName = QStringLiteral("files.ini");
 const QString Settings::FilesIni_Group = QStringLiteral("files");
 const QString Settings::FilesIni_CimCSVFileName = QStringLiteral("addressFile");
+const QString Settings::FilesIni_PartnerCSVFileName = QStringLiteral("partnerFile");
+
 const QString Settings::FilesIni_TetelCSVFileName = QStringLiteral("soldItemFile");
 
 Settings::Settings(const SQLHelper::SQLSettings& a)
@@ -12,6 +14,7 @@ Settings::Settings(const SQLHelper::SQLSettings& a)
     this->_sql_settings = a;
 }
 
+// cim
 QString Settings::Get_CimCSVFileName()
 {
     return Get_FileName(FilesIni_CimCSVFileName);
@@ -22,6 +25,18 @@ void Settings::Set_CimCSVFileName(const QString &v)
     Set_FileName(FilesIni_CimCSVFileName, v);
 }
 
+// partner
+QString Settings::Get_PartnerCSVFileName()
+{
+    return Get_FileName(FilesIni_PartnerCSVFileName);
+}
+
+void Settings::Set_PartnerCSVFileName(const QString &v)
+{
+    Set_FileName(FilesIni_PartnerCSVFileName, v);
+}
+
+//tetel
 QString Settings::Get_TetelCSVFileName()
 {
     return Get_FileName(FilesIni_TetelCSVFileName);

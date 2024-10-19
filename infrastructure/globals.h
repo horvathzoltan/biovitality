@@ -24,17 +24,17 @@ class Repositories
 {
 public:
     Repositories()
-        :sr("SoldItem")
-        ,cr("County")
-        ,ar("Article")
+        :solditem("SoldItem")
+        ,county("County")
+        ,article("Article")
         ,address("Address")
-        ,partners("Partner"){}
+        ,partner("Partner"){}
 
-    SqlRepository<SoldItem> sr;
-    SqlRepository<County> cr;
-    SqlRepository<Article> ar;
+    SqlRepository<SoldItem> solditem;
+    SqlRepository<County> county;
+    SqlRepository<Article> article;
     SqlRepository<Address> address;
-    SqlRepository<Partner> partners;
+    SqlRepository<Partner> partner;
 
     static void MetaInit(){
         SoldItem::MetaInit();

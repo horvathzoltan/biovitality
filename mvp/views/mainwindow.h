@@ -18,6 +18,8 @@ private:
     MainViewModel::DoWorkModel get_DoWorkModel() override;
     MainViewModel::StringModel get_TetelCSVFileName() override;
     MainViewModel::StringModel get_CimCSVFileName() override;
+    MainViewModel::StringModel get_PartnerCSVFileName() override;
+    MainViewModel::StringModel get_CSVFileName_private(const QString& fileName);
     void set_StatusLine(const MainViewModel::StringModel &m) override;
     MainViewModel::StringModel get_StatusLine() override;
     //MainViewModel::StringModel get_CimCSVFileName() override;
@@ -26,22 +28,30 @@ public:
     ~MainWindow();
 signals:
     void PushButtonActionTriggered(IMainView *sender) override;
-    void TetelImport_ActionTriggered(IMainView *sender) override;
-    void AddSoldItemActionTriggered(IMainView *sender) override;
+    //add
+    void Add_SoldItem_ActionTriggered(IMainView *sender) override;
+    //import
+    void TetelImport_ActionTriggered(IMainView *sender) override;    
     void CimImport_ActionTriggered(IMainView *sender) override;
+    void PartnerImport_ActionTriggered(IMainView *sender) override;
+    //test
+    void DBTestActionTriggered(IMainView *sender);
     //log
     void ToClipBoard_ActionTriggered(IMainView *sender) override;
     void ToLogFile_ActionTriggered(IMainView *sender) override;
 
-    void DBTestActionTriggered(IMainView *sender);
-
-private slots:        
-    void on_pushButton_tetelImport_clicked();
-    void on_pushButton_dbtest_clicked();
+private slots:
+//add
     void on_pushButton_AddSoldItem_clicked();
-    void on_pushButton_addressImport_clicked();
+//import
+    void on_pushButton_AddressImport_clicked();
+    void on_pushButton_PartnerImport_clicked();
+    void on_pushButton_TetelImport_clicked();
+//test
+    void on_pushButton_dbtest_clicked();
+//log
     void on_pushButton_ToClipBoard_clicked();
     void on_pushButton_ToLogFile_clicked();
-    void on_pushButton_clicked();
+
 };
 #endif // MAINWINDOW_H

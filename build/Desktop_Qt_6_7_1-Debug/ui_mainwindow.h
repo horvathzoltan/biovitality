@@ -11,6 +11,7 @@
 
 #include <QtCore/QVariant>
 #include <QtWidgets/QApplication>
+#include <QtWidgets/QGroupBox>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
@@ -30,10 +31,14 @@ public:
     QHBoxLayout *horizontalLayout;
     QPushButton *pushButton_AddSoldItem;
     QLabel *label;
-    QPushButton *pushButton_addressImport;
-    QPushButton *pushButton_tetelImport;
     QPushButton *pushButton_dbtest;
     QSpacerItem *horizontalSpacer;
+    QGroupBox *groupBox_Import;
+    QHBoxLayout *horizontalLayout_4;
+    QPushButton *pushButton_PartnerImport;
+    QPushButton *pushButton_AddressImport;
+    QPushButton *pushButton_TetelImport;
+    QSpacerItem *horizontalSpacer_2;
     QSpacerItem *verticalSpacer;
     QHBoxLayout *horizontalLayout_2;
     QPlainTextEdit *plainTextEdit_status;
@@ -63,16 +68,6 @@ public:
 
         horizontalLayout->addWidget(label);
 
-        pushButton_addressImport = new QPushButton(centralwidget);
-        pushButton_addressImport->setObjectName("pushButton_addressImport");
-
-        horizontalLayout->addWidget(pushButton_addressImport);
-
-        pushButton_tetelImport = new QPushButton(centralwidget);
-        pushButton_tetelImport->setObjectName("pushButton_tetelImport");
-
-        horizontalLayout->addWidget(pushButton_tetelImport);
-
         pushButton_dbtest = new QPushButton(centralwidget);
         pushButton_dbtest->setObjectName("pushButton_dbtest");
 
@@ -84,6 +79,32 @@ public:
 
 
         verticalLayout->addLayout(horizontalLayout);
+
+        groupBox_Import = new QGroupBox(centralwidget);
+        groupBox_Import->setObjectName("groupBox_Import");
+        horizontalLayout_4 = new QHBoxLayout(groupBox_Import);
+        horizontalLayout_4->setObjectName("horizontalLayout_4");
+        pushButton_PartnerImport = new QPushButton(groupBox_Import);
+        pushButton_PartnerImport->setObjectName("pushButton_PartnerImport");
+
+        horizontalLayout_4->addWidget(pushButton_PartnerImport);
+
+        pushButton_AddressImport = new QPushButton(groupBox_Import);
+        pushButton_AddressImport->setObjectName("pushButton_AddressImport");
+
+        horizontalLayout_4->addWidget(pushButton_AddressImport);
+
+        pushButton_TetelImport = new QPushButton(groupBox_Import);
+        pushButton_TetelImport->setObjectName("pushButton_TetelImport");
+
+        horizontalLayout_4->addWidget(pushButton_TetelImport);
+
+        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
+
+        horizontalLayout_4->addItem(horizontalSpacer_2);
+
+
+        verticalLayout->addWidget(groupBox_Import);
 
         verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Expanding);
 
@@ -131,9 +152,11 @@ public:
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
         pushButton_AddSoldItem->setText(QCoreApplication::translate("MainWindow", "AddSoldItem", nullptr));
         label->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
-        pushButton_addressImport->setText(QCoreApplication::translate("MainWindow", "C\303\255m Import", nullptr));
-        pushButton_tetelImport->setText(QCoreApplication::translate("MainWindow", "T\303\251tel Import", nullptr));
         pushButton_dbtest->setText(QCoreApplication::translate("MainWindow", "DBtest", nullptr));
+        groupBox_Import->setTitle(QCoreApplication::translate("MainWindow", "T\303\266rzs Import", nullptr));
+        pushButton_PartnerImport->setText(QCoreApplication::translate("MainWindow", "Partner Import", nullptr));
+        pushButton_AddressImport->setText(QCoreApplication::translate("MainWindow", "C\303\255m Import", nullptr));
+        pushButton_TetelImport->setText(QCoreApplication::translate("MainWindow", "T\303\251tel Import", nullptr));
         pushButton_ToClipBoard->setText(QCoreApplication::translate("MainWindow", "ToClipBoard", nullptr));
         pushButton_ToLogFile->setText(QCoreApplication::translate("MainWindow", "ToLogFile", nullptr));
     } // retranslateUi

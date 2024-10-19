@@ -56,8 +56,9 @@ void MainPresenter::appendView(IMainView *w)
     QObject::connect(view_obj, SIGNAL(DBTestActionTriggered(IMainView *)),
                      this, SLOT(processDBTestAction(IMainView *)));
 
+    // Add tetel
     QObject::connect(view_obj, SIGNAL(AddSoldItemActionTriggered(IMainView *)),
-                     this, SLOT(processSoldItemAction(IMainView *)));
+                     this, SLOT(process_Add_SoldItemAction(IMainView *)));
 
     // CSV_Imoort tetel
     QObject::connect(view_obj, SIGNAL(TetelImport_ActionTriggered(IMainView *)),
@@ -66,6 +67,10 @@ void MainPresenter::appendView(IMainView *w)
     // CSV_Import Cím
     QObject::connect(view_obj, SIGNAL(CimImport_ActionTriggered(IMainView *)),
                      this, SLOT(process_CimImport_Action(IMainView *)));
+
+    // CSV_Import Partner
+    QObject::connect(view_obj, SIGNAL(PartnerImport_ActionTriggered(IMainView *)),
+                     this, SLOT(process_PartnerImport_Action(IMainView *)));
 
     //refreshView(w);
 }
@@ -122,7 +127,7 @@ void MainPresenter::process_TetelImport_Action(IMainView *sender)
 
     DbErr err;
     err.isDbValid = _globals._helpers._sqlHelper.dbIsValid();
-    err.isTableExists = _globals._repositories.sr.isTableExists();
+    err.isTableExists = _globals._repositories.solditem.isTableExists();
 
     if(err.isValid()){
         MainViewModel::StringModel fn = sender->get_TetelCSVFileName();
@@ -145,26 +150,26 @@ void MainPresenter::process_TetelImport_Action(IMainView *sender)
                 int i_all=0, u_all=0;
                 int i_ok=0, u_ok=0;
                 for(auto&i:items){
-                    bool contains = _globals._repositories.sr.ContainsBy_ExcelId(i.excelId);
+                    bool contains = _globals._repositories.solditem.ContainsBy_ExcelId(i.excelId);
                     if(contains){
-                        int id =  _globals._repositories.sr.GetIdBy_ExcelId(i.excelId); // meg kell szerezni az id-t
+                        int id =  _globals._repositories.solditem.GetIdBy_ExcelId(i.excelId); // meg kell szerezni az id-t
                         if(id!=-1)
                         {
                             i.id = id;
                             u_all++;
-                            bool ok =  _globals._repositories.sr.Update(i);
+                            bool ok =  _globals._repositories.solditem.Update(i);
                             if(ok) u_ok++;
                         } else{
                             zInfo("no id for excelId: "+QString::number(i.excelId));
                         }
                     } else{
                         i_all++;
-                        bool ok =  _globals._repositories.sr.Add(i);
+                        bool ok =  _globals._repositories.solditem.Add(i);
                         if(ok) i_ok++;
                     }
                 }
-                zInfo(QStringLiteral("Updated: %1/%2").arg(u_ok).arg(u_all))
-                zInfo(QStringLiteral("Inserted: %1/%2").arg(i_ok).arg(i_all))
+                zInfo(QStringLiteral("Updated: %1/%2").arg(u_ok).arg(u_all));
+                zInfo(QStringLiteral("Inserted: %1/%2").arg(i_ok).arg(i_all));
             } else{
                 zInfo("no items to import");
             }
@@ -225,7 +230,7 @@ void MainPresenter::Error2(DbErr err)
     }
 }
 
-void MainPresenter::processSoldItemAction(IMainView *sender){
+void MainPresenter::process_Add_SoldItemAction(IMainView *sender){
     zTrace();
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
@@ -235,7 +240,7 @@ void MainPresenter::processSoldItemAction(IMainView *sender){
     //int excelId = 806;
 
     //int id = _globals._repositories.sr.GetIdBy_ExcelId(excelId);
-    //SoldItem data = _globals._repositories.sr.Get(id);        
+    //SoldItem data = _globals._repositories.sr.Get(id);
 
     SoldItem data;
     data.partnerName="teszt partner 1";
@@ -252,12 +257,12 @@ void MainPresenter::processSoldItemAction(IMainView *sender){
     model->dataForm = new DataForm(opId);
 
     QString title = _tr(GetWCode(WCodes::AddSoldItem));
-    model->dataForm->setWindowTitle(title);    
+    model->dataForm->setWindowTitle(title);
     model->dataForm->setMetaValues(m);
 
     // a county defaultjai:
     // rekordok az sql-ből
-    QList<County> counties = _globals._repositories.cr.GetAll();
+    QList<County> counties = _globals._repositories.county.GetAll();
     // rekordok -> model lista
     DataRowDefaultModel cd = County::To_DataRowDefaultModel(counties);
     cd.name = QT_STRINGIFY(county); // ennek a mezőnek lesznek ezek a defaultjai
@@ -265,7 +270,7 @@ void MainPresenter::processSoldItemAction(IMainView *sender){
     //model->dataForm->SetDataRowDefaults(d);
 
 
-    QList<Article> articles = _globals._repositories.ar.GetAll();
+    QList<Article> articles = _globals._repositories.article.GetAll();
     // rekordok -> model lista
     DataRowDefaultModel ad = Article::To_DataRowDefaultModel(articles);
     ad.name = QT_STRINGIFY(productName); // ennek a mezőnek lesznek ezek a defaultjai
@@ -276,13 +281,13 @@ void MainPresenter::processSoldItemAction(IMainView *sender){
 
     model->dataForm->show();
     QObject::connect(model->dataForm, SIGNAL(AcceptActionTriggered(QUuid)),
-                     this, SLOT(processAcceptAction(QUuid)));
+                     this, SLOT(process_Add_SoldItem_AcceptAction(QUuid)));
 
 
    // zInfo("platty");
 }
 
-void MainPresenter::processAcceptAction(QUuid opId)
+void MainPresenter::process_Add_SoldItem_AcceptAction(QUuid opId)
 {
     zInfo("processAcceptAction");
 
@@ -295,7 +300,7 @@ void MainPresenter::processAcceptAction(QUuid opId)
             b->dataForm->done(1);
             // itt van az hogy le kéne a változtatott rekordot menteni
             SoldItem data = SoldItem::FromMetaValues(m.values);
-            _globals._repositories.sr.Add(data);
+            _globals._repositories.solditem.Add(data);
         }
         else{
             b->dataForm->SetValidations(m.validations);
@@ -358,8 +363,8 @@ void MainPresenter::process_CimImport_Action(IMainView *sender)
                         if(ok) i_ok++;
                     }
                 }
-                zInfo(QStringLiteral("Updated: %1/%2").arg(u_ok).arg(u_all))
-                    zInfo(QStringLiteral("Inserted: %1/%2").arg(i_ok).arg(i_all))
+                zInfo(QStringLiteral("Updated: %1/%2").arg(u_ok).arg(u_all));
+                zInfo(QStringLiteral("Inserted: %1/%2").arg(i_ok).arg(i_all));
             } else{
                 zInfo("no items to import");
             }
@@ -376,5 +381,74 @@ void MainPresenter::process_CimImport_Action(IMainView *sender)
     Operations::instance().stop(opId);
 }
 
+void MainPresenter::process_PartnerImport_Action(IMainView *sender)
+{
+    zTrace();
+    QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
+
+    DbErr err;
+    err.isDbValid = _globals._helpers._sqlHelper.dbIsValid();
+    err.isTableExists = _globals._repositories.partner.isTableExists();
+
+    //zInfo(QStringLiteral("isTableExists:")+((isTableExists)?"ok":"false"));
+    if(err.isValid()){
+        MainViewModel::StringModel fn = sender->get_PartnerCSVFileName();
+
+        FileHelper::CSVModel csvModel = FileHelper::LoadCSV(fn.str);
+        if(csvModel.error == FileHelper::Ok){
+            zInfo("file ok");
+            QList<Partner> items = Partner::CSV_Import(csvModel.records);
+
+            // megvan a modell lista, egyenként meg kell nézni excel_id szerint, hogy
+            // ha létezik, update
+            // ha nem, insert
+            // todo 001 storno flag
+            // todo 002 partner törzs - partner id bevezetése
+            // - 1. partner import
+            // - 2. tétel import
+            //SoldItemRepository::InsertOrUpdate(items);
+
+            SqlRepository<Partner>& repo =  _globals._repositories.partner;
+
+            if(!items.isEmpty())
+            {
+                int i_all=0, u_all=0;
+                int i_ok=0, u_ok=0;
+                for(auto&i:items){
+                    bool contains = repo.ContainsBy_ExcelId(i.excelId);
+                    if(contains){
+                        int id =  repo.GetIdBy_ExcelId(i.excelId); // meg kell szerezni az id-t
+                        if(id!=-1)
+                        {
+                            i.id = id;
+                            u_all++;
+                            bool ok =  repo.Update(i);
+                            if(ok) u_ok++;
+                        } else{
+                            zInfo("no id for excelId: "+QString::number(i.excelId));
+                        }
+                    } else{
+                        i_all++;
+                        bool ok =  repo.Add(i);
+                        if(ok) i_ok++;
+                    }
+                }
+                zInfo(QStringLiteral("Updated: %1/%2").arg(u_ok).arg(u_all));
+                zInfo(QStringLiteral("Inserted: %1/%2").arg(i_ok).arg(i_all));
+            } else{
+                zInfo("no items to import");
+            }
+        }
+        else
+        {
+            zWarning("file failed");
+        }
+    }
+    else
+    {
+        Error2(err);
+    }
+    Operations::instance().stop(opId);
+}
 
 

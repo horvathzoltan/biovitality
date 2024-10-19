@@ -38,35 +38,35 @@ auto MainWindow::get_DoWorkModel() -> MainViewModel::DoWorkModel
 
 MainViewModel::StringModel MainWindow::get_TetelCSVFileName()
 {
-    MainViewModel::StringModel r;
-
     QString fileName = Settings::Get_TetelCSVFileName();
-    if(fileName.isEmpty()) fileName = FileNameHelper::GetTestFolderPath();;
-
-    r.str = QFileDialog::getOpenFileName(this,
-                                         tr("Open File"),
-                                         fileName,
-                                         tr("CSV Files (*.csv *.txt)"));
-
-    if(!r.str.isEmpty()) Settings::Set_TetelCSVFileName(r.str);
-    return r;
+    return get_CSVFileName_private(fileName);
 };
 
 MainViewModel::StringModel MainWindow::get_CimCSVFileName()
 {
-    MainViewModel::StringModel r;
-
     QString fileName = Settings::Get_CimCSVFileName();
-    if(fileName.isEmpty()) fileName = FileNameHelper::GetTestFolderPath();;
+    return get_CSVFileName_private(fileName);
+};
+
+MainViewModel::StringModel MainWindow::get_PartnerCSVFileName()
+{
+    QString fileName = Settings::Get_PartnerCSVFileName();
+    return get_CSVFileName_private(fileName);
+};
+
+MainViewModel::StringModel MainWindow::get_CSVFileName_private(const QString& fileName){
+    MainViewModel::StringModel r;
 
     r.str = QFileDialog::getOpenFileName(this,
                                          tr("Open File"),
-                                         fileName,
+                                         fileName.isEmpty()
+                                             ?fileName
+                                             :FileNameHelper::GetTestFolderPath(),
                                          tr("CSV Files (*.csv *.txt)"));
 
     if(!r.str.isEmpty()) Settings::Set_CimCSVFileName(r.str);
     return r;
-};
+}
 
 void MainWindow::set_StatusLine(const MainViewModel::StringModel &m)
 {
@@ -105,14 +105,34 @@ MainViewModel::StringModel MainWindow::get_StatusLine() {
 }
 
 
+//add
+void MainWindow::on_pushButton_AddSoldItem_clicked()
+{
+    zTrace();
+    emit Add_SoldItem_ActionTriggered(this);
+}
 
-void MainWindow::on_pushButton_tetelImport_clicked()
+//import
+
+void MainWindow::on_pushButton_TetelImport_clicked()
 {
     zTrace();
     emit TetelImport_ActionTriggered(this);
 }
 
+void MainWindow::on_pushButton_AddressImport_clicked()
+{
+    zTrace();
+    emit CimImport_ActionTriggered(this);
+}
 
+void MainWindow::on_pushButton_PartnerImport_clicked()
+{
+    zTrace();
+    emit PartnerImport_ActionTriggered(this);
+}
+
+//test
 void MainWindow::on_pushButton_dbtest_clicked()
 {
     zTrace();
@@ -120,21 +140,7 @@ void MainWindow::on_pushButton_dbtest_clicked()
 }
 
 
-void MainWindow::on_pushButton_AddSoldItem_clicked()
-{
-    zTrace();
-    emit AddSoldItemActionTriggered(this);
-
-}
-
-
-void MainWindow::on_pushButton_addressImport_clicked()
-{
-    zTrace();
-    emit CimImport_ActionTriggered(this);
-}
-
-
+//log
 void MainWindow::on_pushButton_ToClipBoard_clicked()
 {
     zTrace();
@@ -143,13 +149,6 @@ void MainWindow::on_pushButton_ToClipBoard_clicked()
 
 
 void MainWindow::on_pushButton_ToLogFile_clicked()
-{
-    zTrace();
-    emit ToLogFile_ActionTriggered(this);
-}
-
-
-void MainWindow::on_pushButton_clicked()
 {
     zTrace();
     emit ToLogFile_ActionTriggered(this);

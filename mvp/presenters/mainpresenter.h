@@ -44,13 +44,17 @@ private slots:
     void processPushButtonAction(IMainView *sender);
 
     void processDBTestAction(IMainView *sender);
-    void processSoldItemAction(IMainView *sender);
-    void processAcceptAction(QUuid opId);
+
+    // Add tetel
+    void process_Add_SoldItemAction(IMainView *sender);
+    void process_Add_SoldItem_AcceptAction(QUuid opId);
 
     // CSV Import Tétel
     void process_TetelImport_Action(IMainView *sender);
     // CSV Import Cim
     void process_CimImport_Action(IMainView *sender);
+    // CSV Import Partner
+    void process_PartnerImport_Action(IMainView *sender);
 };
 
 #endif // MAINPRESENTER_H
