@@ -77,9 +77,6 @@ void MainPresenter::appendView(IMainView *w)
 
 void MainPresenter::refreshView(IMainView *w) const { Q_UNUSED(w) };
 
-
-
-
 void MainPresenter::initView(IMainView *w) const {
     MainViewModel::StringModel rm{"1"};
     w->set_DoWorkRModel(rm);
@@ -385,19 +382,26 @@ void MainPresenter::process_PartnerImport_Action(IMainView *sender)
 {
     zTrace();
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
+    SqlRepository<Partner>& repo = _globals._repositories.partner;
 
     DbErr err;
     err.isDbValid = _globals._helpers._sqlHelper.dbIsValid();
-    err.isTableExists = _globals._repositories.partner.isTableExists();
+    err.isTableExists = repo.isTableExists();
 
+    CSVErrModel csverr;
     //zInfo(QStringLiteral("isTableExists:")+((isTableExists)?"ok":"false"));
     if(err.isValid()){
         MainViewModel::StringModel fn = sender->get_PartnerCSVFileName();
-
         FileHelper::CSVModel csvModel = FileHelper::LoadCSV(fn.str);
-        if(csvModel.error == FileHelper::Ok){
-            zInfo("file ok");
+
+        csverr.fileName = fn.str;
+        csverr.recordsCount = csvModel.records.count();
+
+        if(csvModel.error == FileHelper::Ok){            
             QList<Partner> items = Partner::CSV_Import(csvModel.records);
+            csverr.itemsCount = items.count();
+
+            zInfo("items loaded: "+csverr.ToSting());
 
             // megvan a modell lista, egyenként meg kell nézni excel_id szerint, hogy
             // ha létezik, update
@@ -407,8 +411,6 @@ void MainPresenter::process_PartnerImport_Action(IMainView *sender)
             // - 1. partner import
             // - 2. tétel import
             //SoldItemRepository::InsertOrUpdate(items);
-
-            SqlRepository<Partner>& repo =  _globals._repositories.partner;
 
             if(!items.isEmpty())
             {
@@ -441,7 +443,7 @@ void MainPresenter::process_PartnerImport_Action(IMainView *sender)
         }
         else
         {
-            zWarning("file failed");
+            zWarning("items load failed: "+csverr.ToSting());
         }
     }
     else
@@ -452,3 +454,9 @@ void MainPresenter::process_PartnerImport_Action(IMainView *sender)
 }
 
 
+
+template<typename T>
+void MainPresenter::RepoUpdate(SqlRepository<T> repo, QList<T> items)
+{
+
+}

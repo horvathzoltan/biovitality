@@ -57,9 +57,12 @@ MainViewModel::StringModel MainWindow::get_PartnerCSVFileName()
 MainViewModel::StringModel MainWindow::get_CSVFileName_private(const QString& fileName){
     MainViewModel::StringModel r;
 
+    //QString testFolderPath = FileNameHelper::GetTestFolderPath();
+    bool hasFileName = !fileName.isEmpty();
+
     r.str = QFileDialog::getOpenFileName(this,
                                          tr("Open File"),
-                                         fileName.isEmpty()
+                                         hasFileName
                                              ?fileName
                                              :FileNameHelper::GetTestFolderPath(),
                                          tr("CSV Files (*.csv *.txt)"));

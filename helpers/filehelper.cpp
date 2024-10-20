@@ -152,7 +152,7 @@ QList<QVarLengthArray<QString>> FileHelper::LoadCSV_reader(QTextStream *st, cons
                     inQuote = true;
                     continue;
                 } else{
-                    if(i+1<L){
+                    if(i+1<L){// van következő
                         QChar b = line[i+1];
                         if(b=='"'){
                             s+='"';
@@ -162,7 +162,9 @@ QList<QVarLengthArray<QString>> FileHelper::LoadCSV_reader(QTextStream *st, cons
                             continue;
                         }
                     } else{
-                        zInfo("w");
+                        //s+='"';
+                        inQuote = false;
+                        continue;
                     }
                 }
             }
