@@ -389,7 +389,7 @@ void MainPresenter::process_PartnerImport_Action(IMainView *sender)
     err.isTableExists = repo.isTableExists();
 
     CSVErrModel csverr;
-    //zInfo(QStringLiteral("isTableExists:")+((isTableExists)?"ok":"false"));
+
     if(err.isValid()){
         MainViewModel::StringModel fn = sender->get_PartnerCSVFileName();
         FileHelper::CSVModel csvModel = FileHelper::LoadCSV(fn.str);
@@ -402,44 +402,7 @@ void MainPresenter::process_PartnerImport_Action(IMainView *sender)
             csverr.itemsCount = items.count();
 
             zInfo("items loaded: "+csverr.ToSting());
-
-            // megvan a modell lista, egyenként meg kell nézni excel_id szerint, hogy
-            // ha létezik, update
-            // ha nem, insert
-            // todo 001 storno flag
-            // todo 002 partner törzs - partner id bevezetése
-            // - 1. partner import
-            // - 2. tétel import
-            //SoldItemRepository::InsertOrUpdate(items);
-
-            if(!items.isEmpty())
-            {
-                int i_all=0, u_all=0;
-                int i_ok=0, u_ok=0;
-                for(auto&i:items){
-                    bool contains = repo.ContainsBy_ExcelId(i.excelId);
-                    if(contains){
-                        int id =  repo.GetIdBy_ExcelId(i.excelId); // meg kell szerezni az id-t
-                        if(id!=-1)
-                        {
-                            i.id = id;
-                            u_all++;
-                            bool ok =  repo.Update(i);
-                            if(ok) u_ok++;
-                        } else{
-                            zInfo("no id for excelId: "+QString::number(i.excelId));
-                        }
-                    } else{
-                        i_all++;
-                        bool ok =  repo.Add(i);
-                        if(ok) i_ok++;
-                    }
-                }
-                zInfo(QStringLiteral("Updated: %1/%2").arg(u_ok).arg(u_all));
-                zInfo(QStringLiteral("Inserted: %1/%2").arg(i_ok).arg(i_all));
-            } else{
-                zInfo("no items to import");
-            }
+            RepoUpdate(repo, items);
         }
         else
         {
@@ -454,9 +417,45 @@ void MainPresenter::process_PartnerImport_Action(IMainView *sender)
 }
 
 
+// megvan a modell lista, egyenként meg kell nézni excel_id szerint, hogy
+// ha létezik, update
+// ha nem, insert
+// todo 001 storno flag
+// todo 002 partner törzs - partner id bevezetése
+// - 1. partner import
+// - 2. tétel import
+//SoldItemRepository::InsertOrUpdate(items);
 
 template<typename T>
 void MainPresenter::RepoUpdate(SqlRepository<T> repo, QList<T> items)
 {
+    if(items.isEmpty()){
+        zInfo("no items to import");
+        return;
+    }
 
+    int i_all=0, u_all=0;
+    int i_ok=0, u_ok=0;
+    for(auto&i:items){
+        bool contains = repo.ContainsBy_ExcelId(i.excelId);
+        if(contains){
+            int id =  repo.GetIdBy_ExcelId(i.excelId); // meg kell szerezni az id-t
+            if(id!=-1)
+            {
+                i.id = id;
+                u_all++;
+                bool ok =  repo.Update(i);
+                if(ok) u_ok++;
+            } else{
+                zInfo("no id for excelId: "+QString::number(i.excelId));
+            }
+        } else{
+            i_all++;
+            bool ok =  repo.Add(i);
+            if(ok) i_ok++;
+        }
+    }
+
+    zInfo(QStringLiteral("Updated: %1/%2").arg(u_ok).arg(u_all));
+    zInfo(QStringLiteral("Inserted: %1/%2").arg(i_ok).arg(i_all));
 }
