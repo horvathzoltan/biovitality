@@ -16,6 +16,12 @@ public:
     struct StringModel{
         QString str;
     };
+
+    struct FileNameModel{
+        QString fileName;
+        bool isCanceled;
+    };
+
 };
 
 
