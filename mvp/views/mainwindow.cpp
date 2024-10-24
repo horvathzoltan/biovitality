@@ -39,7 +39,7 @@ auto MainWindow::get_DoWorkModel() -> MainViewModel::DoWorkModel
 MainViewModel::FileNameModel MainWindow::get_TetelCSVFileName()
 {
     QString fileName = Settings::Get_TetelCSVFileName();
-    MainViewModel::FileNameModel r = get_CSVFileName_private(fileName);
+    MainViewModel::FileNameModel r = get_CSVFileName_private(fileName);    
     if(r.IsValid()) Settings::Set_TetelCSVFileName(r.fileName);
     return r;
 };
@@ -63,19 +63,16 @@ MainViewModel::FileNameModel MainWindow::get_PartnerCSVFileName()
 MainViewModel::FileNameModel MainWindow::get_CSVFileName_private(const QString& fileName){
     MainViewModel::FileNameModel r;
 
-    //QString testFolderPath = FileNameHelper::GetTestFolderPath();
     bool hasFileName = !fileName.isEmpty();
 
-    QString fn = QFileDialog::getOpenFileName(this,
+    r.fileName = QFileDialog::getOpenFileName(this,
                                          tr("Open File"),
                                          hasFileName
                                              ?fileName
                                              :FileNameHelper::GetTestFolderPath(),
                                          tr("CSV Files (*.csv *.txt)"));
-    r.fileName = fn;
-    // if(!r.fileName.isEmpty()) Settings::Set_CimCSVFileName(r.fileName);
-    bool b = fn.isEmpty();
-    bool c = fn.isNull();
+
+    r.isCanceled = r.fileName.isNull();
     return r;
 }
 
