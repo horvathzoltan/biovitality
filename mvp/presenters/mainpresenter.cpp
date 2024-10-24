@@ -127,9 +127,9 @@ void MainPresenter::process_TetelImport_Action(IMainView *sender)
     err.isTableExists = _globals._repositories.solditem.isTableExists();
 
     if(err.isValid()){
-        MainViewModel::StringModel fn = sender->get_TetelCSVFileName();
+        MainViewModel::FileNameModel fn = sender->get_TetelCSVFileName();
 
-        FileHelper::CSVModel csvModel = FileHelper::LoadCSV(fn.str);
+        FileHelper::CSVModel csvModel = FileHelper::LoadCSV(fn.fileName);
         if(csvModel.error == FileHelper::Ok){
             zInfo("file ok");
             QList<SoldItem> items = SoldItem::CSV_Import(csvModel.records);
@@ -319,9 +319,9 @@ void MainPresenter::process_CimImport_Action(IMainView *sender)
 
     //zInfo(QStringLiteral("isTableExists:")+((isTableExists)?"ok":"false"));
     if(err.isValid()){
-        MainViewModel::StringModel fn = sender->get_CimCSVFileName();
+        MainViewModel::FileNameModel fn = sender->get_CimCSVFileName();
 
-        FileHelper::CSVModel csvModel = FileHelper::LoadCSV(fn.str);
+        FileHelper::CSVModel csvModel = FileHelper::LoadCSV(fn.fileName);
         if(csvModel.error == FileHelper::Ok){
             zInfo("file ok");
             QList<Address> items = Address::CSV_Import(csvModel.records);
@@ -391,10 +391,10 @@ void MainPresenter::process_PartnerImport_Action(IMainView *sender)
     CSVErrModel csverr;
 
     if(err.isValid()){
-        MainViewModel::StringModel fn = sender->get_PartnerCSVFileName();
-        FileHelper::CSVModel csvModel = FileHelper::LoadCSV(fn.str);
+        MainViewModel::FileNameModel fn = sender->get_PartnerCSVFileName();
+        FileHelper::CSVModel csvModel = FileHelper::LoadCSV(fn.fileName);
 
-        csverr.fileName = fn.str;
+        csverr.fileName = fn.fileName;
         csverr.recordsCount = csvModel.records.count();
 
         if(csvModel.error == FileHelper::Ok){            

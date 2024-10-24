@@ -16,10 +16,10 @@ private:
     Ui::MainWindow *ui;
     void set_DoWorkRModel(const MainViewModel::StringModel& m) override;
     MainViewModel::DoWorkModel get_DoWorkModel() override;
-    MainViewModel::StringModel get_TetelCSVFileName() override;
-    MainViewModel::StringModel get_CimCSVFileName() override;
-    MainViewModel::StringModel get_PartnerCSVFileName() override;
-    MainViewModel::StringModel get_CSVFileName_private(const QString& fileName);
+    MainViewModel::FileNameModel get_TetelCSVFileName() override;
+    MainViewModel::FileNameModel get_CimCSVFileName() override;
+    MainViewModel::FileNameModel get_PartnerCSVFileName() override;
+    MainViewModel::FileNameModel get_CSVFileName_private(const QString& fileName);
     void set_StatusLine(const MainViewModel::StringModel &m) override;
     MainViewModel::StringModel get_StatusLine() override;
     //MainViewModel::StringModel get_CimCSVFileName() override;

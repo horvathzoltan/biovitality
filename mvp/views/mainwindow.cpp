@@ -36,38 +36,46 @@ auto MainWindow::get_DoWorkModel() -> MainViewModel::DoWorkModel
     return {i};
 }
 
-MainViewModel::StringModel MainWindow::get_TetelCSVFileName()
+MainViewModel::FileNameModel MainWindow::get_TetelCSVFileName()
 {
     QString fileName = Settings::Get_TetelCSVFileName();
-    return get_CSVFileName_private(fileName);
+    MainViewModel::FileNameModel r = get_CSVFileName_private(fileName);
+    if(r.IsValid()) Settings::Set_TetelCSVFileName(r.fileName);
+    return r;
 };
 
-MainViewModel::StringModel MainWindow::get_CimCSVFileName()
+MainViewModel::FileNameModel MainWindow::get_CimCSVFileName()
 {
     QString fileName = Settings::Get_CimCSVFileName();
-    return get_CSVFileName_private(fileName);
+    MainViewModel::FileNameModel r = get_CSVFileName_private(fileName);
+    if(r.IsValid()) Settings::Set_CimCSVFileName(r.fileName);
+    return r;
 };
 
-MainViewModel::StringModel MainWindow::get_PartnerCSVFileName()
+MainViewModel::FileNameModel MainWindow::get_PartnerCSVFileName()
 {
     QString fileName = Settings::Get_PartnerCSVFileName();
-    return get_CSVFileName_private(fileName);
+    MainViewModel::FileNameModel r = get_CSVFileName_private(fileName);
+    if(r.IsValid()) Settings::Set_PartnerCSVFileName(r.fileName);
+    return r;
 };
 
-MainViewModel::StringModel MainWindow::get_CSVFileName_private(const QString& fileName){
-    MainViewModel::StringModel r;
+MainViewModel::FileNameModel MainWindow::get_CSVFileName_private(const QString& fileName){
+    MainViewModel::FileNameModel r;
 
     //QString testFolderPath = FileNameHelper::GetTestFolderPath();
     bool hasFileName = !fileName.isEmpty();
 
-    r.str = QFileDialog::getOpenFileName(this,
+    QString fn = QFileDialog::getOpenFileName(this,
                                          tr("Open File"),
                                          hasFileName
                                              ?fileName
                                              :FileNameHelper::GetTestFolderPath(),
                                          tr("CSV Files (*.csv *.txt)"));
-
-    if(!r.str.isEmpty()) Settings::Set_CimCSVFileName(r.str);
+    r.fileName = fn;
+    // if(!r.fileName.isEmpty()) Settings::Set_CimCSVFileName(r.fileName);
+    bool b = fn.isEmpty();
+    bool c = fn.isNull();
     return r;
 }
 

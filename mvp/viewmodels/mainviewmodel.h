@@ -20,6 +20,8 @@ public:
     struct FileNameModel{
         QString fileName;
         bool isCanceled;
+
+        bool IsValid(){ return !fileName.isEmpty() && !isCanceled;}
     };
 
 };
