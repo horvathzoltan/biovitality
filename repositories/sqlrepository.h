@@ -57,7 +57,7 @@ public:
     T Get(int id);
     QList<T> GetAll();
     bool Update(const T& m);
-    bool Add(const T& m);    
+    bool Add(const T& m);
 };
 
 #endif // SQLREPOSITORY_H

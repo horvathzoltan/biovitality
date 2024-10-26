@@ -19,7 +19,9 @@ protected:
 public:
     bool ContainsBy_ExcelId(int id);
     int GetIdBy_ExcelId(int id);
-    QString tableName2(){return _tableName;}
+    QString tableName2()const{return _tableName;}
+
+
 };
 
 #endif // SQLEXCELREPOSITORY_H

@@ -54,8 +54,9 @@ private:
 
     void Error2(DbErr err);
 
-    template<typename T>
-    void RepoUpdate(SqlRepository<T> repo, QList<T> items );
+    // template<typename T>
+    // static void InsertOrUpdate(SqlRepository<T>& repo, QList<T>& items);
+
 private slots:
     void processPushButtonAction(IMainView *sender);
     void processDBTestAction(IMainView *sender);
