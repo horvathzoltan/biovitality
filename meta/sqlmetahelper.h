@@ -20,7 +20,7 @@ public:
 
    // extern template void InsertOrUpdate(SqlRepository<Partner>& repo, QList<Partner>& items);
     template<typename T>
-    static void InsertOrUpdate(SqlRepository<T>& repo, QList<T>& items)
+    static void InsertOrUpdate(SqlERepository<T>& repo, QList<T>& items)
     {
         if(items.isEmpty()){
             zInfo("no items to import");

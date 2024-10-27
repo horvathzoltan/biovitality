@@ -121,7 +121,7 @@ void MainPresenter::processPushButtonAction(IMainView *sender){
 void MainPresenter::process_TetelImport_Action(IMainView *sender)
 {
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
-    SqlRepository<SoldItem>& repo = _globals._repositories.solditem;
+    SqlERepository<SoldItem>& repo = _globals._repositories.solditem;
 
     DbErr err;
     err.isDbValid = _globals._helpers._sqlHelper.dbIsValid();
@@ -317,7 +317,7 @@ void MainPresenter::process_CimImport_Action(IMainView *sender)
 {
     zTrace();
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
-    SqlRepository<Address>& repo =  _globals._repositories.address;
+    SqlERepository<Address>& repo =  _globals._repositories.address;
 
     DbErr err;
     err.isDbValid = _globals._helpers._sqlHelper.dbIsValid();
@@ -400,7 +400,7 @@ void MainPresenter::process_PartnerImport_Action(IMainView *sender)
 {
     zTrace();
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
-    SqlRepository<Partner>& repo = _globals._repositories.partner;
+    SqlERepository<Partner>& repo = _globals._repositories.partner;
 
     DbErr err;
     err.isDbValid = _globals._helpers._sqlHelper.dbIsValid();

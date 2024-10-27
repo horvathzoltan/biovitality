@@ -46,18 +46,43 @@ public:
 
 
 template<typename T>
-class SqlRepository : public SqlExcelRepository, public RepositoryBase
+//class SqlRepository : public SqlExcelRepository, public RepositoryBase
+class SqlRepository : public RepositoryBase
 {
 private:
-    SqlRepository(){};
+    SqlRepository();
 public:
-    SqlRepository(const QString& tname);
+    //SqlRepository(const QString& tname);
+    SqlRepository(const QString& tname) : RepositoryBase(tname) {}
 
     bool isTableExists();
     T Get(int id);
     QList<T> GetAll();
     bool Update(const T& m);
     bool Add(const T& m);
+};
+
+template<typename T>
+class SqlERepository : public SqlRepository<T>
+{
+private:
+    QString _tableName;
+private:
+    SqlERepository() :  SqlRepository<T>("") { _tableName=""; };
+public:
+    SqlERepository(const QString& tname) :  SqlRepository<T>(tname)
+    {
+        _tableName = tname;
+    };
+
+private:
+    static const QString CONTAINS_EXCEL_ID_CMD;
+    static const QString GET_ID_BY_EXCEL_ID_CMD;
+
+public:
+    bool ContainsBy_ExcelId(int id);
+    int GetIdBy_ExcelId(int id);
+    QString tableName2()const{return _tableName;}
 };
 
 #endif // SQLREPOSITORY_H

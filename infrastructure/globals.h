@@ -30,11 +30,11 @@ public:
         ,address("Address")
         ,partner("Partner"){}
 
-    SqlRepository<SoldItem> solditem;
+    SqlERepository<SoldItem> solditem;
     SqlRepository<County> county;
-    SqlRepository<Article> article;
-    SqlRepository<Address> address;
-    SqlRepository<Partner> partner;
+    SqlERepository<Article> article;
+    SqlERepository<Address> address;
+    SqlERepository<Partner> partner;
 
     static void MetaInit(){
         SoldItem::MetaInit();
@@ -45,10 +45,18 @@ public:
     }
 };
 
+template class SqlERepository<SoldItem>;
 template class SqlRepository<SoldItem>;
+
 template class SqlRepository<County>;
+
+template class SqlERepository<Article>;
 template class SqlRepository<Article>;
+
+template class SqlERepository<Address>;
 template class SqlRepository<Address>;
+
+template class SqlERepository<Partner>;
 template class SqlRepository<Partner>;
 
 class Globals
