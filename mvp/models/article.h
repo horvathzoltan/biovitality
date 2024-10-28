@@ -45,13 +45,15 @@ public:
     static Article FromMetaValues(const QList<MetaValue> &v){return _meta.FromMetaValues(v);}
     QList<SQLHelper::SQLParam> GetQueryParams()const { return _meta.ToMetaValues2(this);}
 
+    static void SetMetaVerbose(bool v){ _meta.SetVerbose(v);}
+
 // DataForm
     static DataRowDefaultModel To_DataRowDefaultModel(const QList<Article>& data)
     {
         return _meta.ToIdMegnevs(data);
     }
     IdMegnev ToIdMegnev() const {return _meta.ToIdMegnev(this); }
-    static void SetMetaVerbose(bool v){ _meta.SetVerbose(v);}
+
 };
 
 #endif // ARTICLE_H

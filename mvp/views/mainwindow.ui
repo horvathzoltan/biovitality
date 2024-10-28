@@ -53,9 +53,9 @@
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_3">
        <item>
-        <widget class="QPushButton" name="pushButton_TetelImport">
+        <widget class="QPushButton" name="pushButton_AddSoldItem">
          <property name="text">
-          <string>Import</string>
+          <string>Hozzáadás</string>
          </property>
         </widget>
        </item>
@@ -73,9 +73,9 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_AddSoldItem">
+        <widget class="QPushButton" name="pushButton_TetelImport">
          <property name="text">
-          <string>Hozzáadás</string>
+          <string>Import</string>
          </property>
         </widget>
        </item>
@@ -89,6 +89,19 @@
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_4">
        <item>
+        <spacer name="horizontalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Orientation::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
         <widget class="QPushButton" name="pushButton_PartnerImport">
          <property name="text">
           <string>Partner Import</string>
@@ -101,19 +114,6 @@
           <string>Cím Import</string>
          </property>
         </widget>
-       </item>
-       <item>
-        <spacer name="horizontalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Orientation::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
        </item>
       </layout>
      </widget>

@@ -39,10 +39,17 @@ public:
     QList<MetaValue> GetMetaValues()const { return _meta.ToMetaValues(this);}
     QString GetBaseTypeName() {return _meta.GetBaseTypeName();}
     QList<SQLHelper::SQLParam> GetQueryParams()const { return _meta.ToMetaValues2(this);}
+    static void SetMetaVerbose(bool v){ _meta.SetVerbose(v);}
 
 // CSV import
     static QList<Address> CSV_Import(const QList<QVarLengthArray<QString>>& records);
-    static void SetMetaVerbose(bool v){ _meta.SetVerbose(v);}
+
+// DataForm
+    static DataRowDefaultModel To_DataRowDefaultModel(const QList<Address>& data)
+    {
+        return _meta.ToIdMegnevs(data);
+    }
+    IdMegnev ToIdMegnev() const {return _meta.ToIdMegnev(this); }
 private:
     void Parse(const QString& c);
 };

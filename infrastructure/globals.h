@@ -32,7 +32,7 @@ public:
 
     SqlERepository<SoldItem> solditem;
     SqlRepository<County> county;
-    SqlERepository<Article> article;
+    SqlRepository<Article> article;
     SqlERepository<Address> address;
     SqlERepository<Partner> partner;
 
@@ -50,7 +50,7 @@ template class SqlRepository<SoldItem>;
 
 template class SqlRepository<County>;
 
-template class SqlERepository<Article>;
+//template class SqlERepository<Article>;
 template class SqlRepository<Article>;
 
 template class SqlERepository<Address>;

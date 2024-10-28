@@ -118,75 +118,6 @@ void MainPresenter::processPushButtonAction(IMainView *sender){
     //sender->set_DoWorkRModel(rm);
 }
 
-void MainPresenter::process_TetelImport_Action(IMainView *sender)
-{
-    QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
-    SqlERepository<SoldItem>& repo = _globals._repositories.solditem;
-
-    DbErr err;
-    err.isDbValid = _globals._helpers._sqlHelper.dbIsValid();
-    err.isTableExists = repo.isTableExists();
-
-    CSVErrModel csverr;
-
-    if(err.isValid()){
-        MainViewModel::FileNameModel fn = sender->get_TetelCSVFileName();
-        if(!fn.isCanceled)
-        {
-            FileHelper::CSVModel csvModel = FileHelper::LoadCSV(fn.fileName);
-            if(csvModel.error == FileHelper::Ok){
-                zInfo("file ok");
-                QList<SoldItem> items = SoldItem::CSV_Import(csvModel.records);
-                csverr.itemsCount = items.count();
-
-                zInfo("items loaded: "+csverr.ToSting());
-                SqlMetaHelper::InsertOrUpdate_ByExcelId(repo, items);
-
-                // if(!items.isEmpty())
-                // {
-                //     int i_all=0, u_all=0;
-                //     int i_ok=0, u_ok=0;
-                //     for(auto&i:items){
-                //         bool contains = _globals._repositories.solditem.ContainsBy_ExcelId(i.excelId);
-                //         if(contains){
-                //             int id =  _globals._repositories.solditem.GetIdBy_ExcelId(i.excelId); // meg kell szerezni az id-t
-                //             if(id!=-1)
-                //             {
-                //                 i.id = id;
-                //                 u_all++;
-                //                 bool ok =  _globals._repositories.solditem.Update(i);
-                //                 if(ok) u_ok++;
-                //             } else{
-                //                 zInfo("no id for excelId: "+QString::number(i.excelId));
-                //             }
-                //         } else{
-                //             i_all++;
-                //             bool ok =  _globals._repositories.solditem.Add(i);
-                //             if(ok) i_ok++;
-                //         }
-                //     }
-                //     zInfo(QStringLiteral("Updated: %1/%2").arg(u_ok).arg(u_all));
-                //     zInfo(QStringLiteral("Inserted: %1/%2").arg(i_ok).arg(i_all));
-                // } else{
-                //     zInfo("no items to import");
-                // }
-            }
-            else
-            {
-                zWarning("items load failed: "+csverr.ToSting());
-            }
-        }
-        else
-        {
-            zInfo("cancelled");
-        }
-    }
-    else
-    {
-        zWarning("db is invalid");
-    }
-    Operations::instance().stop(opId);
-}
 
 void MainPresenter::processDBTestAction(IMainView *sender)
 {
@@ -262,22 +193,28 @@ void MainPresenter::process_Add_SoldItemAction(IMainView *sender){
     model->dataForm->setWindowTitle(title);
     model->dataForm->setMetaValues(m);
 
-    // a county defaultjai:
+    // megye defaultjai - county
     // rekordok az sql-ből
+    // getall -> rekordok -> model lista
+    // ok
     QList<County> counties = _globals._repositories.county.GetAll();
-    // rekordok -> model lista
-    DataRowDefaultModel cd = County::To_DataRowDefaultModel(counties);
-    cd.name = QT_STRINGIFY(county); // ennek a mezőnek lesznek ezek a defaultjai
-    //QList<DataRowDefaultModel> d {{cd}};
-    //model->dataForm->SetDataRowDefaults(d);
+    DataRowDefaultModel countyRows = County::To_DataRowDefaultModel(counties);
+    countyRows.name = QT_STRINGIFY(county); // ennek a mezőnek lesznek ezek a defaultjai
 
-
+    // cikkek default - productName
+    // ok
     QList<Article> articles = _globals._repositories.article.GetAll();
-    // rekordok -> model lista
-    DataRowDefaultModel ad = Article::To_DataRowDefaultModel(articles);
-    ad.name = QT_STRINGIFY(productName); // ennek a mezőnek lesznek ezek a defaultjai
+    DataRowDefaultModel articleRows = Article::To_DataRowDefaultModel(articles);
+    articleRows.name = QT_STRINGIFY(productName); // ennek a mezőnek lesznek ezek a defaultjai
 
-    QList<DataRowDefaultModel> da {cd,ad};
+    // címek default - partnerHq
+    QList<Address> addresses = _globals._repositories.address.GetAll();
+    DataRowDefaultModel addressRows = Address::To_DataRowDefaultModel(addresses);
+    addressRows.name = QT_STRINGIFY(partnerHq); // ennek a mezőnek lesznek ezek a defaultjai
+
+    // partners
+    // székhely
+    QList<DataRowDefaultModel> da {countyRows,articleRows,addressRows};
 
     model->dataForm->SetDataRowDefaults(da);
 
@@ -285,8 +222,6 @@ void MainPresenter::process_Add_SoldItemAction(IMainView *sender){
     QObject::connect(model->dataForm, SIGNAL(AcceptActionTriggered(QUuid)),
                      this, SLOT(process_Add_SoldItem_AcceptAction(QUuid)));
 
-
-   // zInfo("platty");
 }
 
 void MainPresenter::process_Add_SoldItem_AcceptAction(QUuid opId)
@@ -311,7 +246,7 @@ void MainPresenter::process_Add_SoldItem_AcceptAction(QUuid opId)
 
 }
 
-//
+// import
 
 void MainPresenter::process_CimImport_Action(IMainView *sender)
 {
@@ -325,7 +260,6 @@ void MainPresenter::process_CimImport_Action(IMainView *sender)
 
     CSVErrModel csverr;
 
-    //zInfo(QStringLiteral("isTableExists:")+((isTableExists)?"ok":"false"));
     if(err.isValid()){
         MainViewModel::FileNameModel fn = sender->get_CimCSVFileName();
         if(!fn.isCanceled)
@@ -338,46 +272,7 @@ void MainPresenter::process_CimImport_Action(IMainView *sender)
                 csverr.itemsCount = items.count();
 
                 zInfo("items loaded: "+csverr.ToSting());
-                SqlMetaHelper::InsertOrUpdate_ByExcelId(repo, items);
-                // megvan a modell lista, egyenként meg kell nézni excel_id szerint, hogy
-                // ha létezik, update
-                // ha nem, insert
-                // todo 001 storno flag
-                // todo 002 partner törzs - partner id bevezetése
-                // - 1. partner import
-                // - 2. tétel import
-                //SoldItemRepository::InsertOrUpdate(items);
-
-                // SqlRepository<Address>& repo =  _globals._repositories.address;
-
-                // if(!items.isEmpty())
-                // {
-                //     int i_all=0, u_all=0;
-                //     int i_ok=0, u_ok=0;
-                //     for(auto&i:items){
-                //         bool contains = repo.ContainsBy_ExcelId(i.excelId);
-                //         if(contains){
-                //             int id =  repo.GetIdBy_ExcelId(i.excelId); // meg kell szerezni az id-t
-                //             if(id!=-1)
-                //             {
-                //                 i.id = id;
-                //                 u_all++;
-                //                 bool ok =  repo.Update(i);
-                //                 if(ok) u_ok++;
-                //             } else{
-                //                 zInfo("no id for excelId: "+QString::number(i.excelId));
-                //             }
-                //         } else{
-                //             i_all++;
-                //             bool ok =  repo.Add(i);
-                //             if(ok) i_ok++;
-                //         }
-                //     }
-                //     zInfo(QStringLiteral("Updated: %1/%2").arg(u_ok).arg(u_all));
-                //     zInfo(QStringLiteral("Inserted: %1/%2").arg(i_ok).arg(i_all));
-                // } else{
-                //     zInfo("no items to import");
-                // }
+                SqlMetaHelper::InsertOrUpdate_ByExcelId(repo, items);              
             }
             else
             {
@@ -441,50 +336,46 @@ void MainPresenter::process_PartnerImport_Action(IMainView *sender)
     Operations::instance().stop(opId);
 }
 
-// template<typename T>
-// void MainPresenter::InsertOrUpdate(SqlRepository<T>& repo, QList<T>& items)
-// {
-//     if(items.isEmpty()){
-//         zInfo("no items to import");
-//         return;
-//     }
-
-//     int i_all=0, u_all=0;
-//     int i_ok=0, u_ok=0;
-//     for(auto&i:items){
-//         bool contains = repo.ContainsBy_ExcelId(i.excelId);
-//         if(contains){
-//             int id =  repo.GetIdBy_ExcelId(i.excelId); // meg kell szerezni az id-t
-//             if(id!=-1)
-//             {
-//                 i.id = id;
-//                 u_all++;
-//                 bool ok =  repo.Update(i);
-//                 if(ok) u_ok++;
-//             } else{
-//                 zInfo("no id for excelId: "+QString::number(i.excelId));
-//             }
-//         } else{
-//             i_all++;
-//             bool ok =  repo.Add(i);
-//             if(ok) i_ok++;
-//         }
-//     }
-
-//     zInfo(QStringLiteral("Updated: %1/%2").arg(u_ok).arg(u_all));
-//     zInfo(QStringLiteral("Inserted: %1/%2").arg(i_ok).arg(i_all));
-// }
 
 
+void MainPresenter::process_TetelImport_Action(IMainView *sender)
+{
+    QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
+    SqlERepository<SoldItem>& repo = _globals._repositories.solditem;
 
-// megvan a modell lista, egyenként meg kell nézni excel_id szerint, hogy
-// ha létezik, update
-// ha nem, insert
-// todo 001 storno flag
-// todo 002 partner törzs - partner id bevezetése
-// - 1. partner import
-// - 2. tétel import
-//SoldItemRepository::InsertOrUpdate(items);
+    DbErr err;
+    err.isDbValid = _globals._helpers._sqlHelper.dbIsValid();
+    err.isTableExists = repo.isTableExists();
 
+    CSVErrModel csverr;
 
+    if(err.isValid()){
+        MainViewModel::FileNameModel fn = sender->get_TetelCSVFileName();
+        if(!fn.isCanceled)
+        {
+            FileHelper::CSVModel csvModel = FileHelper::LoadCSV(fn.fileName);
+            if(csvModel.error == FileHelper::Ok){
+                zInfo("file ok");
+                QList<SoldItem> items = SoldItem::CSV_Import(csvModel.records);
+                csverr.itemsCount = items.count();
 
+                zInfo("items loaded: "+csverr.ToSting());
+                SqlMetaHelper::InsertOrUpdate_ByExcelId(repo, items);
+
+            }
+            else
+            {
+                zWarning("items load failed: "+csverr.ToSting());
+            }
+        }
+        else
+        {
+            zInfo("cancelled");
+        }
+    }
+    else
+    {
+        zWarning("db is invalid");
+    }
+    Operations::instance().stop(opId);
+}

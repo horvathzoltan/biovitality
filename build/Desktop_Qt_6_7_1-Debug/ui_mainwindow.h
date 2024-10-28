@@ -34,14 +34,14 @@ public:
     QSpacerItem *horizontalSpacer;
     QGroupBox *groupBox;
     QHBoxLayout *horizontalLayout_3;
-    QPushButton *pushButton_TetelImport;
-    QSpacerItem *horizontalSpacer_3;
     QPushButton *pushButton_AddSoldItem;
+    QSpacerItem *horizontalSpacer_3;
+    QPushButton *pushButton_TetelImport;
     QGroupBox *groupBox_Import;
     QHBoxLayout *horizontalLayout_4;
+    QSpacerItem *horizontalSpacer_2;
     QPushButton *pushButton_PartnerImport;
     QPushButton *pushButton_AddressImport;
-    QSpacerItem *horizontalSpacer_2;
     QSpacerItem *verticalSpacer;
     QHBoxLayout *horizontalLayout_2;
     QPlainTextEdit *plainTextEdit_status;
@@ -82,19 +82,19 @@ public:
         groupBox->setObjectName("groupBox");
         horizontalLayout_3 = new QHBoxLayout(groupBox);
         horizontalLayout_3->setObjectName("horizontalLayout_3");
-        pushButton_TetelImport = new QPushButton(groupBox);
-        pushButton_TetelImport->setObjectName("pushButton_TetelImport");
+        pushButton_AddSoldItem = new QPushButton(groupBox);
+        pushButton_AddSoldItem->setObjectName("pushButton_AddSoldItem");
 
-        horizontalLayout_3->addWidget(pushButton_TetelImport);
+        horizontalLayout_3->addWidget(pushButton_AddSoldItem);
 
         horizontalSpacer_3 = new QSpacerItem(769, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
 
         horizontalLayout_3->addItem(horizontalSpacer_3);
 
-        pushButton_AddSoldItem = new QPushButton(groupBox);
-        pushButton_AddSoldItem->setObjectName("pushButton_AddSoldItem");
+        pushButton_TetelImport = new QPushButton(groupBox);
+        pushButton_TetelImport->setObjectName("pushButton_TetelImport");
 
-        horizontalLayout_3->addWidget(pushButton_AddSoldItem);
+        horizontalLayout_3->addWidget(pushButton_TetelImport);
 
 
         verticalLayout->addWidget(groupBox);
@@ -103,6 +103,10 @@ public:
         groupBox_Import->setObjectName("groupBox_Import");
         horizontalLayout_4 = new QHBoxLayout(groupBox_Import);
         horizontalLayout_4->setObjectName("horizontalLayout_4");
+        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
+
+        horizontalLayout_4->addItem(horizontalSpacer_2);
+
         pushButton_PartnerImport = new QPushButton(groupBox_Import);
         pushButton_PartnerImport->setObjectName("pushButton_PartnerImport");
 
@@ -112,10 +116,6 @@ public:
         pushButton_AddressImport->setObjectName("pushButton_AddressImport");
 
         horizontalLayout_4->addWidget(pushButton_AddressImport);
-
-        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
-
-        horizontalLayout_4->addItem(horizontalSpacer_2);
 
 
         verticalLayout->addWidget(groupBox_Import);
@@ -167,8 +167,8 @@ public:
         label->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
         pushButton_dbtest->setText(QCoreApplication::translate("MainWindow", "DBtest", nullptr));
         groupBox->setTitle(QCoreApplication::translate("MainWindow", "T\303\251tel", nullptr));
-        pushButton_TetelImport->setText(QCoreApplication::translate("MainWindow", "Import", nullptr));
         pushButton_AddSoldItem->setText(QCoreApplication::translate("MainWindow", "Hozz\303\241ad\303\241s", nullptr));
+        pushButton_TetelImport->setText(QCoreApplication::translate("MainWindow", "Import", nullptr));
         groupBox_Import->setTitle(QCoreApplication::translate("MainWindow", "T\303\266rzs Import", nullptr));
         pushButton_PartnerImport->setText(QCoreApplication::translate("MainWindow", "Partner Import", nullptr));
         pushButton_AddressImport->setText(QCoreApplication::translate("MainWindow", "C\303\255m Import", nullptr));
