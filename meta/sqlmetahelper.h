@@ -18,9 +18,9 @@ public:
     // template<typename T>
     // static void InsertOrUpdate(SqlRepository<T>& repo, QList<T>& items);
 
-   // extern template void InsertOrUpdate(SqlRepository<Partner>& repo, QList<Partner>& items);
+   // extern template void InsertOrUpdate_ByExcelId(SqlRepository<Partner>& repo, QList<Partner>& items);
     template<typename T>
-    static void InsertOrUpdate(SqlERepository<T>& repo, QList<T>& items)
+    static void InsertOrUpdate_ByExcelId(SqlERepository<T>& repo, QList<T>& items)
     {
         if(items.isEmpty()){
             zInfo("no items to import");
