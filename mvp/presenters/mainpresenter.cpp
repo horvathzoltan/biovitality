@@ -245,8 +245,8 @@ void MainPresenter::process_Add_SoldItemAction(IMainView *sender){
     //SoldItem data = _globals._repositories.sr.Get(id);
 
     SoldItem data;
-    data.partnerName="teszt partner 1";
-    data.county="teszt county 1";
+    //data.partnerName="teszt partner 1";
+    //data.county="teszt county 1";
     model->data = data;
 
     Operations::instance().setData(opId, model);

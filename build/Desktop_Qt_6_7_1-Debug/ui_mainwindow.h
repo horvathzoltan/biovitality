@@ -29,15 +29,18 @@ public:
     QWidget *centralwidget;
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout;
-    QPushButton *pushButton_AddSoldItem;
     QLabel *label;
     QPushButton *pushButton_dbtest;
     QSpacerItem *horizontalSpacer;
+    QGroupBox *groupBox;
+    QHBoxLayout *horizontalLayout_3;
+    QPushButton *pushButton_TetelImport;
+    QSpacerItem *horizontalSpacer_3;
+    QPushButton *pushButton_AddSoldItem;
     QGroupBox *groupBox_Import;
     QHBoxLayout *horizontalLayout_4;
     QPushButton *pushButton_PartnerImport;
     QPushButton *pushButton_AddressImport;
-    QPushButton *pushButton_TetelImport;
     QSpacerItem *horizontalSpacer_2;
     QSpacerItem *verticalSpacer;
     QHBoxLayout *horizontalLayout_2;
@@ -58,11 +61,6 @@ public:
         verticalLayout->setObjectName("verticalLayout");
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setObjectName("horizontalLayout");
-        pushButton_AddSoldItem = new QPushButton(centralwidget);
-        pushButton_AddSoldItem->setObjectName("pushButton_AddSoldItem");
-
-        horizontalLayout->addWidget(pushButton_AddSoldItem);
-
         label = new QLabel(centralwidget);
         label->setObjectName("label");
 
@@ -80,6 +78,27 @@ public:
 
         verticalLayout->addLayout(horizontalLayout);
 
+        groupBox = new QGroupBox(centralwidget);
+        groupBox->setObjectName("groupBox");
+        horizontalLayout_3 = new QHBoxLayout(groupBox);
+        horizontalLayout_3->setObjectName("horizontalLayout_3");
+        pushButton_TetelImport = new QPushButton(groupBox);
+        pushButton_TetelImport->setObjectName("pushButton_TetelImport");
+
+        horizontalLayout_3->addWidget(pushButton_TetelImport);
+
+        horizontalSpacer_3 = new QSpacerItem(769, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
+
+        horizontalLayout_3->addItem(horizontalSpacer_3);
+
+        pushButton_AddSoldItem = new QPushButton(groupBox);
+        pushButton_AddSoldItem->setObjectName("pushButton_AddSoldItem");
+
+        horizontalLayout_3->addWidget(pushButton_AddSoldItem);
+
+
+        verticalLayout->addWidget(groupBox);
+
         groupBox_Import = new QGroupBox(centralwidget);
         groupBox_Import->setObjectName("groupBox_Import");
         horizontalLayout_4 = new QHBoxLayout(groupBox_Import);
@@ -93,11 +112,6 @@ public:
         pushButton_AddressImport->setObjectName("pushButton_AddressImport");
 
         horizontalLayout_4->addWidget(pushButton_AddressImport);
-
-        pushButton_TetelImport = new QPushButton(groupBox_Import);
-        pushButton_TetelImport->setObjectName("pushButton_TetelImport");
-
-        horizontalLayout_4->addWidget(pushButton_TetelImport);
 
         horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
 
@@ -150,13 +164,14 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
-        pushButton_AddSoldItem->setText(QCoreApplication::translate("MainWindow", "AddSoldItem", nullptr));
         label->setText(QCoreApplication::translate("MainWindow", "TextLabel", nullptr));
         pushButton_dbtest->setText(QCoreApplication::translate("MainWindow", "DBtest", nullptr));
+        groupBox->setTitle(QCoreApplication::translate("MainWindow", "T\303\251tel", nullptr));
+        pushButton_TetelImport->setText(QCoreApplication::translate("MainWindow", "Import", nullptr));
+        pushButton_AddSoldItem->setText(QCoreApplication::translate("MainWindow", "Hozz\303\241ad\303\241s", nullptr));
         groupBox_Import->setTitle(QCoreApplication::translate("MainWindow", "T\303\266rzs Import", nullptr));
         pushButton_PartnerImport->setText(QCoreApplication::translate("MainWindow", "Partner Import", nullptr));
         pushButton_AddressImport->setText(QCoreApplication::translate("MainWindow", "C\303\255m Import", nullptr));
-        pushButton_TetelImport->setText(QCoreApplication::translate("MainWindow", "T\303\251tel Import", nullptr));
         pushButton_ToClipBoard->setText(QCoreApplication::translate("MainWindow", "ToClipBoard", nullptr));
         pushButton_ToLogFile->setText(QCoreApplication::translate("MainWindow", "ToLogFile", nullptr));
     } // retranslateUi
