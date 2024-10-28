@@ -57,7 +57,7 @@ void MainPresenter::appendView(IMainView *w)
                      this, SLOT(processDBTestAction(IMainView *)));
 
     // Add tetel
-    QObject::connect(view_obj, SIGNAL(AddSoldItemActionTriggered(IMainView *)),
+    QObject::connect(view_obj, SIGNAL(Add_SoldItem_ActionTriggered(IMainView *)),
                      this, SLOT(process_Add_SoldItemAction(IMainView *)));
 
     // CSV_Imoort tetel
@@ -140,7 +140,7 @@ void MainPresenter::process_TetelImport_Action(IMainView *sender)
                 csverr.itemsCount = items.count();
 
                 zInfo("items loaded: "+csverr.ToSting());
-                SqlMetaHelper::InsertOrUpdate(repo, items);
+                SqlMetaHelper::InsertOrUpdate_ByExcelId(repo, items);
 
                 // if(!items.isEmpty())
                 // {
@@ -245,8 +245,8 @@ void MainPresenter::process_Add_SoldItemAction(IMainView *sender){
     //SoldItem data = _globals._repositories.sr.Get(id);
 
     SoldItem data;
-    data.partnerName="teszt partner 1";
-    data.county="teszt county 1";
+    //data.partnerName="teszt partner 1";
+    //data.county="teszt county 1";
     model->data = data;
 
     Operations::instance().setData(opId, model);
@@ -338,7 +338,7 @@ void MainPresenter::process_CimImport_Action(IMainView *sender)
                 csverr.itemsCount = items.count();
 
                 zInfo("items loaded: "+csverr.ToSting());
-                SqlMetaHelper::InsertOrUpdate(repo, items);
+                SqlMetaHelper::InsertOrUpdate_ByExcelId(repo, items);
                 // megvan a modell lista, egyenként meg kell nézni excel_id szerint, hogy
                 // ha létezik, update
                 // ha nem, insert
@@ -422,7 +422,7 @@ void MainPresenter::process_PartnerImport_Action(IMainView *sender)
                 csverr.itemsCount = items.count();
 
                 zInfo("items loaded: "+csverr.ToSting());
-                SqlMetaHelper::InsertOrUpdate(repo, items);
+                SqlMetaHelper::InsertOrUpdate_ByExcelId(repo, items);
             }
             else
             {

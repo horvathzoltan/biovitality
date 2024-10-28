@@ -65,7 +65,7 @@ public:
     Settings _settings{{
                         "QMARIADB",
                          "biovitality",
-                         {{"192.168.1.105", 3306}},
+                         {{"192.168.1.105", 3306},{"172.16.1.63", 3306} },
                          "zoli",
                          "Aladar123"
         }};
