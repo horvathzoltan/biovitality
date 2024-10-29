@@ -15,6 +15,9 @@ void Address::MetaInit()
     AddMetaField(settlementName);
     AddMetaField(publicAreaName);
     AddMetaField(excelId);
+
+    // 1+2+3
+    _meta.MetaIdMegnevIndex(0,{1,2,3},-1);
 }
 
 bool Address::isValid()

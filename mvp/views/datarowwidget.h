@@ -22,7 +22,9 @@ private:
     QList<IdMegnev> _defaultValues;    
     QTimer _editTimer;
     //int _autoCompleteMillisec;
-
+    static QString ToString(const QSet<QChar>& chars);
+    static QSet<QChar> Talalat(const QStringList& a, int L);
+    static QSet<QChar> Talalat2(const QStringList& a, const QString&txt);
 public:
     DataRowWidget(const MetaValue& m, int w,bool isLight, int autoCompleteMillisec);
     MetaValue metaValue(){return _metaValue;}

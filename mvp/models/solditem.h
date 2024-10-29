@@ -20,12 +20,12 @@ public:
     SoldItem();
 
     int id=-1;
-    QString partnerName;
-    QString partnerHq;
-    QString county;
+    QString partnerName; //partners
+    QString partnerHq; //address
+    QString county; // county
     QDate fullfillment;
     QString accountNr;
-    QString productName;
+    QString productName; //article
     int units=-1;
     qreal unitPrice=0;
     QString unitCurrency;

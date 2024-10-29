@@ -18,7 +18,7 @@ void Partner::MetaInit()
     AddMetaField(Name); //megnev
     AddMetaField(excelId); //excelId
 
-    _meta.MetaIdMegnevIndex(0,1,-1);
+    _meta.MetaIdMegnevIndex(0,{1},-1);
     //AddMetaIdMegnevIndex(id, name, KSH_code);
 }
 

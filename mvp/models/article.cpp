@@ -17,7 +17,7 @@ void Article::MetaInit()
     AddMetaField(Barcode); //code
     AddMetaField(excelId); //excelId
 
-    _meta.MetaIdMegnevIndex(0,1,2);
+    _meta.MetaIdMegnevIndex(0,{1},2);
     //AddMetaIdMegnevIndex(id, name, KSH_code);
 }
 

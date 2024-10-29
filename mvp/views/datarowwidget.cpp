@@ -3,6 +3,8 @@
 
 #include <QLayout>
 
+
+
 DataRowWidget::DataRowWidget(const MetaValue &m, int w, bool isLight, int autoCompleteMillisec)
 {
     _metaValue = m;
@@ -141,6 +143,7 @@ void DataRowWidget::on_timeout()
 {
     zTrace();
     QString txt = _edit->text();
+    int L = txt.length();
     QStringList a = GetDefaultValue_ByCode(txt);
     if(a.length()==1){
         _edit->setText(a[0]);
@@ -148,16 +151,81 @@ void DataRowWidget::on_timeout()
         if(txt.length()>=3){
             a = GetDefaultValue_ByName_Start(txt);
             if(a.length()==1){
+                // 1 találat - start
                 _edit->setText(a[0]);
-            } else{
+                _validateLabel->clear();
+            }
+            else if(a.length()==0){
+                // nincs találat - start
                 a = GetDefaultValue_ByName_Contains(txt);
                 if(a.length()==1){
+                    // 1 találat - contains
                     _edit->setText(a[0]);
+                    _validateLabel->clear();
+                } else if(a.length()==0){
+                    // nincs találat - contains
+                    _validateLabel->clear();
                 }
+                else{
+                    // több találat - contains
+
+                    // ha a több találat mögöttes része ugyanaz, az nem jó, ki kell szűrni
+                    QSet<QChar> e = Talalat2(a, txt);
+                    QString msg = ToString(e);
+                    _validateLabel->setText(msg);
+                }
+            }
+            else{
+                // több találat - start
+                QSet<QChar> e = Talalat(a, L);
+                QString msg = ToString(e);
+                _validateLabel->setText(msg);
             }
         }
     }
 }
+
+QString DataRowWidget::ToString(const QSet<QChar> &chars)
+{
+    QString e;
+    QSetIterator<QChar> i(chars);
+    while(i.hasNext()){
+        if(!e.isEmpty())e+=',';
+        QChar c = i.next();
+        if(c==' ')
+        {
+            e+="[SPACE]";
+        }
+        else
+        {
+            e+=c;
+        }
+    }
+    return e;
+}
+
+QSet<QChar> DataRowWidget::Talalat(const QStringList &a, int L)
+{
+    QSet<QChar> e;
+    for(auto &b:a){
+        if(b.length()<=L) continue;
+        e.insert(b[L]);
+    }
+    return e;
+}
+
+QSet<QChar> DataRowWidget::Talalat2(const QStringList &a, const QString &txt)
+{
+    QSet<QChar> e;
+    int L = txt.length();
+    for(auto &b:a){
+        int ix = b.indexOf(txt);
+        if(ix==-1) continue;
+        e.insert(b[ix+L]);
+    }
+    return e;
+}
+
 
 QStringList DataRowWidget::GetDefaultValue_ByName_Start(const QString &txt)
 {

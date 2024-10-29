@@ -196,27 +196,31 @@ void MainPresenter::process_Add_SoldItemAction(IMainView *sender){
     // megye defaultjai - county
     // rekordok az sql-ből
     // getall -> rekordok -> model lista
-    // ok
-    QList<County> counties = _globals._repositories.county.GetAll();
-    DataRowDefaultModel countyRows = County::To_DataRowDefaultModel(counties);
-    countyRows.name = QT_STRINGIFY(county); // ennek a mezőnek lesznek ezek a defaultjai
 
-    // cikkek default - productName
-    // ok
-    QList<Article> articles = _globals._repositories.article.GetAll();
-    DataRowDefaultModel articleRows = Article::To_DataRowDefaultModel(articles);
-    articleRows.name = QT_STRINGIFY(productName); // ennek a mezőnek lesznek ezek a defaultjai
+    // partners -> partnerName
+    QList<Partner> partners = _globals._repositories.partner.GetAll();
+    DataRowDefaultModel partnerRows = Partner::To_DataRowDefaultModel(partners);
+    partnerRows.name = "partnerName"; // ennek a mezőnek lesznek ezek a defaultjai
 
-    // címek default - partnerHq
+    // címek -> partnerHq
     QList<Address> addresses = _globals._repositories.address.GetAll();
     DataRowDefaultModel addressRows = Address::To_DataRowDefaultModel(addresses);
-    addressRows.name = QT_STRINGIFY(partnerHq); // ennek a mezőnek lesznek ezek a defaultjai
+    addressRows.name = "partnerHq"; // ennek a mezőnek lesznek ezek a defaultjai
 
-    // partners
-    // székhely
-    QList<DataRowDefaultModel> da {countyRows,articleRows,addressRows};
+    // megyék - county
+    QList<County> counties = _globals._repositories.county.GetAll();
+    DataRowDefaultModel countyRows = County::To_DataRowDefaultModel(counties);
+    countyRows.name = "county"; // ennek a mezőnek lesznek ezek a defaultjai
 
-    model->dataForm->SetDataRowDefaults(da);
+    // cikkek - productName
+    QList<Article> articles = _globals._repositories.article.GetAll();
+    DataRowDefaultModel articleRows = Article::To_DataRowDefaultModel(articles);
+    articleRows.name = "productName"; // ennek a mezőnek lesznek ezek a defaultjai
+
+
+    QList<DataRowDefaultModel> defaults {countyRows,articleRows,addressRows,partnerRows};
+
+    model->dataForm->SetDataRowDefaults(defaults);
 
     model->dataForm->show();
     QObject::connect(model->dataForm, SIGNAL(AcceptActionTriggered(QUuid)),

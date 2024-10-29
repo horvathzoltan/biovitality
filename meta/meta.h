@@ -65,7 +65,7 @@ public:
 struct IdMegnevIxs{
 public:
     int id = -1;
-    int megnev = -1;
+    QList<int> megnev;
     int code = -1;
 };
 
@@ -190,7 +190,7 @@ public:
         return m;
     }
     
-    void MetaIdMegnevIndex(int i, int m, int c){
+    void MetaIdMegnevIndex(int i, const QList<int> m, int c){
         _idMegnevIxs.id = i;
         _idMegnevIxs.megnev = m;
         _idMegnevIxs.code = c;
@@ -204,10 +204,14 @@ public:
             e.id = mv.value.toInt();
         }
 
-        if(_idMegnevIxs.megnev>-1){
-            MetaField idn = _fields[_idMegnevIxs.megnev];
-            MetaValue mv2 =  idn.GetMetaValue((char*)s);
-            e.name = mv2.value.toString();
+        e.name.clear();
+        for(auto &megnev:_idMegnevIxs.megnev){
+            if(megnev>-1){
+                MetaField idn = _fields[megnev];
+                MetaValue mv2 =  idn.GetMetaValue((char*)s);
+                if(!e.name.isEmpty()) e.name+=",";
+                e.name += mv2.value.toString();
+            }
         }
 
         if(_idMegnevIxs.code>-1){
