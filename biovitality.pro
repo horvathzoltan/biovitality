@@ -18,7 +18,11 @@ SOURCES += \
     meta/sqlmetahelper.cpp \
     mvp/models/address.cpp \
     mvp/models/article.cpp \
+    mvp/models/country.cpp \
     mvp/models/county.cpp \
+    mvp/models/invoicehead.cpp \
+    mvp/models/invoiceitem.cpp \
+    mvp/models/invoiceitems.cpp \
     mvp/models/partner.cpp \
     mvp/models/solditem.cpp \
     repositories/sqlexcelrepository.cpp \
@@ -49,6 +53,10 @@ SOURCES += \
 
 HEADERS += \
     #actions.h \
+    mvp/models/country.h \
+    mvp/models/invoicehead.h \
+    mvp/models/invoiceitem.h \
+    mvp/models/invoiceitems.h \
     mvp/models/partner.h \
     mvp/viewinterfaces/iview.h \
     patterns/singleton.h \
@@ -105,6 +113,7 @@ DISTFILES += \
     testdata/Cimtorzs_Zolinak.csv \
     testdata/Megyek_Zolinak.csv \
     testdata/Partnertorzs_Zolinak.csv \
+    testdata/countries.scv \
     testdata/teszt1.csv \
     testdata/teszt2.csv
 

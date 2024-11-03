@@ -5,6 +5,8 @@
 #include <QMap>
 #include <QVarLengthArray>
 #include <QVariant>
+#include <meta/meta.h>
+
 
 class CSVHelper
 {
@@ -16,6 +18,8 @@ public:
 
     // stringből csinál id-t, ha van mögötte pont, leszedi
     static int GetId(const QVariant& v);
+    static MetaValue CSV_RowToMetaValue(const QVarLengthArray<QString> &row, const QString& fn , int ix);
+    static QList<MetaValue> CSV_RowToMetaValues(const QVarLengthArray<QString>& row, const QMap<QString,int>& ixs);
 };
 
 #endif // CSVHELPER_H

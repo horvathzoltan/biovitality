@@ -140,6 +140,12 @@ void MainWindow::on_pushButton_PartnerImport_clicked()
     emit PartnerImport_ActionTriggered(this);
 }
 
+void MainWindow::on_pushButton_CountryImpot_clicked()
+{
+    zTrace();
+    emit CountryImpot_ActionTriggered(this);
+}
+
 //test
 void MainWindow::on_pushButton_dbtest_clicked()
 {
@@ -161,4 +167,7 @@ void MainWindow::on_pushButton_ToLogFile_clicked()
     zTrace();
     emit ToLogFile_ActionTriggered(this);
 }
+
+
+
 

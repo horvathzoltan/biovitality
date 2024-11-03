@@ -34,6 +34,7 @@ signals:
     void TetelImport_ActionTriggered(IMainView *sender) override;    
     void CimImport_ActionTriggered(IMainView *sender) override;
     void PartnerImport_ActionTriggered(IMainView *sender) override;
+    void CountryImpot_ActionTriggered(IMainView *sender) override;
     //test
     void DBTestActionTriggered(IMainView *sender);
     //log
@@ -53,5 +54,6 @@ private slots:
     void on_pushButton_ToClipBoard_clicked();
     void on_pushButton_ToLogFile_clicked();
 
+    void on_pushButton_CountryImpot_clicked();
 };
 #endif // MAINWINDOW_H

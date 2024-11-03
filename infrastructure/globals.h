@@ -6,7 +6,7 @@
 #include "mvp/models/address.h"
 #include "mvp/models/article.h"
 #include "mvp/models/partner.h"
-
+#include "mvp/models/country.h"
 
 #include "repositories/sqlrepository.h"
 #include "settings.h"
@@ -28,13 +28,15 @@ public:
         ,county("County")
         ,article("Article")
         ,address("Address")
-        ,partner("Partner"){}
+        ,partner("Partner")
+        ,country("Country"){}
 
     SqlERepository<SoldItem> solditem;
     SqlRepository<County> county;
     SqlRepository<Article> article;
     SqlERepository<Address> address;
     SqlERepository<Partner> partner;
+    SqlRepository<Country> country;
 
     static void MetaInit(){
         SoldItem::MetaInit();
@@ -42,6 +44,7 @@ public:
         Article::MetaInit();
         Address::MetaInit();
         Partner::MetaInit();
+        Country::MetaInit();
     }
 };
 
@@ -58,6 +61,8 @@ template class SqlRepository<Address>;
 
 template class SqlERepository<Partner>;
 template class SqlRepository<Partner>;
+
+template class SqlRepository<Country>;
 
 class Globals
 {

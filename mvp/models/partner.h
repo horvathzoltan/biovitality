@@ -21,6 +21,20 @@ public:
     QString Name;
     int excelId=-1;
 
+    // partnertipus // szállító/vevő/mindkettő
+    // adózástípus
+    // - Adószámmal rendelkezik (Belföldi ÁFA alany)
+    // - Adószámmal nem rendelkezik (Természetes személy)
+    // Külföldi, egyéb
+    // Adószám
+    // E-mail/ek
+    // Telefonszám/ok
+    // Bankszámlaszám
+    // IBAN számlaszám
+    // Swift / BIC kód
+    // description
+    // apiId
+
 private:
     static Meta<Partner> _meta;
 

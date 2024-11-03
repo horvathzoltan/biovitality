@@ -10,10 +10,11 @@ public:
     Address();
 
     int id=-1;
+    int countryId;      // ref a country-ra az id-n keresztül
     int postalCode;         // irsz
     QString settlementName; // településnév
     QString publicAreaName; // közterület(utca) név + házszám - a cím utolsó tagja
-    //QString houseNumber;    // házszám - a cím utolsó tagja
+    //QString houseNumber;  // házszám - a cím utolsó tagja
     int excelId=-1;
 
     bool isValid();

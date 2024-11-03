@@ -102,6 +102,13 @@
         </spacer>
        </item>
        <item>
+        <widget class="QPushButton" name="pushButton_CountryImpot">
+         <property name="text">
+          <string>Ország Import</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QPushButton" name="pushButton_PartnerImport">
          <property name="text">
           <string>Partner Import</string>

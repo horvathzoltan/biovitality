@@ -40,3 +40,26 @@ int CSVHelper::GetId(const QVariant& v){
     if(ok) return i;
     return -1;
 }
+
+MetaValue CSVHelper::CSV_RowToMetaValue(const QVarLengthArray<QString> &row, const QString& fieldName , int fieldIx)
+{
+    QVariant v2 = GetData(row, fieldIx);
+    MetaValue v1(fieldName, "", v2);
+    return v1;
+}
+
+QList<MetaValue> CSVHelper::CSV_RowToMetaValues(const QVarLengthArray<QString> &row, const QMap<QString,int>& ixs)
+{
+    QList<MetaValue> metaValues;
+
+    QMapIterator i(ixs);
+    while(i.hasNext())
+    {
+        i.next();
+        MetaValue v1 = CSV_RowToMetaValue(row,i.key(),i.value());
+        metaValues.append(v1);
+    }
+    return metaValues;
+}
+
+

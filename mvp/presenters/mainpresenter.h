@@ -69,7 +69,8 @@ private slots:
     void process_CimImport_Action(IMainView *sender);
     // CSV Import Partner
     void process_PartnerImport_Action(IMainView *sender);
-
+    // CSV Import Ország
+    void process_CountryImport_Action(IMainView *sender);
 };
 
 #endif // MAINPRESENTER_H

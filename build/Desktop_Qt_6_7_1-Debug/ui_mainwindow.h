@@ -40,6 +40,7 @@ public:
     QGroupBox *groupBox_Import;
     QHBoxLayout *horizontalLayout_4;
     QSpacerItem *horizontalSpacer_2;
+    QPushButton *pushButton_CountryImpot;
     QPushButton *pushButton_PartnerImport;
     QPushButton *pushButton_AddressImport;
     QSpacerItem *verticalSpacer;
@@ -107,6 +108,11 @@ public:
 
         horizontalLayout_4->addItem(horizontalSpacer_2);
 
+        pushButton_CountryImpot = new QPushButton(groupBox_Import);
+        pushButton_CountryImpot->setObjectName("pushButton_CountryImpot");
+
+        horizontalLayout_4->addWidget(pushButton_CountryImpot);
+
         pushButton_PartnerImport = new QPushButton(groupBox_Import);
         pushButton_PartnerImport->setObjectName("pushButton_PartnerImport");
 
@@ -170,6 +176,7 @@ public:
         pushButton_AddSoldItem->setText(QCoreApplication::translate("MainWindow", "Hozz\303\241ad\303\241s", nullptr));
         pushButton_TetelImport->setText(QCoreApplication::translate("MainWindow", "Import", nullptr));
         groupBox_Import->setTitle(QCoreApplication::translate("MainWindow", "T\303\266rzs Import", nullptr));
+        pushButton_CountryImpot->setText(QCoreApplication::translate("MainWindow", "Orsz\303\241g Import", nullptr));
         pushButton_PartnerImport->setText(QCoreApplication::translate("MainWindow", "Partner Import", nullptr));
         pushButton_AddressImport->setText(QCoreApplication::translate("MainWindow", "C\303\255m Import", nullptr));
         pushButton_ToClipBoard->setText(QCoreApplication::translate("MainWindow", "ToClipBoard", nullptr));

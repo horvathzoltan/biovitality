@@ -30,6 +30,12 @@ public:
         value = QVariant(type);
     }
 
+    MetaValue(const QString& _name, const QString& _wcode,const QVariant& _value ){
+        name = _name;
+        wcode = _wcode;
+        value = _value;
+    }
+
     QString name;
     QString translatedName;
     QString wcode;
@@ -155,6 +161,7 @@ public:
             MetaField* f = GetField(m.name);
             if(f){
                 char* ptr = f->GetPtr((char*)&s);
+                // fromtype, from, totype, to
                 QMetaType::convert(m.value.metaType(), m.value.constData(), f->type, ptr);
             }
         }
