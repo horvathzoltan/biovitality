@@ -30,6 +30,7 @@ private:
 public:
     static void MetaInit();
 
+    MetaValue GetMetaValue(const QString& fieldName){return _meta.GetMetaValue(this, fieldName);}
     // sqlrepohoz kell
     static QString GetMetaFieldList(){ return _meta.GetFieldList();}
     QList<SQLHelper::SQLParam> GetQueryParams()const { return _meta.ToMetaValues2(this);}

@@ -40,6 +40,8 @@ public:
     QString translatedName;
     QString wcode;
     QVariant value;
+
+    bool isValid(){ return !name.isEmpty();}
 };
 
 struct MetaValidationMessage{
@@ -240,6 +242,14 @@ public:
         }
 
         return e;
+    }
+
+    MetaValue GetMetaValue(const T* s, const QString& fieldName){
+        if(!s) return {};
+        MetaField* field = s->GetField(fieldName);
+        if(!field) return {};
+        MetaValue value = field->GetMetaValue((char*)s);
+        return value;
     }
 };
 

@@ -303,7 +303,7 @@ void MainPresenter::process_CountryImport_Action(IMainView *sender)
 {
     zTrace();
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
-    SqlERepository<Country>& repo =  _globals._repositories.country;
+    SqlRepository<Country>& repo =  _globals._repositories.country;
 
     DbErr err;
     err.isDbValid = _globals._helpers._sqlHelper.dbIsValid();
@@ -322,8 +322,8 @@ void MainPresenter::process_CountryImport_Action(IMainView *sender)
                 QList<Country> items = Country::CSV_Import(csvModel.records);
                 csverr.itemsCount = items.count();
 
-                zInfo("items loaded: "+csverr.ToSting());
-                SqlMetaHelper::InsertOrUpdate_ByExcelId(repo, items);
+                zInfo("items loaded: "+csverr.ToSting());                                
+                SqlMetaHelper::InsertOrUpdate2(repo, items, "countryCode");
             }
             else
             {
