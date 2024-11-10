@@ -3,7 +3,10 @@
 
 #include "sqlexcelrepository.h"
 
+#include <QSqlField>
 #include <QString>
+
+//#include <meta/meta.h>
 
 
 //#include <bi/models/solditem.h>
@@ -15,9 +18,10 @@ protected:
     RepositoryBase(){};
 public:
     RepositoryBase(const QString& tname){_tableName = tname;};
-
 protected:
-    static const QString CONTAINS_CMD;    
+    static const QString CONTAINS_CMD;
+    static const QString CONTAINS_BY_COLUMN_CMD;
+    static const QString GET_ID_BY_COLUMN_CMD;
     static const QString GET_CMD;
     static const QString GETALL_CMD;
     static const QString UPDATE_CMD;
@@ -25,7 +29,7 @@ protected:
     static const QString TABLE_EXISTS_CMD;
 
 public:
-    QString tableName(){return _tableName;}
+    const QString& tableName(){return _tableName;}
     bool Contains(int id);
 };
 
@@ -60,6 +64,10 @@ public:
     QList<T> GetAll();
     bool Update(const T& m);
     bool Add(const T& m);
+
+public:
+    bool Contains_ByColumn(const QString& fieldName, const QVariant& fieldValue);
+    QList<int> GetIds_ByColumn(const QString& fieldName, const QVariant& fieldValue);
 };
 
 template<typename T>

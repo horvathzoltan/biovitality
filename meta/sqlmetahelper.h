@@ -66,20 +66,23 @@ public:
         for(auto&i:items){
             // MetaField* columnMetaField = i.GetField(columnName);
             // MetaValue columnMetaValue = columnMetaField->GetMetaValue(&i);
-            MetaValue columnMetaValue = i.GetMetaValue(columnName);
-            if(!columnMetaValue.isValid()) continue;
+            QVariant columnValue = i.GetMetaValue(columnName);
+            //if(!columnMetaValue.isValid()) continue;
 
-            bool contains = repo.ContainsByColumn(columnMetaValue);
-            if(contains){
-                int id =  repo.GetIdByColumn(i.excelId); // meg kell szerezni az id-t
-                if(id!=-1)
+            bool contains = repo.Contains_ByColumn(columnName, columnValue);
+            if(contains){             
+                QList<int> ids =  repo.GetIds_ByColumn(columnName, columnValue); // meg kell szerezni az id-t
+                int count = ids.count();
+                if(count == 1)
                 {
-                    i.id = id;
+                    i.id = ids.first();
                     u_all++;
                     bool ok =  repo.Update(i);
                     if(ok) u_ok++;
+                } else if(count == 0){
+                    zInfo("no record exists:"+columnName+"="+columnValue.toString());
                 } else{
-                    zInfo("no id for excelId: "+QString::number(i.excelId));
+                    zInfo("record is not unique:"+columnName+"="+columnValue.toString());
                 }
             } else{
                 i_all++;

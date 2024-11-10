@@ -26,6 +26,12 @@ extern Globals _globals;
 const QString RepositoryBase::CONTAINS_CMD =
     QStringLiteral("SELECT EXISTS(SELECT 1 FROM %1 WHERE id = %2) AS _exists;");
 
+const QString RepositoryBase::CONTAINS_BY_COLUMN_CMD =
+    QStringLiteral("SELECT EXISTS(SELECT 1 FROM %1 WHERE %2 = %3) AS _exists;");
+
+const QString RepositoryBase::GET_ID_BY_COLUMN_CMD =
+    QStringLiteral("SELECT id FROM %1 WHERE %2 = %3;");
+
 const QString RepositoryBase::GET_CMD =
     QStringLiteral("SELECT %1 FROM %2 WHERE id = %3;");
 
@@ -209,3 +215,53 @@ int SqlERepository<T>::GetIdBy_ExcelId(int excelId)
     return id;
 }
 
+/*Contains_ByColumn*/
+template<typename T>
+bool SqlRepository<T>::Contains_ByColumn(const QString& fieldName, const QVariant& fieldValue)
+{
+    bool exists = false;
+
+    QString cmd = CONTAINS_BY_COLUMN_CMD.arg(tableName()).arg(fieldName).arg(fieldValue);
+    zInfo("cmd:"+cmd);
+    QList<QSqlRecord> records = _globals._helpers._sqlHelper.DoQuery(cmd);
+
+    if(!records.isEmpty()){
+        QVariant a = records.first().value("_exists");
+
+        exists = a.toBool();
+    } else{
+        bool isDbValid = _globals._helpers._sqlHelper.dbIsValid();
+        if(!isDbValid){
+            zWarning("db is invalid");
+        }
+    }
+
+    return exists;
+}
+
+template<typename T>
+QList<int> SqlRepository<T>::GetIds_ByColumn(const QString& fieldName, const QVariant& fieldValue)
+{
+    //int id = -1;
+    QList<int> e;
+
+    QString cmd = GET_ID_BY_COLUMN_CMD.arg(tableName()).arg(fieldName).arg(fieldValue);
+    zInfo("cmd:"+cmd);
+    QList<QSqlRecord> records = _globals._helpers._sqlHelper.DoQuery(cmd);
+
+    if(!records.isEmpty())
+    {
+        for(auto&record:records)
+        {
+            QVariant a = record.value("id");
+            bool ok;
+            int i = a.toInt(&ok);
+            if(ok)
+            {
+                e.append(i);
+            }
+        }
+    }
+
+    return e;
+}

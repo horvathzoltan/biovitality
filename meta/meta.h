@@ -62,12 +62,21 @@ public:
     MetaValue GetMetaValue(char* s){
         MetaValue mv(name, wcode, type);
 
-        char* ptr = GetPtr(s);
-        mv.value = QVariant(type, ptr);
+        //char* ptr = GetPtr(s);
+        mv.value = GetValue(s);
+            //QVariant(type, ptr);
         //QMetaType::convert(type, ptr, type, &mv.value);
 
         return mv;
     }
+
+    QVariant GetValue(char* s){
+        char* ptr = GetPtr(s);
+        QVariant v(type, ptr);
+
+        return v;
+    }
+
 };
 
 struct IdMegnevIxs{

@@ -299,49 +299,6 @@ void MainPresenter::process_CimImport_Action(IMainView *sender)
     Operations::instance().stop(opId);
 }
 
-void MainPresenter::process_CountryImport_Action(IMainView *sender)
-{
-    zTrace();
-    QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
-    SqlRepository<Country>& repo =  _globals._repositories.country;
-
-    DbErr err;
-    err.isDbValid = _globals._helpers._sqlHelper.dbIsValid();
-    err.isTableExists = repo.isTableExists();
-
-    CSVErrModel csverr;
-
-    if(err.isValid()){
-        MainViewModel::FileNameModel fn = sender->get_CimCSVFileName();
-        if(!fn.isCanceled)
-        {
-            FileHelper::CSVModel csvModel = FileHelper::LoadCSV(fn.fileName);
-            if(csvModel.error == FileHelper::Ok)
-            {
-                zInfo("file ok");
-                QList<Country> items = Country::CSV_Import(csvModel.records);
-                csverr.itemsCount = items.count();
-
-                zInfo("items loaded: "+csverr.ToSting());                                
-                SqlMetaHelper::InsertOrUpdate2(repo, items, "countryCode");
-            }
-            else
-            {
-                zWarning("items load failed: "+csverr.ToSting());
-            }
-        }
-        else
-        {
-            zInfo("cancelled");
-        }
-    }
-    else
-    {
-        Error2(err);
-    }
-    Operations::instance().stop(opId);
-}
-
 void MainPresenter::process_PartnerImport_Action(IMainView *sender)
 {
     zTrace();
@@ -425,6 +382,53 @@ void MainPresenter::process_TetelImport_Action(IMainView *sender)
     else
     {
         zWarning("db is invalid");
+    }
+    Operations::instance().stop(opId);
+}
+
+/*
+CountryImport
+*/
+
+void MainPresenter::process_CountryImport_Action(IMainView *sender)
+{
+    zTrace();
+    QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
+    SqlRepository<Country>& repo =  _globals._repositories.country;
+
+    DbErr err;
+    err.isDbValid = _globals._helpers._sqlHelper.dbIsValid();
+    err.isTableExists = repo.isTableExists();
+
+    CSVErrModel csverr;
+
+    if(err.isValid()){
+        MainViewModel::FileNameModel fn = sender->get_CimCSVFileName();
+        if(!fn.isCanceled)
+        {
+            FileHelper::CSVModel csvModel = FileHelper::LoadCSV(fn.fileName);
+            if(csvModel.error == FileHelper::Ok)
+            {
+                zInfo("file ok");
+                QList<Country> items = Country::CSV_Import(csvModel.records);
+                csverr.itemsCount = items.count();
+
+                zInfo("items loaded: "+csverr.ToSting());
+                SqlMetaHelper::InsertOrUpdate2(repo, items, "countryCode");
+            }
+            else
+            {
+                zWarning("items load failed: "+csverr.ToSting());
+            }
+        }
+        else
+        {
+            zInfo("cancelled");
+        }
+    }
+    else
+    {
+        Error2(err);
     }
     Operations::instance().stop(opId);
 }
