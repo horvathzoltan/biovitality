@@ -63,10 +63,10 @@ public:
 
         int i_all=0, u_all=0;
         int i_ok=0, u_ok=0;
-        for(auto&i:items){
+        for(T&i:items){
             // MetaField* columnMetaField = i.GetField(columnName);
             // MetaValue columnMetaValue = columnMetaField->GetMetaValue(&i);
-            QVariant columnValue = i.GetMetaValue(columnName);
+            QVariant columnValue = i.GetValue(columnName);
             //if(!columnMetaValue.isValid()) continue;
 
             bool contains = repo.Contains_ByColumn(columnName, columnValue);

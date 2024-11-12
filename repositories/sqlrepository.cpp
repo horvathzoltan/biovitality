@@ -221,7 +221,7 @@ bool SqlRepository<T>::Contains_ByColumn(const QString& fieldName, const QVarian
 {
     bool exists = false;
 
-    QString cmd = CONTAINS_BY_COLUMN_CMD.arg(tableName()).arg(fieldName).arg(fieldValue);
+    QString cmd = CONTAINS_BY_COLUMN_CMD.arg(tableName()).arg(fieldName).arg(fieldValue.toString());
     zInfo("cmd:"+cmd);
     QList<QSqlRecord> records = _globals._helpers._sqlHelper.DoQuery(cmd);
 
@@ -245,7 +245,7 @@ QList<int> SqlRepository<T>::GetIds_ByColumn(const QString& fieldName, const QVa
     //int id = -1;
     QList<int> e;
 
-    QString cmd = GET_ID_BY_COLUMN_CMD.arg(tableName()).arg(fieldName).arg(fieldValue);
+    QString cmd = GET_ID_BY_COLUMN_CMD.arg(tableName()).arg(fieldName).arg(fieldValue.toString());
     zInfo("cmd:"+cmd);
     QList<QSqlRecord> records = _globals._helpers._sqlHelper.DoQuery(cmd);
 

@@ -20,6 +20,7 @@ public:
     QString code;
 };
 
+// ez megy ki az UI felé
 struct MetaValue{
 private:
     MetaValue(){};    
@@ -50,6 +51,7 @@ struct MetaValidationMessage{
     QString value;
 };
 
+// a meta ezekből a mezőkből áll
 struct MetaField{
 public:
     QString name;
@@ -59,21 +61,16 @@ public:
 
     char* GetPtr(char* s){ return s+ _offset; }
 
+    // ez megy ki az UI felé
     MetaValue GetMetaValue(char* s){
         MetaValue mv(name, wcode, type);
-
-        //char* ptr = GetPtr(s);
         mv.value = GetValue(s);
-            //QVariant(type, ptr);
-        //QMetaType::convert(type, ptr, type, &mv.value);
-
         return mv;
     }
 
     QVariant GetValue(char* s){
         char* ptr = GetPtr(s);
         QVariant v(type, ptr);
-
         return v;
     }
 
@@ -258,6 +255,14 @@ public:
         MetaField* field = s->GetField(fieldName);
         if(!field) return MetaValue("","",QMetaType());
         MetaValue value = field->GetMetaValue((char*)s);
+        return value;
+    }
+
+    QVariant GetValue(const T* s, const QString& fieldName){
+        if(!s) return {};
+        MetaField* field = s->GetField(fieldName);
+        if(!field) return {};
+        QVariant value = field->GetValue((char*)s);
         return value;
     }
 };

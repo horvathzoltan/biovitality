@@ -410,7 +410,7 @@ void MainPresenter::process_CountryImport_Action(IMainView *sender)
             if(csvModel.error == FileHelper::Ok)
             {
                 zInfo("file ok");
-                QList<Country> items = Country::CSV_Import(csvModel.records);
+                QList<Country> items = Country::CSV_Import_static(csvModel.records);
                 csverr.itemsCount = items.count();
 
                 zInfo("items loaded: "+csverr.ToSting());
