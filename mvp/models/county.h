@@ -40,6 +40,7 @@ public:
     // home/zoli/source/repos/biovitality/bi/repositories/sqlrepository.cpp
     // template class SqlRepository<County>;
 
+    static MetaField* GetField(const QString& name){return _meta.GetField(name);}
     static QString GetMetaFieldList(){ return _meta.GetFieldList();}
     static County FromMetaValues(const QList<MetaValue> &v){return _meta.FromMetaValues(v);}
     QList<SQLHelper::SQLParam> GetQueryParams()const { return _meta.ToMetaValues2(this);}

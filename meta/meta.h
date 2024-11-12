@@ -254,9 +254,9 @@ public:
     }
 
     MetaValue GetMetaValue(const T* s, const QString& fieldName){
-        if(!s) return {};
+        if(!s) return MetaValue("","",QMetaType());
         MetaField* field = s->GetField(fieldName);
-        if(!field) return {};
+        if(!field) return MetaValue("","",QMetaType());
         MetaValue value = field->GetMetaValue((char*)s);
         return value;
     }
