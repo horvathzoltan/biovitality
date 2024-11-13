@@ -16,6 +16,7 @@ void Country::MetaInit()
 
     // 1+2+3
     _meta.MetaIdMegnevIndex(0,{1},2);
+
 }
 
 bool Country::isValid()
@@ -28,7 +29,7 @@ bool Country::isValid()
     return true;
 }
 
-QList<Country> Country::CSV_Import_static(const QList<QVarLengthArray<QString>>& records)
+QList<Country> Country::CSV_Import(const QList<QVarLengthArray<QString>>& records)
 {
     QList<Country> m;
     // 1. rekord fejléc:

@@ -4,20 +4,50 @@
 #include "meta/meta.h"
 #include <QString>
 
-class ISQLRepo{
-    virtual QVariant GetValue(const QString& name) const =0;
-    // virtual MetaField* GetField(const QString& name) const =0;
-    // virtual QString GetMetaFieldList() =0;
-    virtual QList<SQLHelper::SQLParam> GetQueryParams() const = 0;
+template<class T>
+class I_Meta
+{
+public:
+    I_Meta(){}
+public:
+    void __attribute__((used)) Check_I_Meta()
+    {
+        //Meta<T> *_meta_Check = &T::_meta;
+
+        [[maybe_unused]] void (*MetaInit_Check)() = &T::MetaInit;
+        [[maybe_unused]] bool (T::*isValid_Check)() = &T::isValid;
+    }
 };
 
-template<typename T>
-class ICSVImport{
-    virtual QList<T> CSV_Import(const QList<QVarLengthArray<QString>>& records){return T::CSV_Import_static(records);}
-    //virtual T FromMetaValues(const QList<MetaValue> &v) =0;
+ template<class T>
+ class I_SQLRepo
+{
+public:
+    I_SQLRepo(){}
+public:
+    void __attribute__((used)) Check_I_SQLRepo()
+    {
+        [[maybe_unused]] T (*FromMetaValues_Check)(const QList<MetaValue> &v) = &T::FromMetaValues;
+        [[maybe_unused]] QList<T> (*CSV_Import_Check)(const QList<QVarLengthArray<QString>>& records) = &T::CSV_Import;
+    }
 };
 
-class Country : ISQLRepo, ICSVImport<Country>
+template<class T>
+class I_CSVImport{
+public:
+    I_CSVImport(){}
+private:
+    void __attribute__((used)) Check_I_CSVImport()
+    {
+        [[maybe_unused]] QVariant (T::*GetValue_Check)(const QString& name) const = &T::GetValue;
+        [[maybe_unused]] MetaField* (*GetField_Check)(const QString& name) = &T::GetField;
+        [[maybe_unused]] QString (*GetMetaFieldList_Check)() = &T::GetMetaFieldList;
+        [[maybe_unused]] QList<SQLHelper::SQLParam> (T::*GetQueryParams_Check)()const = &T::GetQueryParams;
+    }
+};
+
+
+class Country : I_Meta<Country>, I_SQLRepo<Country>, I_CSVImport<Country>
 {
 public:
     Country();
@@ -43,16 +73,17 @@ public:
     static void MetaInit();
 
     // sqlrepohoz kell
-    QVariant GetValue(const QString& name) const override { return _meta.GetValue(this, name);}
+    QVariant GetValue(const QString& name) const { return _meta.GetValue(this, name);}
     static MetaField* GetField(const QString& name) {return _meta.GetField(name);}
-    // sqlrepohoz kell
     static QString GetMetaFieldList() { return _meta.GetFieldList();}
-    QList<SQLHelper::SQLParam> GetQueryParams()const override { return _meta.ToMetaValues2(this);}
+    QList<SQLHelper::SQLParam> GetQueryParams()const  { return _meta.ToMetaValues2(this);}
 
     // CSV import
-    static QList<Country> CSV_Import_static(const QList<QVarLengthArray<QString>>& records);
+    static QList<Country> CSV_Import(const QList<QVarLengthArray<QString>>& records);
     // ez a modellbe mapol név szerint
     static Country FromMetaValues(const QList<MetaValue> &v) {return _meta.FromMetaValues(v);}
 };
 
+
 #endif // COUNTRY_H
+
