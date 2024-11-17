@@ -59,10 +59,8 @@ auto main(int argc, char *argv[]) -> int
     zInfo("testdata_path:"+FileNameHelper::GetTestFolderPath());
     zInfo("working_folder:"+FileNameHelper::GetWorkingFolder());
 
-
     w.show();    
     p.initView(&w);
-
 
     return a.exec();
 }

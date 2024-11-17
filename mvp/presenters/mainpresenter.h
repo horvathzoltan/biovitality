@@ -46,9 +46,20 @@ private:
     void Error(const QSqlError& err);
 
     struct DbErr{
+    private:
+        DbErr(){}
+
+        DbErr(const QString& dbName)
+        {
+            _dbName = dbName;
+        }
+
         bool isDbValid=false;
         bool isTableExists=false;
+        QString _dbName="";
+        QString _tableName="";
 
+    public:
         bool isValid(){return isDbValid && isTableExists;}
     };
 

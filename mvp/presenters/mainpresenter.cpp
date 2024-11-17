@@ -103,12 +103,7 @@ void MainPresenter::initView(IMainView *w) const {
         zWarning("DB "+_globals._settings._sql_settings.dbname+" is invalid");
     }
     w->set_StatusLine({""});
-    //_db.close();
-
-    SoldItem::SetMetaVerbose(false);
-    Article::SetMetaVerbose(false);
-    County::SetMetaVerbose(false);
-    //Address::SetMetaVerbose(false);
+    //_db.close();   
 
     Repositories::MetaInit();
 };
@@ -161,9 +156,9 @@ void MainPresenter::Error(const QSqlError& err)
 void MainPresenter::Error2(DbErr err)
 {
     if(!err.isDbValid){
-        zWarning("db is invalid");
+        zWarning("db:"+err.dbName+" is invalid");
     }else if(!err.isTableExists){
-        zWarning("address table is not exists");
+        zWarning("table:"+err.dbName+"."+err.tableName+" is not exists");
     }
 }
 
@@ -397,6 +392,8 @@ void MainPresenter::process_CountryImport_Action(IMainView *sender)
     SqlRepository<Country>& repo =  _globals._repositories.country;
 
     DbErr err;
+    err.dbName = _globals._helpers._sqlHelper.dbName();
+    err.tableName = repo.tableName();
     err.isDbValid = _globals._helpers._sqlHelper.dbIsValid();
     err.isTableExists = repo.isTableExists();
 

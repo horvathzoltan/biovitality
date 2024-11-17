@@ -39,6 +39,11 @@ public:
     SqlRepository<Country> country;
 
     static void MetaInit(){
+        SoldItem::SetMetaVerbose(false);
+        Article::SetMetaVerbose(false);
+        County::SetMetaVerbose(false);
+        Address::SetMetaVerbose(false);
+
         SoldItem::MetaInit();
         County::MetaInit();
         Article::MetaInit();
