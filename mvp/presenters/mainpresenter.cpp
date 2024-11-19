@@ -1,6 +1,6 @@
 #include "mainpresenter.h"
 #include "helpers/logger.h"
-#include "helpers/sqlhelper.h"
+//#include "helpers/sqlhelper.h"
 #include "mvp/viewmodels/mainviewmodel.h"
 //#include "dowork.h"
 #include "bi/operations.h"
@@ -156,9 +156,9 @@ void MainPresenter::Error(const QSqlError& err)
 void MainPresenter::Error2(DbErr err)
 {
     if(!err.isDbValid){
-        zWarning("db:"+err.dbName+" is invalid");
+        zWarning("db:"+err._dbName+" is invalid");
     }else if(!err.isTableExists){
-        zWarning("table:"+err.dbName+"."+err.tableName+" is not exists");
+        zWarning("table:"+err._dbName+"."+err._tableName+" is not exists");
     }
 }
 
@@ -257,8 +257,7 @@ void MainPresenter::process_CimImport_Action(IMainView *sender)
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
     SqlERepository<Address>& repo =  _globals._repositories.address;
 
-    DbErr err;
-    err.isDbValid = _globals._helpers._sqlHelper.dbIsValid();
+    DbErr err(_globals._helpers._sqlHelper);
     err.isTableExists = repo.isTableExists();
 
     CSVErrModel csverr;
@@ -300,8 +299,7 @@ void MainPresenter::process_PartnerImport_Action(IMainView *sender)
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
     SqlERepository<Partner>& repo = _globals._repositories.partner;
 
-    DbErr err;
-    err.isDbValid = _globals._helpers._sqlHelper.dbIsValid();
+    DbErr err(_globals._helpers._sqlHelper);
     err.isTableExists = repo.isTableExists();
 
     CSVErrModel csverr;
@@ -344,8 +342,7 @@ void MainPresenter::process_TetelImport_Action(IMainView *sender)
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
     SqlERepository<SoldItem>& repo = _globals._repositories.solditem;
 
-    DbErr err;
-    err.isDbValid = _globals._helpers._sqlHelper.dbIsValid();
+    DbErr err(_globals._helpers._sqlHelper);
     err.isTableExists = repo.isTableExists();
 
     CSVErrModel csverr;
@@ -391,10 +388,8 @@ void MainPresenter::process_CountryImport_Action(IMainView *sender)
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
     SqlRepository<Country>& repo =  _globals._repositories.country;
 
-    DbErr err;
-    err.dbName = _globals._helpers._sqlHelper.dbName();
-    err.tableName = repo.tableName();
-    err.isDbValid = _globals._helpers._sqlHelper.dbIsValid();
+    DbErr err(_globals._helpers._sqlHelper);
+    err._tableName = repo.tableName();
     err.isTableExists = repo.isTableExists();
 
     CSVErrModel csverr;

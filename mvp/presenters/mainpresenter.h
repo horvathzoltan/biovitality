@@ -8,6 +8,7 @@
 #include <QObject>
 #include <QSqlError>
 #include <QUuid>
+#include "helpers/sqlhelper.h"
 #include "mvp/viewinterfaces/imainview.h"
 #include "presenter.h"
 #include "repositories/sqlrepository.h"
@@ -46,18 +47,17 @@ private:
     void Error(const QSqlError& err);
 
     struct DbErr{
-    private:
-        DbErr(){}
-
-        DbErr(const QString& dbName)
-        {
-            _dbName = dbName;
-        }
-
+        public:
         bool isDbValid=false;
         bool isTableExists=false;
         QString _dbName="";
         QString _tableName="";
+
+
+    DbErr(const SQLHelper& sqlHelper){
+        _dbName = sqlHelper.dbName();
+        isDbValid = sqlHelper.dbIsValid();
+    }
 
     public:
         bool isValid(){return isDbValid && isTableExists;}
