@@ -11,3 +11,16 @@ QString StringHelper::Normalize(const QString s)
                      .toLower();
     return s2;
 }
+
+
+QStringList StringHelper::Normalize(const QStringList strings)
+{
+    QStringList e;
+
+    for(auto&s:strings){
+        QString s2 = Normalize(s);
+        e.append(s2);
+    }
+
+    return e;
+}

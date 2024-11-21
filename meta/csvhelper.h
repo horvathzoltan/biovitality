@@ -20,6 +20,7 @@ public:
     static int GetId(const QVariant& v);
     static MetaValue CSV_RowToMetaValue(const QVarLengthArray<QString> &row, const QString& fn , int ix);
     static QList<MetaValue> CSV_RowToMetaValues(const QVarLengthArray<QString>& row, const QMap<QString,int>& ixs);
+    static QMap<QString,int> Get_RowIndexes(const QVarLengthArray<QString>& header, const QStringList& rowNames);
 };
 
 #endif // CSVHELPER_H

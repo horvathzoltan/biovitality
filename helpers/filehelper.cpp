@@ -94,7 +94,7 @@ FileHelper::TXTLinesModel FileHelper::LoadLines(const QString& filename)
     return m;
 }
 
-FileHelper::CSVModel FileHelper::LoadCSV(const QString& filename){
+FileHelper::CSVModel FileHelper::LoadCSV(const QString& filename, const QChar& separator){
     CSVModel m;
 
     bool valid = Validate_Load(filename, &m.error);
@@ -117,7 +117,7 @@ FileHelper::CSVModel FileHelper::LoadCSV(const QString& filename){
     QTextStream st(&f);
     SetUtf8Encoding(&st);
 
-    m.records = LoadCSV_reader(&st, ';');
+    m.records = LoadCSV_reader(&st, separator);
     f.close();
 
     m.error= FileErrors::Ok;

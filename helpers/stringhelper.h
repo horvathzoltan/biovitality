@@ -10,6 +10,7 @@ public:
     StringHelper();
 
     static QString Normalize(const QString s);
+    static QStringList Normalize(const QStringList s);
 };
 
 #endif // STRINGHELPER_H

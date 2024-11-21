@@ -266,7 +266,7 @@ void MainPresenter::process_CimImport_Action(IMainView *sender)
         MainViewModel::FileNameModel fn = sender->get_CimCSVFileName();
         if(!fn.isCanceled)
         {
-            FileHelper::CSVModel csvModel = FileHelper::LoadCSV(fn.fileName);
+            FileHelper::CSVModel csvModel = FileHelper::LoadCSV(fn.fileName, ';');
             if(csvModel.error == FileHelper::Ok)
             {
                 zInfo("file ok");
@@ -308,7 +308,7 @@ void MainPresenter::process_PartnerImport_Action(IMainView *sender)
         MainViewModel::FileNameModel fn = sender->get_PartnerCSVFileName();
         if(!fn.isCanceled)
         {
-            FileHelper::CSVModel csvModel = FileHelper::LoadCSV(fn.fileName);
+            FileHelper::CSVModel csvModel = FileHelper::LoadCSV(fn.fileName, ';');
 
             csverr.fileName = fn.fileName;
             csverr.recordsCount = csvModel.records.count();
@@ -351,7 +351,7 @@ void MainPresenter::process_TetelImport_Action(IMainView *sender)
         MainViewModel::FileNameModel fn = sender->get_TetelCSVFileName();
         if(!fn.isCanceled)
         {
-            FileHelper::CSVModel csvModel = FileHelper::LoadCSV(fn.fileName);
+            FileHelper::CSVModel csvModel = FileHelper::LoadCSV(fn.fileName, ';');
             if(csvModel.error == FileHelper::Ok){
                 zInfo("file ok");
                 QList<SoldItem> items = SoldItem::CSV_Import(csvModel.records);
@@ -398,7 +398,7 @@ void MainPresenter::process_CountryImport_Action(IMainView *sender)
         MainViewModel::FileNameModel fn = sender->get_CimCSVFileName();
         if(!fn.isCanceled)
         {
-            FileHelper::CSVModel csvModel = FileHelper::LoadCSV(fn.fileName);
+            FileHelper::CSVModel csvModel = FileHelper::LoadCSV(fn.fileName, ',');
             if(csvModel.error == FileHelper::Ok)
             {
                 zInfo("file ok");

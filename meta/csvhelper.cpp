@@ -5,12 +5,12 @@
 
 
 
-int CSVHelper::IndexOfRow(const QVarLengthArray<QString>& row, const QString &column_name)
+int CSVHelper::IndexOfRow(const QVarLengthArray<QString>& rows, const QString &column_name)
 {
-    int L = row.length();
+    int L = rows.length();
     for (int i = 0;i<L;i++) {
-        QString a =row[i];
-        QString a2 = StringHelper::Normalize(a);
+        QString row = rows[i];
+        QString a2 = StringHelper::Normalize(row);
         QString column_name2 = StringHelper::Normalize(column_name);
         if (a2 == column_name2) return i;
     }
@@ -60,6 +60,22 @@ QList<MetaValue> CSVHelper::CSV_RowToMetaValues(const QVarLengthArray<QString> &
         metaValues.append(v1);
     }
     return metaValues;
+}
+
+QMap<QString, int> CSVHelper::Get_RowIndexes(
+    const QVarLengthArray<QString> &headers, const QStringList &rowNames)
+{
+    QMap<QString,int> ixs;
+
+    for(int i=0;i<headers.length();i++){
+        QString header0 = headers[i];
+        QString header = StringHelper::Normalize(header0);
+
+        bool contains = rowNames.contains(header);
+        if(contains) ixs.insert(header0, i);
+    }
+
+    return ixs;
 }
 
 

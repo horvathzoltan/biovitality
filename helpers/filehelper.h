@@ -33,7 +33,7 @@ public:
     };
 
     static TXTLinesModel LoadLines(const QString& filename);
-    static CSVModel LoadCSV(const QString& filename);
+    static CSVModel LoadCSV(const QString& filename, const QChar& separator);
 
     enum SaveModes{
         Overwrite, Append

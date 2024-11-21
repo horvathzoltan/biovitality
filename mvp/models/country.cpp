@@ -2,6 +2,8 @@
 
 #include <meta/csvhelper.h>
 
+#include <helpers/stringhelper.h>
+
 Meta<Country> Country::_meta;
 
 Country::Country(){}
@@ -35,16 +37,19 @@ QList<Country> Country::CSV_Import(const QList<QVarLengthArray<QString>>& record
     // 1. rekord fejléc:
     //ID;Cím
     int L = records.length();
-    if(L<3) return {};
+    //if(L<3) return {};
 
-    auto header = records[0];
+    QVarLengthArray<QString> header = records[0];
 
-    QMap<QString,int> ixs;
+    //QMap<QString,int> ixs;
 
+    QStringList ixln = StringHelper::Normalize({"name","alpha-2","country-code"});
+    QMap<QString,int> ixs = CSVHelper::Get_RowIndexes(header, ixln);
     // excel id az excel csv-ben csak sima id-ként szerepel
-    ixs.insert("name",CSVHelper::IndexOfRow(header,"name"));
-    ixs.insert("alpha2",CSVHelper::IndexOfRow(header,"alpha-2"));
-    ixs.insert("countryCode",CSVHelper::IndexOfRow(header,"country-code"));
+    //auto a1 = CSVHelper::IndexOfRow(header,"name");
+    //ixs.insert("name",);
+    //ixs.insert("alpha2",CSVHelper::IndexOfRow(header,"alpha-2"));
+    //ixs.insert("countryCode",CSVHelper::IndexOfRow(header,"country-code"));
 
     QLocale hu(QLocale::Hungarian);
 
