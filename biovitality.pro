@@ -53,6 +53,7 @@ SOURCES += \
 
 HEADERS += \
     #actions.h \
+    helpers/nameof.h \
     mvp/models/country.h \
     mvp/models/invoicehead.h \
     mvp/models/invoiceitem.h \

@@ -3,6 +3,7 @@
 #include <meta/csvhelper.h>
 
 #include <helpers/stringhelper.h>
+#include "helpers/nameof.h"
 
 Meta<Country> Country::_meta;
 
@@ -41,10 +42,16 @@ QList<Country> Country::CSV_Import(const QList<QVarLengthArray<QString>>& record
 
     QVarLengthArray<QString> header = records[0];
 
-    //QMap<QString,int> ixs;
+    nameof::cstring a0 = NAMEOF(Country::name);
+    nameof::cstring a1 = NAMEOF(Country::alpha2);
+    QString b0(a0.c_str());
 
-    QStringList ixln = StringHelper::Normalize({"name","alpha-2","country-code"});
-    QMap<QString,int> ixs = CSVHelper::Get_RowIndexes(header, ixln);
+    CSVHelper::RowToField ixln;
+    ixln.Add("name", "name");
+    ixln.Add("alpha2", "alpha-2");
+    ixln.Add("countryCode", "country-code");
+
+    QMap<QString,int> ixs = ixln.Get_RowIndexes(header);
     // excel id az excel csv-ben csak sima id-ként szerepel
     //auto a1 = CSVHelper::IndexOfRow(header,"name");
     //ixs.insert("name",);

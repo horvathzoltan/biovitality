@@ -62,8 +62,7 @@ QList<MetaValue> CSVHelper::CSV_RowToMetaValues(const QVarLengthArray<QString> &
     return metaValues;
 }
 
-QMap<QString, int> CSVHelper::Get_RowIndexes(
-    const QVarLengthArray<QString> &headers, const QStringList &rowNames)
+QMap<QString, int> CSVHelper::RowToField::Get_RowIndexes(const QVarLengthArray<QString> &headers)
 {
     QMap<QString,int> ixs;
 
@@ -71,7 +70,7 @@ QMap<QString, int> CSVHelper::Get_RowIndexes(
         QString header0 = headers[i];
         QString header = StringHelper::Normalize(header0);
 
-        bool contains = rowNames.contains(header);
+        bool contains = ContainsRow(header);
         if(contains) ixs.insert(header0, i);
     }
 
@@ -79,3 +78,11 @@ QMap<QString, int> CSVHelper::Get_RowIndexes(
 }
 
 
+
+bool CSVHelper::RowToField::ContainsRow(const QString& header)
+{
+    for(auto&a:_data){
+        if(a.fieldName()==header) return true;
+    }
+    return false;
+}
