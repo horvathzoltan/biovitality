@@ -44,7 +44,8 @@ QList<Country> Country::CSV_Import(const QList<QVarLengthArray<QString>>& record
 
     nameof::cstring a0 = NAMEOF(Country::name);
     nameof::cstring a1 = NAMEOF(Country::alpha2);
-    QString b0(a0.c_str());
+    const char *a3 = a0.c_str();
+    QString b0(a3);
 
     CSVHelper::RowToField ixln;
     ixln.Add("name", "name");
