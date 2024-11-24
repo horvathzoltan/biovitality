@@ -70,19 +70,23 @@ QMap<QString, int> CSVHelper::RowToField::Get_RowIndexes(const QVarLengthArray<Q
         QString header0 = headers[i];
         QString header = StringHelper::Normalize(header0);
 
-        bool contains = ContainsRow(header);
-        if(contains) ixs.insert(header0, i);
+        int rowIx = Get_RowIx(header);
+
+        if(rowIx>-1){
+
+            ixs.insert(_data[rowIx].metaFieldName(), i);
+        }
     }
 
     return ixs;
 }
 
-
-
-bool CSVHelper::RowToField::ContainsRow(const QString& header)
+int CSVHelper::RowToField::Get_RowIx(const QString& header)
 {
-    for(auto&a:_data){
-        if(a.fieldName()==header) return true;
+    int L = _data.length();
+    for(int i=0;i<L;i++){
+        auto& a = _data[i];
+        if(a.csvRowName()==header) return i;
     }
-    return false;
+    return -1;
 }

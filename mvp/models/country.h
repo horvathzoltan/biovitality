@@ -62,7 +62,7 @@ public:
     // https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3
     //QString alpha3;
     // https://en.wikipedia.org/wiki/ISO_3166-1_numeric
-    int countryCode=0;
+    int countryCode;
 
     bool isValid();
 

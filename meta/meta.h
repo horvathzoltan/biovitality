@@ -12,6 +12,7 @@
 #define AddMetaField(b) _meta.AddField(#b, QMetaType::fromType<decltype(_meta._instance.b)>(), (char*)(&_meta._instance.b));
 #define AddMetaBase(b) _meta.AddBaseName(#b, sizeof(b));
 
+#define AddRowToField(b,c) Add_RowToField(#b, c); {(char*)(&_meta._instance.b);}
 
 class IdMegnev{
 public:

@@ -26,27 +26,28 @@ public:
         private:
             struct Data{
             private:
-                QString _fieldName;
-                QString _rowName;
+                QString _metaFieldName;
+                QString _csvRowName;
 
             public:
-                QString fieldName(){return _fieldName;}
+                QString metaFieldName(){return _metaFieldName;}
+                QString csvRowName(){return _csvRowName;}
 
-                Data(const QString& fn, const QString& rn){
-                    _fieldName = fn;
-                    _rowName = StringHelper::Normalize(rn);
+                Data(const QString& metaFieldName, const QString& csvRowName){
+                    _metaFieldName = metaFieldName;
+                    _csvRowName = StringHelper::Normalize(csvRowName);
                 }
             };
 
             QList<Data> _data;
 
         public:
-            void Add(const QString& fn, const QString& rn){
-                Data data(fn, rn);
+            void Add_RowToField(const QString& metaFieldName, const QString& csvRowName){
+                Data data(metaFieldName, csvRowName);
                 _data.append(data);
             }
 
-            bool ContainsRow(const QString& header);
+            int Get_RowIx(const QString& header);
         QMap<QString,int> Get_RowIndexes(const QVarLengthArray<QString>& header);
     };
 
