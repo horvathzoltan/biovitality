@@ -112,6 +112,7 @@ public:
         int offset = field_ptr - (char*)(&_instance);
         f._offset = offset;
 
+
         if(_verbose){
             QString msg = QStringLiteral("AddField:")
                           +QString::number(offset)

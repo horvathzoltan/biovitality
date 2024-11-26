@@ -398,10 +398,13 @@ void MainPresenter::process_CountryImport_Action(IMainView *sender)
         MainViewModel::FileNameModel fn = sender->get_CimCSVFileName();
         if(!fn.isCanceled)
         {
+            csverr.fileName = fn.fileName;
             FileHelper::CSVModel csvModel = FileHelper::LoadCSV(fn.fileName, ',');
             if(csvModel.error == FileHelper::Ok)
             {
                 zInfo("file ok");
+
+                csverr.recordsCount = csvModel.records.count();
                 QList<Country> items = Country::CSV_Import(csvModel.records);
                 csverr.itemsCount = items.count();
 

@@ -79,6 +79,7 @@ public:
                     u_all++;
                     bool ok =  repo.Update(i);
                     if(ok) u_ok++;
+                    zInfo(QStringLiteral("record update:") +(ok?"ok":"failed"));
                 } else if(count == 0){
                     zInfo("no record exists:"+columnName+"="+columnValue.toString());
                 } else{
@@ -88,6 +89,7 @@ public:
                 i_all++;
                 bool ok =  repo.Add(i);
                 if(ok) i_ok++;
+                zInfo(QStringLiteral("record insert:") +(ok?"ok":"failed"));
             }
         }
 

@@ -27,8 +27,8 @@ public:
 
     struct CSVErrModel{
         QString fileName;
-        int itemsCount;
-        int recordsCount;
+        int itemsCount=0;
+        int recordsCount=0;
 
         QString ToSting(){
             return QStringLiteral("%1 (%2/%3)")
