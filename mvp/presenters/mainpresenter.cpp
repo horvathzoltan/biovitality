@@ -153,14 +153,14 @@ void MainPresenter::Error(const QSqlError& err)
     if(err.isValid()) zInfo(QStringLiteral("QSqlError: %1 - %2").arg(err.type()).arg(err.text()));
 }
 
-void MainPresenter::Error2(DbErr err)
-{
-    if(!err.isDbValid){
-        zWarning("db:"+err._dbName+" is invalid");
-    }else if(!err.isTableExists){
-        zWarning("table:"+err._dbName+"."+err._tableName+" is not exists");
-    }
-}
+// void MainPresenter::Error2(DbErr err)
+// {
+//     if(!err.isDbValid){
+//         zWarning("db:"+err._dbName+" is invalid");
+//     }else if(!err.isTableExists){
+//         zWarning("table:"+err._dbName+"."+err._tableName+" is not exists");
+//     }
+// }
 
 void MainPresenter::process_Add_SoldItemAction(IMainView *sender){
     zTrace();
@@ -255,26 +255,28 @@ void MainPresenter::process_CimImport_Action(IMainView *sender)
 {
     zTrace();
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
-    SqlERepository<Address>& repo =  _globals._repositories.address;
 
-    DbErr err(_globals._helpers._sqlHelper);
-    err.isTableExists = repo.isTableExists();
+    SQLHelper::DbErr dbErr = _globals._helpers._sqlHelper.dbErr();
+    SqlRepository<Address>& repo =  _globals._repositories.address;
+    dbErr.isTableExists = repo.isTableExists();
 
-    CSVErrModel csverr;
-
-    if(err.isValid()){
-        MainViewModel::FileNameModel fn = sender->get_CimCSVFileName();
+    if(dbErr.isValid()){
+        MainViewModel::FileNameModel fn = sender->get_CimCSVFileName();        
         if(!fn.isCanceled)
         {
+            CSVErrModel csverr(fn.fileName);
             FileHelper::CSVModel csvModel = FileHelper::LoadCSV(fn.fileName, ';');
+            csverr.setRecordsCount(csvModel.records.count());
+
             if(csvModel.error == FileHelper::Ok)
             {
                 zInfo("file ok");
                 QList<Address> items = Address::CSV_Import(csvModel.records);
-                csverr.itemsCount = items.count();
+                csverr.setItemsCount(items.count());
 
                 zInfo("items loaded: "+csverr.ToSting());
-                SqlMetaHelper::InsertOrUpdate_ByExcelId(repo, items);              
+                //SqlMetaHelper::InsertOrUpdate_ByExcelId(repo, items);
+                SqlMetaHelper::InsertOrUpdate2(repo, items, "excelId");
             }
             else
             {
@@ -288,7 +290,8 @@ void MainPresenter::process_CimImport_Action(IMainView *sender)
     }
     else
     {
-        Error2(err);
+        QString msg = dbErr.ToString();
+        zWarning(msg);
     }
     Operations::instance().stop(opId);
 }
@@ -297,28 +300,27 @@ void MainPresenter::process_PartnerImport_Action(IMainView *sender)
 {
     zTrace();
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
-    SqlERepository<Partner>& repo = _globals._repositories.partner;
 
-    DbErr err(_globals._helpers._sqlHelper);
-    err.isTableExists = repo.isTableExists();
+    SQLHelper::DbErr dbErr = _globals._helpers._sqlHelper.dbErr();
+    SqlRepository<Partner>& repo = _globals._repositories.partner;
+    dbErr.isTableExists = repo.isTableExists();
 
-    CSVErrModel csverr;
-
-    if(err.isValid()){
+    if(dbErr.isValid()){
         MainViewModel::FileNameModel fn = sender->get_PartnerCSVFileName();
         if(!fn.isCanceled)
         {
+            CSVErrModel csverr(fn.fileName);
             FileHelper::CSVModel csvModel = FileHelper::LoadCSV(fn.fileName, ';');
+            csverr.setRecordsCount(csvModel.records.count());
 
-            csverr.fileName = fn.fileName;
-            csverr.recordsCount = csvModel.records.count();
-
-            if(csvModel.error == FileHelper::Ok){
+            if(csvModel.error == FileHelper::Ok)
+            {
                 QList<Partner> items = Partner::CSV_Import(csvModel.records);
-                csverr.itemsCount = items.count();
+                csverr.setItemsCount(items.count());
 
                 zInfo("items loaded: "+csverr.ToSting());
-                SqlMetaHelper::InsertOrUpdate_ByExcelId(repo, items);
+                //SqlMetaHelper::InsertOrUpdate_ByExcelId(repo, items);
+                SqlMetaHelper::InsertOrUpdate2(repo, items, "excelId");
             }
             else
             {
@@ -332,34 +334,38 @@ void MainPresenter::process_PartnerImport_Action(IMainView *sender)
     }
     else
     {
-        Error2(err);
+        QString msg = dbErr.ToString();
+        zWarning(msg);
     }
     Operations::instance().stop(opId);
 }
 
 void MainPresenter::process_TetelImport_Action(IMainView *sender)
 {
-    QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
-    SqlERepository<SoldItem>& repo = _globals._repositories.solditem;
+    QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);    
 
-    DbErr err(_globals._helpers._sqlHelper);
+    SQLHelper::DbErr err = _globals._helpers._sqlHelper.dbErr();
+
+    SqlRepository<SoldItem>& repo = _globals._repositories.solditem;
     err.isTableExists = repo.isTableExists();
-
-    CSVErrModel csverr;
 
     if(err.isValid()){
         MainViewModel::FileNameModel fn = sender->get_TetelCSVFileName();
         if(!fn.isCanceled)
         {
+            CSVErrModel csverr(fn.fileName);
             FileHelper::CSVModel csvModel = FileHelper::LoadCSV(fn.fileName, ';');
-            if(csvModel.error == FileHelper::Ok){
+            csverr.setRecordsCount(csvModel.records.count());
+
+            if(csvModel.error == FileHelper::Ok)
+            {
                 zInfo("file ok");
                 QList<SoldItem> items = SoldItem::CSV_Import(csvModel.records);
-                csverr.itemsCount = items.count();
+                csverr.setItemsCount(items.count());
 
                 zInfo("items loaded: "+csverr.ToSting());
-                SqlMetaHelper::InsertOrUpdate_ByExcelId(repo, items);
-
+                //SqlMetaHelper::InsertOrUpdate_ByExcelId(repo, items);
+                SqlMetaHelper::InsertOrUpdate2(repo, items, "excelId");
             }
             else
             {
@@ -386,27 +392,24 @@ void MainPresenter::process_CountryImport_Action(IMainView *sender)
 {
     zTrace();
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
-    SqlRepository<Country>& repo =  _globals._repositories.country;
 
-    DbErr err(_globals._helpers._sqlHelper);
-    err._tableName = repo.tableName();
-    err.isTableExists = repo.isTableExists();
+    SQLHelper::DbErr dbErr = _globals._helpers._sqlHelper.dbErr();
+    SqlRepository<Country>& repo =  _globals._repositories.country;        
+    dbErr.isTableExists = repo.isTableExists();
 
-    CSVErrModel csverr;
-
-    if(err.isValid()){
+    if(dbErr.isValid()){
         MainViewModel::FileNameModel fn = sender->get_CimCSVFileName();
         if(!fn.isCanceled)
         {
-            csverr.fileName = fn.fileName;
+            CSVErrModel csverr(fn.fileName);
             FileHelper::CSVModel csvModel = FileHelper::LoadCSV(fn.fileName, ',');
+            csverr.setRecordsCount(csvModel.records.count());
+
             if(csvModel.error == FileHelper::Ok)
             {
-                zInfo("file ok");
-
-                csverr.recordsCount = csvModel.records.count();
+                zInfo("file ok");                                
                 QList<Country> items = Country::CSV_Import(csvModel.records);
-                csverr.itemsCount = items.count();
+                csverr.setItemsCount(items.count());
 
                 zInfo("items loaded: "+csverr.ToSting());
                 SqlMetaHelper::InsertOrUpdate2(repo, items, "countryCode");
@@ -423,7 +426,8 @@ void MainPresenter::process_CountryImport_Action(IMainView *sender)
     }
     else
     {
-        Error2(err);
+        QString msg = dbErr.ToString();
+        zWarning(msg);
     }
     Operations::instance().stop(opId);
 }

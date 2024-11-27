@@ -2,6 +2,7 @@
 #define PARTNER_H
 
 #include "meta/meta.h"
+#include "modelinterfaces.h"
 #include <QDateTime>
 #include <QList>
 #include <QVariant>
@@ -11,7 +12,7 @@
 
 #include <mvp/views/dataform.h>
 
-class Partner
+class Partner : I_Meta<Partner>, I_SQLRepo<Partner>, I_CSVImport<Partner>
 {
 public:
     Partner();
@@ -43,16 +44,20 @@ public:
 
     static void MetaInit();
 
+    QVariant GetValue(const QString& name) const { return _meta.GetValue(this, name);}
+    static MetaField* GetField(const QString& name) {return _meta.GetField(name);}
     static QString GetMetaFieldList(){ return _meta.GetFieldList();}
-    static Partner FromMetaValues(const QList<MetaValue> &v){return _meta.FromMetaValues(v);}
+    QList<SQLHelper::SQLParam> GetQueryParams()const { return _meta.ToMetaValues2(this);}
+
     QList<MetaValue> GetMetaValues()const { return _meta.ToMetaValues(this);}
     QString GetBaseTypeName() {return _meta.GetBaseTypeName();}
-    QList<SQLHelper::SQLParam> GetQueryParams()const { return _meta.ToMetaValues2(this);}
 
     static void SetMetaVerbose(bool v){ _meta.SetVerbose(v);}
 
     // CSV import
-    static QList<Partner> CSV_Import(const QList<QVarLengthArray<QString>>& records);    
+    static QList<Partner> CSV_Import(const QList<QVarLengthArray<QString>>& records);
+    // ez a modellbe mapol név szerint
+    static Partner FromMetaValues(const QList<MetaValue> &v){return _meta.FromMetaValues(v);}
     // DataForm
     static DataRowDefaultModel To_DataRowDefaultModel(const QList<Partner>& data)
     {

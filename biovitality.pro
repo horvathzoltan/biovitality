@@ -58,6 +58,7 @@ HEADERS += \
     mvp/models/invoicehead.h \
     mvp/models/invoiceitem.h \
     mvp/models/invoiceitems.h \
+    mvp/models/modelinterfaces.h \
     mvp/models/partner.h \
     mvp/viewinterfaces/iview.h \
     patterns/singleton.h \

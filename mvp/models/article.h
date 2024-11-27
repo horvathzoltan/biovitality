@@ -11,6 +11,7 @@
 
 #include <mvp/views/dataform.h>
 
+//DataForm
 class Article
 {
 public:
@@ -42,7 +43,10 @@ public:
     // template class SqlRepository<Article>;
 
     static QString GetMetaFieldList(){ return _meta.GetFieldList();}
+    //CSV_Import
     static Article FromMetaValues(const QList<MetaValue> &v){return _meta.FromMetaValues(v);}
+
+    // Update,Add
     QList<SQLHelper::SQLParam> GetQueryParams()const { return _meta.ToMetaValues2(this);}
 
     static void SetMetaVerbose(bool v){ _meta.SetVerbose(v);}

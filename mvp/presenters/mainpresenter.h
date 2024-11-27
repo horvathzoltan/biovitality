@@ -26,15 +26,28 @@ public:
     void initView(IMainView *w) const;
 
     struct CSVErrModel{
-        QString fileName;
-        int itemsCount=0;
-        int recordsCount=0;
+    private:
+        QString _fileName;
+        int _itemsCount;
+        int _recordsCount;
+
+        CSVErrModel(){};
+    public:
+
+        CSVErrModel(const QString& fn){
+            _fileName = fn;
+            _itemsCount= 0;
+            _recordsCount = 0;
+        }
+
+        void setRecordsCount(int v){ _recordsCount = v;}
+        void setItemsCount(int v){ _itemsCount = v;}
 
         QString ToSting(){
             return QStringLiteral("%1 (%2/%3)")
-                      .arg(fileName)
-                      .arg(itemsCount)
-                      .arg(recordsCount);
+                      .arg(_fileName)
+                      .arg(_itemsCount)
+                      .arg(_recordsCount);
         }
     };
 
@@ -46,24 +59,9 @@ private:
     void refreshView(IMainView *w) const;
     void Error(const QSqlError& err);
 
-    struct DbErr{
-        public:
-        bool isDbValid=false;
-        bool isTableExists=false;
-        QString _dbName="";
-        QString _tableName="";
 
 
-    DbErr(const SQLHelper& sqlHelper){
-        _dbName = sqlHelper.dbName();
-        isDbValid = sqlHelper.dbIsValid();
-    }
-
-    public:
-        bool isValid(){return isDbValid && isTableExists;}
-    };
-
-    void Error2(DbErr err);
+    //void Error2(SQLHelper::DbErr err);
 
     // template<typename T>
     // static void InsertOrUpdate(SqlRepository<T>& repo, QList<T>& items);

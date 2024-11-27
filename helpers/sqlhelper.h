@@ -8,9 +8,41 @@
 #include <QSqlDatabase>
 #include <QVariant>
 #include <QSqlRecord>
+#include <QSqlError>
 
 class SQLHelper
 {
+public:
+    struct DbErr
+    {
+    public:
+         bool isDbValid=false;
+         bool isTableExists=false;
+         QString _dbName="";
+         QString _tableName="";
+         QSqlError _qSqlError;
+
+         DbErr(const QString& dbName, bool isdbv)
+         {
+             _dbName = dbName;
+             isDbValid = isdbv;
+         }
+     private:
+         DbErr(){};
+     public:
+         bool isValid(){return isDbValid && isTableExists;}
+
+         QString ToString(){
+             if(!isDbValid){
+                 return "db:"+_dbName+" is invalid";
+             }
+             if(!isTableExists){
+                 return "table:"+_dbName+"."+_tableName+" is not exists";
+             }
+             return "table:"+_dbName+"."+_tableName+" ok";
+         }
+    };
+
 public:
     struct SQLParam{
         QString paramName;
@@ -71,7 +103,13 @@ public:
     static QString GetParamList_INSERT(const QList<SQLHelper::SQLParam>& params);
     //QSqlQuery GetQuery();
     //QSqlQuery GetQuery(const QString& cmd);
-    QList<QSqlRecord> Call(const QString& cmd);    
+    QList<QSqlRecord> Call(const QString& cmd);
+
+    DbErr dbErr(){
+        DbErr e = DbErr(dbName(), dbIsValid());
+        e._qSqlError = _db.lastError();
+        return e;
+    }
 };
 
 #endif // SQLHELPER_H

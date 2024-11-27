@@ -19,39 +19,39 @@ public:
     // static void InsertOrUpdate(SqlRepository<T>& repo, QList<T>& items);
 
    // extern template void InsertOrUpdate_ByExcelId(SqlRepository<Partner>& repo, QList<Partner>& items);
-    template<typename T>
-    static void InsertOrUpdate_ByExcelId(SqlERepository<T>& repo, QList<T>& items)
-    {
-        if(items.isEmpty()){
-            zInfo("no items to import");
-            return;
-        }
+    // template<typename T>
+    // static void InsertOrUpdate_ByExcelId(SqlERepository<T>& repo, QList<T>& items)
+    // {
+    //     if(items.isEmpty()){
+    //         zInfo("no items to import");
+    //         return;
+    //     }
 
-        int i_all=0, u_all=0;
-        int i_ok=0, u_ok=0;
-        for(auto&i:items){
-            bool contains = repo.ContainsBy_ExcelId(i.excelId);
-            if(contains){
-                int id =  repo.GetIdBy_ExcelId(i.excelId); // meg kell szerezni az id-t
-                if(id!=-1)
-                {
-                    i.id = id;
-                    u_all++;
-                    bool ok =  repo.Update(i);
-                    if(ok) u_ok++;
-                } else{
-                    zInfo("no id for excelId: "+QString::number(i.excelId));
-                }
-            } else{
-                i_all++;
-                bool ok =  repo.Add(i);
-                if(ok) i_ok++;
-            }
-        }
+    //     int i_all=0, u_all=0;
+    //     int i_ok=0, u_ok=0;
+    //     for(auto&i:items){
+    //         bool contains = repo.ContainsBy_ExcelId(i.excelId);
+    //         if(contains){
+    //             int id =  repo.GetIdBy_ExcelId(i.excelId); // meg kell szerezni az id-t
+    //             if(id!=-1)
+    //             {
+    //                 i.id = id;
+    //                 u_all++;
+    //                 bool ok =  repo.Update(i);
+    //                 if(ok) u_ok++;
+    //             } else{
+    //                 zInfo("no id for excelId: "+QString::number(i.excelId));
+    //             }
+    //         } else{
+    //             i_all++;
+    //             bool ok =  repo.Add(i);
+    //             if(ok) i_ok++;
+    //         }
+    //     }
 
-        zInfo(QStringLiteral("Updated: %1/%2").arg(u_ok).arg(u_all));
-        zInfo(QStringLiteral("Inserted: %1/%2").arg(i_ok).arg(i_all));
-    }
+    //     zInfo(QStringLiteral("Updated: %1/%2").arg(u_ok).arg(u_all));
+    //     zInfo(QStringLiteral("Inserted: %1/%2").arg(i_ok).arg(i_all));
+    // }
 
     template<typename T>
     static void InsertOrUpdate2(SqlRepository<T>& repo, QList<T>& items, const QString& columnName)

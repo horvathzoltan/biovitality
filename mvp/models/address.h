@@ -2,9 +2,10 @@
 #define ADDRESS_H
 
 #include "meta/meta.h"
+#include "modelinterfaces.h"
 #include <QVariant>
 
-class Address
+class Address : I_Meta<Address>, I_SQLRepo<Address>, I_CSVImport<Address>
 {
 public:
     Address();
@@ -34,17 +35,22 @@ public:
     // home/zoli/source/repos/biovitality/bi/repositories/sqlrepository.cpp
     // template class SqlRepository<Address>;
 
+    QVariant GetValue(const QString& name) const { return _meta.GetValue(this, name);}
+    static MetaField* GetField(const QString& name) {return _meta.GetField(name);}
     static QString GetMetaFieldList(){ return _meta.GetFieldList();}
+    QList<SQLHelper::SQLParam> GetQueryParams()const { return _meta.ToMetaValues2(this);}
+
     //static QString GetMetaFieldList_UPDATE(){ return _meta.GetFieldList_UPDATE();}
-    static Address FromMetaValues(const QList<MetaValue> &v){return _meta.FromMetaValues(v);}
+
     QList<MetaValue> GetMetaValues()const { return _meta.ToMetaValues(this);}
     QString GetBaseTypeName() {return _meta.GetBaseTypeName();}
-    QList<SQLHelper::SQLParam> GetQueryParams()const { return _meta.ToMetaValues2(this);}
+
     static void SetMetaVerbose(bool v){ _meta.SetVerbose(v);}
 
 // CSV import
     static QList<Address> CSV_Import(const QList<QVarLengthArray<QString>>& records);
-
+// SQL_Repo
+    static Address FromMetaValues(const QList<MetaValue> &v){return _meta.FromMetaValues(v);}
 // DataForm
     static DataRowDefaultModel To_DataRowDefaultModel(const QList<Address>& data)
     {
