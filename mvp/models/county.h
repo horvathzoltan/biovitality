@@ -2,6 +2,7 @@
 #define COUNTY_H
 
 #include "meta/meta.h"
+#include "modelinterfaces.h"
 #include <QDateTime>
 #include <QList>
 #include <QVariant>
@@ -11,7 +12,9 @@
 
 #include <mvp/views/dataform.h>
 
-class County
+class County : I_Meta<County>
+    , I_SQLRepo_Read<County>
+    , I_SQLRepo_CreateUpdate<County>
 {
 public:
     County();
@@ -21,28 +24,19 @@ public:
     QString countyName;
     QString KSHCode;
 
-
-public:
-    bool isValid();
-
-    // meta
+    // Meta
 private:
     static Meta<County> _meta;
 public:
-    static void MetaInit();    
-    // sqlrepo
-    // home/zoli/source/repos/biovitality/bi/repositories/sqlrepository.cpp
-    // template class SqlRepository<County>;
-    //
-    // static void MetaInit(){ ...
-    // County::MetaInit();
-    //
-    // home/zoli/source/repos/biovitality/bi/repositories/sqlrepository.cpp
-    // template class SqlRepository<County>;
+    bool isValid();
+    static void MetaInit();
+    static void SetMetaVerbose(bool v){ _meta.SetVerbose(v);}
 
-    static MetaField* GetField(const QString& name){return _meta.GetField(name);}
-    static QString GetMetaFieldList(){ return _meta.GetFieldList();}
+    // SQL_Read
+    static QString GetMetaFieldNames(){ return _meta.GetMetaFieldNames();}
     static County FromMetaValues(const QList<MetaValue> &v){return _meta.FromMetaValues(v);}
+
+    // SQL_CreateUpdate
     QList<SQLHelper::SQLParam> GetQueryParams()const { return _meta.ToMetaValues2(this);}
 
 // DataForm
@@ -50,9 +44,7 @@ public:
     static DataRowDefaultModel To_DataRowDefaultModel(const QList<County>& data)
     {
         return _meta.ToIdMegnevs(data);
-    }
-
-    static void SetMetaVerbose(bool v){ _meta.SetVerbose(v);}
+    }    
 };
 
 #endif // COUNTY_H

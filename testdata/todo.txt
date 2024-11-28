@@ -1,0 +1,32 @@
+
+                            K   M  SQL  csv form   státusz
+address:    gyűjtőtábla,    -   +   +   +   -
+article:    kódtábla,       +   +   +   +   -       ok...
+country:    kódtábla,       -   +   +   +   -       ok
+county:     kódtábla,       +   +   +   -   -       ok
+partner:    gyűjtőtábla     -   +   +   +   -
+solditem:   adattábla       -   +   +   +   +
+
+
+K: kézi bevitel az adatbázisba
+
+SQL_Read (Get,GetAll)
+GetMetaFieldList, listázza a mezőket
+FromMetaValues
+
+CSV:
+ország, partner, cím, tétel
+country,partner, addreaa, solditem
+
+***
+process_CimImport_Action
+Address::CSV_Import
+
+process_PartnerImport_Action
+Partner::CSV_Import
+
+process_TetelImport_Action
+SoldItem::CSV_Import
+
+process_CountryImport_Action
+Country::CSV_Import

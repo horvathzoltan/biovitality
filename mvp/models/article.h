@@ -2,6 +2,7 @@
 #define ARTICLE_H
 
 #include "meta/meta.h"
+#include "modelinterfaces.h"
 #include <QDateTime>
 #include <QList>
 #include <QVariant>
@@ -12,7 +13,10 @@
 #include <mvp/views/dataform.h>
 
 //DataForm
-class Article
+class Article : I_Meta<Article>
+    , I_SQLRepo_Read<Article>
+    , I_SQLRepo_CreateUpdate<Article>
+    , I_CSVImport<Article>
 {
 public:
     Article();
@@ -23,33 +27,20 @@ public:
     QString Barcode;
     int excelId=-1;
 
+    // Meta
 private:
-    static Meta<Article> _meta;
-    //static QList<Article> _data;
-
-public:
+    static Meta<Article> _meta;    
+public:        
     bool isValid();
-
-// meta
     static void MetaInit();
-    // sqlrepo
-    // home/zoli/source/repos/biovitality/bi/repositories/sqlrepository.cpp
-    // template class SqlRepository<Article>;
-    //
-    // static void MetaInit(){ ...
-    // Article::MetaInit();
-    //
-    // home/zoli/source/repos/biovitality/bi/repositories/sqlrepository.cpp
-    // template class SqlRepository<Article>;
+    static void SetMetaVerbose(bool v){ _meta.SetVerbose(v);}
 
-    static QString GetMetaFieldList(){ return _meta.GetFieldList();}
-    //CSV_Import
+    // SQL_Read
+    static QString GetMetaFieldNames(){ return _meta.GetMetaFieldNames();}
     static Article FromMetaValues(const QList<MetaValue> &v){return _meta.FromMetaValues(v);}
 
-    // Update,Add
+    // SQL_Create,Update
     QList<SQLHelper::SQLParam> GetQueryParams()const { return _meta.ToMetaValues2(this);}
-
-    static void SetMetaVerbose(bool v){ _meta.SetVerbose(v);}
 
 // DataForm
     static DataRowDefaultModel To_DataRowDefaultModel(const QList<Article>& data)

@@ -15,7 +15,7 @@
 // };
 
 
-class SoldItem : I_Meta<SoldItem>, I_SQLRepo<SoldItem>, I_CSVImport<SoldItem>
+class SoldItem : I_Meta<SoldItem>, I_SQLRepo_Read<SoldItem>, I_CSVImport<SoldItem>
 {
 public:
     SoldItem();
@@ -32,15 +32,16 @@ public:
     QString unitCurrency;
     qreal netPrice=0;
     QString netCurrency;
-    int excelId=-1;
+    int excelId=-1;    
 
-    bool isValid();
-
-    // meta
+    // Meta
 private:
     static Meta<SoldItem> _meta;
 public:
+    bool isValid();
     static void MetaInit();
+    static void SetMetaVerbose(bool v){ _meta.SetVerbose(v);}
+
     // sqlrepo
     // /home/zoli/source/repos/biovitality/globals.h
     // Repositories() ... ,sr("SoldItem") ... {}
@@ -53,15 +54,15 @@ public:
     // template class SqlRepository<SoldItem>;
 
     QVariant GetValue(const QString& name) const { return _meta.GetValue(this, name);}
-    static MetaField* GetField(const QString& name) {return _meta.GetField(name);}
-    static QString GetMetaFieldList(){ return _meta.GetFieldList();}
+    static MetaField* GetMetaField(const QString& name) {return _meta.GetMetaField(name);}
+    static QString GetMetaFieldList(){ return _meta.GetMetaFieldNames();}
     QList<SQLHelper::SQLParam> GetQueryParams()const { return _meta.ToMetaValues2(this);}
 
     QList<MetaValue> GetMetaValues()const { return _meta.ToMetaValues(this);}
 
     QString GetBaseTypeName() {return _meta.GetBaseTypeName();}
 
-    static void SetMetaVerbose(bool v){ _meta.SetVerbose(v);}
+
 public:
 // CSV import
     static QList<SoldItem> CSV_Import(const QList<QVarLengthArray<QString>>& records);

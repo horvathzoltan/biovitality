@@ -117,5 +117,6 @@ DISTFILES += \
     testdata/Partnertorzs_Zolinak.csv \
     testdata/countries.csv \
     testdata/teszt1.csv \
-    testdata/teszt2.csv
+    testdata/teszt2.csv \
+    testdata/todo.txt
 

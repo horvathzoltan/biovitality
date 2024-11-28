@@ -125,7 +125,9 @@ public:
         _fields.append(f);        
     }
 
-    QString GetFieldList(){
+    // Gets field names separated with comma
+    // SqlRepo: Get, GetAll
+    QString GetMetaFieldNames(){
         if(_fields.isEmpty()) return {};
         QString e;
         for(auto&a:_fields){
@@ -158,17 +160,19 @@ public:
     // }
 
 
-    MetaField* GetField(const QString& name){
+    MetaField* GetMetaField(const QString& name){
         for(auto&a:_fields){
             if(a.name==name) return &a;
         }
         return nullptr;
     }
 
+    // Parses T from a list of MetaValue
+    // SqlRepo: Get, GetAll
     T FromMetaValues(const QList<MetaValue>& metaValues){
         T s;
         for(auto&m:metaValues){
-            MetaField* f = GetField(m.name);
+            MetaField* f = GetMetaField(m.name);
             if(f){
                 char* ptr = f->GetPtr((char*)&s);
                 // fromtype, from, totype, to
@@ -252,6 +256,7 @@ public:
         return e;
     }
 
+    // GUI_ADD
     MetaValue GetMetaValue(const T* s, const QString& fieldName){
         if(!s) return MetaValue("","",QMetaType());
         MetaField* field = s->GetField(fieldName);
