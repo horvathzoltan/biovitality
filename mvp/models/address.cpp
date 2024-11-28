@@ -69,7 +69,7 @@ QList<Address> Address::CSV_Import(const QList<QVarLengthArray<QString>>& record
 
         QString d1 = CSVHelper::GetData(row, cim_KEY, ixs).toString();
 
-        item.Parse(d1);
+        item.ParseAddressFields_private(d1);
 
         if(item.isValid()){
             m.append(item);
@@ -81,7 +81,7 @@ QList<Address> Address::CSV_Import(const QList<QVarLengthArray<QString>>& record
     return m;
 }
 
-void Address::Parse(const QString &c)
+void Address::ParseAddressFields_private(const QString &c)
 {
     if(c.isEmpty()) return;
 

@@ -5,7 +5,10 @@
 #include "modelinterfaces.h"
 #include <QVariant>
 
-class Address : I_Meta<Address>, I_SQLRepo<Address>, I_CSVImport<Address>
+class Address : I_Meta<Address>
+    , I_SQLRepo_Read<Address>
+    , I_SQLRepo_CreateUpdate<Address>
+    , I_CSVImport<Address>
 {
 public:
     Address();
@@ -18,39 +21,31 @@ public:
     //QString houseNumber;  // házszám - a cím utolsó tagja
     int excelId=-1;
 
-    bool isValid();
-
-    // meta
+    // Meta
 private:
     static Meta<Address> _meta;
 public:
+    bool isValid();
     static void MetaInit();
-    // sqlrepo
-    // home/zoli/source/repos/biovitality/bi/repositories/sqlrepository.cpp
-    // template class SqlRepository<Address>;
-    //
-    // static void MetaInit(){ ...
-    // Address::MetaInit();
-    //
-    // home/zoli/source/repos/biovitality/bi/repositories/sqlrepository.cpp
-    // template class SqlRepository<Address>;
-
-    QVariant GetValue(const QString& name) const { return _meta.GetValue(this, name);}
-    static MetaField* GetField(const QString& name) {return _meta.GetField(name);}
-    static QString GetMetaFieldList(){ return _meta.GetFieldList();}
-    QList<SQLHelper::SQLParam> GetQueryParams()const { return _meta.ToMetaValues2(this);}
-
-    //static QString GetMetaFieldList_UPDATE(){ return _meta.GetFieldList_UPDATE();}
-
-    QList<MetaValue> GetMetaValues()const { return _meta.ToMetaValues(this);}
-    QString GetBaseTypeName() {return _meta.GetBaseTypeName();}
-
     static void SetMetaVerbose(bool v){ _meta.SetVerbose(v);}
 
-// CSV import
-    static QList<Address> CSV_Import(const QList<QVarLengthArray<QString>>& records);
-// SQL_Repo
+    // SQL_Read
+    static QString GetMetaFieldNames(){ return _meta.GetMetaFieldNames();}
     static Address FromMetaValues(const QList<MetaValue> &v){return _meta.FromMetaValues(v);}
+
+    // SQL_Create,Update
+    QList<SQLHelper::SQLParam> GetQueryParams()const { return _meta.ToMetaValues2(this);}
+
+    // CSV import
+    static QList<Address> CSV_Import(const QList<QVarLengthArray<QString>>& records);
+    QVariant GetValue(const QString& name) const { return _meta.GetValue(this, name);}    
+    static MetaField* GetMetaField(const QString& name) {return _meta.GetMetaField(name);}
+
+    //QString GetBaseTypeName() {return _meta.GetBaseTypeName();}
+
+    //UI form viewModel
+    QList<MetaValue> GetMetaValues()const { return _meta.ToMetaValues(this);}
+
 // DataForm
     static DataRowDefaultModel To_DataRowDefaultModel(const QList<Address>& data)
     {
@@ -58,7 +53,7 @@ public:
     }
     IdMegnev ToIdMegnev() const {return _meta.ToIdMegnev(this); }
 private:
-    void Parse(const QString& c);
+    void ParseAddressFields_private(const QString& c);
 };
 
 #endif // ADDRESS_H
