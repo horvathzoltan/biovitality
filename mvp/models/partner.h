@@ -12,7 +12,10 @@
 
 #include <mvp/views/dataform.h>
 
-class Partner : I_Meta<Partner>, I_SQLRepo<Partner>, I_CSVImport<Partner>
+class Partner : I_Meta<Partner>
+    , I_SQLRepo_Read<Partner>
+    , I_SQLRepo_CreateUpdate<Partner>
+    , I_CSVImport<Partner>
 {
 public:
     Partner();
@@ -41,23 +44,25 @@ private:
 
 public:
     bool isValid();
-
     static void MetaInit();
-
-    QVariant GetValue(const QString& name) const { return _meta.GetValue(this, name);}
-    static MetaField* GetField(const QString& name) {return _meta.GetField(name);}
-    static QString GetMetaFieldList(){ return _meta.GetFieldList();}
-    QList<SQLHelper::SQLParam> GetQueryParams()const { return _meta.ToMetaValues2(this);}
-
-    QList<MetaValue> GetMetaValues()const { return _meta.ToMetaValues(this);}
-    QString GetBaseTypeName() {return _meta.GetBaseTypeName();}
-
     static void SetMetaVerbose(bool v){ _meta.SetVerbose(v);}
 
-    // CSV import
-    static QList<Partner> CSV_Import(const QList<QVarLengthArray<QString>>& records);
-    // ez a modellbe mapol név szerint
+    // SQL_Read
+    static QString GetMetaFieldNames(){ return _meta.GetMetaFieldNames();}
     static Partner FromMetaValues(const QList<MetaValue> &v){return _meta.FromMetaValues(v);}
+
+    // SQL_Create,Update
+    QList<SQLHelper::SQLParam> GetQueryParams()const { return _meta.ToMetaValues2(this);}
+
+    // CSV import
+    static QList<Partner> CSV_Import(const QList<QVarLengthArray<QString>>& records);    
+    QVariant GetValue(const QString& name) const { return _meta.GetValue(this, name);}
+    static MetaField* GetMetaField(const QString& name) {return _meta.GetMetaField(name);}
+
+    //QString GetBaseTypeName() {return _meta.GetBaseTypeName();}
+
+    // ui
+QList<MetaValue> GetMetaValues()const { return _meta.ToMetaValues(this);}
     // DataForm
     static DataRowDefaultModel To_DataRowDefaultModel(const QList<Partner>& data)
     {

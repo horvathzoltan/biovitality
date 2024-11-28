@@ -98,8 +98,8 @@ public:
 
     QList<QSqlRecord> DoQuery(const QString& cmd, const QList<SQLParam>& params = {});
 
-    static QString GetFieldList_UPDATE(const QList<SQLHelper::SQLParam>& params);
-    static QString GetFieldList_INSERT(const QList<SQLHelper::SQLParam>& params);
+    static QString GetFieldNames_UPDATE(const QList<SQLHelper::SQLParam>& params);
+    static QString GetFieldNames_INSERT(const QList<SQLHelper::SQLParam>& params);
     static QString GetParamList_INSERT(const QList<SQLHelper::SQLParam>& params);
     //QSqlQuery GetQuery();
     //QSqlQuery GetQuery(const QString& cmd);

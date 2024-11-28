@@ -367,7 +367,7 @@ QList<QSqlRecord> SQLHelper::DoQuery(const QString& cmd, const QList<SQLHelper::
     return e;
 }
 
-QString SQLHelper::GetFieldList_UPDATE(const QList<SQLHelper::SQLParam>& params){
+QString SQLHelper::GetFieldNames_UPDATE(const QList<SQLHelper::SQLParam>& params){
     if(params.isEmpty()) return {};
     QString e;
     //int i = 0;
@@ -381,7 +381,7 @@ QString SQLHelper::GetFieldList_UPDATE(const QList<SQLHelper::SQLParam>& params)
 
 
 
-QString SQLHelper::GetFieldList_INSERT(const QList<SQLHelper::SQLParam>& params){
+QString SQLHelper::GetFieldNames_INSERT(const QList<SQLHelper::SQLParam>& params){
     if(params.isEmpty()) return {};
     QString e;
     //int i = 0;

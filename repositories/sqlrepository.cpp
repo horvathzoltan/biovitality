@@ -67,9 +67,9 @@ bool RepositoryBase::Contains(int id)
 template<class T>
 T SqlRepository<T>::Get(int id)
 {
-    QString fieldList=T::GetMetaFieldList();
+    QString fieldNames=T::GetMetaFieldNames();
 
-    QString cmd=GET_CMD.arg(fieldList).arg(tableName()).arg(id);
+    QString cmd=GET_CMD.arg(fieldNames).arg(tableName()).arg(id);
     zInfo("cmd:"+cmd);
     QList<QSqlRecord> records = _globals._helpers._sqlHelper.DoQuery(cmd);
 
@@ -90,9 +90,9 @@ T SqlRepository<T>::Get(int id)
 template<class T>
 QList<T> SqlRepository<T>::GetAll()
 {
-    QString fieldList=T::GetMetaFieldList();
+    QString fieldNames=T::GetMetaFieldNames();
 
-    QString cmd=GETALL_CMD.arg(tableName()).arg(fieldList);
+    QString cmd=GETALL_CMD.arg(tableName()).arg(fieldNames);
     zInfo("cmd:"+cmd);
     //QSqlQuery q = _sqlHelper.GetQuery(cmd);
     QList<QSqlRecord> records = _globals._helpers._sqlHelper.DoQuery(cmd);
@@ -118,7 +118,7 @@ template<class T>
 bool SqlRepository<T>::Update(const T &m)
 {
     QList<SQLHelper::SQLParam> params = m.GetQueryParams();
-    QString fieldList=SQLHelper::GetFieldList_UPDATE(params);
+    QString fieldList=SQLHelper::GetFieldNames_UPDATE(params);
     QString cmd=UPDATE_CMD.arg(tableName()).arg(fieldList);
     zInfo("cmd:"+cmd);
     QList<QSqlRecord> records = _globals._helpers._sqlHelper.DoQuery(cmd, params);
@@ -129,7 +129,7 @@ bool SqlRepository<T>::Update(const T &m)
 template<class T>
 bool SqlRepository<T>::Add(const T &m){
     QList<SQLHelper::SQLParam> params = m.GetQueryParams();
-    QString fieldList=SQLHelper::GetFieldList_INSERT(params);
+    QString fieldList=SQLHelper::GetFieldNames_INSERT(params);
     QString paramList=SQLHelper::GetParamList_INSERT(params);
 
     QString cmd=INSERT_CMD.arg(tableName()).arg(fieldList).arg(paramList);
@@ -137,7 +137,6 @@ bool SqlRepository<T>::Add(const T &m){
     QList<QSqlRecord> records = _globals._helpers._sqlHelper.DoQuery(cmd, params);
 
     return true;
-
 }
 
 template<typename T>
