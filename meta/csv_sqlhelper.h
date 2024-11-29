@@ -43,10 +43,10 @@ public:
     //CSV_SQLHelper();
     // imports from file to SQL repo
     template<typename T>
-    void static Import(const QString& fn, SqlRepository<T>& repo, const QString& columnName)
+    void static Import(const QString& fn, SqlRepository<T>& repo, const QString& columnName, const QChar& separator)
     {
         CSVErrModel csverr(fn);
-        FileHelper::CSVModel csvModel = FileHelper::LoadCSV(fn, ',');
+        FileHelper::CSVModel csvModel = FileHelper::LoadCSV(fn, separator);
         csverr.setRecordsCount(csvModel.records.count());
 
         if(csvModel.error == FileHelper::Ok)

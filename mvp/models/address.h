@@ -28,6 +28,7 @@ public:
     bool isValid();
     static void MetaInit();
     static void SetMetaVerbose(bool v){ _meta.SetVerbose(v);}
+    static Address metaInstance(){return _meta._instance;}
 
     // SQL_Read
     static QString GetMetaFieldNames(){ return _meta.GetMetaFieldNames();}

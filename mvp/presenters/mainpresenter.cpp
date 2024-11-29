@@ -73,6 +73,10 @@ void MainPresenter::appendView(IMainView *w)
     QObject::connect(view_obj, SIGNAL(CountryImpot_ActionTriggered(IMainView *)),
                      this, SLOT(process_CountryImport_Action(IMainView *)));
 
+    //CSV_Import Megye
+    QObject::connect(view_obj, SIGNAL(CountyImpot_ActionTriggered(IMainView *)),
+                     this, SLOT(process_CountyImport_Action(IMainView *)));
+
     // CSV_Import Partner
     QObject::connect(view_obj, SIGNAL(PartnerImport_ActionTriggered(IMainView *)),
                      this, SLOT(process_PartnerImport_Action(IMainView *)));
@@ -261,7 +265,8 @@ void MainPresenter::process_CimImport_Action(IMainView *sender)
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
     MainViewModel::FileNameModel fn = sender->get_CSVFileName_Address();
-    Import_private(fn, _globals._repositories.address);
+    QString keyColumnName = FieldName(Address, excelId);
+    Import_private(fn, _globals._repositories.address, keyColumnName,';');
 
     Operations::instance().stop(opId);
 }
@@ -272,7 +277,8 @@ void MainPresenter::process_PartnerImport_Action(IMainView *sender)
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
     MainViewModel::FileNameModel fn = sender->get_CSVFileName_Partner();
-    Import_private(fn, _globals._repositories.partner);
+    QString keyColumnName = FieldName(Partner, excelId);
+    Import_private(fn, _globals._repositories.partner,keyColumnName,';');
 
     Operations::instance().stop(opId);
 }
@@ -282,7 +288,8 @@ void MainPresenter::process_TetelImport_Action(IMainView *sender)
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);    
 
     MainViewModel::FileNameModel fn = sender->get_CSVFileName_SoldItem();
-    Import_private(fn, _globals._repositories.solditem);
+    QString keyColumnName = FieldName(SoldItem, excelId);
+    Import_private(fn, _globals._repositories.solditem, keyColumnName,';');
 
     Operations::instance().stop(opId);
 }
@@ -293,7 +300,8 @@ void MainPresenter::process_CountyImport_Action(IMainView *sender)
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
     MainViewModel::FileNameModel fn = sender->get_CSVFileName_County();
-    Import_private(fn, _globals._repositories.county);
+    QString keyColumnName = FieldName(County, KSHCode);
+    Import_private(fn, _globals._repositories.county, keyColumnName,';');
 
     Operations::instance().stop(opId);
 }
@@ -304,7 +312,8 @@ void MainPresenter::process_CountryImport_Action(IMainView *sender)
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
     MainViewModel::FileNameModel fn = sender->get_CSVFileName_Country();
-    Import_private(fn, _globals._repositories.country, "countryCode");
+    QString keyColumnName = FieldName(Country, countryCode);
+    Import_private(fn, _globals._repositories.country, keyColumnName,',');
 
     Operations::instance().stop(opId);
 }
@@ -315,14 +324,17 @@ void MainPresenter::process_ArticleImport_Action(IMainView *sender)
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
     MainViewModel::FileNameModel fn = sender->get_CSVFileName_Article();
-    QString f = FieldName(Article, excelId);
-    Import_private(fn, _globals._repositories.article, "excelId");
+    QString keyColumnName = FieldName(Article, excelId);
+    Import_private(fn, _globals._repositories.article, keyColumnName,';');
 
     Operations::instance().stop(opId);
 }
 
 template<typename T>
-void MainPresenter::Import_private(const MainViewModel::FileNameModel& fn, SqlRepository<T>& repo, const QString& columnName)
+void MainPresenter::Import_private(const MainViewModel::FileNameModel& fn,
+                                   SqlRepository<T>& repo,
+                                   const QString& columnName,
+                                   const QChar& separator)
 {
     if(!fn.isCanceled)
     {
@@ -331,7 +343,7 @@ void MainPresenter::Import_private(const MainViewModel::FileNameModel& fn, SqlRe
 
         if(dbErr.isValid())
         {
-            CSV_SQLHelper::Import(fn.fileName, repo, columnName);
+            CSV_SQLHelper::Import(fn.fileName, repo, columnName, separator);
         }
         else
         {
