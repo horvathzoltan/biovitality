@@ -25,31 +25,7 @@ public:
     void appendView(IMainView *w);
     void initView(IMainView *w) const;
 
-    struct CSVErrModel{
-    private:
-        QString _fileName;
-        int _itemsCount;
-        int _recordsCount;
 
-        CSVErrModel(){};
-    public:
-
-        CSVErrModel(const QString& fn){
-            _fileName = fn;
-            _itemsCount= 0;
-            _recordsCount = 0;
-        }
-
-        void setRecordsCount(int v){ _recordsCount = v;}
-        void setItemsCount(int v){ _itemsCount = v;}
-
-        QString ToSting(){
-            return QStringLiteral("%1 (%2/%3)")
-                      .arg(_fileName)
-                      .arg(_itemsCount)
-                      .arg(_recordsCount);
-        }
-    };
 
 private:
     QList<IMainView*> _views;
@@ -59,12 +35,9 @@ private:
     void refreshView(IMainView *w) const;
     void Error(const QSqlError& err);
 
-
-
-    //void Error2(SQLHelper::DbErr err);
-
-    // template<typename T>
-    // static void InsertOrUpdate(SqlRepository<T>& repo, QList<T>& items);
+    // // imports from file to SQL repo
+    template<typename T>
+    void Import_private(const MainViewModel::FileNameModel& fn, SqlRepository<T>& repo, const QString& columnName);
 
 private slots:
     void processPushButtonAction(IMainView *sender);
@@ -80,6 +53,10 @@ private slots:
     void process_PartnerImport_Action(IMainView *sender);
     // CSV Import Ország
     void process_CountryImport_Action(IMainView *sender);
+    void process_CountyImport_Action(IMainView *sender);
+    // CSV Imort cikk
+    void process_ArticleImport_Action(IMainView *sender);
+
 };
 
 #endif // MAINPRESENTER_H

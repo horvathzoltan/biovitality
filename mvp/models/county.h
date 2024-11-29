@@ -15,6 +15,7 @@
 class County : I_Meta<County>
     , I_SQLRepo_Read<County>
     , I_SQLRepo_CreateUpdate<County>
+    , I_CSVImport<County>
 {
 public:
     County();
@@ -38,6 +39,12 @@ public:
 
     // SQL_CreateUpdate
     QList<SQLHelper::SQLParam> GetQueryParams()const { return _meta.ToMetaValues2(this);}
+
+    // CSV import
+    static QList<County> CSV_Import(const QList<QVarLengthArray<QString>>& records);
+    QVariant GetValue(const QString& name) const { return _meta.GetValue(this, name);}
+    static MetaField* GetMetaField(const QString& name) {return _meta.GetMetaField(name);}
+
 
 // DataForm
     IdMegnev ToIdMegnev() const {return _meta.ToIdMegnev(this); }

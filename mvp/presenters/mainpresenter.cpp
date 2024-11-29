@@ -28,6 +28,7 @@
 
 #include <repositories/sqlrepository.h>
 
+#include <meta/csv_sqlhelper.h>
 #include <meta/sqlmetahelper.h>
 
 
@@ -75,6 +76,9 @@ void MainPresenter::appendView(IMainView *w)
     // CSV_Import Partner
     QObject::connect(view_obj, SIGNAL(PartnerImport_ActionTriggered(IMainView *)),
                      this, SLOT(process_PartnerImport_Action(IMainView *)));
+
+    QObject::connect(view_obj, SIGNAL(ArticleImpot_ActionTriggered(IMainView *)),
+                     this, SLOT(process_ArticleImpot_Action(IMainView *)));
 
     //refreshView(w);
 }
@@ -256,43 +260,9 @@ void MainPresenter::process_CimImport_Action(IMainView *sender)
     zTrace();
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
-    SQLHelper::DbErr dbErr = _globals._helpers._sqlHelper.dbErr();
-    SqlRepository<Address>& repo =  _globals._repositories.address;
-    dbErr.isTableExists = repo.isTableExists();
+    MainViewModel::FileNameModel fn = sender->get_CSVFileName_Address();
+    Import_private(fn, _globals._repositories.address);
 
-    if(dbErr.isValid()){
-        MainViewModel::FileNameModel fn = sender->get_CimCSVFileName();        
-        if(!fn.isCanceled)
-        {
-            CSVErrModel csverr(fn.fileName);
-            FileHelper::CSVModel csvModel = FileHelper::LoadCSV(fn.fileName, ';');
-            csverr.setRecordsCount(csvModel.records.count());
-
-            if(csvModel.error == FileHelper::Ok)
-            {
-                zInfo("file ok");
-                QList<Address> items = Address::CSV_Import(csvModel.records);
-                csverr.setItemsCount(items.count());
-
-                zInfo("items loaded: "+csverr.ToSting());
-                //SqlMetaHelper::InsertOrUpdate_ByExcelId(repo, items);
-                SqlMetaHelper::InsertOrUpdate2(repo, items, "excelId");
-            }
-            else
-            {
-                zWarning("items load failed: "+csverr.ToSting());
-            }
-        }
-        else
-        {
-            zInfo("cancelled");
-        }
-    }
-    else
-    {
-        QString msg = dbErr.ToString();
-        zWarning(msg);
-    }
     Operations::instance().stop(opId);
 }
 
@@ -301,42 +271,9 @@ void MainPresenter::process_PartnerImport_Action(IMainView *sender)
     zTrace();
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
-    SQLHelper::DbErr dbErr = _globals._helpers._sqlHelper.dbErr();
-    SqlRepository<Partner>& repo = _globals._repositories.partner;
-    dbErr.isTableExists = repo.isTableExists();
+    MainViewModel::FileNameModel fn = sender->get_CSVFileName_Partner();
+    Import_private(fn, _globals._repositories.partner);
 
-    if(dbErr.isValid()){
-        MainViewModel::FileNameModel fn = sender->get_PartnerCSVFileName();
-        if(!fn.isCanceled)
-        {
-            CSVErrModel csverr(fn.fileName);
-            FileHelper::CSVModel csvModel = FileHelper::LoadCSV(fn.fileName, ';');
-            csverr.setRecordsCount(csvModel.records.count());
-
-            if(csvModel.error == FileHelper::Ok)
-            {
-                QList<Partner> items = Partner::CSV_Import(csvModel.records);
-                csverr.setItemsCount(items.count());
-
-                zInfo("items loaded: "+csverr.ToSting());
-                //SqlMetaHelper::InsertOrUpdate_ByExcelId(repo, items);
-                SqlMetaHelper::InsertOrUpdate2(repo, items, "excelId");
-            }
-            else
-            {
-                zWarning("items load failed: "+csverr.ToSting());
-            }
-        }
-        else
-        {
-            zInfo("cancelled");
-        }
-    }
-    else
-    {
-        QString msg = dbErr.ToString();
-        zWarning(msg);
-    }
     Operations::instance().stop(opId);
 }
 
@@ -344,90 +281,66 @@ void MainPresenter::process_TetelImport_Action(IMainView *sender)
 {
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);    
 
-    SQLHelper::DbErr err = _globals._helpers._sqlHelper.dbErr();
+    MainViewModel::FileNameModel fn = sender->get_CSVFileName_SoldItem();
+    Import_private(fn, _globals._repositories.solditem);
 
-    SqlRepository<SoldItem>& repo = _globals._repositories.solditem;
-    err.isTableExists = repo.isTableExists();
-
-    if(err.isValid()){
-        MainViewModel::FileNameModel fn = sender->get_TetelCSVFileName();
-        if(!fn.isCanceled)
-        {
-            CSVErrModel csverr(fn.fileName);
-            FileHelper::CSVModel csvModel = FileHelper::LoadCSV(fn.fileName, ';');
-            csverr.setRecordsCount(csvModel.records.count());
-
-            if(csvModel.error == FileHelper::Ok)
-            {
-                zInfo("file ok");
-                QList<SoldItem> items = SoldItem::CSV_Import(csvModel.records);
-                csverr.setItemsCount(items.count());
-
-                zInfo("items loaded: "+csverr.ToSting());
-                //SqlMetaHelper::InsertOrUpdate_ByExcelId(repo, items);
-                SqlMetaHelper::InsertOrUpdate2(repo, items, "excelId");
-            }
-            else
-            {
-                zWarning("items load failed: "+csverr.ToSting());
-            }
-        }
-        else
-        {
-            zInfo("cancelled");
-        }
-    }
-    else
-    {
-        zWarning("db is invalid");
-    }
     Operations::instance().stop(opId);
 }
 
-/*
-CountryImport
-*/
+void MainPresenter::process_CountyImport_Action(IMainView *sender)
+{
+    zTrace();
+    QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
+
+    MainViewModel::FileNameModel fn = sender->get_CSVFileName_County();
+    Import_private(fn, _globals._repositories.county);
+
+    Operations::instance().stop(opId);
+}
 
 void MainPresenter::process_CountryImport_Action(IMainView *sender)
 {
     zTrace();
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
-    SQLHelper::DbErr dbErr = _globals._helpers._sqlHelper.dbErr();
-    SqlRepository<Country>& repo =  _globals._repositories.country;        
-    dbErr.isTableExists = repo.isTableExists();
+    MainViewModel::FileNameModel fn = sender->get_CSVFileName_Country();
+    Import_private(fn, _globals._repositories.country, "countryCode");
 
-    if(dbErr.isValid()){
-        MainViewModel::FileNameModel fn = sender->get_CimCSVFileName();
-        if(!fn.isCanceled)
+    Operations::instance().stop(opId);
+}
+
+void MainPresenter::process_ArticleImport_Action(IMainView *sender)
+{
+    zTrace();
+    QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
+
+    MainViewModel::FileNameModel fn = sender->get_CSVFileName_Article();
+    QString f = FieldName(Article, excelId);
+    Import_private(fn, _globals._repositories.article, "excelId");
+
+    Operations::instance().stop(opId);
+}
+
+template<typename T>
+void MainPresenter::Import_private(const MainViewModel::FileNameModel& fn, SqlRepository<T>& repo, const QString& columnName)
+{
+    if(!fn.isCanceled)
+    {
+        SQLHelper::DbErr dbErr = _globals._helpers._sqlHelper.dbErr();
+        dbErr.isTableExists = repo.isTableExists();
+
+        if(dbErr.isValid())
         {
-            CSVErrModel csverr(fn.fileName);
-            FileHelper::CSVModel csvModel = FileHelper::LoadCSV(fn.fileName, ',');
-            csverr.setRecordsCount(csvModel.records.count());
-
-            if(csvModel.error == FileHelper::Ok)
-            {
-                zInfo("file ok");                                
-                QList<Country> items = Country::CSV_Import(csvModel.records);
-                csverr.setItemsCount(items.count());
-
-                zInfo("items loaded: "+csverr.ToSting());
-                SqlMetaHelper::InsertOrUpdate2(repo, items, "countryCode");
-            }
-            else
-            {
-                zWarning("items load failed: "+csverr.ToSting());
-            }
+            CSV_SQLHelper::Import(fn.fileName, repo, columnName);
         }
         else
         {
-            zInfo("cancelled");
+            QString msg = dbErr.ToString();
+            zWarning(msg);
         }
     }
     else
     {
-        QString msg = dbErr.ToString();
-        zWarning(msg);
+        zInfo("cancelled");
     }
-    Operations::instance().stop(opId);
 }

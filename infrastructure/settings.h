@@ -11,6 +11,9 @@ private:
     static const QString FilesIni_CimCSVFileName;
     static const QString FilesIni_TetelCSVFileName;
     static const QString FilesIni_PartnerCSVFileName;
+    static const QString FilesIni_CountryCSVFileName;
+    static const QString FilesIni_CountyCSVFileName;
+    static const QString FilesIni_ArticleCSVFileName;
 
 public:
     SQLHelper::SQLSettings _sql_settings;
@@ -19,14 +22,23 @@ public:
 
     Settings(const SQLHelper::SQLSettings&a);
 
-    static QString Get_CimCSVFileName();
-    static void Set_CimCSVFileName(const QString& v);
+    static QString Get_CSVFileName_Address();
+    static void Set_CSVFileName_Address(const QString& v);
 
-    static QString Get_PartnerCSVFileName();
-    static void Set_PartnerCSVFileName(const QString& v);
+    static QString Get_CSVFileName_Partner();
+    static void Set_CSVFileName_Partner(const QString& v);
 
-    static QString Get_TetelCSVFileName();
-    static void Set_TetelCSVFileName(const QString& v);
+    static QString Get_CSVFileName_SoldItem();
+    static void Set_CSVFileName_SoldItem(const QString& v);
+
+    static QString Get_CSVFileName_Country();
+    static void Set_CSVFileName_Country(const QString& v);
+
+    static QString Get_CSVFileName_County();
+    static void Set_CSVFileName_County(const QString& v);
+
+    static QString Get_CSVFileName_Article();
+    static void Set_CSVFileName_Article(const QString& v);
 
 private:
     static QString Get_FileName(const QString& key);

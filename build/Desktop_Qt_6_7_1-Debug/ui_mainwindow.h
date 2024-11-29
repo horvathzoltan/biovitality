@@ -43,6 +43,8 @@ public:
     QPushButton *pushButton_CountryImpot;
     QPushButton *pushButton_PartnerImport;
     QPushButton *pushButton_AddressImport;
+    QPushButton *pushButton_ArticleImport;
+    QPushButton *pushButton_CoutntyImport;
     QSpacerItem *verticalSpacer;
     QHBoxLayout *horizontalLayout_2;
     QPlainTextEdit *plainTextEdit_status;
@@ -123,6 +125,16 @@ public:
 
         horizontalLayout_4->addWidget(pushButton_AddressImport);
 
+        pushButton_ArticleImport = new QPushButton(groupBox_Import);
+        pushButton_ArticleImport->setObjectName("pushButton_ArticleImport");
+
+        horizontalLayout_4->addWidget(pushButton_ArticleImport);
+
+        pushButton_CoutntyImport = new QPushButton(groupBox_Import);
+        pushButton_CoutntyImport->setObjectName("pushButton_CoutntyImport");
+
+        horizontalLayout_4->addWidget(pushButton_CoutntyImport);
+
 
         verticalLayout->addWidget(groupBox_Import);
 
@@ -179,6 +191,8 @@ public:
         pushButton_CountryImpot->setText(QCoreApplication::translate("MainWindow", "Orsz\303\241g Import", nullptr));
         pushButton_PartnerImport->setText(QCoreApplication::translate("MainWindow", "Partner Import", nullptr));
         pushButton_AddressImport->setText(QCoreApplication::translate("MainWindow", "C\303\255m Import", nullptr));
+        pushButton_ArticleImport->setText(QCoreApplication::translate("MainWindow", "Cikk Import", nullptr));
+        pushButton_CoutntyImport->setText(QCoreApplication::translate("MainWindow", "Megye Import", nullptr));
         pushButton_ToClipBoard->setText(QCoreApplication::translate("MainWindow", "ToClipBoard", nullptr));
         pushButton_ToLogFile->setText(QCoreApplication::translate("MainWindow", "ToLogFile", nullptr));
     } // retranslateUi

@@ -122,6 +122,20 @@
          </property>
         </widget>
        </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_ArticleImport">
+         <property name="text">
+          <string>Cikk Import</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_CoutntyImport">
+         <property name="text">
+          <string>Megye Import</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
     </item>
