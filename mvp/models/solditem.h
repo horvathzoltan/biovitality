@@ -15,7 +15,10 @@
 // };
 
 
-class SoldItem : I_Meta<SoldItem>, I_SQLRepo_Read<SoldItem>, I_CSVImport<SoldItem>
+class SoldItem : I_Meta<SoldItem>
+    , I_SQLRepo_Read<SoldItem>
+    , I_SQLRepo_CreateUpdate<SoldItem>
+    , I_CSVImport<SoldItem>
 {
 public:
     SoldItem();
@@ -42,33 +45,22 @@ public:
     static void MetaInit();
     static void SetMetaVerbose(bool v){ _meta.SetVerbose(v);}
 
-    // sqlrepo
-    // /home/zoli/source/repos/biovitality/globals.h
-    // Repositories() ... ,sr("SoldItem") ... {}
-    // SqlRepository<SoldItem> sr;
-    //
-    // static void MetaInit(){ ...
-    // SoldItem::MetaInit();
-    //
-    // home/zoli/source/repos/biovitality/bi/repositories/sqlrepository.cpp
-    // template class SqlRepository<SoldItem>;
+// SQL_Read
+    static QString GetMetaFieldNames(){ return _meta.GetMetaFieldNames();}
+    static SoldItem FromMetaValues(const QList<MetaValue> &v){return _meta.FromMetaValues(v);}
 
-    QVariant GetValue(const QString& name) const { return _meta.GetValue(this, name);}
-    static MetaField* GetMetaField(const QString& name) {return _meta.GetMetaField(name);}
-    static QString GetMetaFieldList(){ return _meta.GetMetaFieldNames();}
+// SQL_Create,Update
     QList<SQLHelper::SQLParam> GetQueryParams()const { return _meta.ToMetaValues2(this);}
 
+    // CSV import
+    static QList<SoldItem> CSV_Import(const QList<QVarLengthArray<QString>>& records);
+    QVariant GetValue(const QString& name) const { return _meta.GetValue(this, name);}
+    static MetaField* GetMetaField(const QString& name) {return _meta.GetMetaField(name);}
+
+//UI
     QList<MetaValue> GetMetaValues()const { return _meta.ToMetaValues(this);}
 
-    QString GetBaseTypeName() {return _meta.GetBaseTypeName();}
-
-
-public:
-// CSV import
-    static QList<SoldItem> CSV_Import(const QList<QVarLengthArray<QString>>& records);
-// SQL_Repo
-    static SoldItem FromMetaValues(const QList<MetaValue> &v){return _meta.FromMetaValues(v);}
-public:
+    //QString GetBaseTypeName() {return _meta.GetBaseTypeName();}
 
     //static PriceModel GetPrice(const QVariant& v);
     static qreal GetPrice2(const QVariant& v, const QLocale& locale);

@@ -40,7 +40,6 @@ public:
     // SQL_Create,Update
     QList<SQLHelper::SQLParam> GetQueryParams()const  { return _meta.ToMetaValues2(this);}
 
-
     // CSV import
     static QList<Country> CSV_Import(const QList<QVarLengthArray<QString>>& records);
     QVariant GetValue(const QString& name) const { return _meta.GetValue(this, name);}

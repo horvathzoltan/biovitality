@@ -53,20 +53,12 @@ public:
     }
 };
 
-//template class SqlERepository<SoldItem>;
+
 template class SqlRepository<SoldItem>;
-
 template class SqlRepository<County>;
-
-//template class SqlERepository<Article>;
 template class SqlRepository<Article>;
-
-//template class SqlERepository<Address>;
 template class SqlRepository<Address>;
-
-//template class SqlERepository<Partner>;
 template class SqlRepository<Partner>;
-
 template class SqlRepository<Country>;
 
 class Globals

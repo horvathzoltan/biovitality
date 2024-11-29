@@ -13,7 +13,7 @@ public:
     {
         //Meta<T> *_meta_Check = &T::_meta;
 
-        [[maybe_unused]] void (*SetMetaVerbose_Check)() = &T::SetMetaVerbose;
+        [[maybe_unused]] void (*SetMetaVerbose_Check)(bool v) = &T::SetMetaVerbose;
         [[maybe_unused]] void (*MetaInit_Check)() = &T::MetaInit;
         [[maybe_unused]] bool (T::*isValid_Check)() = &T::isValid;
     }
@@ -28,7 +28,7 @@ public:
     void __attribute__((used)) Check_I_SQLRepo()
     {
         //Read
-        [[maybe_unused]] QString (*GetMetaFieldNames_Check)(const QList<MetaValue> &v) = &T::GetMetaFieldNames;
+        [[maybe_unused]] QString (*GetMetaFieldNames_Check)() = &T::GetMetaFieldNames;
         [[maybe_unused]] T (*FromMetaValues_Check)(const QList<MetaValue> &v) = &T::FromMetaValues;
     }
 };
@@ -56,9 +56,11 @@ private:
     {
         [[maybe_unused]] QVariant (T::*GetValue_Check)(const QString& name) const = &T::GetValue;
         [[maybe_unused]] MetaField* (*GetMetaField_Check)(const QString& name) = &T::GetMetaField;
+        //Read
         [[maybe_unused]] QString (*GetMetaFieldNames_Check)() = &T::GetMetaFieldNames;
         //CreateUpdate
         [[maybe_unused]] QList<SQLHelper::SQLParam> (T::*GetQueryParams_Check)()const = &T::GetQueryParams;
+        //CSV
         [[maybe_unused]] QList<T> (*CSV_Import_Check)(const QList<QVarLengthArray<QString>>& records) = &T::CSV_Import;
     }
 };

@@ -1,14 +1,18 @@
 
-                            K   M  SQL  csv form   státusz
-address:    gyűjtőtábla,    -   +   +   +   -
-article:    kódtábla,       +   +   +   +   -       ok...
-country:    kódtábla,       -   +   +   +   -       ok
-county:     kódtábla,       +   +   +   -   -       ok
-partner:    gyűjtőtábla     -   +   +   +   -
-solditem:   adattábla       -   +   +   +   +
+                            M   SQL csv UI  státusz
+cím     address:    GYT,    +   RCU In  +   ok
+cikk    article:    KT,     +   RCU In -   ok...
+ország  country:    KT,     +   RCU In  -   ok
+megye   county:     KT,     +   R   -   +   ok
+partner partner:    GYT,    +   RCU In  -
+tétel   solditem:   T,      +   RCU In  +
 
-
+M: Meta
 K: kézi bevitel az adatbázisba
+
+KT: kódtábla
+GYT: gyűjtőtábla
+T: adattábla
 
 SQL_Read (Get,GetAll)
 GetMetaFieldList, listázza a mezőket

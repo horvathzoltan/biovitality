@@ -1,5 +1,7 @@
 #include "article.h"
 
+#include <meta/csvhelper.h>
+
 Meta<Article> Article::_meta;
 
 Article::Article() {}
@@ -17,8 +19,8 @@ void Article::MetaInit()
     AddMetaField(Barcode); //code
     AddMetaField(excelId); //excelId
 
+    // 1+2+3
     _meta.MetaIdMegnevIndex(0,{1},2);
-    //AddMetaIdMegnevIndex(id, name, KSH_code);
 }
 
 bool Article::isValid()
@@ -27,6 +29,38 @@ bool Article::isValid()
     if(Name.isEmpty()) return false;
     return true;
 }
+
+QList<Article> Article::CSV_Import(const QList<QVarLengthArray<QString>>& records)
+{
+    QList<Article> m;
+
+    int L = records.length();
+
+    CSVHelper::RowToField ixln;
+    ixln.AddRowToField(Name, "Termék megnevezése");
+    ixln.AddRowToField(Barcode, "Vonalkód");
+    ixln.AddRowToField(excelId, "ID");
+
+    QMap<QString,int> ixs = ixln.Get_RowIndexes(records[0]);
+
+    for(int i = 1;i<L;i++){
+        QVarLengthArray<QString> row = records[i];
+
+        QList<MetaValue> metaValues = CSVHelper::CSV_RowToMetaValues(row, ixs);
+        Article item = Article::FromMetaValues(metaValues);
+        item.id = 0;
+
+        bool valid = item.isValid();
+        if(valid){
+            m.append(item);
+        } else{
+            zInfo("invalid row:"+QString::number(i+1)+" row:"+QString::number(i));
+        }
+    }
+
+    return m;
+}
+
 
 // DataRowDefaultModel Article::To_DataRowDefaultModel(const QList<Article>& data)
 // {
