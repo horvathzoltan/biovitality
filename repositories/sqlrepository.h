@@ -1,8 +1,6 @@
 #ifndef SQLREPOSITORY_H
 #define SQLREPOSITORY_H
 
-#include "sqlexcelrepository.h"
-
 #include <QSqlField>
 #include <QString>
 

@@ -16,9 +16,13 @@ private:
     Ui::MainWindow *ui;
     void set_DoWorkRModel(const MainViewModel::StringModel& m) override;
     MainViewModel::DoWorkModel get_DoWorkModel() override;
-    MainViewModel::FileNameModel get_TetelCSVFileName() override;
-    MainViewModel::FileNameModel get_CimCSVFileName() override;
-    MainViewModel::FileNameModel get_PartnerCSVFileName() override;
+    MainViewModel::FileNameModel get_CSVFileName_SoldItem() override;
+    MainViewModel::FileNameModel get_CSVFileName_Address() override;
+    MainViewModel::FileNameModel get_CSVFileName_Partner() override;
+    MainViewModel::FileNameModel get_CSVFileName_Country() override;
+    MainViewModel::FileNameModel get_CSVFileName_County() override;
+    MainViewModel::FileNameModel get_CSVFileName_Article() override;
+
     MainViewModel::FileNameModel get_CSVFileName_private(const QString& fileName);
     void set_StatusLine(const MainViewModel::StringModel &m) override;
     MainViewModel::StringModel get_StatusLine() override;
@@ -26,6 +30,10 @@ private:
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
+    template<typename T>
+    QString get_CSVFileName();
+
 signals:
     void PushButtonActionTriggered(IMainView *sender) override;
     //add
@@ -35,6 +43,9 @@ signals:
     void CimImport_ActionTriggered(IMainView *sender) override;
     void PartnerImport_ActionTriggered(IMainView *sender) override;
     void CountryImpot_ActionTriggered(IMainView *sender) override;
+    void ArticleImpot_ActionTriggered(IMainView *sender) override;
+    void CountyImpot_ActionTriggered(IMainView *sender) override;
+
     //test
     void DBTestActionTriggered(IMainView *sender);
     //log
@@ -55,5 +66,7 @@ private slots:
     void on_pushButton_ToLogFile_clicked();
 
     void on_pushButton_CountryImpot_clicked();
+    void on_pushButton_ArticleImport_clicked();
+    void on_pushButton_CoutntyImport_clicked();
 };
 #endif // MAINWINDOW_H

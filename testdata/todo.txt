@@ -3,7 +3,7 @@
 cím     address:    GYT,    +   RCU In  +   ok
 cikk    article:    KT,     +   RCU In -   ok...
 ország  country:    KT,     +   RCU In  -   ok
-megye   county:     KT,     +   R   -   +   ok
+megye   county:     KT,     +   R   In   +   ok
 partner partner:    GYT,    +   RCU In  -
 tétel   solditem:   T,      +   RCU In  +
 

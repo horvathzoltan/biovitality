@@ -25,7 +25,7 @@ class I_SQLRepo_Read
 public:
     I_SQLRepo_Read(){}
 public:
-    void __attribute__((used)) Check_I_SQLRepo()
+    void __attribute__((used)) Check_I_SQLRepoRead()
     {
         //Read
         [[maybe_unused]] QString (*GetMetaFieldNames_Check)() = &T::GetMetaFieldNames;
@@ -38,7 +38,7 @@ class I_SQLRepo_CreateUpdate
 public:
     I_SQLRepo_CreateUpdate(){}
 public:
-    void __attribute__((used)) Check_I_SQLRepo()
+    void __attribute__((used)) Check_I_SQLRepoCreateUpdate()
     {
         //Update
         [[maybe_unused]] QList<SQLHelper::SQLParam> (T::*GetQueryParams_Check1)() const = &T::GetQueryParams;

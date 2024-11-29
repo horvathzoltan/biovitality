@@ -36,29 +36,59 @@ auto MainWindow::get_DoWorkModel() -> MainViewModel::DoWorkModel
     return {i};
 }
 
-MainViewModel::FileNameModel MainWindow::get_TetelCSVFileName()
+MainViewModel::FileNameModel MainWindow::get_CSVFileName_SoldItem()
 {
-    QString fileName = Settings::Get_TetelCSVFileName();
+    QString fileName = Settings::Get_CSVFileName_SoldItem();
     MainViewModel::FileNameModel r = get_CSVFileName_private(fileName);    
-    if(r.IsValid()) Settings::Set_TetelCSVFileName(r.fileName);
+    if(r.IsValid()) Settings::Set_CSVFileName_SoldItem(r.fileName);
     return r;
 };
 
-MainViewModel::FileNameModel MainWindow::get_CimCSVFileName()
+MainViewModel::FileNameModel MainWindow::get_CSVFileName_Address()
 {
-    QString fileName = Settings::Get_CimCSVFileName();
+    QString fileName = Settings::Get_CSVFileName_Address();
     MainViewModel::FileNameModel r = get_CSVFileName_private(fileName);
-    if(r.IsValid()) Settings::Set_CimCSVFileName(r.fileName);
+    if(r.IsValid()) Settings::Set_CSVFileName_Address(r.fileName);
     return r;
 };
 
-MainViewModel::FileNameModel MainWindow::get_PartnerCSVFileName()
+MainViewModel::FileNameModel MainWindow::get_CSVFileName_Partner()
 {
-    QString fileName = Settings::Get_PartnerCSVFileName();
+    QString fileName = Settings::Get_CSVFileName_Partner();
     MainViewModel::FileNameModel r = get_CSVFileName_private(fileName);
-    if(r.IsValid()) Settings::Set_PartnerCSVFileName(r.fileName);
+    if(r.IsValid()) Settings::Set_CSVFileName_Partner(r.fileName);
     return r;
 };
+
+MainViewModel::FileNameModel MainWindow::get_CSVFileName_Country()
+{
+    QString fileName = Settings::Get_CSVFileName_Country();
+    MainViewModel::FileNameModel r = get_CSVFileName_private(fileName);
+    if(r.IsValid()) Settings::Set_CSVFileName_Country(r.fileName);
+    return r;
+};
+
+MainViewModel::FileNameModel MainWindow::get_CSVFileName_County()
+{
+    QString fileName = Settings::Get_CSVFileName_County();
+    MainViewModel::FileNameModel r = get_CSVFileName_private(fileName);
+    if(r.IsValid()) Settings::Set_CSVFileName_County(r.fileName);
+    return r;
+};
+
+MainViewModel::FileNameModel MainWindow::get_CSVFileName_Article()
+{
+    QString fileName = Settings::Get_CSVFileName_Article();
+    MainViewModel::FileNameModel r = get_CSVFileName_private(fileName);
+    if(r.IsValid()) Settings::Set_CSVFileName_Article(r.fileName);
+    return r;
+};
+// template<typename T>
+// QString MainWindow::get_CSVFileName()
+// {
+//     QString fileName = Settings::Get_PartnerCSVFileName();
+//     return fileName;
+// };
 
 MainViewModel::FileNameModel MainWindow::get_CSVFileName_private(const QString& fileName){
     MainViewModel::FileNameModel r;
@@ -146,6 +176,18 @@ void MainWindow::on_pushButton_CountryImpot_clicked()
     emit CountryImpot_ActionTriggered(this);
 }
 
+void MainWindow::on_pushButton_ArticleImport_clicked()
+{
+    zTrace();
+    emit ArticleImpot_ActionTriggered(this);
+}
+
+void MainWindow::on_pushButton_CoutntyImport_clicked()
+{
+    zTrace();
+    emit CountyImpot_ActionTriggered(this);
+}
+
 //test
 void MainWindow::on_pushButton_dbtest_clicked()
 {
@@ -167,6 +209,8 @@ void MainWindow::on_pushButton_ToLogFile_clicked()
     zTrace();
     emit ToLogFile_ActionTriggered(this);
 }
+
+
 
 
 

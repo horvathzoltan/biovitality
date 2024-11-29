@@ -19,6 +19,8 @@ QList<MetaValue> SqlMetaHelper::RecordToMetaValues(const QSqlRecord& r)
     return m;
 }
 
+
+
 // template<typename T>
 // void SqlMetaHelper::InsertOrUpdate(SqlRepository<T>& repo, QList<T>& items)
 // {

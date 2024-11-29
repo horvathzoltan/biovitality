@@ -1,5 +1,7 @@
 #include "county.h"
 
+#include <meta/csvhelper.h>
+
 Meta<County> County::_meta;
 // QList<County> County::_data = {
 //     {5,"Budapest","01"},
@@ -64,3 +66,34 @@ County::County(int i, const QString &n, const QString &k)
     id = i; countyName = n; KSHCode = k;
 }
 
+QList<County> County::CSV_Import(const QList<QVarLengthArray<QString>>& records)
+{
+    QList<County> m;
+
+    int L = records.length();
+
+    CSVHelper::RowToField ixln;
+    ixln.AddRowToField(countyName, "name");
+    ixln.AddRowToField(KSHCode, "KSHkód");
+
+    QMap<QString,int> ixs = ixln.Get_RowIndexes(records[0]);
+
+    for(int i = 1;i<L;i++){
+        QVarLengthArray<QString> row = records[i];
+
+        QList<MetaValue> metaValues = CSVHelper::CSV_RowToMetaValues(row, ixs);
+        County item = County::FromMetaValues(metaValues);
+        item.id = 0;
+
+        bool valid = item.isValid();
+        if(valid){
+            m.append(item);
+        } else{
+            zInfo("invalid row:"+QString::number(i+1)+" row:"+QString::number(i));
+        }
+    }
+
+    return m;
+
+    return m;
+}

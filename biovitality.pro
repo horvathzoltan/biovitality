@@ -14,6 +14,7 @@ message( "TARGET = "$$TARGET )
 
 SOURCES += \
     #actions.cpp \
+    meta/csv_sqlhelper.cpp \
     meta/csvhelper.cpp \
     meta/sqlmetahelper.cpp \
     mvp/models/address.cpp \
@@ -25,7 +26,6 @@ SOURCES += \
     mvp/models/invoiceitems.cpp \
     mvp/models/partner.cpp \
     mvp/models/solditem.cpp \
-    repositories/sqlexcelrepository.cpp \
     repositories/sqlrepository.cpp \
     infrastructure/buildnumber.cpp \
     mvp/views/dataform.cpp \
@@ -54,6 +54,7 @@ SOURCES += \
 HEADERS += \
     #actions.h \
     helpers/nameof.h \
+    meta/csv_sqlhelper.h \
     mvp/models/country.h \
     mvp/models/invoicehead.h \
     mvp/models/invoiceitem.h \
@@ -69,7 +70,6 @@ HEADERS += \
     mvp/models/article.h \
     mvp/models/county.h \
     mvp/models/solditem.h \
-    repositories/sqlexcelrepository.h \
     repositories/sqlrepository.h \
     infrastructure/buildnumber.h \
     mvp/views/dataform.h \
