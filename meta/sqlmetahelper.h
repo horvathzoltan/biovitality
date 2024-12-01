@@ -60,6 +60,10 @@ public:
             zInfo("no items to import");
             return;
         }
+        if(columnName.isEmpty()){
+            zInfo("no columnName to import");
+            return;
+        }
 
         int i_all=0, u_all=0;
         int i_ok=0, u_ok=0;
@@ -69,15 +73,18 @@ public:
             QVariant columnValue = i.GetValue(columnName);
             //if(!columnMetaValue.isValid()) continue;
 
-            bool contains = repo.Contains_ByColumn(columnName, columnValue);
-            if(contains){             
+            zInfo("item: "+ columnName+" = "+columnValue.toString());
+
+            bool contains = repo.Contains_ByColumn(columnName, columnValue);            
+            if(contains){
+                zInfo("record update");
                 QList<int> ids =  repo.GetIds_ByColumn(columnName, columnValue); // meg kell szerezni az id-t
                 int count = ids.count();
                 if(count == 1)
-                {
+                {                    
                     i.id = ids.first();
                     u_all++;
-                    bool ok =  repo.Update(i);
+                    bool ok = repo.Update(i);
                     if(ok) u_ok++;
                     zInfo(QStringLiteral("record update:") +(ok?"ok":"failed"));
                 } else if(count == 0){
@@ -86,6 +93,7 @@ public:
                     zInfo("record is not unique:"+columnName+"="+columnValue.toString());
                 }
             } else{
+                zInfo("record insert");
                 i_all++;
                 bool ok =  repo.Add(i);
                 if(ok) i_ok++;

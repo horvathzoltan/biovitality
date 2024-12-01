@@ -54,10 +54,10 @@ bool RepositoryBase::Contains(int id)
     QString cmd = CONTAINS_CMD.arg(tableName()).arg(id);
     zInfo("cmd:"+cmd);
     //QSqlQuery q = _sqlHelper.GetQuery(cmd);
-    QList<QSqlRecord> records = _globals._helpers._sqlHelper.DoQuery(cmd);
+    SQLHelper::DoQueryRModel rm = _globals._helpers._sqlHelper.DoQuery(cmd);
 
-    if(!records.isEmpty()){
-        QVariant a = records.first().value("_exists");
+    if(rm.hasRecords()){
+        QVariant a = rm.records.first().value("_exists");
         exists = a.toBool();
     }
 
@@ -71,11 +71,11 @@ T SqlRepository<T>::Get(int id)
 
     QString cmd=GET_CMD.arg(fieldNames).arg(tableName()).arg(id);
     zInfo("cmd:"+cmd);
-    QList<QSqlRecord> records = _globals._helpers._sqlHelper.DoQuery(cmd);
+    SQLHelper::DoQueryRModel rm = _globals._helpers._sqlHelper.DoQuery(cmd);
 
-    if(!records.isEmpty())
+    if(rm.hasRecords())
     {
-        QSqlRecord r = records.first();
+        QSqlRecord r = rm.records.first();
         QList<MetaValue> m = SqlMetaHelper::RecordToMetaValues(r);
         T s = T::FromMetaValues(m);
         if(s.isValid())
@@ -95,12 +95,12 @@ QList<T> SqlRepository<T>::GetAll()
     QString cmd=GETALL_CMD.arg(tableName()).arg(fieldNames);
     zInfo("cmd:"+cmd);
     //QSqlQuery q = _sqlHelper.GetQuery(cmd);
-    QList<QSqlRecord> records = _globals._helpers._sqlHelper.DoQuery(cmd);
+    SQLHelper::DoQueryRModel rm = _globals._helpers._sqlHelper.DoQuery(cmd);
 
     QList<T> items;
-    if(!records.isEmpty())
+    if(rm.hasRecords())
     {
-        for(auto&r:records)
+        for(auto&r:rm.records)
         {
             QList<MetaValue> m = SqlMetaHelper::RecordToMetaValues(r);
             T s = T::FromMetaValues(m);
@@ -121,9 +121,15 @@ bool SqlRepository<T>::Update(const T &m)
     QString fieldList=SQLHelper::GetFieldNames_UPDATE(params);
     QString cmd=UPDATE_CMD.arg(tableName()).arg(fieldList);
     zInfo("cmd:"+cmd);
-    QList<QSqlRecord> records = _globals._helpers._sqlHelper.DoQuery(cmd, params);
+    SQLHelper::DoQueryRModel rm = _globals._helpers._sqlHelper.DoQuery(cmd, params);
 
-    return true;
+    if(!rm.isOk){
+        QString msg = rm.ToString();
+        zWarning(msg);
+    }
+
+    zInfo("records updated:"+QString::number(rm.recordCount()));
+    return rm.isOk;
 }
 
 template<class T>
@@ -134,9 +140,15 @@ bool SqlRepository<T>::Add(const T &m){
 
     QString cmd=INSERT_CMD.arg(tableName()).arg(fieldList).arg(paramList);
     zInfo("cmd:"+cmd);
-    QList<QSqlRecord> records = _globals._helpers._sqlHelper.DoQuery(cmd, params);
+    SQLHelper::DoQueryRModel rm = _globals._helpers._sqlHelper.DoQuery(cmd, params);
 
-    return true;
+    if(!rm.isOk){
+        QString msg = rm.ToString();
+        zWarning(msg);
+    }
+
+    zInfo("records inserted:"+QString::number(rm.recordCount()));
+    return rm.isOk;
 }
 
 template<typename T>
@@ -148,13 +160,13 @@ bool SqlRepository<T>::isTableExists()
     //QString cmd="sys.table_exists('biovitality', 'Article', @table_type);";
     //QString cmd1="SELECT @table_type;";
     //zInfo("cmd:"+cmd);
-    QList<QSqlRecord> records = _globals._helpers._sqlHelper.Call(cmd);
+    SQLHelper::DoQueryRModel rm = _globals._helpers._sqlHelper.Call(cmd);
     //QList<QSqlRecord> records1 = _globals._helpers._sqlHelper.DoQuery(cmd1, {});
 
     bool isTable = false;
-    if(!records.isEmpty())
+    if(rm.hasRecords())
     {
-        auto r = records.first();
+        auto r = rm.records.first();
         auto table_type = r.value(0).toString();
         //zInfo("table_type:"+table_type); //'BASE TABLE', 'VIEW', 'TEMPORARY'
         isTable = table_type == "BASE TABLE";
@@ -221,9 +233,10 @@ bool SqlRepository<T>::Contains_ByColumn(const QString& fieldName, const QVarian
     bool exists = false;
     QString cmd = CONTAINS_BY_COLUMN_CMD.arg(tableName()).arg(fieldName).arg(fieldValue.toString());
     zInfo("cmd:"+cmd);
-    QList<QSqlRecord> records = _globals._helpers._sqlHelper.DoQuery(cmd);
-    if(!records.isEmpty()){
-        QVariant a = records.first().value("_exists");
+    SQLHelper::DoQueryRModel rm = _globals._helpers._sqlHelper.DoQuery(cmd);
+
+    if(rm.hasRecords()){
+        QVariant a = rm.records.first().value("_exists");
         exists = a.toBool();
     } else{
         bool isDbValid = _globals._helpers._sqlHelper.dbIsValid();
@@ -242,11 +255,11 @@ QList<int> SqlRepository<T>::GetIds_ByColumn(const QString& fieldName, const QVa
 
     QString cmd = GET_ID_BY_COLUMN_CMD.arg(tableName()).arg(fieldName).arg(fieldValue.toString());
     zInfo("cmd:"+cmd);
-    QList<QSqlRecord> records = _globals._helpers._sqlHelper.DoQuery(cmd);
+    SQLHelper::DoQueryRModel rm = _globals._helpers._sqlHelper.DoQuery(cmd);
 
-    if(!records.isEmpty())
+    if(rm.hasRecords())
     {
-        for(auto&record:records)
+        for(auto&record:rm.records)
         {
             QVariant a = record.value("id");
             bool ok;

@@ -32,11 +32,23 @@ void LogPresenter::Log(const QString& str){
 
     if(!_logView) return;
 
-    QString msg = ColorizeLog(str);
-    _logView->set_StatusLine({msg});
+    QString logColor = GetLogColor(str);
+    int ix = str.indexOf(':');
+    QString keyword = (ix>-1)?str.left(ix):"";
+    QStringList strs = str.split("\n", Qt::SkipEmptyParts);
+
+    for(auto&a:strs){
+        if(a.isEmpty()) continue;
+        if(!a.startsWith(keyword)){
+            a=keyword+": "+a;
+        }
+        QString msg = ColorizeLog2(a, logColor);
+        _logView->set_StatusLine({msg});
+    }
 }
 
 QString LogPresenter::ColorizeLog2(const QString& str, const QString& c){
+    if(c.isEmpty()) return str;
     return QStringLiteral("<p style='color: ")+c+"'>"+str+"</p>";
 }
 
@@ -47,6 +59,15 @@ QString LogPresenter::ColorizeLog(const QString& str){
     if(str.startsWith("TRACE:")) return ColorizeLog2(str, "green");
     return str;
 }
+
+QString LogPresenter::GetLogColor(const QString& str){
+    if(str.startsWith("ERROR:")) return "red";
+    if(str.startsWith("WARNING:")) return "orange";
+    if(str.startsWith("DEBUG:")) return "yellow";
+    if(str.startsWith("TRACE:")) return "green";
+    return "";
+}
+
 
 void LogPresenter::processToClipBoard_Action(IMainView *sender)
 {

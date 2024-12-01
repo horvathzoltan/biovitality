@@ -57,32 +57,33 @@ void MainPresenter::appendView(IMainView *w)
     QObject::connect(view_obj, SIGNAL(DBTestActionTriggered(IMainView *)),
                      this, SLOT(processDBTestAction(IMainView *)));
 
-    // Add tetel
+    // UI Form Add tetel
     QObject::connect(view_obj, SIGNAL(Add_SoldItem_ActionTriggered(IMainView *)),
                      this, SLOT(process_Add_SoldItemAction(IMainView *)));
 
-    // CSV_Imoort tetel
+    // CSV_Import SoldItem - Tetel
     QObject::connect(view_obj, SIGNAL(TetelImport_ActionTriggered(IMainView *)),
                      this, SLOT(process_TetelImport_Action(IMainView *)));
 
-    // CSV_Import Cím
+    // CSV_Import Address - Cím
     QObject::connect(view_obj, SIGNAL(CimImport_ActionTriggered(IMainView *)),
                      this, SLOT(process_CimImport_Action(IMainView *)));
 
-    //CSV_Import Ország
-    QObject::connect(view_obj, SIGNAL(CountryImpot_ActionTriggered(IMainView *)),
+    //CSV_Import Country - Ország
+    QObject::connect(view_obj, SIGNAL(CountryImport_ActionTriggered(IMainView *)),
                      this, SLOT(process_CountryImport_Action(IMainView *)));
 
-    //CSV_Import Megye
-    QObject::connect(view_obj, SIGNAL(CountyImpot_ActionTriggered(IMainView *)),
+    //CSV_Import County - Megye
+    QObject::connect(view_obj, SIGNAL(CountyImport_ActionTriggered(IMainView *)),
                      this, SLOT(process_CountyImport_Action(IMainView *)));
 
     // CSV_Import Partner
     QObject::connect(view_obj, SIGNAL(PartnerImport_ActionTriggered(IMainView *)),
                      this, SLOT(process_PartnerImport_Action(IMainView *)));
 
-    QObject::connect(view_obj, SIGNAL(ArticleImpot_ActionTriggered(IMainView *)),
-                     this, SLOT(process_ArticleImpot_Action(IMainView *)));
+    // CSV_Import Article - cikk
+    QObject::connect(view_obj, SIGNAL(ArticleImport_ActionTriggered(IMainView *)),
+                     this, SLOT(process_ArticleImport_Action(IMainView *)));
 
     //refreshView(w);
 }
@@ -128,6 +129,7 @@ void MainPresenter::processPushButtonAction(IMainView *sender){
 
 void MainPresenter::processDBTestAction(IMainView *sender)
 {
+    zTrace();
     QLocale hu(QLocale::Hungarian);
 
     zInfo("hu:"+hu.dateFormat());
@@ -285,6 +287,7 @@ void MainPresenter::process_PartnerImport_Action(IMainView *sender)
 
 void MainPresenter::process_TetelImport_Action(IMainView *sender)
 {
+    zTrace();
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);    
 
     MainViewModel::FileNameModel fn = sender->get_CSVFileName_SoldItem();
@@ -338,8 +341,13 @@ void MainPresenter::Import_private(const MainViewModel::FileNameModel& fn,
 {
     if(!fn.isCanceled)
     {
+        // ha a dbnek nincs baja
         SQLHelper::DbErr dbErr = _globals._helpers._sqlHelper.dbErr();
-        dbErr.isTableExists = repo.isTableExists();
+
+        if(!repo.isTableExists())
+        {
+            dbErr.AddError_TableNotExists(repo.tableName());
+        }
 
         if(dbErr.isValid())
         {

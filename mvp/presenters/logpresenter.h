@@ -20,6 +20,7 @@ private:
     //QList<IMainView*> _views;
 
     static QString ColorizeLog(const QString &str);
+    static QString GetLogColor(const QString &str);
     static QString ColorizeLog2(const QString &str, const QString &c);
 
 private slots:
