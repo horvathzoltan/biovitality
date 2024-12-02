@@ -173,19 +173,19 @@ void MainWindow::on_pushButton_PartnerImport_clicked()
 void MainWindow::on_pushButton_CountryImpot_clicked()
 {
     zTrace();
-    emit CountryImpot_ActionTriggered(this);
+    emit CountryImport_ActionTriggered(this);
 }
 
 void MainWindow::on_pushButton_ArticleImport_clicked()
 {
     zTrace();
-    emit ArticleImpot_ActionTriggered(this);
+    emit ArticleImport_ActionTriggered(this);
 }
 
 void MainWindow::on_pushButton_CoutntyImport_clicked()
 {
     zTrace();
-    emit CountyImpot_ActionTriggered(this);
+    emit CountyImport_ActionTriggered(this);
 }
 
 //test

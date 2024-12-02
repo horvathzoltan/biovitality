@@ -1,9 +1,9 @@
 
                             M   SQL csv UI  státusz
-cím     address:    GYT,    +   RCU In  +   ok
-cikk    article:    KT,     +   RCU In -   ok...
+cím     address:    GYT,    +   RCU In  +
+cikk    article:    KT,     +   RCU In  +   ...
 ország  country:    KT,     +   RCU In  -   ok
-megye   county:     KT,     +   R   In   +   ok
+megye   county:     KT,     +   RCU In  +   ok
 partner partner:    GYT,    +   RCU In  -
 tétel   solditem:   T,      +   RCU In  +
 

@@ -37,7 +37,10 @@ private:
 
     // // imports from file to SQL repo
     template<typename T>
-    void Import_private(const MainViewModel::FileNameModel& fn, SqlRepository<T>& repo, const QString& columnName);
+    void Import_private(const MainViewModel::FileNameModel& fn,
+                        SqlRepository<T>& repo,
+                        const QString& columnName,
+                        const QChar& separator);
 
 private slots:
     void processPushButtonAction(IMainView *sender);

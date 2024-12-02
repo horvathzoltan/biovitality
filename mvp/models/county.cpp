@@ -73,7 +73,7 @@ QList<County> County::CSV_Import(const QList<QVarLengthArray<QString>>& records)
     int L = records.length();
 
     CSVHelper::RowToField ixln;
-    ixln.AddRowToField(countyName, "name");
+    ixln.AddRowToField(countyName, "Megye");
     ixln.AddRowToField(KSHCode, "KSHkód");
 
     QMap<QString,int> ixs = ixln.Get_RowIndexes(records[0]);

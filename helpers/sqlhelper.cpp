@@ -156,7 +156,8 @@ bool SQLHelper::Connect_mariadb(const QString& connName, int timeout)
 
     if(!connected)
     {
-        Error("db", _db.lastError());
+        QString msg = DoQueryRModel::ErrorString("db", _db.lastError());
+        zWarning(msg);
     }
 
     _db.close();
@@ -164,16 +165,7 @@ bool SQLHelper::Connect_mariadb(const QString& connName, int timeout)
     return connected;
 }
 
-void SQLHelper::Error(const QString& p, const QSqlError& err)
-{
-    if(err.isValid())
-    {
-        zWarning(QStringLiteral("QSqlError_%3: %1 - %2")
-                     .arg(err.type())
-                     .arg(err.text())
-                     .arg(p));
-    }
-}
+
 
 // int SQLHelper::GetBuildNum(QSqlDatabase& db, int project)
 // {
@@ -302,7 +294,7 @@ QFileInfo SQLHelper::GetMostRecent(const QString& path, const QString& pattern)
 // }
 
 // ROWID=:rowid
-QList<QSqlRecord> SQLHelper::DoQuery(const QString& cmd, const QList<SQLHelper::SQLParam>& params)
+SQLHelper::DoQueryRModel SQLHelper::DoQuery(const QString& cmd, const QList<SQLHelper::SQLParam>& params)
 {
     //static const QString conn = QStringLiteral("conn1");
     //auto db = Connect_mariadb( conn, 5000);
@@ -315,13 +307,14 @@ QList<QSqlRecord> SQLHelper::DoQuery(const QString& cmd, const QList<SQLHelper::
     if(!_db.isValid()) return {};
 
 
-    QList<QSqlRecord> e;
+    DoQueryRModel m;
+    //QList<QSqlRecord> e;
     QSqlQuery query(_db);
 
-    int s = -1;
+    //int recordsAffected = -1;
 
-    bool isok = _db.open();
-    if(isok) {
+    m.isOk = _db.open();
+    if(m.isOk) {
         query.prepare(cmd);
         if(!params.isEmpty()){
             //QStringList names = params.keys();
@@ -337,34 +330,30 @@ QList<QSqlRecord> SQLHelper::DoQuery(const QString& cmd, const QList<SQLHelper::
             }
         }
 
-        isok = query.exec();
+        m.isOk = query.exec();
 
-        if(isok){
+        if(m.isOk){
             if(query.isSelect()){
-                s = query.size();
+                m.rowsAffected = query.size();
             } else{
-                s = query.numRowsAffected();
+                m.rowsAffected = query.numRowsAffected();
             }
 
-            if(query.isSelect() && s>0){
+            if(query.isSelect() && m.rowsAffected>0){
                 while (query.next()) {
                     QSqlRecord rec = query.record();
-                    e.append(rec);
+                    m.records.append(rec);
                 }
             }
         }
     }
 
-    if(!isok){
-        Error("db", _db.lastError());
-        Error("query", query.lastError());
-    } else {
-        zInfo((s>0)
-            ?"Rows affected:"+QString::number(s)
-            :"No rows affected");
-    }
+    m.dbError = _db.lastError();
+    m.queryError = query.lastError();        
+
     _db.close();
-    return e;
+    zInfo(QStringLiteral("Query ")+(m.isOk?"succeed":"failed"));
+    return m;
 }
 
 QString SQLHelper::GetFieldNames_UPDATE(const QList<SQLHelper::SQLParam>& params){
@@ -405,7 +394,7 @@ QString SQLHelper::GetParamList_INSERT(const QList<SQLHelper::SQLParam>& params)
     return e;
 }
 
-QList<QSqlRecord> SQLHelper::Call(const QString& cmd)//, const QList<SQLHelper::SQLParam>& params){
+SQLHelper::DoQueryRModel SQLHelper::Call(const QString& cmd)//, const QList<SQLHelper::SQLParam>& params){
 {
     //static const QString conn = QStringLiteral("conn1");
     //auto db = Connect_mariadb( conn, 5000);
@@ -423,18 +412,16 @@ QList<QSqlRecord> SQLHelper::Call(const QString& cmd)//, const QList<SQLHelper::
     zInfo("cmd:"+call);
     zInfo("cmd:"+select);
 
-    QList<QSqlRecord> e;
+    DoQueryRModel m;
     QSqlQuery query(_db);
+    m.isOk = _db.open();
 
-    int s = -1;
-
-    bool isok = _db.open();
-    if(isok) {
+    if(m.isOk) {
         query.prepare(call);
 
-        isok = query.exec();
+        m.isOk = query.exec();
 
-        if(isok){
+        if(m.isOk){
             // if(query.isSelect()){
             //     s = query.size();
             // } else{
@@ -447,35 +434,31 @@ QList<QSqlRecord> SQLHelper::Call(const QString& cmd)//, const QList<SQLHelper::
 
             query.exec();
             if(query.isSelect()){
-                s = query.size();
+                m.rowsAffected = query.size();
                 //    if(s==-1) hasRecords = false;
             } else{
-                s = query.numRowsAffected();
+                m.rowsAffected = query.numRowsAffected();
                 //    if(s==-1) hasRecords = false;
             }
             // query.first();
             // auto v = query.value(0);
             // auto v1 = query.result();
             // auto v2 = query.record().value(0);
-            if(query.isSelect() && s>0){
+            if(query.isSelect() && m.rowsAffected>0){
                 while (query.next()) {
                     QSqlRecord rec = query.record();
-                    e.append(rec);
+                    m.records.append(rec);
                 }
             }
         }
     }
 
-    if(!isok){
-        Error("db", _db.lastError());
-        Error("query", query.lastError());
-    } else {
-        zInfo((s>0)
-              ?"Rows affected:"+QString::number(s)
-              :"No rows affected");
-    }
+    m.dbError = _db.lastError();
+    m.queryError = query.lastError();
+
     _db.close();
-    return e;
+    zInfo(QStringLiteral("Call ")+(m.isOk?"succeed":"failed"));
+    return m;
 }
 
 QString SQLHelper::GetCallSelect(const QString &call)

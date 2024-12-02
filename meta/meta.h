@@ -12,8 +12,8 @@
 #define AddMetaField(b) _meta.AddField(#b, QMetaType::fromType<decltype(_meta._instance.b)>(), (char*)(&_meta._instance.b));
 #define AddMetaBase(b) _meta.AddBaseName(#b, sizeof(b));
 
-#define AddRowToField(b,c) Add_RowToField(#b, c); {(char*)(&_meta._instance.b);}
-#define FieldName(t, b) QString(#b); {(char*)(&t::b);}
+#define AddRowToField(b,c) Add_RowToField(#b, c); {(void)_meta._instance.b;}
+#define FieldName(t, b) QString(#b); { (void)t::metaInstance().b;}
 
 class IdMegnev{
 public:
@@ -103,6 +103,10 @@ public:
     QString _baseWcode;
 
     void SetVerbose(bool v){_verbose = v;};
+
+    // QString GetFieldName(const QString& name, char* field_ptr){
+    //      return name;
+    //  }
 
     void AddField(const QString& name, const QMetaType& t, char* field_ptr)
     {

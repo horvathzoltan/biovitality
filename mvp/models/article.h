@@ -34,6 +34,7 @@ public:
     bool isValid();
     static void MetaInit();
     static void SetMetaVerbose(bool v){ _meta.SetVerbose(v);}
+    static Article metaInstance(){return _meta._instance;}
 
     // SQL_Read
     static QString GetMetaFieldNames(){ return _meta.GetMetaFieldNames();}
@@ -46,6 +47,7 @@ public:
     static QList<Article> CSV_Import(const QList<QVarLengthArray<QString>>& records);
     QVariant GetValue(const QString& name) const { return _meta.GetValue(this, name);}
     static MetaField* GetMetaField(const QString& name) {return _meta.GetMetaField(name);}
+
 
 // DataForm
     static DataRowDefaultModel To_DataRowDefaultModel(const QList<Article>& data)

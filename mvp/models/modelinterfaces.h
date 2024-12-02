@@ -16,6 +16,7 @@ public:
         [[maybe_unused]] void (*SetMetaVerbose_Check)(bool v) = &T::SetMetaVerbose;
         [[maybe_unused]] void (*MetaInit_Check)() = &T::MetaInit;
         [[maybe_unused]] bool (T::*isValid_Check)() = &T::isValid;
+        [[maybe_unused]] T (*metaInstance_Check)() = &T::metaInstance;
     }
 };
 

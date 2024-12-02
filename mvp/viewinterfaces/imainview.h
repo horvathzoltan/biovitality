@@ -33,9 +33,9 @@ public: // signals
     virtual void CimImport_ActionTriggered(IMainView *sender) = 0;
     virtual void PartnerImport_ActionTriggered(IMainView *sender) =0;
     virtual void TetelImport_ActionTriggered(IMainView *sender) = 0;
-    virtual void CountryImpot_ActionTriggered(IMainView *sender) = 0;
-    virtual void ArticleImpot_ActionTriggered(IMainView *sender) = 0;
-    virtual void CountyImpot_ActionTriggered(IMainView *sender) = 0;
+    virtual void CountryImport_ActionTriggered(IMainView *sender) = 0;
+    virtual void ArticleImport_ActionTriggered(IMainView *sender) = 0;
+    virtual void CountyImport_ActionTriggered(IMainView *sender) = 0;
 //log
     virtual void ToClipBoard_ActionTriggered(IMainView *sender) = 0;    
     virtual void ToLogFile_ActionTriggered(IMainView *sender) = 0;

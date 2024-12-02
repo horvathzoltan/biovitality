@@ -102,13 +102,6 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_CountryImpot">
-         <property name="text">
-          <string>Ország Import</string>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="QPushButton" name="pushButton_PartnerImport">
          <property name="text">
           <string>Partner Import</string>
@@ -133,6 +126,13 @@
         <widget class="QPushButton" name="pushButton_CoutntyImport">
          <property name="text">
           <string>Megye Import</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_CountryImpot">
+         <property name="text">
+          <string>Ország Import</string>
          </property>
         </widget>
        </item>
