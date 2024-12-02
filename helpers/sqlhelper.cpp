@@ -324,7 +324,8 @@ SQLHelper::DoQueryRModel SQLHelper::DoQuery(const QString& cmd, const QList<SQLH
                     query.bindValue(":"+n.paramName,n.fieldValue);
                 }
 
-                zInfo(n.paramName+":"+n.fieldName+"="+n.fieldValue.toString()
+                QString fieldValue = GetFieldValue(n.fieldValue);
+                zInfo(n.paramName+":"+n.fieldName+"="+fieldValue
                       +" "+(n.fieldValue.isValid()?"valid":"invalid") +
                       " "+n.fieldValue.metaType().name());
             }
@@ -459,6 +460,13 @@ SQLHelper::DoQueryRModel SQLHelper::Call(const QString& cmd)//, const QList<SQLH
     _db.close();
     zInfo(QStringLiteral("Call ")+(m.isOk?"succeed":"failed"));
     return m;
+}
+
+QString SQLHelper::GetFieldValue(const QVariant &v)
+{
+    if(v.isNull()) return "NULL";
+    if(v.metaType() == QMetaType::Type::qt)
+    return v.toString();
 }
 
 QString SQLHelper::GetCallSelect(const QString &call)

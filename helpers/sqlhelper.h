@@ -198,6 +198,7 @@ public:
     //QSqlQuery GetQuery(const QString& cmd);
     DoQueryRModel Call(const QString& cmd);
 
+    static QString GetFieldValue(const QVariant& v);
     DbErr dbErr(){
         DbErr e = DbErr(dbName());
         if(!dbIsValid()){
