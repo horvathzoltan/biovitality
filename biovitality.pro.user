@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 14.0.2, 2024-12-02T15:56:09. -->
+<!-- Written by QtCreator 14.0.2, 2024-12-01T23:38:06. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -91,6 +91,7 @@
    <valuemap type="QVariantMap" key="CppcheckManual">
     <value type="QString" key="binary">/usr/bin/cppcheck</value>
    </valuemap>
+   <valuemap type="QVariantMap" key="CppcheckManual"/>
   </valuemap>
  </data>
  <data>

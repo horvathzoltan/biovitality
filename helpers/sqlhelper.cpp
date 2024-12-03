@@ -465,7 +465,12 @@ SQLHelper::DoQueryRModel SQLHelper::Call(const QString& cmd)//, const QList<SQLH
 QString SQLHelper::GetFieldValue(const QVariant &v)
 {
     if(v.isNull()) return "NULL";
-    if(v.metaType() == QMetaType::Type::qt)
+    if(v.userType() == QMetaType::Type::QString){
+        return "\""+v.toString()+"\"";
+    }
+    if(v.userType() == QMetaType::Type::QChar){
+        return "\'"+v.toString()+"\'";
+    }
     return v.toString();
 }
 
