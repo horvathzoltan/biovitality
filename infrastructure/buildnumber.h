@@ -7,7 +7,7 @@
 
 class Buildnumber{
 public:
-    static const QString _value;
+    static const QString _value;    
 private:
     static QString GetValue();
 };

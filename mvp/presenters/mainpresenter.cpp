@@ -326,9 +326,29 @@ void MainPresenter::process_ArticleImport_Action(IMainView *sender)
     zTrace();
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
-    MainViewModel::FileNameModel fn = sender->get_CSVFileName_Article();
-    QString keyColumnName = FieldName(Article, excelId);
-    Import_private(fn, _globals._repositories.article, keyColumnName,';');
+// 1. feltételek: legyen adatbázis. legyen tábla. legyenek mezők.
+// 2. legyen file.
+// 3. ne nyomjon cancelt
+
+    // legyen adatbázis
+    // 1. ha nincs konnektálva, konnektáljuk
+
+    bool dbIsValid = _globals._helpers._sqlHelper.dbIsValid();
+    if(!dbIsValid){
+        zInfo("db is not connected");
+        dbIsValid = _globals._helpers._sqlHelper.Connect();
+        if(!dbIsValid){
+            zInfo("cannot connect db");
+        }
+    }
+
+    bool valid = dbIsValid;
+
+    if(valid){
+        MainViewModel::FileNameModel fn = sender->get_CSVFileName_Article();
+        QString keyColumnName = FieldName(Article, excelId);
+        Import_private(fn, _globals._repositories.article, keyColumnName,';');
+    }
 
     Operations::instance().stop(opId);
 }

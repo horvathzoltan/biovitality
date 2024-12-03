@@ -14,6 +14,7 @@ message( "TARGET = "$$TARGET )
 
 SOURCES += \
     #actions.cpp \
+    helpers/sysinfohelper.cpp \
     meta/csv_sqlhelper.cpp \
     meta/csvhelper.cpp \
     meta/sqlmetahelper.cpp \
@@ -54,6 +55,7 @@ SOURCES += \
 HEADERS += \
     #actions.h \
     helpers/nameof.h \
+    helpers/sysinfohelper.h \
     meta/csv_sqlhelper.h \
     mvp/models/country.h \
     mvp/models/invoicehead.h \

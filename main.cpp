@@ -3,6 +3,7 @@
 #include <infrastructure/globals.h>
 #include <helpers/signalhelper.h>
 #include <helpers/filenamehelper.h>
+#include <helpers/sysinfohelper.h>
 #include "infrastructure/buildnumber.h"
 #include "helpers/logger.h"
 #include "helpers/stringify.h"
@@ -21,8 +22,9 @@ auto main(int argc, char *argv[]) -> int
     QString target = STRING(TARGI);
 #else
     auto target=QStringLiteral("ApplicationNameString");
-#endif    
+#endif
 
+    QCoreApplication::setApplicationName(target);
     QCoreApplication::setApplicationVersion(Buildnumber::_value);
     QCoreApplication::setOrganizationName("horvathzoltan");
     QCoreApplication::setOrganizationDomain("https://github.com/horvathzoltan");
@@ -51,10 +53,11 @@ auto main(int argc, char *argv[]) -> int
     logPresenter.appendView(&w);
     Logger::SetFunction(&LogPresenter::Log);
 
-
     // innen tudunk loggolni
-    QString user = qgetenv("USER");
-    zInfo(QStringLiteral("started ")+target+" as "+user + " build:"+ Buildnumber::_value);
+
+    SysInfoHelper::Init(target, Buildnumber::_value);
+    QString msg = SysInfoHelper::Get_SysInfo();
+    zInfo(msg);
 
     zInfo("testdata_path:"+FileNameHelper::GetTestFolderPath());
     zInfo("working_folder:"+FileNameHelper::GetWorkingFolder());

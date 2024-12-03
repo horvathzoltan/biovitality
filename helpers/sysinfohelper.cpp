@@ -1,0 +1,39 @@
+#include "sysinfohelper.h"
+
+//started biovitality as zoli@hercules
+
+
+void SysInfoHelper::Init(const QString &t, const QString &b)
+{
+    _target = t;
+    _buildNumber = b;
+}
+
+QString SysInfoHelper::Get_SysInfo()
+{
+    _user = qgetenv("USER");
+    _hostName = QSysInfo::machineHostName();
+
+    QString msg = QStringLiteral("started ")+_target;
+    if(hasBuildNumber())
+    {
+        msg+="("+_buildNumber+")";
+    }
+
+    if(!_user.isEmpty()){
+        msg += +" as "+_user;
+    }
+
+    if(!_hostName.isEmpty())
+    {
+        msg+="@"+_hostName;
+    }
+}
+
+bool SysInfoHelper::hasBuildNumber(){
+    if(_buildNumber.isEmpty()) return false;
+    if(_buildNumber=="-1") return false;
+    return true;
+}
+
+

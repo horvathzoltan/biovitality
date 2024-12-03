@@ -179,6 +179,11 @@ public:
 
     SQLHelper(){}
 
+    ~SQLHelper()
+    {
+        _db.removeDatabase(_connName);
+    }
+
     bool Connect();
 
     static QFileInfo GetMostRecent(const QString &path, const QString &pattern);
@@ -199,6 +204,7 @@ public:
     DoQueryRModel Call(const QString& cmd);
 
     static QString GetFieldValue(const QVariant& v);
+
     DbErr dbErr(){
         DbErr e = DbErr(dbName());
         if(!dbIsValid()){
