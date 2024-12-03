@@ -143,19 +143,37 @@ public:
         QVariant fieldValue;
     };
 
-    struct HostPort
-    {
-        QString host;// = "172.16.1.5";
-        int port;
-    };
+    // struct HostPort
+    // {
+    //     QString host;// = "172.16.1.5";
+    //     int port;
+    // };
 
     struct SQLSettings
     {
         QString driver;// = "QODBC";
         QString dbname;// = "BuildInfoFlex";
-        QVector<HostPort> hosts;
+        //QVector<HostPort> hosts;
+        QString host;
+        int port;
         QString user;// = "sa";
         QString password;//= "Gtr7jv8fh2";
+
+        QString ToString_HostPort()
+        {
+            return host+":"+QString::number(port);
+        }
+
+        bool isValid() const{
+            if(dbname.isEmpty()) return false;
+            if(driver.isEmpty()) return false;
+            if(host.isEmpty()) return false;
+            if(port < 1) return false;
+            if(port > 65535) return false;
+            if(user.isEmpty()) return false;
+            if(password.isEmpty()) return false;
+            return true;
+        }
     };
 
 private:
@@ -163,7 +181,7 @@ private:
     bool _isInited = false;
     QSqlDatabase _db;
     static const QString _connName;
-    HostPort* _host = nullptr;
+    //HostPort* _host = nullptr;
 
     bool Connect_odbc(const QString &name, int timeout);
     bool Connect_mariadb(const QString &name, int timeout);

@@ -38,26 +38,63 @@ auto main(int argc, char *argv[]) -> int
     //}
 
     QApplication a(argc, argv);
+
+    // itt initelünk mindet
     FileNameHelper::Init();
-
-    //SoldItem data;
-    //County c;
-
+    _globals._helpers._sysinfoHelper.Init(target, Buildnumber::_value);
     _globals._translator.Init();
+
+    if(_globals._helpers._sysinfoHelper.hostName()=="pif")
+    {
+        _globals._settings.SetSqlSettings(
+            {
+                "QMARIADB",
+                "biovitality",
+                "192.168.1.105",
+                3306,
+                "zoli",
+                "Aladar123"
+            });
+    }
+    else if(_globals._helpers._sysinfoHelper.hostName()=="hercules")
+    {
+        _globals._settings.SetSqlSettings(
+            {
+                "QMARIADB",
+                "biovitality",
+                "172.16.1.63",
+                3306,
+                "zoli",
+                "Aladar123"
+            });
+    }
+
+    _globals._helpers._sqlHelper.Init(_globals._settings._sql_settings);
 
     MainWindow w;
     MainPresenter p;        
     p.appendView(&w);
 
+    // ui log init
     LogPresenter logPresenter;
-    logPresenter.appendView(&w);
-    Logger::SetFunction(&LogPresenter::Log);
+    logPresenter.appendView(&w);    
+    Logger::SetFunction(&LogPresenter::Log);        
+    // innen tudunk loggolni a ui-ra
 
-    // innen tudunk loggolni
+    bool connected = _globals._helpers._sqlHelper.Connect();
 
-    SysInfoHelper::Init(target, Buildnumber::_value);
-    QString msg = SysInfoHelper::Get_SysInfo();
-    zInfo(msg);
+    if(connected){
+        if(_globals._helpers._sqlHelper.dbIsValid()){
+            zInfo("connected DB: "+_globals._settings._sql_settings.dbname+" is valid");
+        } else{
+            zWarning("connected DB: "+_globals._settings._sql_settings.dbname+" is invalid");
+        }
+    }else{
+        zWarning("cannot connect DB: "+_globals._settings._sql_settings.dbname);
+    }
+
+    QString sysInfo = _globals._helpers._sysinfoHelper.Get_SysInfo();
+    zInfo(sysInfo);
 
     zInfo("testdata_path:"+FileNameHelper::GetTestFolderPath());
     zInfo("working_folder:"+FileNameHelper::GetWorkingFolder());

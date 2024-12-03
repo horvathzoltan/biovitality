@@ -103,14 +103,14 @@ void MainPresenter::initView(IMainView *w) const {
     //     "Aladar123"
     // };
     //SQLHelper sqlh;
-    _globals._helpers._sqlHelper.Init(_globals._settings._sql_settings);
-    bool ok = _globals._helpers._sqlHelper.Connect();
 
-    if(_globals._helpers._sqlHelper.dbIsValid()){        
-        zInfo("DB "+_globals._settings._sql_settings.dbname+" is valid");
-    } else{
-        zWarning("DB "+_globals._settings._sql_settings.dbname+" is invalid");
-    }
+    // bool ok = _globals._helpers._sqlHelper.Connect();
+
+    // if(_globals._helpers._sqlHelper.dbIsValid()){
+    //     zInfo("DB "+_globals._settings._sql_settings.dbname+" is valid");
+    // } else{
+    //     zWarning("DB "+_globals._settings._sql_settings.dbname+" is invalid");
+    // }
     w->set_StatusLine({""});
     //_db.close();   
 

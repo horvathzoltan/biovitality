@@ -20,7 +20,8 @@ public:
     int _autoComplete_millisec = 1500;
     //int _project = 99;
 
-    Settings(const SQLHelper::SQLSettings&a);
+    Settings();
+    void SetSqlSettings(const SQLHelper::SQLSettings&a);
 
     static QString Get_CSVFileName_Address();
     static void Set_CSVFileName_Address(const QString& v);

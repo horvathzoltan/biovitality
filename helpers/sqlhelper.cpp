@@ -14,6 +14,8 @@ const QString SQLHelper::_connName = QStringLiteral("conn1");
 
 void SQLHelper::Init(const SQLSettings& v){
     _isInited = false;
+    if(!v.isValid()) return;
+
     _settings = v;
     _isInited = true;
 }
@@ -27,9 +29,9 @@ bool SQLHelper::Connect()
     else if(_settings.driver=="QMARIADB") connected = Connect_mariadb(_connName, 5000);
 
     QString msg = "DB["+_settings.driver;
-    if(_host){
-        msg+="@"+_host->host+":"+QString::number(_host->port);
-    }
+    //if(_host){
+    msg+="@"+_settings.ToString_HostPort();
+    //}
     msg+="]: "+_settings.dbname+" is "+(connected?"connected":"not connected");
 
     if(connected)
@@ -57,44 +59,44 @@ auto SQLHelper::GetDriverName() -> QString{
 //https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-setup-tools?view=sql-server-ver15#ubuntu
 bool SQLHelper::Connect_odbc(const QString& connName, int timeout)
 {
-    _host = nullptr;
+    //_host = nullptr;
     if(!_isInited) return false;
     //QSqlDatabase db;
-    //const HostPort* h=nullptr;
-
-    for(auto&i:_settings.hosts)
-    {
-        if(NetworkHelper::Ping(i.host)) {
-            zInfo("reachable: "+i.host+":"+QString::number(i.port));
+    //const HostPort* h=nullptr;    
+    bool isAvailable = false;
+    //for(auto&i:_settings.hosts)
+    //{
+        if(NetworkHelper::Ping(_settings.host)) {
+            zInfo("host found: "+_settings.host);
             QTcpSocket s;
-            s.connectToHost(i.host, i.port);
+            s.connectToHost(_settings.host, _settings.port);
             auto isok = s.waitForConnected(timeout);
             if(isok){
-
                 s.disconnectFromHost();
                 if (s.state() != QAbstractSocket::UnconnectedState) s.waitForDisconnected();
-                _host=&(i);
-                zInfo("socket ok");
-                zInfo("available host found: "+_host->host+":"+QString::number(_host->port));
-                break;
+                //_host=&(i);
+                isAvailable = true;
+                //zInfo("socket ok");
+                zInfo("connection ready on port: "+QString::number(_settings.port));
+                //break;
             }
             else{
-                zInfo("socket err");
+                zInfo("cannot connect to port: "+QString::number(_settings.port));
             }
         }
         else{
-            zInfo("unreachable:"+i.host);
+            zInfo("host not found: "+_settings.host);
         }
-    }
+    //}
 
-    if(_host)
+    if(isAvailable)
     {
 
         _db = QSqlDatabase::addDatabase(_settings.driver, connName);
         auto driverfn = GetDriverName();
         if(driverfn.isEmpty()) return false;
         auto dbname = QStringLiteral("DRIVER=%1;Server=%2,%3;Database=%4")
-                          .arg(driverfn,_host->host).arg(_host->port).arg(_settings.dbname);
+                          .arg(driverfn,_settings.host).arg(_settings.port).arg(_settings.dbname);
         _db.setDatabaseName(dbname);
         _db.setUserName(_settings.user);
         _db.setPassword(_settings.password);
@@ -109,40 +111,42 @@ bool SQLHelper::Connect_mariadb(const QString& connName, int timeout)
 {
     //QSqlDatabase db;
     //const HostPort* h=nullptr;
-    _host = nullptr;
+    //_host = nullptr;
     if(!_isInited) return false;
-    for(auto&i:_settings.hosts)
-    {
+    bool isAvailable = false;
+    //for(auto&i:_settings.hosts)
+    //{
         //zInfo("host: "+i.host+":"+QString::number(i.port));
-        if(NetworkHelper::Ping(i.host)) {
-            zInfo("reachable: "+i.host+":"+QString::number(i.port));
+        if(NetworkHelper::Ping(_settings.host)) {
+            zInfo("host found: "+_settings.host);
             QTcpSocket s;
-            s.connectToHost(i.host, i.port);
+            s.connectToHost(_settings.host, _settings.port);
             auto isok = s.waitForConnected(timeout);
             if(isok){
                 s.disconnectFromHost();
-                if (s.state() != QAbstractSocket::UnconnectedState) s.waitForDisconnected();
-                _host=&(i);
-                zInfo("available host found: "+_host->host+":"+QString::number(_host->port));
-                zInfo("socket ok");
-                break;
+                if (s.state() != QAbstractSocket::UnconnectedState) s.waitForDisconnected();                
+                //_host=&(i);
+                isAvailable = true;
+                zInfo("connection ready on port: "+QString::number(_settings.port));
+                //zInfo("socket ok");
+                //break;
             }
             else{
-                zInfo("socket err");
+                zInfo("cannot connect to port: "+QString::number(_settings.port));
             }
         }
         else{
-            zInfo("unreachable:"+i.host);
+            zInfo("host not found: "+_settings.host);
         }
-    }
+  //  }
 
-    if(_host)
+    if(isAvailable)
     {
         //zInfo("available host found: "+_host->host+":"+QString::number(_host->port));
         _db = QSqlDatabase::addDatabase(_settings.driver, connName);
 
-        _db.setHostName(_host->host);// Tried www.themindspot.com & ip with http:// and https://
-        _db.setPort(_host->port);
+        _db.setHostName(_settings.host);// Tried www.themindspot.com & ip with http:// and https://
+        _db.setPort(_settings.port);
 
         //auto driverfn = GetDriverName();
         //if(driverfn.isEmpty()) return db;

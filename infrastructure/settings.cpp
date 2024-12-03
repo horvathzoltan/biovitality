@@ -12,9 +12,13 @@ const QString Settings::FilesIni_CountryCSVFileName = QStringLiteral("countryFil
 const QString Settings::FilesIni_CountyCSVFileName = QStringLiteral("countyFile");
 const QString Settings::FilesIni_ArticleCSVFileName = QStringLiteral("articleFile");
 
-Settings::Settings(const SQLHelper::SQLSettings& a)
+Settings::Settings()//const SQLHelper::SQLSettings& a)
 {
-    this->_sql_settings = a;
+    //this->_sql_settings = a;
+}
+
+void Settings::SetSqlSettings(const SQLHelper::SQLSettings&a){
+    _sql_settings=a;
 }
 
 // address - cim
