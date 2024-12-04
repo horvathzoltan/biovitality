@@ -31,16 +31,19 @@ private:
     QList<IMainView*> _views;
 
     //static IMainView *_logView;
-
     void refreshView(IMainView *w) const;
     void Error(const QSqlError& err);
+
+    template<typename T>
+    SQLHelper::DbErr Import_CheckRepo(SqlRepository<T>& repo);
 
     // // imports from file to SQL repo
     template<typename T>
     void Import_private(const MainViewModel::FileNameModel& fn,
                         SqlRepository<T>& repo,
-                        const QString& columnName,
-                        const QChar& separator);
+                        const QString& keyColumnName,
+                        const QChar& separator,
+                        SQLHelper::DbErr& dbErr);
 
 private slots:
     void processPushButtonAction(IMainView *sender);

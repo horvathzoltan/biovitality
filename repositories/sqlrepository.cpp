@@ -152,6 +152,16 @@ bool SqlRepository<T>::Add(const T &m){
 }
 
 template<typename T>
+bool SqlRepository<T>::dbErr(SQLHelper::DbErr &dbErr){
+    bool exists = isTableExists();
+    if(exists) return true;
+
+    QString t = tableName();
+    dbErr.AddError_TableNotExists(t);
+    return false;
+}
+
+template<typename T>
 bool SqlRepository<T>::isTableExists()
 {
     QString dbName = _globals._helpers._sqlHelper.dbName();

@@ -44,10 +44,9 @@ public:
          {
              if(v.type()!=QSqlError::ErrorType::NoError)
              {
-                 QString msg = DoQueryRModel::ErrorString(p, v);
+                 QString msg = ErrorString(p, v);
                  _errors.append(msg);
              }
-
          }
 
          void AddError_dbIsInvalid(){
@@ -86,32 +85,7 @@ public:
 
         int recordCount(){
             return records.count();
-        }
-
-        static QString ErrorString(const QString& p, const QSqlError& err)
-        {
-            if(err.isValid() && err.type()!= QSqlError::ErrorType::NoError)
-            {
-                auto n = err.nativeErrorCode();
-                auto d = err.driverText();
-                auto db = err.databaseText();
-                QString t = ErrorType_ToString(err.type());
-
-                QString msg2 = p+": "+t+ "("+n+") "+d+", "+db;
-                return msg2;
-            }
-            return QStringLiteral("%1: no error").arg(p);
-        };
-
-        static QString ErrorType_ToString(QSqlError::ErrorType t){
-            switch(t){
-            case QSqlError::ErrorType::NoError: return "NoError";
-            case QSqlError::ErrorType::ConnectionError: return "ConnectionError";
-            case QSqlError::ErrorType::StatementError: return "StatementError";
-            case QSqlError::ErrorType::TransactionError: return "TransactionError";
-            default: return "UnknownError";
-            }
-        }
+        }                
 
         QString ToString(){
             if(!isOk){
@@ -202,7 +176,10 @@ public:
         _db.removeDatabase(_connName);
     }
 
+private:
     bool Connect();
+public:
+    bool TryConnect();
 
     static QFileInfo GetMostRecent(const QString &path, const QString &pattern);
 
@@ -228,9 +205,15 @@ public:
         if(!dbIsValid()){
             e.AddError_dbIsInvalid();
         }
-        e.AddError("db", _db.lastError());
+        QSqlError lastError = _db.lastError();
+        bool isValid = lastError.isValid();
+        e.AddError("db", lastError);
         return e;
     }
+
+    static QString ErrorType_ToString(QSqlError::ErrorType t);
+
+    static QString ErrorString(const QString& p, const QSqlError& err);;
 };
 
 #endif // SQLHELPER_H

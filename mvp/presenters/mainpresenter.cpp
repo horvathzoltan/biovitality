@@ -266,9 +266,15 @@ void MainPresenter::process_CimImport_Action(IMainView *sender)
     zTrace();
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
-    MainViewModel::FileNameModel fn = sender->get_CSVFileName_Address();
-    QString keyColumnName = FieldName(Address, excelId);
-    Import_private(fn, _globals._repositories.address, keyColumnName,';');
+    SqlRepository<Address> repo = _globals._repositories.address;
+    SQLHelper::DbErr dbErr = Import_CheckRepo(repo);
+
+    bool valid = dbErr.isValid();
+    if(valid){
+        MainViewModel::FileNameModel fn = sender->get_CSVFileName_Address();
+        QString keyColumnName = FieldName(Address, excelId);
+        Import_private(fn, repo, keyColumnName,';',dbErr);
+    }
 
     Operations::instance().stop(opId);
 }
@@ -278,9 +284,15 @@ void MainPresenter::process_PartnerImport_Action(IMainView *sender)
     zTrace();
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
-    MainViewModel::FileNameModel fn = sender->get_CSVFileName_Partner();
-    QString keyColumnName = FieldName(Partner, excelId);
-    Import_private(fn, _globals._repositories.partner,keyColumnName,';');
+    SqlRepository<Partner> repo = _globals._repositories.partner;
+    SQLHelper::DbErr dbErr = Import_CheckRepo(repo);
+
+    bool valid = dbErr.isValid();
+    if(valid){
+        MainViewModel::FileNameModel fn = sender->get_CSVFileName_Partner();
+        QString keyColumnName = FieldName(Partner, excelId);
+        Import_private(fn, repo,keyColumnName,';', dbErr);
+    }
 
     Operations::instance().stop(opId);
 }
@@ -288,11 +300,17 @@ void MainPresenter::process_PartnerImport_Action(IMainView *sender)
 void MainPresenter::process_TetelImport_Action(IMainView *sender)
 {
     zTrace();
-    QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);    
+    QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
-    MainViewModel::FileNameModel fn = sender->get_CSVFileName_SoldItem();
-    QString keyColumnName = FieldName(SoldItem, excelId);
-    Import_private(fn, _globals._repositories.solditem, keyColumnName,';');
+    SqlRepository<SoldItem> repo = _globals._repositories.solditem;
+    SQLHelper::DbErr dbErr = Import_CheckRepo(repo);
+
+    bool valid = dbErr.isValid();
+    if(valid){
+        MainViewModel::FileNameModel fn = sender->get_CSVFileName_SoldItem();
+        QString keyColumnName = FieldName(SoldItem, excelId);
+        Import_private(fn, repo, keyColumnName,';', dbErr);
+    }
 
     Operations::instance().stop(opId);
 }
@@ -302,9 +320,15 @@ void MainPresenter::process_CountyImport_Action(IMainView *sender)
     zTrace();
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
-    MainViewModel::FileNameModel fn = sender->get_CSVFileName_County();
-    QString keyColumnName = FieldName(County, KSHCode);
-    Import_private(fn, _globals._repositories.county, keyColumnName,';');
+    SqlRepository<County> repo = _globals._repositories.county;
+    SQLHelper::DbErr dbErr = Import_CheckRepo(repo);
+
+    bool valid = dbErr.isValid();
+    if(valid){
+        MainViewModel::FileNameModel fn = sender->get_CSVFileName_County();
+        QString keyColumnName = FieldName(County, KSHCode);
+        Import_private(fn,  repo, keyColumnName,';',dbErr);
+    }
 
     Operations::instance().stop(opId);
 }
@@ -314,73 +338,72 @@ void MainPresenter::process_CountryImport_Action(IMainView *sender)
     zTrace();
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
-    MainViewModel::FileNameModel fn = sender->get_CSVFileName_Country();
-    QString keyColumnName = FieldName(Country, countryCode);
-    Import_private(fn, _globals._repositories.country, keyColumnName,',');
+    SqlRepository<Country> repo = _globals._repositories.country;
+    SQLHelper::DbErr dbErr = Import_CheckRepo(repo);
+
+    bool valid = dbErr.isValid();
+    if(valid){
+        MainViewModel::FileNameModel fn = sender->get_CSVFileName_Country();
+        QString keyColumnName = FieldName(Country, countryCode);
+        Import_private(fn, repo, keyColumnName,',', dbErr);
+    }
 
     Operations::instance().stop(opId);
 }
+
+// 1. feltételek: legyen adatbázis. legyen tábla. legyenek mezők.
+// 1.a: ha nincs konnektálva, konnektáljuk
+// 2. legyen file.
+// 3. ne nyomjon cancelt
+
+// legyen adatbázis
+// 1.
 
 void MainPresenter::process_ArticleImport_Action(IMainView *sender)
 {
     zTrace();
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
-// 1. feltételek: legyen adatbázis. legyen tábla. legyenek mezők.
-// 2. legyen file.
-// 3. ne nyomjon cancelt
+    auto repo = _globals._repositories.article;
+    SQLHelper::DbErr dbErr = Import_CheckRepo(repo);
 
-    // legyen adatbázis
-    // 1. ha nincs konnektálva, konnektáljuk
-
-    bool dbIsValid = _globals._helpers._sqlHelper.dbIsValid();
-    if(!dbIsValid){
-        zInfo("db is not connected");
-        dbIsValid = _globals._helpers._sqlHelper.Connect();
-        if(!dbIsValid){
-            zInfo("cannot connect db");
-        }
-    }
-
-    bool valid = dbIsValid;
-
+    bool valid = dbErr.isValid();
     if(valid){
         MainViewModel::FileNameModel fn = sender->get_CSVFileName_Article();
         QString keyColumnName = FieldName(Article, excelId);
-        Import_private(fn, _globals._repositories.article, keyColumnName,';');
+        Import_private(fn, repo, keyColumnName,';', dbErr);
     }
 
     Operations::instance().stop(opId);
 }
 
 template<typename T>
+SQLHelper::DbErr MainPresenter::Import_CheckRepo(SqlRepository<T>& repo){
+    _globals._helpers._sqlHelper.TryConnect();
+    SQLHelper::DbErr dbErr = _globals._helpers._sqlHelper.dbErr();
+    if(dbErr.isValid()){
+        repo.dbErr(dbErr);
+    }
+    return dbErr;
+}
+
+template<typename T>
 void MainPresenter::Import_private(const MainViewModel::FileNameModel& fn,
                                    SqlRepository<T>& repo,
-                                   const QString& columnName,
-                                   const QChar& separator)
+                                   const QString& keyColumnName,
+                                   const QChar& separator,
+                                   SQLHelper::DbErr& dbErr)
 {
-    if(!fn.isCanceled)
-    {
-        // ha a dbnek nincs baja
-        SQLHelper::DbErr dbErr = _globals._helpers._sqlHelper.dbErr();
-
-        if(!repo.isTableExists())
-        {
-            dbErr.AddError_TableNotExists(repo.tableName());
-        }
-
-        if(dbErr.isValid())
-        {
-            CSV_SQLHelper::Import(fn.fileName, repo, columnName, separator);
-        }
-        else
-        {
-            QString msg = dbErr.ToString();
-            zWarning(msg);
+    if(dbErr.isValid()){
+        if(!fn.isCanceled){
+            CSV_SQLHelper::Import(fn.fileName, repo, keyColumnName, separator);
+        } else{
+            zInfo("cancelled");
         }
     }
     else
     {
-        zInfo("cancelled");
+        QString msg = dbErr.ToString();
+        zWarning(msg);
     }
 }

@@ -47,6 +47,59 @@ bool SQLHelper::Connect()
     return connected;
 }
 
+bool SQLHelper::TryConnect()
+{
+    bool connected = false;
+    if(_db.isValid())
+    {
+        if(_db.isOpen()) _db.close();
+        if(_db.open())
+        {
+
+            zInfo("DB: "+_settings.dbname+" opened successfully");
+            connected = true;
+        }
+        else
+        {
+            if (_db.isOpenError())
+            {
+                zWarning("Cannot open DB: "+_settings.dbname);
+            }
+            else
+            {
+                zWarning("Unknown error occurred while opening DB: "+_settings.dbname);
+            }
+        }
+    }
+    else
+    {
+        if(Connect())
+        {
+            if(_db.isValid())
+            {
+                zInfo("DB: "+_settings.dbname+" connected successfully");
+                connected = true;
+            }
+            else
+            {
+                zWarning("DB: "+_settings.dbname+" connecction failed");
+            }
+        }
+        else
+        {
+            zWarning("Cannot connect DB: "+_settings.dbname);
+        }
+    }
+    if(!connected)
+    {
+        QString msg = ErrorString("db", _db.lastError());
+        zWarning(msg);
+    }
+    if(_db.isOpen()) _db.close();
+    return connected;
+}
+
+
 auto SQLHelper::GetDriverName() -> QString{
     //opt/microsoft/msodbcsql17/lib64/libmsodbcsql-17.10.so.2.1
     auto driverdir = QStringLiteral("/opt/microsoft/msodbcsql17/lib64");
@@ -103,7 +156,14 @@ bool SQLHelper::Connect_odbc(const QString& connName, int timeout)
     }
     bool connected =_db.isValid();
 
-    _db.close();
+    if(!connected)
+    {
+        QString msg = ErrorString("db", _db.lastError());
+        zWarning(msg);
+    }
+
+    if(_db.open()) _db.close();
+
     return connected;
 }
 
@@ -160,11 +220,12 @@ bool SQLHelper::Connect_mariadb(const QString& connName, int timeout)
 
     if(!connected)
     {
-        QString msg = DoQueryRModel::ErrorString("db", _db.lastError());
+        QString msg = ErrorString("db", _db.lastError());
         zWarning(msg);
     }
 
-    _db.close();
+    if(_db.open()) _db.close();
+
 
     return connected;
 }
@@ -476,6 +537,31 @@ QString SQLHelper::GetFieldValue(const QVariant &v)
         return "\'"+v.toString()+"\'";
     }
     return v.toString();
+}
+
+QString SQLHelper::ErrorType_ToString(QSqlError::ErrorType t){
+    switch(t){
+    case QSqlError::ErrorType::NoError: return "NoError";
+    case QSqlError::ErrorType::ConnectionError: return "ConnectionError";
+    case QSqlError::ErrorType::StatementError: return "StatementError";
+    case QSqlError::ErrorType::TransactionError: return "TransactionError";
+    default: return "UnknownError";
+    }
+}
+
+QString SQLHelper::ErrorString(const QString &p, const QSqlError &err)
+{
+    if(err.isValid() && err.type()!= QSqlError::ErrorType::NoError)
+    {
+        auto n = err.nativeErrorCode();
+        auto d = err.driverText();
+        auto db = err.databaseText();
+        QString t = ErrorType_ToString(err.type());
+
+        QString msg2 = p+": "+t+ "("+n+") "+d+", "+db;
+        return msg2;
+    }
+    return QStringLiteral("%1: no error").arg(p);
 }
 
 QString SQLHelper::GetCallSelect(const QString &call)

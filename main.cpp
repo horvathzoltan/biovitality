@@ -81,18 +81,6 @@ auto main(int argc, char *argv[]) -> int
     Logger::SetFunction(&LogPresenter::Log);        
     // innen tudunk loggolni a ui-ra
 
-    bool connected = _globals._helpers._sqlHelper.Connect();
-
-    if(connected){
-        if(_globals._helpers._sqlHelper.dbIsValid()){
-            zInfo("connected DB: "+_globals._settings._sql_settings.dbname+" is valid");
-        } else{
-            zWarning("connected DB: "+_globals._settings._sql_settings.dbname+" is invalid");
-        }
-    }else{
-        zWarning("cannot connect DB: "+_globals._settings._sql_settings.dbname);
-    }
-
     QString sysInfo = _globals._helpers._sysinfoHelper.Get_SysInfo();
     zInfo(sysInfo);
 
