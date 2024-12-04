@@ -50,11 +50,27 @@ bool SQLHelper::Connect()
 bool SQLHelper::TryConnect()
 {
     bool connected = false;
+    auto a = QSqlDatabase::database("biovitality");
+    bool v = a.isValid();
+    auto e = a.lastError();
+
     if(_db.isValid())
     {
         if(_db.isOpen()) _db.close();
         if(_db.open())
         {
+            // QSqlQuery query(_db);
+            // query.prepare("SELECT 1 as val");
+            // bool ok = query.exec();
+            // int i = query.numRowsAffected();
+            // bool n = query.next();
+            // if(n){
+            //     QVariant r = query.value(0);
+            //     if(r.isValid()){
+            //         int val = r.toInt();
+            //     }
+            // }
+
 
             zInfo("DB: "+_settings.dbname+" opened successfully");
             connected = true;
@@ -76,7 +92,7 @@ bool SQLHelper::TryConnect()
         if(Connect())
         {
             if(_db.isValid())
-            {
+            {                                
                 zInfo("DB: "+_settings.dbname+" connected successfully");
                 connected = true;
             }
@@ -200,7 +216,9 @@ bool SQLHelper::Connect_mariadb(const QString& connName, int timeout)
         }
   //  }
 
-    if(isAvailable)
+    bool contains = QSqlDatabase::contains(connName);
+
+    if(isAvailable && !contains)
     {
         //zInfo("available host found: "+_host->host+":"+QString::number(_host->port));
         _db = QSqlDatabase::addDatabase(_settings.driver, connName);
