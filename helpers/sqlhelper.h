@@ -25,50 +25,50 @@ public:
         QString ToString(){return _error;}
     };
 
-    struct DbErr
-    {
-    private:
-        QList<DBE> _errors;
-    public:
-        QString _dbName="";
+    // struct DbErr
+    // {
+    // private:
+    //     QList<DBE> _errors;
+    // public:
+    //     QString _dbName="";
 
-        DbErr(const QString& dbName)
-        {
-            _dbName = dbName;
-        }
-     private:
-         DbErr(){};
-     public:
-         void AddError(const QString& v){_errors.append(DBE(v));}
-         void AddError(const QString& p, const QSqlError& v)
-         {
-             if(v.type()!=QSqlError::ErrorType::NoError)
-             {
-                 QString msg = ErrorString(p, v);
-                 _errors.append(msg);
-             }
-         }
+    //     DbErr(const QString& dbName)
+    //     {
+    //         _dbName = dbName;
+    //     }
+    //  private:
+    //      DbErr(){};
+    //  public:
+    //      void AddError(const QString& v){_errors.append(DBE(v));}
+    //      void AddError(const QString& p, const QSqlError& v)
+    //      {
+    //          if(v.type()!=QSqlError::ErrorType::NoError)
+    //          {
+    //              QString msg = ErrorString(p, v);
+    //              _errors.append(msg);
+    //          }
+    //      }
 
-         void AddError_dbIsInvalid(){
-             _errors.append(DBE("database "+_dbName+" is invalid"));
-         }
+    //      void AddError_dbIsInvalid(){
+    //          _errors.append(DBE("database "+_dbName+" is invalid"));
+    //      }
 
-         void AddError_TableNotExists(const QString& tableName){
-             _errors.append(DBE("table "+tableName+" is not exists"));
-         }
+    //      void AddError_TableNotExists(const QString& tableName){
+    //          _errors.append(DBE("table "+tableName+" is not exists"));
+    //      }
 
-         bool isValid(){return _errors.isEmpty();}
+    //      bool isValid(){return _errors.isEmpty();}
 
-         QString ToString(){
-             if(_errors.isEmpty()) return _dbName+": ok";
-             QString e;
-             for(auto&error:_errors){
-                 if(!e.isEmpty()) e+="\n";
-                 e.append(error.ToString());
-             }
-             return e;
-         }
-    };
+    //      QString ToString(){
+    //          if(_errors.isEmpty()) return _dbName+": ok";
+    //          QString e;
+    //          for(auto&error:_errors){
+    //              if(!e.isEmpty()) e+="\n";
+    //              e.append(error.ToString());
+    //          }
+    //          return e;
+    //      }
+    // };
 
     struct DoQueryRModel{
         QList<QSqlRecord> records;
@@ -200,16 +200,16 @@ public:
 
     static QString GetFieldValue(const QVariant& v);
 
-    DbErr dbErr(){
-        DbErr e = DbErr(dbName());
-        if(!dbIsValid()){
-            e.AddError_dbIsInvalid();
-        }
-        QSqlError lastError = _db.lastError();
-        bool isValid = lastError.isValid();
-        e.AddError("db", lastError);
-        return e;
-    }
+    // DbErr dbErr(){
+    //     DbErr e = DbErr(dbName());
+    //     if(!dbIsValid()){
+    //         e.AddError_dbIsInvalid();
+    //     }
+    //     QSqlError lastError = _db.lastError();
+    //     bool isValid = lastError.isValid();
+    //     e.AddError("db", lastError);
+    //     return e;
+    // }
 
     static QString ErrorType_ToString(QSqlError::ErrorType t);
 

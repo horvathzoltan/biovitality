@@ -66,7 +66,7 @@ public:
     bool Update(const T& m);
     bool Add(const T& m);
 
-    bool dbErr(SQLHelper::DbErr& dbErr);
+    //bool dbErr(SQLHelper::DbErr& dbErr);
 public:
     bool Contains_ByColumn(const QString& fieldName, const QVariant& fieldValue);
     QList<int> GetIds_ByColumn(const QString& fieldName, const QVariant& fieldValue);

@@ -35,15 +35,14 @@ private:
     void Error(const QSqlError& err);
 
     template<typename T>
-    SQLHelper::DbErr Import_CheckRepo(SqlRepository<T>& repo);
+    bool Import_CheckRepo(SqlRepository<T>& repo);
 
     // // imports from file to SQL repo
     template<typename T>
     void Import_private(const MainViewModel::FileNameModel& fn,
                         SqlRepository<T>& repo,
                         const QString& keyColumnName,
-                        const QChar& separator,
-                        SQLHelper::DbErr& dbErr);
+                        const QChar& separator);
 
 private slots:
     void processPushButtonAction(IMainView *sender);

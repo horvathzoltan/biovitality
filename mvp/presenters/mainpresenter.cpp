@@ -267,7 +267,7 @@ void MainPresenter::process_CimImport_Action(IMainView *sender)
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
     SqlRepository<Address> repo = _globals._repositories.address;
-    SQLHelper::DbErr dbErr = Import_CheckRepo(repo);
+    bool isRepoOk = Import_CheckRepo(repo);
 
     bool valid = dbErr.isValid();
     if(valid){
@@ -378,7 +378,7 @@ void MainPresenter::process_ArticleImport_Action(IMainView *sender)
 }
 
 template<typename T>
-SQLHelper::DbErr MainPresenter::Import_CheckRepo(SqlRepository<T>& repo){
+bool MainPresenter::Import_CheckRepo(SqlRepository<T>& repo){
     _globals._helpers._sqlHelper.TryConnect();
     SQLHelper::DbErr dbErr = _globals._helpers._sqlHelper.dbErr();
     if(dbErr.isValid()){

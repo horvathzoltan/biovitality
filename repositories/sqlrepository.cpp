@@ -151,15 +151,15 @@ bool SqlRepository<T>::Add(const T &m){
     return rm.isOk;
 }
 
-template<typename T>
-bool SqlRepository<T>::dbErr(SQLHelper::DbErr &dbErr){
-    bool exists = isTableExists();
-    if(exists) return true;
+// template<typename T>
+// bool SqlRepository<T>::dbErr(SQLHelper::DbErr &dbErr){
+//     bool exists = isTableExists();
+//     if(exists) return true;
 
-    QString t = tableName();
-    dbErr.AddError_TableNotExists(t);
-    return false;
-}
+//     QString t = tableName();
+//     dbErr.AddError_TableNotExists(t);
+//     return false;
+// }
 
 template<typename T>
 bool SqlRepository<T>::isTableExists()
