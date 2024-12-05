@@ -59,21 +59,11 @@ bool SQLHelper::TryConnect()
         if(_db.isOpen()) _db.close();
         if(_db.open())
         {
-            // QSqlQuery query(_db);
-            // query.prepare("SELECT 1 as val");
-            // bool ok = query.exec();
-            // int i = query.numRowsAffected();
-            // bool n = query.next();
-            // if(n){
-            //     QVariant r = query.value(0);
-            //     if(r.isValid()){
-            //         int val = r.toInt();
-            //     }
-            // }
-
 
             zInfo("DB: "+_settings.dbname+" opened successfully");
             connected = true;
+            if(_db.isOpen())
+                _db.close();
         }
         else
         {
@@ -111,7 +101,7 @@ bool SQLHelper::TryConnect()
         QString msg = ErrorString("db", _db.lastError());
         zWarning(msg);
     }
-    if(_db.isOpen()) _db.close();
+
     return connected;
 }
 
