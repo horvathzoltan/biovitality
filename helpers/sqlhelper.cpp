@@ -49,26 +49,31 @@ bool SQLHelper::Connect()
 
 bool SQLHelper::TryOpen()
 {
+    if(!_isInited) return false;
+    bool contains = QSqlDatabase::contains(_connName);
     bool connected = false;
-    if(_db.isValid())
-    {
-        if(_db.open())
+    if(contains) {
+        //auto db = QSqlDatabase::database(_connName);
+        if(_db.isValid())
         {
-            zInfo("DB: "+_settings.dbname+" opened successfully");
-            connected = true;
-            // if(_db.isOpen())
-            //     _db.close();
-        }
-        else
-        {
-            if (_db.isOpenError())
+            if(_db.open())
             {
-                zWarning("Cannot open DB: "+_settings.dbname);
-                zWarning(ErrorString("db", _db.lastError()));
+                zInfo("DB: "+_settings.dbname+" opened successfully");
+                connected = true;
+                // if(_db.isOpen())
+                //     _db.close();
             }
             else
             {
-                zWarning("Unknown error occurred while opening DB: "+_settings.dbname);
+                if (_db.isOpenError())
+                {
+                    zWarning("Cannot open DB: "+_settings.dbname);
+                    zWarning(ErrorString("db", _db.lastError()));
+                }
+                else
+                {
+                    zWarning("Unknown error occurred while opening DB: "+_settings.dbname);
+                }
             }
         }
     }
@@ -83,15 +88,18 @@ bool SQLHelper::TryConnect()
         bool c = Connect();
         if(c)
         {
-            if(_db.isValid())
-            {                                
-                zInfo("DB: "+_settings.dbname+" connected successfully");
-                connected = true;
-            }
-            else
-            {
-                zWarning("DB: "+_settings.dbname+" connecction failed");
-            }
+            zInfo("DB: "+_settings.dbname+" connected successfully");
+            connected = TryOpen();
+            // //auto db = QSqlDatabase::database(_connName);
+            // if(_db.isValid())
+            // {
+            //     zInfo("DB: "+_settings.dbname+" connected successfully");
+            //     connected = true;
+            // }
+            // else
+            // {
+            //     zWarning("DB: "+_settings.dbname+" connecction failed");
+            // }
         }
         else
         {
@@ -116,6 +124,7 @@ auto SQLHelper::GetDriverName() -> QString{
 bool SQLHelper::Connect_odbc(const QString& connName, int timeout)
 {
     if(!_isInited) return false;
+    //auto db = QSqlDatabase::database(_connName);
 
     bool isAvailable = CheckHostAvailable(timeout);
     if(isAvailable)
@@ -168,6 +177,7 @@ bool SQLHelper::Connect_mariadb(const QString& connName, int timeout)
 {
     if(!_isInited) return false;
 
+    //auto db = QSqlDatabase::database(_connName);
     bool isAvailable = CheckHostAvailable(timeout);
     if(isAvailable)
     {
@@ -181,10 +191,13 @@ bool SQLHelper::Connect_mariadb(const QString& connName, int timeout)
             _db.setDatabaseName(_settings.dbname);
             _db.setUserName(_settings.user);
             _db.setPassword(_settings.password);
+
+            zInfo("DB: "+_settings.dbname+" connection added");
         }
     }
 
-    bool connected = TryOpen();
+   // bool connected = TryOpen();
+    bool connected = _db.isValid();
     return connected;
 }
 
@@ -319,16 +332,18 @@ QFileInfo SQLHelper::GetMostRecent(const QString& path, const QString& pattern)
 // ROWID=:rowid
 SQLHelper::DoQueryRModel SQLHelper::DoQuery(const QString& cmd, const QList<SQLHelper::SQLParam>& params)
 {
-    if(!_db.isValid()) return {};
+    if(!_isInited) return {};
 
-    DoQueryRModel m;
-    QSqlQuery query(_db);
+    zInfo("cmd:"+cmd);
 
+    DoQueryRModel m;    
     bool opened = TryOpen();
     bool queryOk = false;
     if(opened) {
+        //auto db = QSqlDatabase::database(_connName);
+        QSqlQuery query(_db);
+
         query.prepare(cmd);
-        zInfo("cmd:"+cmd);
         if(!params.isEmpty()){
             //QStringList names = params.keys();
             for(auto&n:params){
@@ -361,15 +376,17 @@ SQLHelper::DoQueryRModel SQLHelper::DoQuery(const QString& cmd, const QList<SQLH
         }
         else
         {
-            zWarning("Cannot execure query: "+_settings.dbname);
-            zWarning(ErrorString("db", query.lastError()));
+            zWarning("Cannot execute query");
+            //zWarning(ErrorString("db", _db.lastError()));
+            zWarning(ErrorString("query", query.lastError()));
         }
+        _db.close();
     }
 
     //m.dbError = _db.lastError();
     //m.queryError = query.lastError();
     m.isOk = opened && queryOk;
-    _db.close();
+
     zInfo(QStringLiteral("Query ")+(m.isOk?"succeed":"failed"));
     return m;
 }
@@ -414,7 +431,8 @@ QString SQLHelper::GetParamList_INSERT(const QList<SQLHelper::SQLParam>& params)
 
 SQLHelper::DoQueryRModel SQLHelper::Call(const QString& cmd)//, const QList<SQLHelper::SQLParam>& params){
 {
-    if(!_db.isValid()) return {};
+    if(!_isInited) return {};
+
     QString select = GetCallSelect(cmd);
     if(select.isEmpty()) return {};
     QString call = "call "+cmd;
@@ -422,11 +440,14 @@ SQLHelper::DoQueryRModel SQLHelper::Call(const QString& cmd)//, const QList<SQLH
     zInfo("cmd:"+call);
     zInfo("cmd:"+select);
 
-    DoQueryRModel m;
-    QSqlQuery query(_db);
+    DoQueryRModel m;    
     bool opened = TryOpen();
+
     bool queryOk = false;
     if(opened) {
+        //auto db = QSqlDatabase::database(_connName);
+        QSqlQuery query(_db);
+
         query.prepare(call);
 
         queryOk= query.exec();
@@ -450,13 +471,14 @@ SQLHelper::DoQueryRModel SQLHelper::Call(const QString& cmd)//, const QList<SQLH
         }
         else
         {
-            zWarning("Cannot execure query: "+_settings.dbname);
-            zWarning(ErrorString("db", query.lastError()));
+            zWarning("Cannot execute query");
+            zWarning(ErrorString("query", query.lastError()));
         }
+        _db.close();
     }
 
     m.isOk = opened && queryOk;
-    _db.close();
+
     zInfo(QStringLiteral("Call ")+(m.isOk?"succeed":"failed"));
     return m;
 }

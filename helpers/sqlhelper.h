@@ -87,28 +87,28 @@ public:
             return records.count();
         }                
 
-        QString ToString(){
-            if(!isOk){
-       //         QString msg1 = ErrorString("db", dbError);
-       //         QString msg2 = ErrorString("query", queryError);
+       //  QString ToString(){
+       //      if(!isOk){
+       // //         QString msg1 = ErrorString("db", dbError);
+       // //         QString msg2 = ErrorString("query", queryError);
 
-       //         return msg1+"\n"+msg2;
-                return "error";
-            }
+       // //         return msg1+"\n"+msg2;
+       //          return "error";
+       //      }
 
-            if(rowsAffected>0){
-                return "Rows affected:"+QString::number(rowsAffected);
-            }
-            return "No rows affected";
-        }
+       //      if(rowsAffected>0){
+       //          return "Rows affected:"+QString::number(rowsAffected);
+       //      }
+       //      return "No rows affected";
+       //  }
 
-        QString ToString_RowsAffected(){
-            if(rowsAffected>0)
-            {
-                return "Rows affected:"+QString::number(rowsAffected);
-            }
-            return "No rows affected";
-        }
+        // QString ToString_RowsAffected(){
+        //     if(rowsAffected>0)
+        //     {
+        //         return "Rows affected:"+QString::number(rowsAffected);
+        //     }
+        //     return "No rows affected";
+        // }
     };
 
 public:
@@ -175,7 +175,7 @@ public:
 
     ~SQLHelper()
     {
-        _db.removeDatabase(_connName);
+        QSqlDatabase::removeDatabase(_connName);
     }
 
 private:

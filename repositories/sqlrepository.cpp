@@ -52,7 +52,7 @@ bool RepositoryBase::Contains(int id)
     bool exists = false;
 
     QString cmd = CONTAINS_CMD.arg(tableName()).arg(id);
-    zInfo("cmd:"+cmd);
+    //zInfo("cmd:"+cmd);
     //QSqlQuery q = _sqlHelper.GetQuery(cmd);
     SQLHelper::DoQueryRModel rm = _globals._helpers._sqlHelper.DoQuery(cmd);
 
@@ -70,7 +70,7 @@ T SqlRepository<T>::Get(int id)
     QString fieldNames=T::GetMetaFieldNames();
 
     QString cmd=GET_CMD.arg(fieldNames).arg(tableName()).arg(id);
-    zInfo("cmd:"+cmd);
+    //zInfo("cmd:"+cmd);
     SQLHelper::DoQueryRModel rm = _globals._helpers._sqlHelper.DoQuery(cmd);
 
     if(rm.hasRecords())
@@ -93,7 +93,7 @@ QList<T> SqlRepository<T>::GetAll()
     QString fieldNames=T::GetMetaFieldNames();
 
     QString cmd=GETALL_CMD.arg(tableName()).arg(fieldNames);
-    zInfo("cmd:"+cmd);
+    //zInfo("cmd:"+cmd);
     //QSqlQuery q = _sqlHelper.GetQuery(cmd);
     SQLHelper::DoQueryRModel rm = _globals._helpers._sqlHelper.DoQuery(cmd);
 
@@ -120,13 +120,13 @@ bool SqlRepository<T>::Update(const T &m)
     QList<SQLHelper::SQLParam> params = m.GetQueryParams();
     QString fieldList=SQLHelper::GetFieldNames_UPDATE(params);
     QString cmd=UPDATE_CMD.arg(tableName()).arg(fieldList);
-    zInfo("cmd:"+cmd);
+    //zInfo("cmd:"+cmd);
     SQLHelper::DoQueryRModel rm = _globals._helpers._sqlHelper.DoQuery(cmd, params);
 
-    if(!rm.isOk){
-        QString msg = rm.ToString();
-        zWarning(msg);
-    }
+    // if(!rm.isOk){
+    //     QString msg = rm.ToString();
+    //     zWarning(msg);
+    // }
 
     zInfo("records updated:"+QString::number(rm.recordCount()));
     return rm.isOk;
@@ -139,13 +139,13 @@ bool SqlRepository<T>::Add(const T &m){
     QString paramList=SQLHelper::GetParamList_INSERT(params);
 
     QString cmd=INSERT_CMD.arg(tableName()).arg(fieldList).arg(paramList);
-    zInfo("cmd:"+cmd);
+    //zInfo("cmd:"+cmd);
     SQLHelper::DoQueryRModel rm = _globals._helpers._sqlHelper.DoQuery(cmd, params);
 
-    if(!rm.isOk){
-        QString msg = rm.ToString();
-        zWarning(msg);
-    }
+    // if(!rm.isOk){
+    //     QString msg = rm.ToString();
+    //     zWarning(msg);
+    // }
 
     zInfo("records inserted:"+QString::number(rm.recordCount()));
     return rm.isOk;
@@ -242,7 +242,7 @@ bool SqlRepository<T>::Contains_ByColumn(const QString& fieldName, const QVarian
 {
     bool exists = false;
     QString cmd = CONTAINS_BY_COLUMN_CMD.arg(tableName()).arg(fieldName).arg(fieldValue.toString());
-    zInfo("cmd:"+cmd);
+    //zInfo("cmd:"+cmd);
     SQLHelper::DoQueryRModel rm = _globals._helpers._sqlHelper.DoQuery(cmd);
 
     if(rm.hasRecords()){
@@ -264,7 +264,7 @@ QList<int> SqlRepository<T>::GetIds_ByColumn(const QString& fieldName, const QVa
     QList<int> e;
 
     QString cmd = GET_ID_BY_COLUMN_CMD.arg(tableName()).arg(fieldName).arg(fieldValue.toString());
-    zInfo("cmd:"+cmd);
+    //zInfo("cmd:"+cmd);
     SQLHelper::DoQueryRModel rm = _globals._helpers._sqlHelper.DoQuery(cmd);
 
     if(rm.hasRecords())
