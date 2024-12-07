@@ -74,8 +74,8 @@ public:
         QList<QSqlRecord> records;
         int rowsAffected = -1;
         bool isOk = false;
-        QSqlError dbError;
-        QSqlError queryError;
+   //     QSqlError dbError;
+   //     QSqlError queryError;
 
         bool hasRecords(){
             if(!isOk) return false;
@@ -89,10 +89,11 @@ public:
 
         QString ToString(){
             if(!isOk){
-                QString msg1 = ErrorString("db", dbError);
-                QString msg2 = ErrorString("query", queryError);
+       //         QString msg1 = ErrorString("db", dbError);
+       //         QString msg2 = ErrorString("query", queryError);
 
-                return msg1+"\n"+msg2;
+       //         return msg1+"\n"+msg2;
+                return "error";
             }
 
             if(rowsAffected>0){
@@ -157,6 +158,7 @@ private:
     static const QString _connName;
     //HostPort* _host = nullptr;
 
+    bool CheckHostAvailable(int timeout);
     bool Connect_odbc(const QString &name, int timeout);
     bool Connect_mariadb(const QString &name, int timeout);
 
@@ -180,6 +182,7 @@ private:
     bool Connect();
 public:
     bool TryConnect();
+    bool TryOpen();
 
     static QFileInfo GetMostRecent(const QString &path, const QString &pattern);
 

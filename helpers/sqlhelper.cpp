@@ -47,29 +47,24 @@ bool SQLHelper::Connect()
     return connected;
 }
 
-bool SQLHelper::TryConnect()
+bool SQLHelper::TryOpen()
 {
     bool connected = false;
-    auto a = QSqlDatabase::database("biovitality");
-    bool v = a.isValid();
-    auto e = a.lastError();
-
     if(_db.isValid())
     {
-        if(_db.isOpen()) _db.close();
         if(_db.open())
         {
-
             zInfo("DB: "+_settings.dbname+" opened successfully");
             connected = true;
-            if(_db.isOpen())
-                _db.close();
+            // if(_db.isOpen())
+            //     _db.close();
         }
         else
         {
             if (_db.isOpenError())
             {
                 zWarning("Cannot open DB: "+_settings.dbname);
+                zWarning(ErrorString("db", _db.lastError()));
             }
             else
             {
@@ -77,9 +72,16 @@ bool SQLHelper::TryConnect()
             }
         }
     }
-    else
+    return connected;
+}
+
+bool SQLHelper::TryConnect()
+{
+    bool connected = TryOpen();
+    if(!connected)
     {
-        if(Connect())
+        bool c = Connect();
+        if(c)
         {
             if(_db.isValid())
             {                                
@@ -95,12 +97,7 @@ bool SQLHelper::TryConnect()
         {
             zWarning("Cannot connect DB: "+_settings.dbname);
         }
-    }
-    if(!connected)
-    {
-        QString msg = ErrorString("db", _db.lastError());
-        zWarning(msg);
-    }
+    }    
 
     return connected;
 }
@@ -118,123 +115,76 @@ auto SQLHelper::GetDriverName() -> QString{
 //https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-setup-tools?view=sql-server-ver15#ubuntu
 bool SQLHelper::Connect_odbc(const QString& connName, int timeout)
 {
-    //_host = nullptr;
     if(!_isInited) return false;
-    //QSqlDatabase db;
-    //const HostPort* h=nullptr;    
-    bool isAvailable = false;
-    //for(auto&i:_settings.hosts)
-    //{
-        if(NetworkHelper::Ping(_settings.host)) {
-            zInfo("host found: "+_settings.host);
-            QTcpSocket s;
-            s.connectToHost(_settings.host, _settings.port);
-            auto isok = s.waitForConnected(timeout);
-            if(isok){
-                s.disconnectFromHost();
-                if (s.state() != QAbstractSocket::UnconnectedState) s.waitForDisconnected();
-                //_host=&(i);
-                isAvailable = true;
-                //zInfo("socket ok");
-                zInfo("connection ready on port: "+QString::number(_settings.port));
-                //break;
-            }
-            else{
-                zInfo("cannot connect to port: "+QString::number(_settings.port));
-            }
-        }
-        else{
-            zInfo("host not found: "+_settings.host);
-        }
-    //}
 
+    bool isAvailable = CheckHostAvailable(timeout);
     if(isAvailable)
     {
-
-        _db = QSqlDatabase::addDatabase(_settings.driver, connName);
-        auto driverfn = GetDriverName();
-        if(driverfn.isEmpty()) return false;
-        auto dbname = QStringLiteral("DRIVER=%1;Server=%2,%3;Database=%4")
-                          .arg(driverfn,_settings.host).arg(_settings.port).arg(_settings.dbname);
-        _db.setDatabaseName(dbname);
-        _db.setUserName(_settings.user);
-        _db.setPassword(_settings.password);
-    }
-    bool connected =_db.isValid();
-
-    if(!connected)
-    {
-        QString msg = ErrorString("db", _db.lastError());
-        zWarning(msg);
+        bool contains = QSqlDatabase::contains(connName);
+        if(!contains)
+        {
+            _db = QSqlDatabase::addDatabase(_settings.driver, connName);
+            auto driverfn = GetDriverName();
+            if(!driverfn.isEmpty())
+            {
+                auto dbname = QStringLiteral("DRIVER=%1;Server=%2,%3;Database=%4")
+                                  .arg(driverfn,_settings.host).arg(_settings.port).arg(_settings.dbname);
+                _db.setDatabaseName(dbname);
+                _db.setUserName(_settings.user);
+                _db.setPassword(_settings.password);
+            }
+        }
     }
 
-    if(_db.open()) _db.close();
-
+    bool connected = TryOpen();
     return connected;
+}
+
+bool SQLHelper::CheckHostAvailable(int timeout){
+    bool isAvailable = false;
+    if(NetworkHelper::Ping(_settings.host)) {
+        zInfo("host found: "+_settings.host);
+        QTcpSocket s;
+        s.connectToHost(_settings.host, _settings.port);
+        auto isok = s.waitForConnected(timeout);
+        if(isok){
+            s.disconnectFromHost();
+            if (s.state() != QAbstractSocket::UnconnectedState) s.waitForDisconnected();
+            isAvailable = true;
+            zInfo("connection ready on port: "+QString::number(_settings.port));
+        }
+        else{
+            zInfo("cannot connect to port: "+QString::number(_settings.port));
+        }
+    }
+    else{
+        zInfo("host not found: "+_settings.host);
+    }
+
+    return isAvailable;
 }
 
 bool SQLHelper::Connect_mariadb(const QString& connName, int timeout)
 {
-    //QSqlDatabase db;
-    //const HostPort* h=nullptr;
-    //_host = nullptr;
     if(!_isInited) return false;
-    bool isAvailable = false;
-    //for(auto&i:_settings.hosts)
-    //{
-        //zInfo("host: "+i.host+":"+QString::number(i.port));
-        if(NetworkHelper::Ping(_settings.host)) {
-            zInfo("host found: "+_settings.host);
-            QTcpSocket s;
-            s.connectToHost(_settings.host, _settings.port);
-            auto isok = s.waitForConnected(timeout);
-            if(isok){
-                s.disconnectFromHost();
-                if (s.state() != QAbstractSocket::UnconnectedState) s.waitForDisconnected();                
-                //_host=&(i);
-                isAvailable = true;
-                zInfo("connection ready on port: "+QString::number(_settings.port));
-                //zInfo("socket ok");
-                //break;
-            }
-            else{
-                zInfo("cannot connect to port: "+QString::number(_settings.port));
-            }
-        }
-        else{
-            zInfo("host not found: "+_settings.host);
-        }
-  //  }
 
-    bool contains = QSqlDatabase::contains(connName);
-
-    if(isAvailable && !contains)
+    bool isAvailable = CheckHostAvailable(timeout);
+    if(isAvailable)
     {
-        //zInfo("available host found: "+_host->host+":"+QString::number(_host->port));
-        _db = QSqlDatabase::addDatabase(_settings.driver, connName);
-
-        _db.setHostName(_settings.host);// Tried www.themindspot.com & ip with http:// and https://
-        _db.setPort(_settings.port);
-
-        //auto driverfn = GetDriverName();
-        //if(driverfn.isEmpty()) return db;
-        //auto dbname = QStringLiteral("DRIVER=%1;Server=%2,%3;Database=%4")
-        //                  .arg(driverfn,h->host).arg(h->port).arg(s.dbname);
-        _db.setDatabaseName(_settings.dbname);
-        _db.setUserName(_settings.user);
-        _db.setPassword(_settings.password);
-    }
-    bool connected =_db.isValid();
-
-    if(!connected)
-    {
-        QString msg = ErrorString("db", _db.lastError());
-        zWarning(msg);
+        bool contains = QSqlDatabase::contains(connName);
+        if(!contains)
+        {
+            _db = QSqlDatabase::addDatabase(_settings.driver, connName);
+            //Before using the connection, it must be initialized.
+            _db.setHostName(_settings.host);// Tried www.themindspot.com & ip with http:// and https://
+            _db.setPort(_settings.port);
+            _db.setDatabaseName(_settings.dbname);
+            _db.setUserName(_settings.user);
+            _db.setPassword(_settings.password);
+        }
     }
 
-    if(_db.open()) _db.close();
-
-
+    bool connected = TryOpen();
     return connected;
 }
 
@@ -369,26 +319,16 @@ QFileInfo SQLHelper::GetMostRecent(const QString& path, const QString& pattern)
 // ROWID=:rowid
 SQLHelper::DoQueryRModel SQLHelper::DoQuery(const QString& cmd, const QList<SQLHelper::SQLParam>& params)
 {
-    //static const QString conn = QStringLiteral("conn1");
-    //auto db = Connect_mariadb( conn, 5000);
-
-    // if(db.isValid()){
-    //     zInfo("DB "+_settings.dbname+" is valid");
-    // } else{
-    //     zInfo("DB "+_settings.dbname+" is invalid");
-    // }
     if(!_db.isValid()) return {};
 
-
     DoQueryRModel m;
-    //QList<QSqlRecord> e;
     QSqlQuery query(_db);
 
-    //int recordsAffected = -1;
-
-    m.isOk = _db.open();
-    if(m.isOk) {
+    bool opened = TryOpen();
+    bool queryOk = false;
+    if(opened) {
         query.prepare(cmd);
+        zInfo("cmd:"+cmd);
         if(!params.isEmpty()){
             //QStringList names = params.keys();
             for(auto&n:params){
@@ -396,7 +336,6 @@ SQLHelper::DoQueryRModel SQLHelper::DoQuery(const QString& cmd, const QList<SQLH
                 if(n.fieldValue.isValid()){
                     query.bindValue(":"+n.paramName,n.fieldValue);
                 }
-
                 QString fieldValue = GetFieldValue(n.fieldValue);
                 zInfo(n.paramName+":"+n.fieldName+"="+fieldValue
                       +" "+(n.fieldValue.isValid()?"valid":"invalid") +
@@ -404,9 +343,9 @@ SQLHelper::DoQueryRModel SQLHelper::DoQuery(const QString& cmd, const QList<SQLH
             }
         }
 
-        m.isOk = query.exec();
+        queryOk = query.exec();
 
-        if(m.isOk){
+        if(queryOk){
             if(query.isSelect()){
                 m.rowsAffected = query.size();
             } else{
@@ -420,11 +359,16 @@ SQLHelper::DoQueryRModel SQLHelper::DoQuery(const QString& cmd, const QList<SQLH
                 }
             }
         }
+        else
+        {
+            zWarning("Cannot execure query: "+_settings.dbname);
+            zWarning(ErrorString("db", query.lastError()));
+        }
     }
 
-    m.dbError = _db.lastError();
-    m.queryError = query.lastError();        
-
+    //m.dbError = _db.lastError();
+    //m.queryError = query.lastError();
+    m.isOk = opened && queryOk;
     _db.close();
     zInfo(QStringLiteral("Query ")+(m.isOk?"succeed":"failed"));
     return m;
@@ -470,14 +414,6 @@ QString SQLHelper::GetParamList_INSERT(const QList<SQLHelper::SQLParam>& params)
 
 SQLHelper::DoQueryRModel SQLHelper::Call(const QString& cmd)//, const QList<SQLHelper::SQLParam>& params){
 {
-    //static const QString conn = QStringLiteral("conn1");
-    //auto db = Connect_mariadb( conn, 5000);
-
-    // if(db.isValid()){
-    //     zInfo("DB "+_settings.dbname+" is valid");
-    // } else{
-    //     zInfo("DB "+_settings.dbname+" is invalid");
-    // }
     if(!_db.isValid()) return {};
     QString select = GetCallSelect(cmd);
     if(select.isEmpty()) return {};
@@ -488,36 +424,23 @@ SQLHelper::DoQueryRModel SQLHelper::Call(const QString& cmd)//, const QList<SQLH
 
     DoQueryRModel m;
     QSqlQuery query(_db);
-    m.isOk = _db.open();
-
-    if(m.isOk) {
+    bool opened = TryOpen();
+    bool queryOk = false;
+    if(opened) {
         query.prepare(call);
 
-        m.isOk = query.exec();
+        queryOk= query.exec();
 
-        if(m.isOk){
-            // if(query.isSelect()){
-            //     s = query.size();
-            // } else{
-            //     s = query.numRowsAffected();
-            // }
-
-            //"SELECT @table_type;"
-
+        if(queryOk)
+        {
             query.prepare(select);
 
             query.exec();
             if(query.isSelect()){
                 m.rowsAffected = query.size();
-                //    if(s==-1) hasRecords = false;
             } else{
                 m.rowsAffected = query.numRowsAffected();
-                //    if(s==-1) hasRecords = false;
             }
-            // query.first();
-            // auto v = query.value(0);
-            // auto v1 = query.result();
-            // auto v2 = query.record().value(0);
             if(query.isSelect() && m.rowsAffected>0){
                 while (query.next()) {
                     QSqlRecord rec = query.record();
@@ -525,11 +448,14 @@ SQLHelper::DoQueryRModel SQLHelper::Call(const QString& cmd)//, const QList<SQLH
                 }
             }
         }
+        else
+        {
+            zWarning("Cannot execure query: "+_settings.dbname);
+            zWarning(ErrorString("db", query.lastError()));
+        }
     }
 
-    m.dbError = _db.lastError();
-    m.queryError = query.lastError();
-
+    m.isOk = opened && queryOk;
     _db.close();
     zInfo(QStringLiteral("Call ")+(m.isOk?"succeed":"failed"));
     return m;
