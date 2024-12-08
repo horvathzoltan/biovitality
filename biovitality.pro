@@ -117,6 +117,7 @@ DISTFILES += \
     testdata/Cimtorzs_Zolinak.csv \
     testdata/Megyek_Zolinak.csv \
     testdata/Partnertorzs_Zolinak.csv \
+    testdata/"Termékek adatai, kódok (version 1).csv" \
     testdata/countries.csv \
     testdata/teszt1.csv \
     testdata/teszt2.csv \
