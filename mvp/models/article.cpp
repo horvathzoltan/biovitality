@@ -17,6 +17,8 @@ void Article::MetaInit()
     AddMetaField(id); // id
     AddMetaField(Name); //megnev
     AddMetaField(Barcode); //code
+    AddMetaField(alimedCode); //code
+    AddMetaField(ogyeiCode); //code
     AddMetaField(excelId); //excelId
 
     // 1+2+3
@@ -37,9 +39,11 @@ QList<Article> Article::CSV_Import(const QList<QVarLengthArray<QString>>& record
     int L = records.length();
 
     CSVHelper::RowToField ixln;
-    ixln.AddRowToField(Name, "Termék megnevezése");
-    ixln.AddRowToField(Barcode, "Vonalkód");
-    ixln.AddRowToField(excelId, "ID");
+    AddRowToField(ixln, Name, "Termék neve");
+    AddRowToField(ixln, Barcode, "Vonalkód");
+    AddRowToField(ixln, alimedCode, "ALIMED kódja");
+    AddRowToField(ixln, ogyeiCode, "OGYÉI eng.sz.");
+    AddRowToField(ixln, excelId, "ID");
 
     QMap<QString,int> ixs = ixln.Get_RowIndexes(records[0]);
 

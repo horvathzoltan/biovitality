@@ -139,6 +139,11 @@ public:
             return host+":"+QString::number(port);
         }
 
+        QString ToString()
+        {
+            return driver+'@'+ToString_HostPort();
+        }
+
         bool isValid() const{
             if(dbname.isEmpty()) return false;
             if(driver.isEmpty()) return false;
@@ -216,7 +221,10 @@ public:
 
     static QString ErrorType_ToString(QSqlError::ErrorType t);
 
-    static QString ErrorString(const QString& p, const QSqlError& err);;
+    static QString ErrorString(const QString& p, const QSqlError& err);
+
+private:
+    QString DbMsg();
 };
 
 #endif // SQLHELPER_H

@@ -41,9 +41,9 @@ QList<Country> Country::CSV_Import(const QList<QVarLengthArray<QString>>& record
     int L = records.length();
 
     CSVHelper::RowToField ixln;
-    ixln.AddRowToField(name, "name");
-    ixln.AddRowToField(alpha2, "alpha-2");
-    ixln.AddRowToField(countryCode, "country-code");
+    AddRowToField(ixln, name, "name");
+    AddRowToField(ixln, alpha2, "alpha-2");
+    AddRowToField(ixln, countryCode, "country-code");
 
     QMap<QString,int> ixs = ixln.Get_RowIndexes(records[0]);
 

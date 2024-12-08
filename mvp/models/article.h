@@ -25,6 +25,8 @@ public:
     int id=-1;
     QString Name;
     QString Barcode;
+    quint32 alimedCode;
+    quint32 ogyeiCode;
     int excelId=-1;
 
     // Meta
@@ -47,7 +49,6 @@ public:
     static QList<Article> CSV_Import(const QList<QVarLengthArray<QString>>& records);
     QVariant GetValue(const QString& name) const { return _meta.GetValue(this, name);}
     static MetaField* GetMetaField(const QString& name) {return _meta.GetMetaField(name);}
-
 
 // DataForm
     static DataRowDefaultModel To_DataRowDefaultModel(const QList<Article>& data)

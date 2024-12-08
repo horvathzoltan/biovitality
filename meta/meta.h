@@ -12,8 +12,9 @@
 #define AddMetaField(b) _meta.AddField(#b, QMetaType::fromType<decltype(_meta._instance.b)>(), (char*)(&_meta._instance.b));
 #define AddMetaBase(b) _meta.AddBaseName(#b, sizeof(b));
 
-#define AddRowToField(b,c) Add_RowToField(#b, c); {(void)_meta._instance.b;}
+//#define AddRowToField(b,c) Add_RowToField(#b, c); {(void)_meta._instance.b;}
 #define FieldName(t, b) QString(#b); { (void)t::metaInstance().b;}
+#define AddRowToField(a,b,c) if(_meta.Contains(#b)){a.Add_RowToField(#b, c); {(void)_meta._instance.b;}} else {zWarning(QStringLiteral("MetaField is not exists:")+#b);}
 
 class IdMegnev{
 public:
@@ -128,6 +129,12 @@ public:
         }
 
         _fields.append(f);        
+    }
+
+    bool Contains(const QString& name)
+    {
+        for(auto&a:_fields) if(a.name == name) return true;
+        return false;
     }
 
     // Gets field names separated with comma

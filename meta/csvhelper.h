@@ -42,7 +42,8 @@ public:
             QList<Data> _data;
 
         public:
-            void Add_RowToField(const QString& metaFieldName, const QString& csvRowName){
+            void Add_RowToField(const QString& metaFieldName, const QString& csvRowName)
+            {
                 Data data(metaFieldName, csvRowName);
                 _data.append(data);
             }
