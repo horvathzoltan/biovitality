@@ -49,7 +49,7 @@ void MainPresenter::appendView(IMainView *w)
 
     _views.append(w);
 
-    auto *view_obj = dynamic_cast<QObject*>(w);
+    QObject *view_obj = dynamic_cast<QObject *>(w);
 
     QObject::connect(view_obj, SIGNAL(PushButtonActionTriggered(IMainView *)),
                      this, SLOT(processPushButtonAction(IMainView *)));

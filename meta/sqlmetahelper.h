@@ -54,31 +54,32 @@ public:
     // }
 
     template<typename T>
-    static void InsertOrUpdate2(SqlRepository<T>& repo, QList<T>& items, const QString& columnName)
+    static void InsertOrUpdate2(SqlRepository<T>& repo, QList<T>& items, const QString& keyColumnName)
     {
         if(items.isEmpty()){
             zInfo("no items to import");
             return;
         }
-        if(columnName.isEmpty()){
-            zInfo("no columnName to import");
-            return;
-        }
+        // if(columnName.isEmpty()){
+        //     zInfo("no columnName to import");
+        //     return;
+        // }
 
         int i_all=0, u_all=0;
         int i_ok=0, u_ok=0;
         for(T&i:items){
             // MetaField* columnMetaField = i.GetField(columnName);
             // MetaValue columnMetaValue = columnMetaField->GetMetaValue(&i);
-            QVariant columnValue = i.GetValue(columnName);
+            QVariant keyColumnValue = i.GetValue(keyColumnName);
             //if(!columnMetaValue.isValid()) continue;
 
-            zInfo("item: "+ columnName+" = "+columnValue.toString());
+            bool canUpdate = keyColumnValue.isValid() && (keyColumnValue!=-1 && keyColumnValue!="");
+            zInfo("item: "+ keyColumnName+" = "+keyColumnValue.toString());
 
-            bool contains = repo.Contains_ByColumn(columnName, columnValue);            
-            if(contains){
+            bool contains = repo.Contains_ByColumn(keyColumnName, keyColumnValue);
+            if(contains && canUpdate){
                 zInfo("record update");
-                QList<int> ids =  repo.GetIds_ByColumn(columnName, columnValue); // meg kell szerezni az id-t
+                QList<int> ids =  repo.GetIds_ByColumn(keyColumnName, keyColumnValue); // meg kell szerezni az id-t
                 int count = ids.count();
                 if(count == 1)
                 {                    
@@ -88,9 +89,9 @@ public:
                     if(ok) u_ok++;
                     zInfo(QStringLiteral("record update:") +(ok?"ok":"failed"));
                 } else if(count == 0){
-                    zInfo("no record exists:"+columnName+"="+columnValue.toString());
+                    zInfo("no record exists:"+keyColumnName+"="+keyColumnValue.toString());
                 } else{
-                    zInfo("record is not unique:"+columnName+"="+columnValue.toString());
+                    zInfo("record is not unique:"+keyColumnName+"="+keyColumnValue.toString());
                 }
             } else{
                 zInfo("record insert");
