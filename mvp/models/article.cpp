@@ -32,9 +32,10 @@ bool Article::isValid()
     return true;
 }
 
-QList<Article> Article::CSV_Import(const QList<QVarLengthArray<QString>>& records)
+CSV_ImportModel<Article> Article::CSV_Import(const QList<QVarLengthArray<QString>>& records,
+                                                        const QChar& separator)
 {
-    QList<Article> m;
+    CSV_ImportModel<Article> m;
 
     int L = records.length();
 
@@ -54,12 +55,14 @@ QList<Article> Article::CSV_Import(const QList<QVarLengthArray<QString>>& record
         Article item = Article::FromMetaValues(metaValues);
         item.id = 0;
 
-        bool valid = item.isValid();
-        if(valid){
-            m.append(item);
-        } else{
-            zInfo("invalid row:"+QString::number(i+1)+" row:"+QString::number(i));
-        }
+        CSV_ImportModel<Article>::Data data(item, row, i, separator);
+        m.Add(data);
+        // bool valid = item.isValid();
+        // if(valid){
+        //     m.append(item);
+        // } else{
+        //     zInfo("invalid row:"+QString::number(i+1)+" row:"+QString::number(i));
+        // }
     }
 
     return m;

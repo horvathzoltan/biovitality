@@ -62,7 +62,7 @@ private:
         //CreateUpdate
         [[maybe_unused]] QList<SQLHelper::SQLParam> (T::*GetQueryParams_Check)()const = &T::GetQueryParams;
         //CSV
-        [[maybe_unused]] QList<T> (*CSV_Import_Check)(const QList<QVarLengthArray<QString>>& records) = &T::CSV_Import;
+        [[maybe_unused]] CSV_ImportModel<T> (*CSV_Import_Check)(const QList<QVarLengthArray<QString>>& records, const QChar& separator) = &T::CSV_Import;
     }
 };
 

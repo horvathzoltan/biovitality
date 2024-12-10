@@ -10,8 +10,8 @@
 
 
 class CSVHelper
-{
-public:
+{    
+public:    
     static int IndexOfRow(const QVarLengthArray<QString>& row, const QString & column_name);
 
     static QVariant GetData(const QVarLengthArray<QString>& row, const QString &columnName, const QMap<QString, int>& ixs);

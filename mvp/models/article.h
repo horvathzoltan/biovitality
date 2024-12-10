@@ -12,6 +12,8 @@
 
 #include <mvp/views/dataform.h>
 
+#include <meta/csvhelper.h>
+
 //DataForm
 class Article : I_Meta<Article>
     , I_SQLRepo_Read<Article>
@@ -46,7 +48,8 @@ public:
     QList<SQLHelper::SQLParam> GetQueryParams()const { return _meta.ToMetaValues2(this);}
 
     // CSV import
-    static QList<Article> CSV_Import(const QList<QVarLengthArray<QString>>& records);
+    static CSV_ImportModel<Article> CSV_Import(const QList<QVarLengthArray<QString>>& records,
+                                               const QChar& separator);
     QVariant GetValue(const QString& name) const { return _meta.GetValue(this, name);}
     static MetaField* GetMetaField(const QString& name) {return _meta.GetMetaField(name);}
 

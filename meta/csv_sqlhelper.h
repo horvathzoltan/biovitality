@@ -2,6 +2,7 @@
 #define CSV_SQLHELPER_H
 
 #include "helpers/logger.h"
+#include "csvhelper.h"
 #include "sqlmetahelper.h"
 #include <QString>
 
@@ -52,11 +53,11 @@ public:
         if(csvModel.error == FileHelper::Ok)
         {
             zInfo("file ok");
-            QList<T> items = T::CSV_Import(csvModel.records);
-            csverr.setItemsCount(items.count());
+            CSV_ImportModel<T> m = T::CSV_Import(csvModel.records, separator);
+            csverr.setItemsCount(m.validItemsCount());
 
             zInfo("items loaded: "+csverr.ToSting());
-            SqlMetaHelper::InsertOrUpdate2(repo, items, keyColumnName);
+            SqlMetaHelper::InsertOrUpdate2(repo, m, keyColumnName);
         }
         else
         {

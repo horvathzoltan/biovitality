@@ -54,7 +54,9 @@ public:
     QList<SQLHelper::SQLParam> GetQueryParams()const { return _meta.ToMetaValues2(this);}
 
     // CSV import
-    static QList<SoldItem> CSV_Import(const QList<QVarLengthArray<QString>>& records);
+    static CSV_ImportModel<SoldItem> CSV_Import(
+        const QList<QVarLengthArray<QString>>& records,
+        const QChar& separator);
     QVariant GetValue(const QString& name) const { return _meta.GetValue(this, name);}
     static MetaField* GetMetaField(const QString& name) {return _meta.GetMetaField(name);}
 

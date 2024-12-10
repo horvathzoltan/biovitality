@@ -47,9 +47,10 @@ ID;Partner neve;Székhelye;Megye;Teljesítés;Számlaszám;Termék megnevezése;
 808.;Balmazpharm Kft.;4060 Balmazújváros, Bocskai u. 2-4.;HAJDÚ-BIHAR MEGYE;2020.04.10;2024-100;Ginseng;13;5,00   ;HUF;65   ;HUF
 */
 
-QList<SoldItem> SoldItem::CSV_Import(const QList<QVarLengthArray<QString>>& records)
+CSV_ImportModel<SoldItem> SoldItem::CSV_Import(const QList<QVarLengthArray<QString>>& records,
+                                               const QChar& separator)
 {
-    QList<SoldItem> m;
+    CSV_ImportModel<SoldItem> m;
     // 1. rekord fejléc:
     //Partner neve,Székhelye,Teljesítés,Számlaszám,Termék megnevezése,Db,Egységár,Nettó ár
     int L = records.length();
@@ -114,11 +115,14 @@ QList<SoldItem> SoldItem::CSV_Import(const QList<QVarLengthArray<QString>>& reco
         item.netCurrency = CSVHelper::GetData(row, netCurrency_KEY, ixs).toString();
 
 
-        if(item.isValid()){
-            m.append(item);
-        } else{
-            zInfo("invalid row:"+QString::number(i+1)+" excelId:"+excelIdValue.toString());
-        }                
+        CSV_ImportModel<SoldItem>::Data data(item, row, i, separator);
+        m.Add(data);
+
+        // if(item.isValid()){
+        //     m.append(item);
+        // } else{
+        //     zInfo("invalid row:"+QString::number(i+1)+" excelId:"+excelIdValue.toString());
+        // }
     }
 
     return m;
