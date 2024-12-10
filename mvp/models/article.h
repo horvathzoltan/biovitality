@@ -20,14 +20,14 @@ class Article : I_Meta<Article>
 {
 public:
     Article();
-    Article(int i, const QString& n, const QString& k, int e);
+   //Article(int i, const QString& n, const QString& k, int e);
 
     int id=-1;
     QString Name;
     QString Barcode;
-    quint32 alimedCode;
-    quint32 ogyeiCode;
-    int excelId=-1;
+    QVariant alimedCode;
+    QString ogyeiCode;
+    //int excelId=-1;
 
     // Meta
 private:

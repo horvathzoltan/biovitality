@@ -4,12 +4,14 @@
 
 Meta<Article> Article::_meta;
 
-Article::Article() {}
-
-Article::Article(int i, const QString &n, const QString &k, int e)
-{
-    id = i; Name = n; Barcode = k; excelId = e;
+Article::Article() {
+    alimedCode = QVariant(QMetaType(QMetaType::ULongLong));
 }
+
+// Article::Article(int i, const QString &n, const QString &k, int e)
+// {
+//     id = i; Name = n; Barcode = k; //excelId = e;
+// }
 
 void Article::MetaInit()
 {
@@ -19,7 +21,7 @@ void Article::MetaInit()
     AddMetaField(Barcode); //code
     AddMetaField(alimedCode); //code
     AddMetaField(ogyeiCode); //code
-    AddMetaField(excelId); //excelId
+    //AddMetaField(excelId); //excelId
 
     // 1+2+3
     _meta.MetaIdMegnevIndex(0,{1},2);
@@ -43,7 +45,7 @@ QList<Article> Article::CSV_Import(const QList<QVarLengthArray<QString>>& record
     AddRowToField(ixln, Barcode, "Vonalkód");
     AddRowToField(ixln, alimedCode, "ALIMED kódja");
     AddRowToField(ixln, ogyeiCode, "OGYÉI eng.sz.");
-    AddRowToField(ixln, excelId, "ID");
+    //AddRowToField(ixln, excelId, "ID");
 
     QMap<QString,int> ixs = ixln.Get_RowIndexes(records[0]);
 

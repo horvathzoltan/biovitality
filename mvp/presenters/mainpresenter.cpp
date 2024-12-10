@@ -370,7 +370,7 @@ void MainPresenter::process_ArticleImport_Action(IMainView *sender)
     bool valid = isRepoOk;
     if(valid){
         MainViewModel::FileNameModel fn = sender->get_CSVFileName_Article();
-        QString keyColumnName = FieldName(Article, excelId);
+        QString keyColumnName = FieldName(Article, Barcode);
         Import_private(fn, repo, keyColumnName,';');
     }
     //else

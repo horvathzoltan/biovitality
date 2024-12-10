@@ -184,11 +184,29 @@ public:
     T FromMetaValues(const QList<MetaValue>& metaValues){
         T s;
         for(auto&m:metaValues){
-            MetaField* f = GetMetaField(m.name);
+            if(m.name == "alimedCode"){
+                zInfo("alimedCode megvan");
+            }
+            MetaField* f = GetMetaField(m.name);            
             if(f){
                 char* ptr = f->GetPtr((char*)&s);
-                // fromtype, from, totype, to
-                QMetaType::convert(m.value.metaType(), m.value.constData(), f->type, ptr);
+                if(f->type.id()==QMetaType::QVariant){
+                    //m.value.to
+
+                    QVariant* ptr2 = (QVariant*)ptr;
+                    QMetaType mt = ptr2->metaType();
+                    QVariant a = m.value;
+                    bool ok = a.convert(mt);
+                    if(ok)
+                    {
+                        ptr2->setValue(a);
+                    }
+                    zInfo("alimedCode megvan");
+                } else{
+
+                    // fromtype, from, totype, to
+                    QMetaType::convert(m.value.metaType(), m.value.constData(), f->type, ptr);
+                }
             }
         }
         return s;
