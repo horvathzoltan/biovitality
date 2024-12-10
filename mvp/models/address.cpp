@@ -34,9 +34,10 @@ ID;Cím
 1;4030 Debrecen,  Vágóhíd út 4.b.
 2;8394 Alsópáhok, Fő utca 76. B.ép.fszt.5.
 */
-QList<Address> Address::CSV_Import(const QList<QVarLengthArray<QString>>& records)
+CSV_ImportModel<Address> Address::CSV_Import(const QList<QVarLengthArray<QString>>& records,
+                                             const QChar& separator)
 {
-    QList<Address> m;
+    CSV_ImportModel<Address> m;
     // 1. rekord fejléc:
     //ID;Cím
     int L = records.length();
@@ -71,11 +72,13 @@ QList<Address> Address::CSV_Import(const QList<QVarLengthArray<QString>>& record
 
         item.ParseAddressFields_private(d1);
 
-        if(item.isValid()){
-            m.append(item);
-        } else{
-            zInfo("invalid row:"+QString::number(i+1)+" excelId:"+excelIdValue.toString());
-        }
+        CSV_ImportModel<Address>::Data data(item, row, i, separator);
+        m.Add(data);
+        // if(item.isValid()){
+        //     m.append(item);
+        // } else{
+        //     zInfo("invalid row:"+QString::number(i+1)+" excelId:"+excelIdValue.toString());
+        // }
     }
 
     return m;

@@ -29,9 +29,10 @@ bool Partner::isValid()
     return true;
 }
 
-QList<Partner> Partner::CSV_Import(const QList<QVarLengthArray<QString>>& records)
+CSV_ImportModel<Partner> Partner::CSV_Import(const QList<QVarLengthArray<QString>>& records,
+                                             const QChar& separator)
 {
-    QList<Partner> m;
+    CSV_ImportModel<Partner> m;
     // 1. rekord fejléc:
     //ID;Cím
     int L = records.length();
@@ -65,12 +66,14 @@ QList<Partner> Partner::CSV_Import(const QList<QVarLengthArray<QString>>& record
         item.Name = CSVHelper::GetData(row, partnerNev_KEY, ixs).toString();
 
         //item.Parse(d1);
+        CSV_ImportModel<Partner>::Data data(item, row, i, separator);
+        m.Add(data);
 
-        if(item.isValid()){
-            m.append(item);
-        } else{
-            zInfo("invalid row:"+QString::number(i+1)+" excelId:"+excelIdValue.toString());
-        }
+        // if(item.isValid()){
+        //     m.append(item);
+        // } else{
+        //     zInfo("invalid row:"+QString::number(i+1)+" excelId:"+excelIdValue.toString());
+        // }
     }
 
     return m;
