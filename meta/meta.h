@@ -16,6 +16,8 @@
 #define FieldName(t, b) QString(#b); { (void)t::metaInstance().b;}
 #define AddRowToField(a,b,c) if(_meta.Contains(#b)){a.Add_RowToField(#b, c); {(void)_meta._instance.b;}} else {zWarning(QStringLiteral("MetaField is not exists:")+#b);}
 
+
+
 template<typename T>
 struct CSV_ImportModel
 {
@@ -139,6 +141,12 @@ public:
     QList<IdMegnev> values;
 };
 
+struct FieldType{
+    QMetaType declType;
+    QMetaType keyType;
+    QMetaType valueType;
+};
+
 template<typename T>
 class Meta{
     QList<MetaField> _fields;
@@ -154,7 +162,7 @@ public:
 
     // QString GetFieldName(const QString& name, char* field_ptr){
     //      return name;
-    //  }
+    //  }    
 
     void AddField(const QString& name, const QMetaType& t, char* field_ptr)
     {
@@ -232,27 +240,38 @@ public:
         T s;
         for(auto&m:metaValues){
             if(m.name == "alimedCode"){
-                zInfo("alimedCode megvan");
+                 zInfo("alimedCode megvan");
             }
             MetaField* f = GetMetaField(m.name);            
             if(f){
                 char* ptr = f->GetPtr((char*)&s);
-                if(f->type.id()==QMetaType::QVariant){
-                    //m.value.to
+                auto typeId = f->type.id();
 
-                    QVariant* ptr2 = (QVariant*)ptr;
+                if(typeId==QMetaType::QVariant){
+                    QVariant* ptr2 = (QVariant*)ptr;                    
                     QMetaType mt = ptr2->metaType();
-                    QVariant a = m.value;
+                    QVariant a(m.value);
                     bool ok = a.convert(mt);
                     if(ok)
                     {
                         ptr2->setValue(a);
                     }
-                    zInfo("alimedCode megvan");
-                } else{
-
+                    //zInfo("alimedCode megvan");
+                } else if(typeId<65536){
                     // fromtype, from, totype, to
-                    QMetaType::convert(m.value.metaType(), m.value.constData(), f->type, ptr);
+                    bool cc = QMetaType::canConvert(m.value.metaType(), f->type);
+                    if(cc)
+                    {
+                        QMetaType::convert(m.value.metaType(), m.value.constData(), f->type, ptr);
+                    }
+                } else{
+                    //std::optional *e;
+                    //user type
+                    bool cc = QMetaType::canConvert(m.value.metaType(), f->type);
+                    if(cc)
+                    {
+                        QMetaType::convert(m.value.metaType(), m.value.constData(), f->type, ptr);
+                    }
                 }
             }
         }

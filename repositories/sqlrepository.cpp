@@ -134,7 +134,7 @@ bool SqlRepository<T>::Update(const T &m)
 
 template<class T>
 bool SqlRepository<T>::Add(const T &m){
-    QList<SQLHelper::SQLParam> params = m.GetQueryParams();
+    QList<SQLHelper::SQLParam> params = m.GetQueryParams(); // a modelosztályban van implementálva
     QString fieldList=SQLHelper::GetFieldNames_INSERT(params);
     QString paramList=SQLHelper::GetParamList_INSERT(params);
 

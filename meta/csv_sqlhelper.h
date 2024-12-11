@@ -53,6 +53,7 @@ public:
         if(csvModel.error == FileHelper::Ok)
         {
             zInfo("file ok");
+            // az adott model osztály importját hívjuk
             CSV_ImportModel<T> m = T::CSV_Import(csvModel.records, separator);
             csverr.setItemsCount(m.validItemsCount());
 

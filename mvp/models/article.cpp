@@ -5,7 +5,7 @@
 Meta<Article> Article::_meta;
 
 Article::Article() {
-    alimedCode = QVariant(QMetaType(QMetaType::ULongLong));
+    //alimedCode = QVariant(QMetaType(QMetaType::ULongLong));
 }
 
 // Article::Article(int i, const QString &n, const QString &k, int e)
@@ -19,7 +19,14 @@ void Article::MetaInit()
     AddMetaField(id); // id
     AddMetaField(Name); //megnev
     AddMetaField(Barcode); //code
-    AddMetaField(alimedCode); //code
+    //AddMetaField(alimedCode); //code
+
+    FieldType fieldType;
+    fieldType.declType = QMetaType::fromType<decltype(_meta._instance.alimedCode)>();//QMetaType::fromType<QVariant>();
+    //fieldType.valueType = _meta._instance.alimedCode.metaType();
+
+    //fieldType.valueType = _meta._instance.alimedCode.
+    _meta.AddField("alimedCode", fieldType.declType, (char*)(&_meta._instance.alimedCode));
     AddMetaField(ogyeiCode); //code
     //AddMetaField(excelId); //excelId
 

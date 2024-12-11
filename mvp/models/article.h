@@ -27,7 +27,8 @@ public:
     int id=-1;
     QString Name;
     QString Barcode;
-    QVariant alimedCode;
+    //QVariant alimedCode;
+    std::optional<quint64> alimedCode;
     QString ogyeiCode;
     //int excelId=-1;
 
