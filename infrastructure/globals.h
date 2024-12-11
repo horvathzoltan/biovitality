@@ -12,6 +12,7 @@
 #include "settings.h"
 #include <QLocale>
 
+#include <helpers/optionalconverters.h>
 #include <helpers/sysinfohelper.h>
 #include <helpers/translator.h>
 
@@ -84,8 +85,12 @@ public:
     Repositories _repositories;
     QLocale hu;
     Translator _translator;
+    OptionalConverters _optionalConverter;
 public:
-    Globals():hu(QLocale::Hungarian){};
+    Globals():hu(QLocale::Hungarian)
+    {
+        _optionalConverter.RegisterAll();
+    };
 };
 
 #endif // GLOBALS_H

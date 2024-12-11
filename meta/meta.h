@@ -16,6 +16,12 @@
 #define FieldName(t, b) QString(#b); { (void)t::metaInstance().b;}
 #define AddRowToField(a,b,c) if(_meta.Contains(#b)){a.Add_RowToField(#b, c); {(void)_meta._instance.b;}} else {zWarning(QStringLiteral("MetaField is not exists:")+#b);}
 
+// class optConv{
+//     quint64 ToUint64(bool *ok = nullptr) const
+//     {
+//          const bool canConvertSafely = l < std::numeric_limits<int>::max();
+//     }
+// }
 
 
 template<typename T>
@@ -72,6 +78,8 @@ public:
     QString code;
 };
 
+
+
 // ez megy ki az UI felé
 struct MetaValue{
 private:
@@ -115,6 +123,10 @@ public:
 
     // ez megy ki az UI felé
     MetaValue GetMetaValue(char* s){
+        // if(name == "alimedCode")
+        // {
+        //     zInfo("alimedCode");
+        // }
         MetaValue mv(name, wcode, type);
         mv.value = GetValue(s);
         return mv;
@@ -122,8 +134,20 @@ public:
 
     QVariant GetValue(char* s){
         char* ptr = GetPtr(s);
-        QVariant v(type, ptr);
-        return v;
+        if(type.id()==QMetaType::QVariant){
+
+        } else if(type.id()<QMetaType::User){
+            QVariant v(type, ptr);
+            return v;
+        } else {
+            QMetaType qvm = QMetaType(QMetaType::QVariant);
+            bool cc = QMetaType::canConvert(type, qvm);
+            QVariant v;
+            if(cc){
+                QMetaType::convert(type, ptr, qvm, &v);
+            }
+            return v;
+        }
     }
 
 };
@@ -239,38 +263,59 @@ public:
     T FromMetaValues(const QList<MetaValue>& metaValues){
         T s;
         for(auto&m:metaValues){
-            if(m.name == "alimedCode"){
-                 zInfo("alimedCode megvan");
-            }
+            // if(m.name == "alimedCode"){
+            //      zInfo("alimedCode megvan");
+            // }
             MetaField* f = GetMetaField(m.name);            
             if(f){
                 char* ptr = f->GetPtr((char*)&s);
                 auto typeId = f->type.id();
 
                 if(typeId==QMetaType::QVariant){
-                    QVariant* ptr2 = (QVariant*)ptr;                    
+                    // két QVariantot underlying type alapján
+                    QMetaType qvm = m.value.metaType();
+                    QVariant* ptr2 = (QVariant*)ptr;
                     QMetaType mt = ptr2->metaType();
                     QVariant a(m.value);
-                    bool ok = a.convert(mt);
-                    if(ok)
-                    {
-                        ptr2->setValue(a);
+                    bool cc = a.canConvert(mt);
+                    if(cc){
+                        bool ok = a.convert(mt);
+                        if(ok)
+                        {
+                            ptr2->setValue(a);
+                        }
+                    } else{
+                        QString msg = QStringLiteral("No converter registered from ")
+                        +qvm.name()+" to "+ f->type.name();
+                        zWarning(msg);
                     }
                     //zInfo("alimedCode megvan");
                 } else if(typeId<65536){
+                    // QVariant értékét underlying típusba
                     // fromtype, from, totype, to
-                    bool cc = QMetaType::canConvert(m.value.metaType(), f->type);
+                    QMetaType qvm = m.value.metaType();
+                    bool cc = QMetaType::canConvert(qvm, f->type);
                     if(cc)
                     {
-                        QMetaType::convert(m.value.metaType(), m.value.constData(), f->type, ptr);
+                        QMetaType::convert(qvm, m.value.constData(), f->type, ptr);
+                    } else{
+                        QString msg = QStringLiteral("No converter registered from ")
+                                      +qvm.name()+" to "+ f->type.name();
+                        zWarning(msg);
                     }
                 } else{
                     //std::optional *e;
                     //user type
-                    bool cc = QMetaType::canConvert(m.value.metaType(), f->type);
+                    // QVariantot user típusba
+                    QMetaType qvm = QMetaType(QMetaType::QVariant);
+                    bool cc = QMetaType::canConvert(qvm, f->type);
                     if(cc)
                     {
-                        QMetaType::convert(m.value.metaType(), m.value.constData(), f->type, ptr);
+                        QMetaType::convert(qvm, &m.value, f->type, ptr);
+                    } else{
+                        QString msg = QStringLiteral("No converter registered from ")
+                        +qvm.name()+" to "+ f->type.name();
+                        zWarning(msg);
                     }
                 }
             }

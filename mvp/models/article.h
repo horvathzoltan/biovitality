@@ -27,8 +27,8 @@ public:
     int id=-1;
     QString Name;
     QString Barcode;
-    //QVariant alimedCode;
-    std::optional<quint64> alimedCode;
+    QVariant alimedCode;
+    //std::optional<quint64> alimedCode;
     QString ogyeiCode;
     //int excelId=-1;
 
@@ -59,8 +59,7 @@ public:
     {
         return _meta.ToIdMegnevs(data);
     }
-    IdMegnev ToIdMegnev() const {return _meta.ToIdMegnev(this); }
-
+    IdMegnev ToIdMegnev() const {return _meta.ToIdMegnev(this); }        
 };
 
 #endif // ARTICLE_H
