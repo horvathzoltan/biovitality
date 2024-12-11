@@ -135,7 +135,7 @@ public:
     QVariant GetValue(char* s){
         char* ptr = GetPtr(s);
         if(type.id()==QMetaType::QVariant){
-
+aaaa
         } else if(type.id()<QMetaType::User){
             QVariant v(type, ptr);
             return v;
