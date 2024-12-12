@@ -61,6 +61,10 @@ void MainPresenter::appendView(IMainView *w)
     QObject::connect(view_obj, SIGNAL(Add_SoldItem_ActionTriggered(IMainView *)),
                      this, SLOT(process_Add_SoldItemAction(IMainView *)));
 
+    // UI Form Add Address
+    QObject::connect(view_obj, SIGNAL(Add_Address_ActionTriggered(IMainView *)),
+                     this, SLOT(process_Add_AddressAction(IMainView *)));
+
     // CSV_Import SoldItem - Tetel
     QObject::connect(view_obj, SIGNAL(TetelImport_ActionTriggered(IMainView *)),
                      this, SLOT(process_TetelImport_Action(IMainView *)));
@@ -172,26 +176,41 @@ void MainPresenter::Error(const QSqlError& err)
 //     }
 // }
 
+void MainPresenter::process_Add_AddressAction(IMainView *sender){
+    zTrace();
+    QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
+
+    AddModel<Address>* model = new AddModel<Address>();
+
+    Operations::instance().setData(opId, model);
+
+    model->dataForm = new DataForm(opId);
+
+    Address data = _globals._repositories.address.Get(2);
+    model->data = data;
+    QList<MetaValue> m = data.GetMetaValues();
+    model->dataForm->setMetaValues(m);
+
+    model->dataForm->show();
+
+    Operations::instance().stop(opId);
+}
+
 void MainPresenter::process_Add_SoldItemAction(IMainView *sender){
     zTrace();
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
 
-    AddSoldItemModel* model = new AddSoldItemModel();
+    AddModel<SoldItem>* model = new AddModel<SoldItem>();
 
     //int excelId = 806;
 
     //int id = _globals._repositories.sr.GetIdBy_ExcelId(excelId);
     //SoldItem data = _globals._repositories.sr.Get(id);
 
-    SoldItem data;
-    //data.partnerName="teszt partner 1";
-    //data.county="teszt county 1";
-    model->data = data;
-
     Operations::instance().setData(opId, model);
 
-    QList<MetaValue> m = data.GetMetaValues();
+
 
     // QString baseTypeName = data.GetBaseTypeName();
     // zInfo("baseTypeName:"+baseTypeName);
@@ -200,6 +219,12 @@ void MainPresenter::process_Add_SoldItemAction(IMainView *sender){
 
     QString title = _tr(GetWCode(WCodes::AddSoldItem));
     model->dataForm->setWindowTitle(title);
+
+    SoldItem data;
+    //data.partnerName="teszt partner 1";
+    //data.county="teszt county 1";
+    model->data = data;
+    QList<MetaValue> m = data.GetMetaValues();
     model->dataForm->setMetaValues(m);
 
     // megye defaultjai - county
@@ -226,7 +251,6 @@ void MainPresenter::process_Add_SoldItemAction(IMainView *sender){
     DataRowDefaultModel articleRows = Article::To_DataRowDefaultModel(articles);
     articleRows.name = "productName"; // ennek a mezőnek lesznek ezek a defaultjai
 
-
     QList<DataRowDefaultModel> defaults {countyRows,articleRows,addressRows,partnerRows};
 
     model->dataForm->SetDataRowDefaults(defaults);
@@ -242,7 +266,7 @@ void MainPresenter::process_Add_SoldItem_AcceptAction(QUuid opId)
     zInfo("processAcceptAction");
 
     OperationModel *a = Operations::instance().data(opId);
-    AddSoldItemModel *b = reinterpret_cast<AddSoldItemModel*>(a);        
+    AddModel<SoldItem> *b = reinterpret_cast<AddModel<SoldItem>*>(a);
 
     if(b){
         DataModel m = b->dataForm->metaValues();

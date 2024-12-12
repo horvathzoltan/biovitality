@@ -16,11 +16,12 @@ class OperationModel{
 
 };
 
-class AddSoldItemModel: public OperationModel
+template<class T>
+class AddModel: public OperationModel
 {
 public:
     //QUuid opId
-    SoldItem data;
+    T data;
     DataForm* dataForm;
 };
 

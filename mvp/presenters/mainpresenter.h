@@ -50,6 +50,11 @@ private slots:
     // Add tetel
     void process_Add_SoldItemAction(IMainView *sender);
     void process_Add_SoldItem_AcceptAction(QUuid opId);
+
+    // Add Address
+    void process_Add_AddressAction(IMainView *sender);
+    //void process_Add_Address_AcceptAction(QUuid opId);
+
     // CSV Import Tétel
     void process_TetelImport_Action(IMainView *sender);
     // CSV Import Cim

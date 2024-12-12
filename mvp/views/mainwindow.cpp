@@ -150,6 +150,14 @@ void MainWindow::on_pushButton_AddSoldItem_clicked()
     emit Add_SoldItem_ActionTriggered(this);
 }
 
+// új cím hozzáadása
+
+void MainWindow::on_pushButton_AddressCreate_clicked()
+{
+    zTrace();
+    emit Add_Address_ActionTriggered(this);
+}
+
 //import
 
 void MainWindow::on_pushButton_TetelImport_clicked()
@@ -209,6 +217,7 @@ void MainWindow::on_pushButton_ToLogFile_clicked()
     zTrace();
     emit ToLogFile_ActionTriggered(this);
 }
+
 
 
 

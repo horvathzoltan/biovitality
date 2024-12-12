@@ -41,10 +41,14 @@ public:
     QHBoxLayout *horizontalLayout_4;
     QSpacerItem *horizontalSpacer_2;
     QPushButton *pushButton_PartnerImport;
-    QPushButton *pushButton_AddressImport;
     QPushButton *pushButton_ArticleImport;
     QPushButton *pushButton_CoutntyImport;
     QPushButton *pushButton_CountryImpot;
+    QGroupBox *groupBox_2;
+    QHBoxLayout *horizontalLayout_5;
+    QPushButton *pushButton_AddressCreate;
+    QSpacerItem *horizontalSpacer_4;
+    QPushButton *pushButton_AddressImport;
     QSpacerItem *verticalSpacer;
     QHBoxLayout *horizontalLayout_2;
     QPlainTextEdit *plainTextEdit_status;
@@ -115,11 +119,6 @@ public:
 
         horizontalLayout_4->addWidget(pushButton_PartnerImport);
 
-        pushButton_AddressImport = new QPushButton(groupBox_Import);
-        pushButton_AddressImport->setObjectName("pushButton_AddressImport");
-
-        horizontalLayout_4->addWidget(pushButton_AddressImport);
-
         pushButton_ArticleImport = new QPushButton(groupBox_Import);
         pushButton_ArticleImport->setObjectName("pushButton_ArticleImport");
 
@@ -137,6 +136,27 @@ public:
 
 
         verticalLayout->addWidget(groupBox_Import);
+
+        groupBox_2 = new QGroupBox(centralwidget);
+        groupBox_2->setObjectName("groupBox_2");
+        horizontalLayout_5 = new QHBoxLayout(groupBox_2);
+        horizontalLayout_5->setObjectName("horizontalLayout_5");
+        pushButton_AddressCreate = new QPushButton(groupBox_2);
+        pushButton_AddressCreate->setObjectName("pushButton_AddressCreate");
+
+        horizontalLayout_5->addWidget(pushButton_AddressCreate);
+
+        horizontalSpacer_4 = new QSpacerItem(761, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
+
+        horizontalLayout_5->addItem(horizontalSpacer_4);
+
+        pushButton_AddressImport = new QPushButton(groupBox_2);
+        pushButton_AddressImport->setObjectName("pushButton_AddressImport");
+
+        horizontalLayout_5->addWidget(pushButton_AddressImport);
+
+
+        verticalLayout->addWidget(groupBox_2);
 
         verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Expanding);
 
@@ -189,10 +209,12 @@ public:
         pushButton_TetelImport->setText(QCoreApplication::translate("MainWindow", "Import", nullptr));
         groupBox_Import->setTitle(QCoreApplication::translate("MainWindow", "T\303\266rzs Import", nullptr));
         pushButton_PartnerImport->setText(QCoreApplication::translate("MainWindow", "Partner Import", nullptr));
-        pushButton_AddressImport->setText(QCoreApplication::translate("MainWindow", "C\303\255m Import", nullptr));
         pushButton_ArticleImport->setText(QCoreApplication::translate("MainWindow", "Cikk Import", nullptr));
         pushButton_CoutntyImport->setText(QCoreApplication::translate("MainWindow", "Megye Import", nullptr));
         pushButton_CountryImpot->setText(QCoreApplication::translate("MainWindow", "Orsz\303\241g Import", nullptr));
+        groupBox_2->setTitle(QCoreApplication::translate("MainWindow", "C\303\255m", nullptr));
+        pushButton_AddressCreate->setText(QCoreApplication::translate("MainWindow", "PushButton", nullptr));
+        pushButton_AddressImport->setText(QCoreApplication::translate("MainWindow", "Import", nullptr));
         pushButton_ToClipBoard->setText(QCoreApplication::translate("MainWindow", "ToClipBoard", nullptr));
         pushButton_ToLogFile->setText(QCoreApplication::translate("MainWindow", "ToLogFile", nullptr));
     } // retranslateUi

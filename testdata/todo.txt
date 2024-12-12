@@ -34,3 +34,11 @@ SoldItem::CSV_Import
 
 process_CountryImport_Action
 Country::CSV_Import
+
+
+// referencia mező:
+
+// mező, hivatkozott model, mező
+// id, refModel, refId
+// a refModel repojából kell az a példány, ahol:
+// a refId értéke megenyezik id értékével

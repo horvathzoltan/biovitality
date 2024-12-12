@@ -29,6 +29,7 @@ public: // signals
     virtual void PushButtonActionTriggered(IMainView *sender) = 0;
 //add
     virtual void Add_SoldItem_ActionTriggered(IMainView *sender) = 0;
+    virtual void Add_Address_ActionTriggered(IMainView *sender) = 0;
 //import
     virtual void CimImport_ActionTriggered(IMainView *sender) = 0;
     virtual void PartnerImport_ActionTriggered(IMainView *sender) =0;
