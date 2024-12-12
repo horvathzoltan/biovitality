@@ -5,7 +5,7 @@
 Meta<Article> Article::_meta;
 
 Article::Article() {
-    alimedCode = QVariant(QMetaType(QMetaType::ULongLong));
+    //alimedCode = QVariant(QMetaType(QMetaType::ULongLong));
 }
 
 // Article::Article(int i, const QString &n, const QString &k, int e)

@@ -62,7 +62,7 @@ auto main(int argc, char *argv[]) -> int
             {
                 "QMARIADB",
                 "biovitality",
-                "172.16.1.63",
+                "172.16.1.62",
                 3306,
                 "zoli",
                 "Aladar123"

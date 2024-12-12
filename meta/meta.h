@@ -123,10 +123,10 @@ public:
 
     // ez megy ki az UI felé
     MetaValue GetMetaValue(char* s){
-        // if(name == "alimedCode")
-        // {
-        //     zInfo("alimedCode");
-        // }
+        if(name == "alimedCode")
+        {
+            zInfo("alimedCode");
+        }
         MetaValue mv(name, wcode, type);
         mv.value = GetValue(s);
         return mv;
@@ -135,7 +135,14 @@ public:
     QVariant GetValue(char* s){
         char* ptr = GetPtr(s);
         if(type.id()==QMetaType::QVariant){
-aaaa
+            //QMetaType qvm = type;
+            //QVariant v(qvm, ptr);
+            qWarning("Do not use QVariant in model!");
+            // QVariant* p = (QVariant*)s;
+
+            // QVariant v(*p);
+            // return v;
+            return {};
         } else if(type.id()<QMetaType::User){
             QVariant v(type, ptr);
             return v;
@@ -190,13 +197,18 @@ public:
 
     void AddField(const QString& name, const QMetaType& t, char* field_ptr)
     {
+        // if(name == "alimedCode"){
+        //       zInfo("alimedCode megvan");
+        // }
+        if(t.id() == QMetaType::QVariant){
+            zWarning("AddField: Do not use QVariant "+name+" in model!");
+        }
         MetaField f;
         f.name=name;
         f.wcode = _baseWcode+"::"+f.name;
         f.type = t;
         int offset = field_ptr - (char*)(&_instance);
         f._offset = offset;
-
 
         if(_verbose){
             QString msg = QStringLiteral("AddField:")
@@ -272,25 +284,26 @@ public:
                 auto typeId = f->type.id();
 
                 if(typeId==QMetaType::QVariant){
+                    qWarning("Do not use QVariant in model!");
                     // két QVariantot underlying type alapján
-                    QMetaType qvm = m.value.metaType();
-                    QVariant* ptr2 = (QVariant*)ptr;
-                    QMetaType mt = ptr2->metaType();
-                    QVariant a(m.value);
-                    bool cc = a.canConvert(mt);
-                    if(cc){
-                        bool ok = a.convert(mt);
-                        if(ok)
-                        {
-                            ptr2->setValue(a);
-                        }
-                    } else{
-                        QString msg = QStringLiteral("No converter registered from ")
-                        +qvm.name()+" to "+ f->type.name();
-                        zWarning(msg);
-                    }
+                    // QMetaType qvm = m.value.metaType();
+                    // QVariant* ptr2 = (QVariant*)ptr;
+                    // QMetaType mt = ptr2->metaType();
+                    // QVariant a(m.value);
+                    // bool cc = a.canConvert(mt);
+                    // if(cc){
+                    //     bool ok = a.convert(mt);
+                    //     if(ok)
+                    //     {
+                    //         ptr2->setValue(a);
+                    //     }
+                    // } else{
+                    //     QString msg = QStringLiteral("No converter registered from ")
+                    //     +qvm.name()+" to "+ f->type.name();
+                    //     zWarning(msg);
+                    // }
                     //zInfo("alimedCode megvan");
-                } else if(typeId<65536){
+                } else if(typeId<QMetaType::User){
                     // QVariant értékét underlying típusba
                     // fromtype, from, totype, to
                     QMetaType qvm = m.value.metaType();
