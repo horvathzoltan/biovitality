@@ -16,8 +16,12 @@ void Address::MetaInit()
     AddMetaField(publicAreaName);
     AddMetaField(excelId);
 
+    AddMetaField(countyId);
+    AddMetaField(countryId);
     // 1+2+3
     _meta.MetaIdMegnevIndex(0,{1,2,3},-1);
+
+    //_meta.MetaRef("countyId", "County", "id");
 }
 
 bool Address::isValid()

@@ -14,10 +14,11 @@ public:
     Address();
 
     int id=-1;
-    int countryId;      // ref a country-ra az id-n keresztül
     int postalCode;         // irsz
     QString settlementName; // településnév
     QString publicAreaName; // közterület(utca) név + házszám - a cím utolsó tagja
+    std::optional<int> countyId; // ref megye
+    std::optional<int> countryId; // ref a country-ra az id-n keresztül
     //QString houseNumber;  // házszám - a cím utolsó tagja
     int excelId=-1;
 

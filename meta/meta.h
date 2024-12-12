@@ -123,10 +123,10 @@ public:
 
     // ez megy ki az UI felé
     MetaValue GetMetaValue(char* s){
-        if(name == "alimedCode")
-        {
-            zInfo("alimedCode");
-        }
+        // if(name == "alimedCode")
+        // {
+        //     zInfo("alimedCode");
+        // }
         MetaValue mv(name, wcode, type);
         mv.value = GetValue(s);
         return mv;
