@@ -180,19 +180,26 @@ void MainPresenter::process_Add_AddressAction(IMainView *sender){
     zTrace();
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
-    AddModel<Address>* model = new AddModel<Address>();
+    auto addressRepo = _globals._repositories.address;
+    bool isRepoOk = Import_CheckRepo(addressRepo);
+    // meg kell nézni a hivatkozott modellek repoit is
 
-    Operations::instance().setData(opId, model);
+    bool valid = isRepoOk;
+    if(valid)
+    {
+        AddModel<Address>* model = new AddModel<Address>();
 
-    model->dataForm = new DataForm(opId);
+        Operations::instance().setData(opId, model);
 
-    Address data = _globals._repositories.address.Get(2);
-    model->data = data;
-    QList<MetaValue> m = data.GetMetaValues();
-    model->dataForm->setMetaValues(m);
+        model->dataForm = new DataForm(opId);
 
-    model->dataForm->show();
+        Address data = _globals._repositories.address.Get(2);
+        model->data = data;
+        QList<MetaValue> m = data.GetMetaValues();
+        model->dataForm->setMetaValues(m);
 
+        model->dataForm->show();
+    }
     Operations::instance().stop(opId);
 }
 
