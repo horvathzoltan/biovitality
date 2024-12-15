@@ -48,6 +48,7 @@ public:
     QVariant GetValue(const QString& name) const { return _meta.GetValue(this, name);}
     static MetaField* GetMetaField(const QString& name) {return _meta.GetMetaField(name);}
 
+    static int GetMetaFieldIx(const QString& v){ return _meta.GetMetaFieldIx(v);}
 };
 
 

@@ -47,12 +47,13 @@ public:
         County::SetMetaVerbose(false);
         Address::SetMetaVerbose(false);
 
-        SoldItem::MetaInit();
+        Country::MetaInit();
         County::MetaInit();
         Article::MetaInit();
         Address::MetaInit();
         Partner::MetaInit();
-        Country::MetaInit();
+
+        SoldItem::MetaInit();
     }
 };
 

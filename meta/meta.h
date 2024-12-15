@@ -29,11 +29,10 @@ struct CSV_ImportModel
 {
     struct Data{
     private:
-    private:
         T _item;
         QVarLengthArray<QString> _csvFields;
         int _rowNumber;
-        QChar _separator;
+        QChar _separator;        
     public:
         Data(T i, QVarLengthArray<QString> r, int n, QChar s){
             _csvFields = r;
@@ -77,6 +76,24 @@ public:
     QString name;
     QString code;
 };
+
+class Ref
+{
+private:
+    Ref(){}
+    int _fieldIx;
+    QString _refTypeName;
+    int _refIx;
+
+public:
+    Ref(int f, const QString& rt, int rf)
+    {
+        _fieldIx = f;
+        _refTypeName = rt;
+        _refIx = rf;
+    }
+};
+
 
 
 
@@ -186,6 +203,8 @@ class Meta{
 public:
     T _instance;
 
+    QList<Ref> _references;
+
     QString _baseName;
     QString _baseWcode;
 
@@ -268,6 +287,14 @@ public:
             if(a.name==name) return &a;
         }
         return nullptr;
+    }
+
+    int GetMetaFieldIx(const QString& name){
+        int L= _fields.count();
+        for(int i=0;i<L;i++){
+            if(_fields[i].name==name) return i;
+        }
+        return -1;
     }
 
     // Parses T from a list of MetaValue
@@ -425,6 +452,16 @@ public:
         if(!field) return {};
         QVariant value = field->GetValue((char*)s);
         return value;
+    }
+
+    template<typename R>
+    void AddMetaRef(const QString& f, const QString& rt, const QString& rf){
+
+        int fIx = GetMetaFieldIx(f);
+        int rIx = R::GetMetaFieldIx(rf);
+
+        Ref r(fIx, rt, rIx);
+        _references.append(r);
     }
 };
 

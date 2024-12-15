@@ -58,6 +58,8 @@ public:
     IdMegnev ToIdMegnev() const {return _meta.ToIdMegnev(this); }
 private:
     void ParseAddressFields_private(const QString& c);
+
+    static int GetMetaFieldIx(const QString& v){ return _meta.GetMetaFieldIx(v);}
 };
 
 #endif // ADDRESS_H

@@ -54,7 +54,9 @@ public:
     static DataRowDefaultModel To_DataRowDefaultModel(const QList<County>& data)
     {
         return _meta.ToIdMegnevs(data);
-    }    
+    }
+
+    static int GetMetaFieldIx(const QString& v){ return _meta.GetMetaFieldIx(v);}
 };
 
 #endif // COUNTY_H
