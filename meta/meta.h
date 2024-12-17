@@ -30,6 +30,7 @@ private:
     int _fieldIx;
     QString _refTypeName;
     int _refIx;
+
 public:
     RefBase(int f, const QString& rt, int rf)
     {
@@ -37,6 +38,8 @@ public:
         _refTypeName = rt;
         _refIx = rf;
     }
+
+    QVariant m;
 
     QString refTypeName(){ return _refTypeName;}
 };
@@ -53,7 +56,10 @@ public:
     Ref(int f, const QString& rt, int rf) : RefBase(f, rt, rf)
     {  
         _metaInstance = T::metaInstanceAddress();
+        m = QVariant::fromValue(*_metaInstance);
     }
+
+    T* metaInstance(){return _metaInstance;}
 };
 
 template<typename T>
@@ -482,17 +488,19 @@ public:
 
     QStringList GetRefTypeNames(){
         QStringList e;
-        for (auto &v : _references) {
+        for (QVariant &v : _references) {
             void *d = v.data();
-            RefBase *r = (RefBase*)d;
+            RefBase *r = (RefBase *)d;
 
-            if(r){
+            if (r) {
                 QString n = r->refTypeName();
                 e.append(n);
             }
         }
         return e;
      }
+
+    QVariantList GetRefs(){return _references;}
 
 };
 

@@ -68,6 +68,7 @@ private:
 public:
     static int GetMetaFieldIx(const QString& v){ return _meta.GetMetaFieldIx(v);}
     static QStringList GetRefTypeNames(){return _meta.GetRefTypeNames();}
+    static QVariantList GetRefs(){return _meta._references;}
 };
 
 #endif // ADDRESS_H

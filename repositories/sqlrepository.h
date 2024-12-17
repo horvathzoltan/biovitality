@@ -76,7 +76,12 @@ public:
 public:
     bool Contains_ByColumn(const QString& fieldName, const QVariant& fieldValue);
     QList<int> GetIds_ByColumn(const QString& fieldName, const QVariant& fieldValue);
+
+    //template<typename T>
+    static bool Check(const QString& refTypeName);
 };
+
+
 
 // template<typename T>
 // class SqlERepository : public SqlRepository<T>

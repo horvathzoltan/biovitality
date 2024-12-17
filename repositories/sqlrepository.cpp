@@ -286,6 +286,22 @@ QList<int> SqlRepository<T>::GetIds_ByColumn(const QString& fieldName, const QVa
     return e;
 }
 
+template<typename T>
+bool SqlRepository<T>::Check(const QString& refTypeName)
+{
+    bool tableExists = false;
+    //T c = *(r2->metaInstance());
+    RepositoryBase* rx = RepositoryBase::GetRepository(refTypeName);
+    if(rx){
+        SqlRepository<T>* repo = reinterpret_cast<SqlRepository<T>*>(rx);
+        tableExists = repo->isTableExists();
+        zInfo(QStringLiteral("tableExists") + (tableExists ? "ok" : "failed"));
+    } else{
+        zInfo(QStringLiteral("no refTypeName:") + refTypeName);
+    }
+    return tableExists;
+}
+
 RepositoryBase* RepositoryBase::GetRepository(const QString& tableName){
     for(auto r:_repos){
         if(r->_tableName == tableName) return r;
