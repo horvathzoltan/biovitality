@@ -23,6 +23,38 @@
 //     }
 // }
 
+class RefBase{
+private:
+    RefBase(){}
+
+    int _fieldIx;
+    QString _refTypeName;
+    int _refIx;
+public:
+    RefBase(int f, const QString& rt, int rf)
+    {
+        _fieldIx = f;
+        _refTypeName = rt;
+        _refIx = rf;
+    }
+
+    QString refTypeName(){ return _refTypeName;}
+};
+
+template<typename T>
+class Ref : RefBase
+{
+private:
+    Ref(){}
+
+    T* _metaInstance;
+public:
+
+    Ref(int f, const QString& rt, int rf) : RefBase(f, rt, rf)
+    {  
+        _metaInstance = T::metaInstanceAddress();
+    }
+};
 
 template<typename T>
 struct CSV_ImportModel
@@ -77,22 +109,6 @@ public:
     QString code;
 };
 
-class Ref
-{
-private:
-    Ref(){}
-    int _fieldIx;
-    QString _refTypeName;
-    int _refIx;
-
-public:
-    Ref(int f, const QString& rt, int rf)
-    {
-        _fieldIx = f;
-        _refTypeName = rt;
-        _refIx = rf;
-    }
-};
 
 
 
@@ -203,7 +219,7 @@ class Meta{
 public:
     T _instance;
 
-    QList<Ref> _references;
+    QVariantList _references;
 
     QString _baseName;
     QString _baseWcode;
@@ -456,13 +472,28 @@ public:
 
     template<typename R>
     void AddMetaRef(const QString& f, const QString& rt, const QString& rf){
-
         int fIx = GetMetaFieldIx(f);
         int rIx = R::GetMetaFieldIx(rf);
 
-        Ref r(fIx, rt, rIx);
-        _references.append(r);
+        Ref<R> r(fIx, rt, rIx);
+        QVariant v = QVariant::fromValue(r);
+        _references.append(v);
     }
+
+    QStringList GetRefTypeNames(){
+        QStringList e;
+        for (auto &v : _references) {
+            void *d = v.data();
+            RefBase *r = (RefBase*)d;
+
+            if(r){
+                QString n = r->refTypeName();
+                e.append(n);
+            }
+        }
+        return e;
+     }
+
 };
 
 

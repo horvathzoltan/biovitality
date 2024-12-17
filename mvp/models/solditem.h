@@ -45,6 +45,7 @@ public:
     static void MetaInit();
     static void SetMetaVerbose(bool v){ _meta.SetVerbose(v);}
     static SoldItem metaInstance(){return _meta._instance;}
+    static SoldItem* metaInstanceAddress(){return &_meta._instance;}
 
 // SQL_Read
     static QString GetMetaFieldNames(){ return _meta.GetMetaFieldNames();}

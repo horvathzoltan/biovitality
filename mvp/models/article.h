@@ -40,7 +40,7 @@ public:
     static void MetaInit();
     static void SetMetaVerbose(bool v){ _meta.SetVerbose(v);}
     static Article metaInstance(){return _meta._instance;}
-
+    static Article* metaInstanceAddress(){return &_meta._instance;}
     // SQL_Read
     static QString GetMetaFieldNames(){ return _meta.GetMetaFieldNames();}
     static Article FromMetaValues(const QList<MetaValue> &v){return _meta.FromMetaValues(v);}

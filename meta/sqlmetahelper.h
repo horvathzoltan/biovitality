@@ -9,6 +9,7 @@
 #include "csvhelper.h"
 //#include "mvp/models/partner.h"
 
+
 class SqlMetaHelper
 {
 public:

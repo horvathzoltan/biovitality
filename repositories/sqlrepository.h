@@ -18,7 +18,11 @@ private:
 protected:
     RepositoryBase(){};
 public:
-    RepositoryBase(const QString& tname){_tableName = tname;};
+    RepositoryBase(const QString& tname)
+    {
+        _tableName = tname;
+        _repos.append(this);
+    };
 protected:
     static const QString CONTAINS_CMD;
     static const QString CONTAINS_BY_COLUMN_CMD;
@@ -30,6 +34,8 @@ protected:
     static const QString TABLE_EXISTS_CMD;
 
 public:
+    static QList<RepositoryBase*> _repos;
+    static RepositoryBase* GetRepository(const QString& tableName);
     const QString& tableName(){return _tableName;}
     bool Contains(int id);
 };

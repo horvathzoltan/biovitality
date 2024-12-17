@@ -4,6 +4,8 @@
 #include "meta/meta.h"
 #include "modelinterfaces.h"
 #include <QVariant>
+#include "mvp/models/county.h"
+#include "mvp/models/country.h"
 
 class Address : I_Meta<Address>
     , I_SQLRepo_Read<Address>
@@ -22,6 +24,9 @@ public:
     //QString houseNumber;  // házszám - a cím utolsó tagja
     int excelId=-1;
 
+    //Ref<County> countyRef;
+    //Ref<Country> countryRef;
+
     // Meta
 private:
     static Meta<Address> _meta;
@@ -30,6 +35,7 @@ public:
     static void MetaInit();
     static void SetMetaVerbose(bool v){ _meta.SetVerbose(v);}
     static Address metaInstance(){return _meta._instance;}
+    static Address* metaInstanceAddress(){return &_meta._instance;}
 
     // SQL_Read
     static QString GetMetaFieldNames(){ return _meta.GetMetaFieldNames();}
@@ -59,7 +65,9 @@ public:
 private:
     void ParseAddressFields_private(const QString& c);
 
+public:
     static int GetMetaFieldIx(const QString& v){ return _meta.GetMetaFieldIx(v);}
+    static QStringList GetRefTypeNames(){return _meta.GetRefTypeNames();}
 };
 
 #endif // ADDRESS_H

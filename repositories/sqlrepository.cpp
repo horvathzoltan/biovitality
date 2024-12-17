@@ -21,6 +21,7 @@ extern Globals _globals;
 //SqlRepository<T>::SqlRepository(const QString& tname) : SqlExcelRepository(tname), RepositoryBase(tname) {}
 //SqlRepository<T>::SqlRepository(const QString& tname) : RepositoryBase(tname) {}
 
+QList<RepositoryBase*> RepositoryBase::_repos;
 
 
 const QString RepositoryBase::CONTAINS_CMD =
@@ -257,6 +258,7 @@ bool SqlRepository<T>::Contains_ByColumn(const QString& fieldName, const QVarian
     return exists;
 }
 
+
 template<typename T>
 QList<int> SqlRepository<T>::GetIds_ByColumn(const QString& fieldName, const QVariant& fieldValue)
 {
@@ -282,4 +284,11 @@ QList<int> SqlRepository<T>::GetIds_ByColumn(const QString& fieldName, const QVa
     }
 
     return e;
+}
+
+RepositoryBase* RepositoryBase::GetRepository(const QString& tableName){
+    for(auto r:_repos){
+        if(r->_tableName == tableName) return r;
+    }
+    return nullptr;
 }

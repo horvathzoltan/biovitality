@@ -17,6 +17,7 @@ public:
         [[maybe_unused]] void (*MetaInit_Check)() = &T::MetaInit;
         [[maybe_unused]] bool (T::*isValid_Check)() = &T::isValid;
         [[maybe_unused]] T (*metaInstance_Check)() = &T::metaInstance;
+        [[maybe_unused]] T* (*metaInstanceAddress_Check)() = &T::metaInstanceAddress;
     }
 };
 

@@ -1,6 +1,5 @@
 #include "address.h"
-#include "mvp/models/county.h"
-#include "country.h"
+
 #include "qregularexpression.h"
 
 #include <meta/csvhelper.h>
@@ -23,8 +22,10 @@ void Address::MetaInit()
     // 1+2+3
     _meta.MetaIdMegnevIndex(0,{1,2,3},-1);
 
+    //ref1;
     _meta.AddMetaRef<County>("countyId","County", "id");
     _meta.AddMetaRef<Country>("countryId","Country", "id");
+    //countyRef;
 }
 
 bool Address::isValid()

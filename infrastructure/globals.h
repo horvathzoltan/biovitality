@@ -32,14 +32,24 @@ public:
         ,article("Article")
         ,address("Address")
         ,partner("Partner")
-        ,country("Country"){}
+        ,country("Country"){
+
+        // _repos.append(&solditem);
+        // _repos.append(&county);
+        // _repos.append(&solditem);
+        // _repos.append(&solditem);
+        // _repos.append(&solditem);
+        // _repos.append(&solditem);
+    }
+
+    //QList<RepositoryBase*> _repos;
 
     SqlRepository<SoldItem> solditem;
     SqlRepository<County> county;
     SqlRepository<Article> article;
     SqlRepository<Address> address;
     SqlRepository<Partner> partner;
-    SqlRepository<Country> country;
+    SqlRepository<Country> country;        
 
     static void MetaInit(){
         SoldItem::SetMetaVerbose(false);
@@ -54,7 +64,7 @@ public:
         Partner::MetaInit();
 
         SoldItem::MetaInit();
-    }
+    }            
 };
 
 
