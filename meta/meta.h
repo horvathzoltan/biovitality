@@ -7,6 +7,7 @@
 #include <QString>
 #include <QVariant>
 #include <helpers/sqlhelper.h>
+#include <typeindex>
 
 
 #define AddMetaField(b) _meta.AddField(#b, QMetaType::fromType<decltype(_meta._instance.b)>(), (char*)(&_meta._instance.b));
@@ -24,12 +25,14 @@
 // }
 
 class RefBase{
-private:
+public:
     RefBase(){}
-
+protected:
     int _fieldIx;
     QString _refTypeName;
     int _refIx;
+    std::type_index _a1 = std::type_index(typeid(void*));;
+    void* _metaInstancePtr;
 
 public:
     RefBase(int f, const QString& rt, int rf)
@@ -37,30 +40,63 @@ public:
         _fieldIx = f;
         _refTypeName = rt;
         _refIx = rf;
-    }
+        _metaInstancePtr = nullptr;
+    }    
 
-    QVariant m;
-
+    std::type_index a1(){return _a1;}
     QString refTypeName(){ return _refTypeName;}
 };
 
 template<typename T>
-class Ref : RefBase
+class Ref : public RefBase
 {
 private:
     Ref(){}
 
-    T* _metaInstance;
 public:
 
     Ref(int f, const QString& rt, int rf) : RefBase(f, rt, rf)
     {  
-        _metaInstance = T::metaInstanceAddress();
-        m = QVariant::fromValue(*_metaInstance);
+        _metaInstancePtr = T::metaInstanceAddress();
+        _a1 = std::type_index(typeid(T));
     }
 
-    T* metaInstance(){return _metaInstance;}
+    T* metaInstance(){return reinterpret_cast<T*>(_metaInstancePtr);}
 };
+
+class RefContainer{
+private:
+    QMap<std::type_index, void*> _references;
+
+    template<typename R>
+    static std::type_index GetKey(){ return std::type_index(typeid(R));}
+
+public:
+    template< typename R>
+    void AddMetaRef(int fIx, const QString& rt, const QString& rf){
+        //int fIx = T::GetMetaFieldIx(f);
+        int rIx = R::GetMetaFieldIx(rf);
+
+        Ref<R>* r = new Ref<R>(fIx, rt, rIx);
+        std::type_index key = GetKey<Ref<R>>();
+        _references.insert(key, r);
+    }
+
+    template<typename R>
+    Ref<R>* GetRef()
+    {
+        std::type_index key = GetKey<Ref<R>>();
+        if(_references.contains(key))
+        {
+            void* b = _references.value(key);
+            Ref<R>* e = reinterpret_cast<Ref<R>*>(b);
+            zInfo("hutty:" +e->refTypeName());
+            return e;
+        }
+        return nullptr;
+    }
+};
+
 
 template<typename T>
 struct CSV_ImportModel
@@ -114,9 +150,6 @@ public:
     QString name;
     QString code;
 };
-
-
-
 
 
 // ez megy ki az UI felé
@@ -225,13 +258,31 @@ class Meta{
 public:
     T _instance;
 
-    QVariantList _references;
+    //QVariantList _references;
+    //QList<RefBase> _references;
+
+    RefContainer _refcontainer;
+
+    template<typename R>
+    Ref<R>* GetRef(){return _refcontainer.GetRef<R>();}
+
+    template<typename R>
+    void AddMetaRef(const QString& f, const QString& rt, const QString& rf){
+        int fIx = GetMetaFieldIx(f);
+        return _refcontainer.AddMetaRef<R>(fIx, rt, rf);
+    };
 
     QString _baseName;
     QString _baseWcode;
 
     void SetVerbose(bool v){_verbose = v;};
 
+    // ~Meta(){
+    //     for (void *a : _references.values())
+    //     {
+    //         delete a;
+    //     }
+    // }
     // QString GetFieldName(const QString& name, char* field_ptr){
     //      return name;
     //  }    
@@ -474,35 +525,9 @@ public:
         if(!field) return {};
         QVariant value = field->GetValue((char*)s);
         return value;
-    }
-
-    template<typename R>
-    void AddMetaRef(const QString& f, const QString& rt, const QString& rf){
-        int fIx = GetMetaFieldIx(f);
-        int rIx = R::GetMetaFieldIx(rf);
-
-        Ref<R> r(fIx, rt, rIx);
-        QVariant v = QVariant::fromValue(r);
-        _references.append(v);
-    }
-
-    QStringList GetRefTypeNames(){
-        QStringList e;
-        for (QVariant &v : _references) {
-            void *d = v.data();
-            RefBase *r = (RefBase *)d;
-
-            if (r) {
-                QString n = r->refTypeName();
-                e.append(n);
-            }
-        }
-        return e;
-     }
-
-    QVariantList GetRefs(){return _references;}
-
+    }                
 };
+
 
 
 #endif // META_H

@@ -183,30 +183,37 @@ void MainPresenter::process_Add_AddressAction(IMainView *sender){
     auto addressRepo = _globals._repositories.address;
     bool isRepoOk = Import_CheckRepo(addressRepo);
 
-    QVariantList rl = Address::GetRefs();
+    Ref<County>* r1 = Address::GetRef<County>();
 
-    for (QVariant &v : rl) {
-        //RepositoryBase *r = RepositoryBase::GetRepository(refName);
-        //void *d = v.data();
-        //RefBase *r = (RefBase *)d;
-        RefBase r = v.value<RefBase>();
-        if (r.refTypeName() == "County") {
-            //QVariant a = r;
-
-            // decltype(r->m.metaType().) at ;
-            // Ref<County>* r2 = reinterpret_cast<Ref<County>*>(r);
-
-            bool tableExists = SqlRepository<County>::Check(r.refTypeName());
-            // County c = *(r2->metaInstance());
-            // RepositoryBase* rx =
-            // RepositoryBase::GetRepository(r->refTypeName());
-            // SqlRepository<decltype(c)>* repo =
-            //     reinterpret_cast<SqlRepository<decltype(c)>* >(rx);
-            // bool tableExists = repo->isTableExists();
-            zInfo(QStringLiteral("tableExists") +
-                  (tableExists ? "ok" : "failed"));
-        }
+    if(r1){
+        County *u = r1->metaInstance();
+        bool tableExists = SqlRepository<County>::Check(r1->refTypeName());
     }
+
+    //QVariantList rl = Address::GetRefs();
+
+    // for (QVariant &v : rl) {
+    //     //RepositoryBase *r = RepositoryBase::GetRepository(refName);
+    //     //void *d = v.data();
+    //     //RefBase *r = (RefBase *)d;
+    //     RefBase r = v.value<RefBase>();
+    //     if (r.refTypeName() == "County") {
+    //         //QVariant a = r;
+
+    //         // decltype(r->m.metaType().) at ;
+    //         // Ref<County>* r2 = reinterpret_cast<Ref<County>*>(r);
+
+    //         bool tableExists = SqlRepository<County>::Check(r.refTypeName());
+    //         // County c = *(r2->metaInstance());
+    //         // RepositoryBase* rx =
+    //         // RepositoryBase::GetRepository(r->refTypeName());
+    //         // SqlRepository<decltype(c)>* repo =
+    //         //     reinterpret_cast<SqlRepository<decltype(c)>* >(rx);
+    //         // bool tableExists = repo->isTableExists();
+    //         zInfo(QStringLiteral("tableExists") +
+    //               (tableExists ? "ok" : "failed"));
+    //     }
+    // }
 
     // meg kell nézni a hivatkozott modellek repoit is
 

@@ -24,8 +24,8 @@ public:
     //QString houseNumber;  // házszám - a cím utolsó tagja
     int excelId=-1;
 
-    //Ref<County> countyRef;
-    //Ref<Country> countryRef;
+   // Ref<County> refCounty;
+   // Ref<Country> refCountry;
 
     // Meta
 private:
@@ -67,8 +67,11 @@ private:
 
 public:
     static int GetMetaFieldIx(const QString& v){ return _meta.GetMetaFieldIx(v);}
-    static QStringList GetRefTypeNames(){return _meta.GetRefTypeNames();}
-    static QVariantList GetRefs(){return _meta._references;}
+//    static QStringList GetRefTypeNames(){return _meta.GetRefTypeNames();}
+//    static QVariantList GetRefs(){return _meta._references;}
+
+    template<typename R>
+    static Ref<R>* GetRef(){return _meta.GetRef<R>();}
 };
 
 #endif // ADDRESS_H
