@@ -17,7 +17,24 @@ void SQLHelper::Init(const SQLSettings& v){
     if(!v.isValid()) return;
 
     _settings = v;
+   // _db = new QSqlDatabase();
     _isInited = true;
+}
+
+void SQLHelper::UnInit()
+{
+    _isInited = false;
+    DeleteDatabase();
+
+ //   delete _db;
+ //   _db = nullptr;
+}
+
+void SQLHelper::DeleteDatabase()
+{
+    if(QSqlDatabase::contains(_connName)){
+        QSqlDatabase::removeDatabase(_connName);
+    }
 }
 
 QString SQLHelper::DbMsg(){

@@ -38,6 +38,10 @@ private:
 public:        
     bool isValid();
     static void MetaInit();
+    static void AddRefs();
+    static void DeleteRefs();
+
+
     static void SetMetaVerbose(bool v){ _meta.SetVerbose(v);}
     static Article metaInstance(){return _meta._instance;}
     static Article* metaInstanceAddress(){return &_meta._instance;}

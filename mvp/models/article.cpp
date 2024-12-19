@@ -32,6 +32,9 @@ void Article::MetaInit()
     _meta.MetaIdMegnevIndex(0,{1},2);
 }
 
+void Article::AddRefs(){};
+void Article::DeleteRefs(){};
+
 bool Article::isValid()
 {
     if(id<0) return false;

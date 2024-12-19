@@ -30,6 +30,9 @@ void SoldItem::MetaInit()
     AddMetaField(excelId);
 }
 
+void SoldItem::AddRefs(){};
+void SoldItem::DeleteRefs(){};
+
 bool SoldItem::isValid()
 {
     if(id<0) return false;

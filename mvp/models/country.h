@@ -30,7 +30,11 @@ private:
     static Meta<Country> _meta;
 public:
     bool isValid();
-    static void MetaInit();           
+    static void MetaInit();
+    static void AddRefs();
+    static void DeleteRefs();
+
+
     static void SetMetaVerbose(bool v){ _meta.SetVerbose(v);}
     static Country metaInstance(){return _meta._instance;}
     static Country* metaInstanceAddress(){return &_meta._instance;}

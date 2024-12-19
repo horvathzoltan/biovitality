@@ -45,6 +45,9 @@ private:
 public:
     bool isValid();
     static void MetaInit();
+    static void AddRefs();
+    static void DeleteRefs();
+
     static void SetMetaVerbose(bool v){ _meta.SetVerbose(v);}
     static Partner metaInstance(){return _meta._instance;}
     static Partner* metaInstanceAddress(){return &_meta._instance;}

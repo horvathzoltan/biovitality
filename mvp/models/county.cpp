@@ -39,6 +39,9 @@ void County::MetaInit()
 
 }
 
+void County::AddRefs(){};
+void County::DeleteRefs(){};
+
 bool County::isValid()
 {
     if(id<0) return false;

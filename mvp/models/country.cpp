@@ -22,6 +22,9 @@ void Country::MetaInit()
 
 }
 
+void Country::AddRefs(){};
+void Country::DeleteRefs(){};
+
 bool Country::isValid()
 {
     if(id<0) return false;

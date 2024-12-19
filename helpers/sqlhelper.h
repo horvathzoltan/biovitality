@@ -159,7 +159,7 @@ public:
 private:
     SQLSettings _settings;
     bool _isInited = false;
-    QSqlDatabase _db;
+    QSqlDatabase _db;// = nullptr;
     static const QString _connName;
     //HostPort* _host = nullptr;
 
@@ -171,6 +171,8 @@ private:
     QString GetCallSelect(const QString& call);
 public:    
     void Init(const SQLSettings& v);
+    void UnInit();
+    void DeleteDatabase();
 
     bool dbIsValid() const { return _isInited ? _db.isValid() : false; }
     QString dbName() const { return _isInited ? _db.databaseName() : ""; }
@@ -180,7 +182,8 @@ public:
 
     ~SQLHelper()
     {
-        QSqlDatabase::removeDatabase(_connName);
+        //_db.~QSqlDatabase();
+        //delete _db;
     }
 
 private:

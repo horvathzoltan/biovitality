@@ -31,6 +31,10 @@ private:
 public:
     bool isValid();
     static void MetaInit();
+    static void AddRefs();
+    static void DeleteRefs();
+
+
     static void SetMetaVerbose(bool v){ _meta.SetVerbose(v);}
     static County metaInstance(){return _meta._instance;}
     static County* metaInstanceAddress(){return &_meta._instance;}

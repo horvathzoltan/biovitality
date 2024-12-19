@@ -22,6 +22,9 @@ void Partner::MetaInit()
     //AddMetaIdMegnevIndex(id, name, KSH_code);
 }
 
+void Partner::AddRefs(){};
+void Partner::DeleteRefs(){};
+
 bool Partner::isValid()
 {
     if(id<0) return false;

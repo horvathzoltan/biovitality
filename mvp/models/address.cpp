@@ -23,10 +23,22 @@ void Address::MetaInit()
     _meta.MetaIdMegnevIndex(0,{1,2,3},-1);
 
     //ref1;
+    //_meta.AddMetaRef<County>("countyId","County", "id");
+    //_meta.AddMetaRef<Country>("countryId","Country", "id");
+    //countyRef;
+    AddRefs();
+}
+
+void Address::AddRefs(){
     _meta.AddMetaRef<County>("countyId","County", "id");
     _meta.AddMetaRef<Country>("countryId","Country", "id");
-    //countyRef;
 }
+
+void Address::DeleteRefs(){
+    _meta.DeleteMetaRef<County>();
+    _meta.DeleteMetaRef<Country>();
+}
+
 
 bool Address::isValid()
 {

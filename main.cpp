@@ -90,5 +90,9 @@ auto main(int argc, char *argv[]) -> int
     w.show();    
     p.initView(&w);
 
-    return a.exec();
+    int e = a.exec();
+
+    _globals._helpers._sqlHelper.UnInit();
+    zInfo("stopped");
+    return e;
 }

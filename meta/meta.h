@@ -83,6 +83,16 @@ public:
     }
 
     template<typename R>
+    void DeleteMetaRef(){
+        std::type_index key = GetKey<Ref<R>>();
+        if(_references.contains(key)){
+            void* b = _references.take(key);
+            Ref<R>* e = reinterpret_cast<Ref<R>*>(b);
+            delete e;
+        }
+    }
+
+    template<typename R>
     Ref<R>* GetRef()
     {
         std::type_index key = GetKey<Ref<R>>();
@@ -272,17 +282,19 @@ public:
         return _refcontainer.AddMetaRef<R>(fIx, rt, rf);
     };
 
+    template<typename R>
+    void DeleteMetaRef(){
+        _refcontainer.DeleteMetaRef<R>();
+    }
+
     QString _baseName;
     QString _baseWcode;
 
     void SetVerbose(bool v){_verbose = v;};
 
-    // ~Meta(){
-    //     for (void *a : _references.values())
-    //     {
-    //         delete a;
-    //     }
-    // }
+    ~Meta(){
+        T::DeleteRefs();
+    }
     // QString GetFieldName(const QString& name, char* field_ptr){
     //      return name;
     //  }    
