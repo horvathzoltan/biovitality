@@ -24,18 +24,16 @@ void SQLHelper::Init(const SQLSettings& v){
 void SQLHelper::UnInit()
 {
     _isInited = false;
-    DeleteDatabase();
-
- //   delete _db;
- //   _db = nullptr;
+    delete _db;
+    _db = nullptr;
 }
 
-void SQLHelper::DeleteDatabase()
-{
-    if(QSqlDatabase::contains(_connName)){
-        QSqlDatabase::removeDatabase(_connName);
-    }
-}
+// void SQLHelper::DeleteDatabase()
+// {
+//     if(QSqlDatabase::contains(_connName)){
+//         QSqlDatabase::removeDatabase(_connName);
+//     }
+// }
 
 QString SQLHelper::DbMsg(){
     QString msg = "DB["+_settings.ToString()+"]: "+_settings.dbname;
@@ -71,9 +69,9 @@ bool SQLHelper::TryOpen()
     bool connected = false;
     if(contains) {
         //auto db = QSqlDatabase::database(_connName);
-        if(_db.isValid())
+        if(_db->isValid())
         {
-            if(_db.open())
+            if(_db->open())
             {
                 zInfo(DbMsg()+" opened successfully");
                 connected = true;
@@ -82,10 +80,10 @@ bool SQLHelper::TryOpen()
             }
             else
             {
-                if (_db.isOpenError())
+                if (_db->isOpenError())
                 {
                     zWarning(DbMsg()+" cannot open");
-                    zWarning(ErrorString("db", _db.lastError()));
+                    zWarning(ErrorString("db", _db->lastError()));
                 }
                 else
                 {
@@ -149,15 +147,15 @@ bool SQLHelper::Connect_odbc(const QString& connName, int timeout)
         bool contains = QSqlDatabase::contains(connName);
         if(!contains)
         {
-            _db = QSqlDatabase::addDatabase(_settings.driver, connName);
+            QSqlDatabase db = _db->addDatabase(_settings.driver, connName);
             auto driverfn = GetDriverName();
             if(!driverfn.isEmpty())
             {
                 auto dbname = QStringLiteral("DRIVER=%1;Server=%2,%3;Database=%4")
                                   .arg(driverfn,_settings.host).arg(_settings.port).arg(_settings.dbname);
-                _db.setDatabaseName(dbname);
-                _db.setUserName(_settings.user);
-                _db.setPassword(_settings.password);
+                db.setDatabaseName(dbname);
+                db.setUserName(_settings.user);
+                db.setPassword(_settings.password);
 
                 zInfo(DbMsg()+" database added");
             }
@@ -179,20 +177,20 @@ bool SQLHelper::Connect_mariadb(const QString& connName, int timeout)
         bool contains = QSqlDatabase::contains(connName);
         if(!contains)
         {
-            _db = QSqlDatabase::addDatabase(_settings.driver, connName);
+            QSqlDatabase db = _db->addDatabase(_settings.driver, connName);
             //Before using the connection, it must be initialized.
-            _db.setHostName(_settings.host);// Tried www.themindspot.com & ip with http:// and https://
-            _db.setPort(_settings.port);
-            _db.setDatabaseName(_settings.dbname);
-            _db.setUserName(_settings.user);
-            _db.setPassword(_settings.password);
+            db.setHostName(_settings.host);// Tried www.themindspot.com & ip with http:// and https://
+            db.setPort(_settings.port);
+            db.setDatabaseName(_settings.dbname);
+            db.setUserName(_settings.user);
+            db.setPassword(_settings.password);
 
             zInfo(DbMsg()+" database added");
         }
     }
 
     // bool connected = TryOpen();
-    bool connected = _db.isValid();
+    bool connected = _db->isValid();
     return connected;
 }
 
@@ -367,7 +365,8 @@ SQLHelper::DoQueryRModel SQLHelper::Call(const QString& cmd)//, const QList<SQLH
     bool queryOk = false;
     if(opened) {
         //auto db = QSqlDatabase::database(_connName);
-        QSqlQuery query(_db);
+
+        QSqlQuery query = _db->query();
 
         query.prepare(call);
 
@@ -395,7 +394,7 @@ SQLHelper::DoQueryRModel SQLHelper::Call(const QString& cmd)//, const QList<SQLH
             zWarning("Cannot execute query");
             zWarning(ErrorString("query", query.lastError()));
         }
-        _db.close();
+        _db->close();
     }
 
     m.isOk = opened && queryOk;
@@ -421,7 +420,7 @@ SQLHelper::DoQueryRModel SQLHelper::DoQuery(const QString& cmd, const QList<SQLH
     bool queryOk = false;
     if(opened) {
         //auto db = QSqlDatabase::database(_connName);
-        QSqlQuery query(_db);
+        QSqlQuery query = _db->query();
 
         query.prepare(cmd);
         if(!params.isEmpty()){
@@ -459,7 +458,7 @@ SQLHelper::DoQueryRModel SQLHelper::DoQuery(const QString& cmd, const QList<SQLH
             zWarning("Cannot execute query");
             zWarning(ErrorString("query", query.lastError()));
         }
-        _db.close();
+        _db->close();
     }
 
     m.isOk = opened && queryOk;

@@ -9,9 +9,32 @@
 #include <QVariant>
 #include <QSqlRecord>
 #include <QSqlError>
+#include <QSqlQuery>
 
 class SQLHelper
 {
+private:
+    class DB{
+    private:
+        QSqlDatabase _db;
+        //QString _connName = QStringLiteral("conn1");
+
+    public:
+        //QSqlDatabase db(){return _db;}
+        bool isValid(){return _db.isValid();}
+        QString databaseName(){return _db.databaseName();}
+        bool open(){return _db.open();}
+        void close(){_db.close();}
+        bool isOpenError(){return _db.isOpenError();}
+        QSqlError lastError(){return _db.lastError();}
+        QSqlDatabase addDatabase(const QString& d, const QString& c){
+            _db = QSqlDatabase::addDatabase(d,c);
+            return _db;
+        };
+        QSqlQuery query(){return QSqlQuery(_db);}
+
+        //void setDatabaseName(const QString& v){_db.setDatabaseName();}
+    };
 public:
     struct DBE{
     private:
@@ -157,9 +180,11 @@ public:
     };
 
 private:
+    DB *_db = nullptr;
     SQLSettings _settings;
     bool _isInited = false;
-    QSqlDatabase _db;// = nullptr;
+
+    // QSqlDatabase _db;// = nullptr;
     static const QString _connName;
     //HostPort* _host = nullptr;
 
@@ -172,18 +197,19 @@ private:
 public:    
     void Init(const SQLSettings& v);
     void UnInit();
-    void DeleteDatabase();
+    //void DeleteDatabase();
 
-    bool dbIsValid() const { return _isInited ? _db.isValid() : false; }
-    QString dbName() const { return _isInited ? _db.databaseName() : ""; }
+    bool dbIsValid() const { return _isInited ? _db->isValid() : false; }
+    QString dbName() const { return _isInited ? _db->databaseName() : ""; }
     //void SetSettings(const SQLSettings& v){_settings = v;}
 
-    SQLHelper(){}
+    SQLHelper(){
+        _db = new DB();
+    }
 
     ~SQLHelper()
-    {
-        //_db.~QSqlDatabase();
-        //delete _db;
+    {        
+        delete _db;
     }
 
 private:
