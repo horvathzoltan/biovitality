@@ -48,6 +48,9 @@ const QString RepositoryBase::INSERT_CMD =
 const QString RepositoryBase::TABLE_EXISTS_CMD =
     QStringLiteral("sys.table_exists('%1', '%2', @table_type);");
 
+const QString RepositoryBase::FIELDS_EXISTS_CMD =
+    QStringLiteral("SHOW COLUMNS FROM %1 FROM %2;");
+
 bool RepositoryBase::Contains(int id)
 {
     bool exists = false;
@@ -185,6 +188,30 @@ bool SqlRepository<T>::isTableExists()
     return isTable;
 }
 
+template<typename T>
+bool SqlRepository<T>::isFieldsExists()
+{
+    QString dbName = _globals._helpers._sqlHelper.dbName();
+    QString cmd=TABLE_EXISTS_CMD.arg(dbName).arg(tableName());
+    SQLHelper::DoQueryRModel rm = _globals._helpers._sqlHelper.DoQuery(cmd);
+
+    bool isFields = false;
+    if(rm.hasRecords()){
+        const T &m = T::metaInstance();
+        QList<SQLHelper::SQLParam> params = m.GetQueryParams();
+        QList<QSqlRecord>& records = rm.records;
+        for (SQLHelper::SQLParam &p : params) {
+            //p.fieldName
+            if(records.contains(p.fieldName)){
+                aaa
+            }
+            else{
+                bbb
+            }
+        }
+    }
+    return isFields;
+}
 
 /**/
 
@@ -290,12 +317,16 @@ template<typename T>
 bool SqlRepository<T>::Check(const QString& refTypeName)
 {
     bool tableExists = false;
+    bool fieldsExists = false;
     //T c = *(r2->metaInstance());
     RepositoryBase* rx = RepositoryBase::GetRepository(refTypeName);
     if(rx){
         SqlRepository<T>* repo = reinterpret_cast<SqlRepository<T>*>(rx);
         tableExists = repo->isTableExists();
+
         zInfo(QStringLiteral("tableExists") + (tableExists ? "ok" : "failed"));
+
+        fieldsExists = repo->isFieldsExists();
     } else{
         zInfo(QStringLiteral("no refTypeName:") + refTypeName);
     }

@@ -167,15 +167,6 @@ void MainPresenter::Error(const QSqlError& err)
     if(err.isValid()) zInfo(QStringLiteral("QSqlError: %1 - %2").arg(err.type()).arg(err.text()));
 }
 
-// void MainPresenter::Error2(DbErr err)
-// {
-//     if(!err.isDbValid){
-//         zWarning("db:"+err._dbName+" is invalid");
-//     }else if(!err.isTableExists){
-//         zWarning("table:"+err._dbName+"."+err._tableName+" is not exists");
-//     }
-// }
-
 void MainPresenter::process_Add_AddressAction(IMainView *sender){
     zTrace();
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
@@ -183,41 +174,10 @@ void MainPresenter::process_Add_AddressAction(IMainView *sender){
     auto addressRepo = _globals._repositories.address;
     bool isRepoOk = Import_CheckRepo(addressRepo);
 
-    Ref<County>* r1 = Address::GetRef<County>();
+    bool refOk_County = CheckRef<County>();
+    bool refOk_Country = CheckRef<Country>();
 
-    if(r1){
-        County *u = r1->metaInstance();
-        bool tableExists = SqlRepository<County>::Check(r1->refTypeName());
-    }
-
-    //QVariantList rl = Address::GetRefs();
-
-    // for (QVariant &v : rl) {
-    //     //RepositoryBase *r = RepositoryBase::GetRepository(refName);
-    //     //void *d = v.data();
-    //     //RefBase *r = (RefBase *)d;
-    //     RefBase r = v.value<RefBase>();
-    //     if (r.refTypeName() == "County") {
-    //         //QVariant a = r;
-
-    //         // decltype(r->m.metaType().) at ;
-    //         // Ref<County>* r2 = reinterpret_cast<Ref<County>*>(r);
-
-    //         bool tableExists = SqlRepository<County>::Check(r.refTypeName());
-    //         // County c = *(r2->metaInstance());
-    //         // RepositoryBase* rx =
-    //         // RepositoryBase::GetRepository(r->refTypeName());
-    //         // SqlRepository<decltype(c)>* repo =
-    //         //     reinterpret_cast<SqlRepository<decltype(c)>* >(rx);
-    //         // bool tableExists = repo->isTableExists();
-    //         zInfo(QStringLiteral("tableExists") +
-    //               (tableExists ? "ok" : "failed"));
-    //     }
-    // }
-
-    // meg kell nézni a hivatkozott modellek repoit is
-
-    bool valid = isRepoOk;
+    bool valid = isRepoOk && refOk_County && refOk_Country;
     if(valid)
     {
         AddModel<Address>* model = new AddModel<Address>();
@@ -453,6 +413,20 @@ bool MainPresenter::Import_CheckRepo(SqlRepository<T>& repo){
     bool tableExists = repo.isTableExists();
     if(!tableExists) return false;
     return true;
+}
+
+template<typename T>
+bool MainPresenter::CheckRef()
+{
+    Ref<T>* r1 = Address::GetRef<T>();
+
+    if(r1){
+        T *u = r1->metaInstance();
+        bool ok = SqlRepository<T>::Check(r1->refTypeName());
+        if(ok) return true;
+    }
+
+    return false;
 }
 
 template<typename T>

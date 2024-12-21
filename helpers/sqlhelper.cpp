@@ -147,15 +147,19 @@ bool SQLHelper::Connect_odbc(const QString& connName, int timeout)
         bool contains = QSqlDatabase::contains(connName);
         if(!contains)
         {
-            QSqlDatabase db = _db->addDatabase(_settings.driver, connName);
+
             auto driverfn = GetDriverName();
             if(!driverfn.isEmpty())
             {
                 auto dbname = QStringLiteral("DRIVER=%1;Server=%2,%3;Database=%4")
                                   .arg(driverfn,_settings.host).arg(_settings.port).arg(_settings.dbname);
-                db.setDatabaseName(dbname);
-                db.setUserName(_settings.user);
-                db.setPassword(_settings.password);
+
+                _db->addDatabase(_settings.driver, connName, dbname);
+                //Before using the connection, it must be initialized.
+                _db->setUserNamePassword(_settings.user,_settings.password);
+                //db.setDatabaseName(dbname);
+                //db.setUserName(_settings.user);
+                //db.setPassword(_settings.password);
 
                 zInfo(DbMsg()+" database added");
             }
@@ -177,13 +181,20 @@ bool SQLHelper::Connect_mariadb(const QString& connName, int timeout)
         bool contains = QSqlDatabase::contains(connName);
         if(!contains)
         {
-            QSqlDatabase db = _db->addDatabase(_settings.driver, connName);
+            _db->addDatabase(_settings.driver, connName, _settings.dbname);
             //Before using the connection, it must be initialized.
-            db.setHostName(_settings.host);// Tried www.themindspot.com & ip with http:// and https://
-            db.setPort(_settings.port);
-            db.setDatabaseName(_settings.dbname);
-            db.setUserName(_settings.user);
-            db.setPassword(_settings.password);
+            _db->setUserNamePassword(_settings.user,_settings.password);
+            _db->setHostNamePort(_settings.host, _settings.port);
+
+            // db.setHostName(_settings.host);// Tried www.themindspot.com & ip with http:// and https://
+            // db.setPort(_settings.port);
+
+            //_db->addDatabase(_settings.driver, connName, _settings.dbname);
+
+
+            //db.setDatabaseName(_settings.dbname);
+            //db.setUserName(_settings.user);
+            //db.setPassword(_settings.password);
 
             zInfo(DbMsg()+" database added");
         }
@@ -366,7 +377,7 @@ SQLHelper::DoQueryRModel SQLHelper::Call(const QString& cmd)//, const QList<SQLH
     if(opened) {
         //auto db = QSqlDatabase::database(_connName);
 
-        QSqlQuery query = _db->query();
+        QSqlQuery query = _db->query();//query(*_db);//
 
         query.prepare(call);
 
@@ -420,7 +431,7 @@ SQLHelper::DoQueryRModel SQLHelper::DoQuery(const QString& cmd, const QList<SQLH
     bool queryOk = false;
     if(opened) {
         //auto db = QSqlDatabase::database(_connName);
-        QSqlQuery query = _db->query();
+        QSqlQuery query = _db->query();// query(*_db);//
 
         query.prepare(cmd);
         if(!params.isEmpty()){

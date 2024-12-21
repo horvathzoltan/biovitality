@@ -32,6 +32,7 @@ protected:
     static const QString UPDATE_CMD;
     static const QString INSERT_CMD;
     static const QString TABLE_EXISTS_CMD;
+    static const QString FIELDS_EXISTS_CMD;
 
 public:
     static QList<RepositoryBase*> _repos;
@@ -67,6 +68,8 @@ public:
     SqlRepository(const QString& tname) : RepositoryBase(tname) {}
 
     bool isTableExists();
+    bool isFieldsExists();
+
     T Get(int id);
     QList<T> GetAll();
     bool Update(const T& m);

@@ -37,6 +37,8 @@ private:
     template<typename T>
     bool Import_CheckRepo(SqlRepository<T>& repo);
 
+    template<typename T>
+    bool CheckRef();
     // // imports from file to SQL repo
     template<typename T>
     void Import_private(const MainViewModel::FileNameModel& fn,
