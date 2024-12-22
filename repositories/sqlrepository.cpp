@@ -6,6 +6,7 @@
 #include <helpers/sqlhelper.h>
 
 #include <QSqlField>
+#include <helpers/sqlrecordhelper.h>
 #include <infrastructure/settings.h>
 
 #include <meta/sqlmetahelper.h>
@@ -49,7 +50,7 @@ const QString RepositoryBase::TABLE_EXISTS_CMD =
     QStringLiteral("sys.table_exists('%1', '%2', @table_type);");
 
 const QString RepositoryBase::FIELDS_EXISTS_CMD =
-    QStringLiteral("SHOW COLUMNS FROM %1 FROM %2;");
+    QStringLiteral("SHOW COLUMNS FROM %2 FROM %1;");
 
 bool RepositoryBase::Contains(int id)
 {
@@ -192,26 +193,47 @@ template<typename T>
 bool SqlRepository<T>::isFieldsExists()
 {
     QString dbName = _globals._helpers._sqlHelper.dbName();
-    QString cmd=TABLE_EXISTS_CMD.arg(dbName).arg(tableName());
+    QString cmd=FIELDS_EXISTS_CMD.arg(dbName).arg(tableName());
     SQLHelper::DoQueryRModel rm = _globals._helpers._sqlHelper.DoQuery(cmd);
 
-    bool isFields = false;
+    bool isFields = true;
     if(rm.hasRecords()){
         const T &m = T::metaInstance();
         QList<SQLHelper::SQLParam> params = m.GetQueryParams();
-        QList<QSqlRecord>& records = rm.records;
-        for (SQLHelper::SQLParam &p : params) {
-            //p.fieldName
-            if(records.contains(p.fieldName)){
-                aaa
-            }
-            else{
-                bbb
+
+        QList<SqlRecordHelper::SqlColumn> columns = SqlRecordHelper::SqlColumn::Parse(rm.records);
+        if(!columns.isEmpty()){
+            for (SQLHelper::SQLParam &p : params)
+            {
+                // records-ban van e olyan, aminek a Field-je megegyezik a p.fieldName-vel
+                int ix = SqlRecordHelper::SqlColumn::IndexOf(columns, p.fieldName);
+                if(ix>=0)
+                {
+                    SqlRecordHelper::SqlColumn column = columns[ix];
+                    if(column.typeId() == p.fieldValue.typeId())
+                    {}
+                    else
+                    {
+                        QMetaType ft(column.typeId());
+                        QMetaType pt = p.fieldValue.metaType();
+
+                        zWarning(QStringLiteral("Field type in model:") + tableName()+'.'+pt.name() +" ,in sql:"+ft.name());
+                        isFields = false;
+                    }
+                }
+                else
+                {
+                    zWarning("Field not exists: " + tableName()+'.'+p.ToString());
+                    isFields = false;
+                }
             }
         }
+
     }
     return isFields;
 }
+
+
 
 /**/
 

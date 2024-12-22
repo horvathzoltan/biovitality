@@ -15,6 +15,7 @@ message( "TARGET = "$$TARGET )
 SOURCES += \
     #actions.cpp \
     helpers/optionalconverters.cpp \
+    helpers/sqlrecordhelper.cpp \
     helpers/sysinfohelper.cpp \
     meta/csv_sqlhelper.cpp \
     meta/csvhelper.cpp \
@@ -57,6 +58,7 @@ HEADERS += \
     #actions.h \
     helpers/nameof.h \
     helpers/optionalconverters.h \
+    helpers/sqlrecordhelper.h \
     helpers/sysinfohelper.h \
     meta/csv_sqlhelper.h \
     mvp/models/country.h \

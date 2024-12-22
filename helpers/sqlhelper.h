@@ -152,6 +152,21 @@ public:
         QString paramName;
         QString fieldName;
         QVariant fieldValue;
+
+        QString ToString_Value() const{
+            QString v = GetFieldValue(fieldValue);
+
+            QString m = paramName+":"+fieldName+"="+v
+                  +" "+(fieldValue.isValid()?"valid":"invalid") +
+                  " "+fieldValue.metaType().name();
+            return m;
+        }
+
+        QString ToString() const{
+            QString m = fieldName+" "+fieldValue.metaType().name();
+            return m;
+        }
+
     };
 
     // struct HostPort

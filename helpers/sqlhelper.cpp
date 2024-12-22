@@ -441,10 +441,13 @@ SQLHelper::DoQueryRModel SQLHelper::DoQuery(const QString& cmd, const QList<SQLH
                 if(n.fieldValue.isValid()){
                     query.bindValue(":"+n.paramName,n.fieldValue);
                 }
-                QString fieldValue = GetFieldValue(n.fieldValue);
-                zInfo(n.paramName+":"+n.fieldName+"="+fieldValue
-                      +" "+(n.fieldValue.isValid()?"valid":"invalid") +
-                      " "+n.fieldValue.metaType().name());
+
+                QString m2 = n.ToString_Value();
+                zInfo(m2);
+                // QString fieldValue = GetFieldValue(n.fieldValue);
+                // zInfo(n.paramName+":"+n.fieldName+"="+fieldValue
+                //       +" "+(n.fieldValue.isValid()?"valid":"invalid") +
+                //       " "+n.fieldValue.metaType().name());
             }
         }
 

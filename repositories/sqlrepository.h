@@ -81,9 +81,8 @@ public:
     QList<int> GetIds_ByColumn(const QString& fieldName, const QVariant& fieldValue);
 
     //template<typename T>
-    static bool Check(const QString& refTypeName);
+    static bool Check(const QString& refTypeName);    
 };
-
 
 
 // template<typename T>

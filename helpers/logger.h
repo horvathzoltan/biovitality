@@ -85,4 +85,5 @@ public:
     static void SetFunction(std::function<void(const QString& str)> f){ _func = f;};
 };
 
+
 #endif // LOGGER_H

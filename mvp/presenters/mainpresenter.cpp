@@ -177,7 +177,7 @@ void MainPresenter::process_Add_AddressAction(IMainView *sender){
     bool refOk_County = CheckRef<County>();
     bool refOk_Country = CheckRef<Country>();
 
-    bool valid = isRepoOk && refOk_County && refOk_Country;
+    bool valid = isRepoOk && refOk_County;// && refOk_Country;
     if(valid)
     {
         AddModel<Address>* model = new AddModel<Address>();
@@ -412,6 +412,8 @@ bool MainPresenter::Import_CheckRepo(SqlRepository<T>& repo){
     if(!connected) return false;
     bool tableExists = repo.isTableExists();
     if(!tableExists) return false;
+    bool fieldsExists = repo.isFieldsExists();
+    if(!fieldsExists) return false;
     return true;
 }
 
