@@ -22,8 +22,15 @@ extern Globals _globals;
 //SqlRepository<T>::SqlRepository(const QString& tname) : SqlExcelRepository(tname), RepositoryBase(tname) {}
 //SqlRepository<T>::SqlRepository(const QString& tname) : RepositoryBase(tname) {}
 
-QList<RepositoryBase*> RepositoryBase::_repos;
+//QList<RepositoryBase*> RepositoryBase::_repos;
 
+//SqlRepository::TypeContainer _typeContainer;
+TypeContainer SqlRepositoryContainer::_data;
+
+template<typename T>
+SqlRepository<T>::SqlRepository(const QString &tname) : RepositoryBase(tname) {
+    SqlRepositoryContainer::Add<T>(this);
+}
 
 const QString RepositoryBase::CONTAINS_CMD =
     QStringLiteral("SELECT EXISTS(SELECT 1 FROM %1 WHERE id = %2) AS _exists;");
@@ -166,6 +173,8 @@ bool SqlRepository<T>::Add(const T &m){
 //     return false;
 // }
 
+
+
 template<typename T>
 bool SqlRepository<T>::isTableExists()
 {
@@ -210,14 +219,16 @@ bool SqlRepository<T>::isFieldsExists()
                 if(ix>=0)
                 {
                     SqlRecordHelper::SqlColumn column = columns[ix];
-                    if(column.typeId() == p.fieldValue.typeId())
-                    {}
-                    else
+                    int type_c = column.typeId();
+                    int type_p = p.fieldValue.typeId();
+
+                    if(type_c != type_p )
                     {
                         QMetaType ft(column.typeId());
                         QMetaType pt = p.fieldValue.metaType();
 
-                        zWarning(QStringLiteral("Field type in model:") + tableName()+'.'+pt.name() +" ,in sql:"+ft.name());
+                        zWarning(QStringLiteral("Field type in model:") + tableName()+'.'+p.ToString()+
+                                 ' '+pt.name() +" ,in sql:"+ft.name());
                         isFields = false;
                     }
                 }
@@ -336,28 +347,31 @@ QList<int> SqlRepository<T>::GetIds_ByColumn(const QString& fieldName, const QVa
 }
 
 template<typename T>
-bool SqlRepository<T>::Check(const QString& refTypeName)
+bool SqlRepository<T>::Check()
 {
     bool tableExists = false;
     bool fieldsExists = false;
     //T c = *(r2->metaInstance());
-    RepositoryBase* rx = RepositoryBase::GetRepository(refTypeName);
-    if(rx){
-        SqlRepository<T>* repo = reinterpret_cast<SqlRepository<T>*>(rx);
+    //RepositoryBase* rx = RepositoryBase::GetRepository(refTypeName);
+    SqlRepository<T>* repo = SqlRepositoryContainer::Get<T>();
+    if(repo){
+        //SqlRepository<T>* repo = reinterpret_cast<SqlRepository<T>*>(rx);
         tableExists = repo->isTableExists();
 
         zInfo(QStringLiteral("tableExists") + (tableExists ? "ok" : "failed"));
 
         fieldsExists = repo->isFieldsExists();
     } else{
-        zInfo(QStringLiteral("no refTypeName:") + refTypeName);
+        zInfo(QStringLiteral("no TypeName:") + repo->tableName());
     }
-    return tableExists;
+
+    bool e = tableExists && fieldsExists;
+    return e;
 }
 
-RepositoryBase* RepositoryBase::GetRepository(const QString& tableName){
-    for(auto r:_repos){
-        if(r->_tableName == tableName) return r;
-    }
-    return nullptr;
-}
+// RepositoryBase* RepositoryBase::GetRepository(const QString& tableName){
+//     for(auto r:_repos){
+//         if(r->_tableName == tableName) return r;
+//     }
+//     return nullptr;
+// }

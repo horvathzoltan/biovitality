@@ -24,6 +24,16 @@ std::optional<quint64> OptionalConverters::QVariantToOptionalQuint64(const QVari
 
 QVariant OptionalConverters::OptionalQuint64ToQVariant(const std::optional<quint64> &v)
 {
-    if(!v.has_value()) return {};
-    return QVariant(v.value());
+    if(v.has_value()){
+        return QVariant(v.value());
+    } else{
+        //QVariant a(QMetaType::fromType<quint64>());
+        //a.convert((QMetaType(QMetaType::ULongLong)));
+
+        // std::variant<quint64> e;
+        // auto a = QVariant::fromStdVariant(e);
+        return {};
+    }
+    //return u;
+
 }

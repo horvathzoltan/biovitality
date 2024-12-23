@@ -50,7 +50,7 @@ public:
     static Article FromMetaValues(const QList<MetaValue> &v){return _meta.FromMetaValues(v);}
 
     // SQL_Create,Update
-    QList<SQLHelper::SQLParam> GetQueryParams()const { return _meta.ToMetaValues2(this);}
+    QList<SQLHelper::SQLParam> GetQueryParams()const { return _meta.To_SQLParams(this);}
 
     // CSV import
     static CSV_ImportModel<Article> CSV_Import(const QList<QVarLengthArray<QString>>& records,

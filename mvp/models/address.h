@@ -45,7 +45,7 @@ public:
     static Address FromMetaValues(const QList<MetaValue> &v){return _meta.FromMetaValues(v);}
 
     // SQL_Create,Update
-    QList<SQLHelper::SQLParam> GetQueryParams()const { return _meta.ToMetaValues2(this);}
+    QList<SQLHelper::SQLParam> GetQueryParams()const { return _meta.To_SQLParams(this);}
 
     // CSV import
     static CSV_ImportModel<Address> CSV_Import(

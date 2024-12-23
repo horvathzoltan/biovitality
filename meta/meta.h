@@ -100,7 +100,7 @@ public:
         {
             void* b = _references.value(key);
             Ref<R>* e = reinterpret_cast<Ref<R>*>(b);
-            zInfo("hutty:" +e->refTypeName());
+            zInfo("RefContainer find:" +e->refTypeName());
             return e;
         }
         return nullptr;
@@ -205,10 +205,10 @@ public:
 
     // ez megy ki az UI felé
     MetaValue GetMetaValue(char* s){
-        // if(name == "alimedCode")
-        // {
-        //     zInfo("alimedCode");
-        // }
+        if(name == "alimedCode")
+        {
+             zInfo("alimedCode");
+        }
         MetaValue mv(name, wcode, type);
         mv.value = GetValue(s);
         return mv;
@@ -233,7 +233,10 @@ public:
             bool cc = QMetaType::canConvert(type, qvm);
             QVariant v;
             if(cc){
-                QMetaType::convert(type, ptr, qvm, &v);
+                bool ok = QMetaType::convert(type, ptr, qvm, &v);
+                if(!ok){
+                    zInfo("cc err");
+                }
             }
             return v;
         }
@@ -459,7 +462,7 @@ public:
         return m;
     }
 
-    QList<SQLHelper::SQLParam> ToMetaValues2(const T* s){
+    QList<SQLHelper::SQLParam> To_SQLParams(const T* s){
         QList<SQLHelper::SQLParam> m;
         if(s){
             int i=1;

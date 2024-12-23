@@ -34,8 +34,8 @@ private:
     void refreshView(IMainView *w) const;
     void Error(const QSqlError& err);
 
-    template<typename T>
-    bool Import_CheckRepo(SqlRepository<T>& repo);
+//    template<typename T>
+//    bool Import_CheckRepo(SqlRepository<T>& repo);
 
     template<typename T>
     bool CheckRef();

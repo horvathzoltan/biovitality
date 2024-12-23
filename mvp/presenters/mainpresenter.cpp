@@ -172,26 +172,30 @@ void MainPresenter::process_Add_AddressAction(IMainView *sender){
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
     auto addressRepo = _globals._repositories.address;
-    bool isRepoOk = Import_CheckRepo(addressRepo);
-
-    bool refOk_County = CheckRef<County>();
-    bool refOk_Country = CheckRef<Country>();
-
-    bool valid = isRepoOk && refOk_County;// && refOk_Country;
-    if(valid)
+    //bool isRepoOk = Import_CheckRepo(addressRepo);
+    bool connected = _globals._helpers._sqlHelper.TryConnect();
+    if(connected)
     {
-        AddModel<Address>* model = new AddModel<Address>();
+        bool isRepoOk = SqlRepository<Address>::Check();
+        bool refOk_County = CheckRef<County>();
+        bool refOk_Country = CheckRef<Country>();
 
-        Operations::instance().setData(opId, model);
+        bool valid = isRepoOk && refOk_County && refOk_Country;
+        if(valid)
+        {
+            AddModel<Address>* model = new AddModel<Address>();
 
-        model->dataForm = new DataForm(opId);
+            Operations::instance().setData(opId, model);
 
-        Address data = _globals._repositories.address.Get(2);
-        model->data = data;
-        QList<MetaValue> m = data.GetMetaValues();
-        model->dataForm->setMetaValues(m);
+            model->dataForm = new DataForm(opId);
 
-        model->dataForm->show();
+            Address data = _globals._repositories.address.Get(2);
+            model->data = data;
+            QList<MetaValue> m = data.GetMetaValues();
+            model->dataForm->setMetaValues(m);
+
+            model->dataForm->show();
+        }
     }
     Operations::instance().stop(opId);
 }
@@ -290,16 +294,19 @@ void MainPresenter::process_CimImport_Action(IMainView *sender)
     zTrace();
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
-    SqlRepository<Address> repo = _globals._repositories.address;
-    bool isRepoOk = Import_CheckRepo(repo);
-
-    bool valid = isRepoOk;
-    if(valid){
-        MainViewModel::FileNameModel fn = sender->get_CSVFileName_Address();
-        QString keyColumnName = FieldName(Address, excelId);
-        Import_private(fn, repo, keyColumnName,';');
+    //SqlRepository<Address> repo = _globals._repositories.address;
+    //bool isRepoOk = Import_CheckRepo(repo);
+    bool connected = _globals._helpers._sqlHelper.TryConnect();
+    if(connected)
+    {
+        bool isRepoOk = SqlRepository<Address>::Check();
+        //bool valid = isRepoOk;
+        if(isRepoOk){
+            MainViewModel::FileNameModel fn = sender->get_CSVFileName_Address();
+            QString keyColumnName = FieldName(Address, excelId);
+            Import_private(fn, _globals._repositories.address, keyColumnName,';');
+        }
     }
-
     Operations::instance().stop(opId);
 }
 
@@ -308,14 +315,18 @@ void MainPresenter::process_PartnerImport_Action(IMainView *sender)
     zTrace();
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
-    SqlRepository<Partner> repo = _globals._repositories.partner;
-    bool isRepoOk = Import_CheckRepo(repo);
-
-    bool valid = isRepoOk;
-    if(valid){
-        MainViewModel::FileNameModel fn = sender->get_CSVFileName_Partner();
-        QString keyColumnName = FieldName(Partner, excelId);
-        Import_private(fn, repo,keyColumnName,';');
+    //SqlRepository<Partner> repo = _globals._repositories.partner;
+    //bool isRepoOk = Import_CheckRepo(repo);
+    bool connected = _globals._helpers._sqlHelper.TryConnect();
+    if(connected)
+    {
+        bool isRepoOk = SqlRepository<Partner>::Check();
+        //bool valid = isRepoOk;
+        if(isRepoOk){
+            MainViewModel::FileNameModel fn = sender->get_CSVFileName_Partner();
+            QString keyColumnName = FieldName(Partner, excelId);
+            Import_private(fn, _globals._repositories.partner, keyColumnName,';');
+        }
     }
 
     Operations::instance().stop(opId);
@@ -326,16 +337,19 @@ void MainPresenter::process_TetelImport_Action(IMainView *sender)
     zTrace();
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
-    SqlRepository<SoldItem> repo = _globals._repositories.solditem;
-    bool isRepoOk = Import_CheckRepo(repo);
-
-    bool valid = isRepoOk;
-    if(valid){
-        MainViewModel::FileNameModel fn = sender->get_CSVFileName_SoldItem();
-        QString keyColumnName = FieldName(SoldItem, excelId);
-        Import_private(fn, repo, keyColumnName,';');
+    //SqlRepository<SoldItem> repo = _globals._repositories.solditem;
+    //bool isRepoOk = Import_CheckRepo(repo);
+    bool connected = _globals._helpers._sqlHelper.TryConnect();
+    if(connected)
+    {
+        bool isRepoOk = SqlRepository<SoldItem>::Check();
+        bool valid = isRepoOk;
+        if(valid){
+            MainViewModel::FileNameModel fn = sender->get_CSVFileName_SoldItem();
+            QString keyColumnName = FieldName(SoldItem, excelId);
+            Import_private(fn, _globals._repositories.solditem, keyColumnName,';');
+        }
     }
-
     Operations::instance().stop(opId);
 }
 
@@ -344,16 +358,19 @@ void MainPresenter::process_CountyImport_Action(IMainView *sender)
     zTrace();
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
-    SqlRepository<County> repo = _globals._repositories.county;
-    bool isRepoOk = Import_CheckRepo(repo);
-
-    bool valid = isRepoOk;
-    if(valid){
-        MainViewModel::FileNameModel fn = sender->get_CSVFileName_County();
-        QString keyColumnName = FieldName(County, KSHCode);
-        Import_private(fn,  repo, keyColumnName,';');
+    // SqlRepository<County> repo = _globals._repositories.county;
+    // bool isRepoOk = Import_CheckRepo(repo);
+    bool connected = _globals._helpers._sqlHelper.TryConnect();
+    if(connected)
+    {
+        bool isRepoOk = SqlRepository<County>::Check();
+        bool valid = isRepoOk;
+        if(valid){
+            MainViewModel::FileNameModel fn = sender->get_CSVFileName_County();
+            QString keyColumnName = FieldName(County, KSHCode);
+            Import_private(fn,  _globals._repositories.county, keyColumnName,';');
+        }
     }
-
     Operations::instance().stop(opId);
 }
 
@@ -362,16 +379,20 @@ void MainPresenter::process_CountryImport_Action(IMainView *sender)
     zTrace();
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
-    SqlRepository<Country> repo = _globals._repositories.country;
-    bool isRepoOk = Import_CheckRepo(repo);
+    //SqlRepository<Country> repo = _globals._repositories.country;
+    //bool isRepoOk = Import_CheckRepo(repo);
 
-    bool valid = isRepoOk;
-    if(valid){
-        MainViewModel::FileNameModel fn = sender->get_CSVFileName_Country();
-        QString keyColumnName = FieldName(Country, countryCode);
-        Import_private(fn, repo, keyColumnName,',');
+    bool connected = _globals._helpers._sqlHelper.TryConnect();
+    if(connected)
+    {
+        bool isRepoOk = SqlRepository<Country>::Check();
+        bool valid = isRepoOk;
+        if(valid){
+            MainViewModel::FileNameModel fn = sender->get_CSVFileName_Country();
+            QString keyColumnName = FieldName(Country, countryCode);
+            Import_private(fn, _globals._repositories.country, keyColumnName,',');
+        }
     }
-
     Operations::instance().stop(opId);
 }
 
@@ -388,47 +409,52 @@ void MainPresenter::process_ArticleImport_Action(IMainView *sender)
     zTrace();
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
-    auto repo = _globals._repositories.article;
-    bool isRepoOk = Import_CheckRepo(repo);
-
-    bool valid = isRepoOk;
-    if(valid){
-        MainViewModel::FileNameModel fn = sender->get_CSVFileName_Article();
-        QString keyColumnName = FieldName(Article, Barcode);
-        Import_private(fn, repo, keyColumnName,';');
-    }
+    //auto repo = _globals._repositories.article;
+    bool connected = _globals._helpers._sqlHelper.TryConnect();
+    if(connected)
+    {
+        bool isRepoOk = SqlRepository<Article>::Check();
+        if(isRepoOk)
+        {
+            MainViewModel::FileNameModel fn = sender->get_CSVFileName_Article();
+            QString keyColumnName = FieldName(Article, Barcode);
+            Import_private(fn, _globals._repositories.article, keyColumnName,';');
+        }
     //else
     //{
     //   QString msg = dbErr.ToString();
     //    zWarning(msg);
     //}
-
+    }
     Operations::instance().stop(opId);
 }
-
-template<typename T>
-bool MainPresenter::Import_CheckRepo(SqlRepository<T>& repo){
+/*
     bool connected = _globals._helpers._sqlHelper.TryConnect();
-    if(!connected) return false;
-    bool tableExists = repo.isTableExists();
-    if(!tableExists) return false;
-    bool fieldsExists = repo.isFieldsExists();
-    if(!fieldsExists) return false;
-    return true;
-}
+    if(connected)
+    {
+        bool isRepoOk = SqlRepository<Address>::Check();
+*/
+// template<typename T>
+// bool MainPresenter::Import_CheckRepo(SqlRepository<T>& repo){
+//     bool connected = _globals._helpers._sqlHelper.TryConnect();
+//     if(!connected) return false;
+
+//     SqlRepository<T>::Check(r1->refTypeName());
+//     //bool tableExists = repo.isTableExists();
+//     //if(!tableExists) return false;
+//     //bool fieldsExists = repo.isFieldsExists();
+//     //if(!fieldsExists) return false;
+//     return true;
+// }
 
 template<typename T>
 bool MainPresenter::CheckRef()
 {
     Ref<T>* r1 = Address::GetRef<T>();
+    if(!r1) return false;
 
-    if(r1){
-        T *u = r1->metaInstance();
-        bool ok = SqlRepository<T>::Check(r1->refTypeName());
-        if(ok) return true;
-    }
-
-    return false;
+    bool ok = SqlRepository<T>::Check();
+    return ok;
 }
 
 template<typename T>

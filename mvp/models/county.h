@@ -44,7 +44,7 @@ public:
     static County FromMetaValues(const QList<MetaValue> &v){return _meta.FromMetaValues(v);}
 
     // SQL_CreateUpdate
-    QList<SQLHelper::SQLParam> GetQueryParams()const { return _meta.ToMetaValues2(this);}
+    QList<SQLHelper::SQLParam> GetQueryParams()const { return _meta.To_SQLParams(this);}
 
     // CSV import
     static CSV_ImportModel<County> CSV_Import(
