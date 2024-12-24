@@ -16,22 +16,41 @@
          QString key;
          QString _default;
          QString extra;
-         int _typeId;
+         int _metaTypeId;
      public:
-         int typeId(){return _typeId;}
+         int metaTypeId(){return _metaTypeId;}
 
          static SqlColumn Parse(const QSqlRecord& r);
          static QList<SqlColumn> Parse(const QList<QSqlRecord>& r);
 
          static int IndexOf(const QList<SqlRecordHelper::SqlColumn>& columns, const QString& fieldName);
 
-         static int MariaDBType_ToTypeId(const QString& typeName);
+         static int MariaDBType_ToMetaTypeId(const QString& typeName);
+         //static int ToNullableTypeId(int n);
+
+         QString ToString();
      };
 
 
      //static int IndexOf(const QList<QSqlRecord>& records, const QString& fn);
      static QString GetValueToString(
          const QSqlRecord &r, const QString& fieldName );
+
+     struct ColumnModel {
+     private:
+         ColumnModel(){};
+
+         QString _name;
+         QString _length;
+         QString _modifier;
+
+     public:
+         ColumnModel(const QString& n,
+                     const QString&l,
+                     const QString& m);
+
+         int GetMetaTypeId();
+     };
  };
 
  #endif // SQLRECORDHELPER_H

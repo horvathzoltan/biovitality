@@ -2,7 +2,7 @@
 #define ARTICLE_H
 
 #include "meta/meta.h"
-#include "modelinterfaces.h"
+//#include "modelinterfaces.h"
 #include <QDateTime>
 #include <QList>
 #include <QVariant>
@@ -15,10 +15,10 @@
 #include <meta/csvhelper.h>
 
 //DataForm
-class Article : I_Meta<Article>
+class Article /*: I_Meta<Article>
     , I_SQLRepo_Read<Article>
     , I_SQLRepo_CreateUpdate<Article>
-    , I_CSVImport<Article>
+    , I_CSVImport<Article>*/
 {
 public:
     Article();
@@ -34,36 +34,37 @@ public:
 
     // Meta
 private:
-    static Meta<Article> _meta;    
-public:        
+    static MetaData<Article> _meta;
+public:
+    static MetaData<Article>& Meta(){return _meta;}
     bool isValid();
     static void MetaInit();
     static void AddRefs();
     static void DeleteRefs();
 
 
-    static void SetMetaVerbose(bool v){ _meta.SetVerbose(v);}
-    static Article metaInstance(){return _meta._instance;}
-    static Article* metaInstanceAddress(){return &_meta._instance;}
+    //static void SetMetaVerbose(bool v){ _meta.SetVerbose(v);}
+    //static Article metaInstance(){return _meta._instance;}
+    //static Article* metaInstanceAddress(){return &_meta._instance;}
     // SQL_Read
-    static QString GetMetaFieldNames(){ return _meta.GetMetaFieldNames();}
-    static Article FromMetaValues(const QList<MetaValue> &v){return _meta.FromMetaValues(v);}
+    //static QString GetMetaFieldNames(){ return _meta.GetMetaFieldNames();}
+    //static Article FromMetaValues(const QList<MetaValue> &v){return _meta.FromMetaValues(v);}
 
     // SQL_Create,Update
-    QList<SQLHelper::SQLParam> GetQueryParams()const { return _meta.To_SQLParams(this);}
+    //QList<SQLHelper::SQLParam> ToSQLParams()const { return _meta.ToSQLParams(this);}
 
     // CSV import
     static CSV_ImportModel<Article> CSV_Import(const QList<QVarLengthArray<QString>>& records,
                                                const QChar& separator);
-    QVariant GetValue(const QString& name) const { return _meta.GetValue(this, name);}
-    static MetaField* GetMetaField(const QString& name) {return _meta.GetMetaField(name);}
+    //QVariant GetValue(const QString& name) const { return _meta.GetValue(this, name);}
+    //static MetaField* GetMetaField(const QString& name) {return _meta.GetMetaField(name);}
 
 // DataForm
-    static DataRowDefaultModel To_DataRowDefaultModel(const QList<Article>& data)
-    {
-        return _meta.ToIdMegnevs(data);
-    }
-    IdMegnev ToIdMegnev() const {return _meta.ToIdMegnev(this); }        
+    // static DataRowDefaultModel To_DataRowDefaultModel(const QList<Article>& data)
+    // {
+    //     return _meta.ToIdMegnevs(data);
+    // }
+    //IdMegnev ToIdMegnev() const {return _meta.ToIdMegnev(this); }
 };
 
 #endif // ARTICLE_H

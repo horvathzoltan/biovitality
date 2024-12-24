@@ -14,7 +14,7 @@
 #define AddMetaBase(b) _meta.AddBaseName(#b, sizeof(b));
 
 //#define AddRowToField(b,c) Add_RowToField(#b, c); {(void)_meta._instance.b;}
-#define FieldName(t, b) QString(#b); { (void)t::metaInstance().b;}
+#define FieldName(t, b) QString(#b); { (void)t::Meta()._instance.b;}
 #define AddRowToField(a,b,c) if(_meta.Contains(#b)){a.Add_RowToField(#b, c); {(void)_meta._instance.b;}} else {zWarning(QStringLiteral("MetaField is not exists:")+#b);}
 
 // class optConv{
@@ -56,8 +56,8 @@ private:
 public:
 
     Ref(int f, const QString& rt, int rf) : RefBase(f, rt, rf)
-    {  
-        _metaInstancePtr = T::metaInstanceAddress();
+    {
+        _metaInstancePtr = &(T::Meta()._instance);//Address();
         _a1 = std::type_index(typeid(T));
     }
 
@@ -75,7 +75,7 @@ public:
     template< typename R>
     void AddMetaRef(int fIx, const QString& rt, const QString& rf){
         //int fIx = T::GetMetaFieldIx(f);
-        int rIx = R::GetMetaFieldIx(rf);
+        int rIx = R::Meta().GetMetaFieldIx(rf);
 
         Ref<R>* r = new Ref<R>(fIx, rt, rIx);
         std::type_index key = GetKey<Ref<R>>();
@@ -193,22 +193,27 @@ struct MetaValidationMessage{
     QString value;
 };
 
-// a meta ezekből a mezőkből áll
-struct MetaField{
-public:
-    QString name;
-    QString wcode;
-    QMetaType type;
-    int _offset;
+struct MetaFieldBase{
+    public:
+        QString name;
+        QMetaType type;
 
+        QString ToString(){return name+' '+type.name();}
+};
+
+// a meta ezekből a mezőkből áll
+struct MetaField : public MetaFieldBase{
+public:
+    QString wcode;
+    int _offset;
     char* GetPtr(char* s){ return s+ _offset; }
 
     // ez megy ki az UI felé
     MetaValue GetMetaValue(char* s){
-        if(name == "alimedCode")
-        {
-             zInfo("alimedCode");
-        }
+        // if(name == "alimedCode")
+        // {
+        //      zInfo("alimedCode");
+        // }
         MetaValue mv(name, wcode, type);
         mv.value = GetValue(s);
         return mv;
@@ -264,7 +269,7 @@ struct FieldType{
 };
 
 template<typename T>
-class Meta{
+class MetaData{
     QList<MetaField> _fields;
     IdMegnevIxs _idMegnevIxs;
     bool _verbose = true;
@@ -277,7 +282,7 @@ public:
     RefContainer _refcontainer;
 
     template<typename R>
-    Ref<R>* GetRef(){return _refcontainer.GetRef<R>();}
+    Ref<R>* GetRef2(){return _refcontainer.GetRef<R>();}
 
     template<typename R>
     void AddMetaRef(const QString& f, const QString& rt, const QString& rf){
@@ -295,7 +300,7 @@ public:
 
     void SetVerbose(bool v){_verbose = v;};
 
-    ~Meta(){
+    ~MetaData(){
         T::DeleteRefs();
     }
     // QString GetFieldName(const QString& name, char* field_ptr){
@@ -337,7 +342,7 @@ public:
 
     // Gets field names separated with comma
     // SqlRepo: Get, GetAll
-    QString GetMetaFieldNames(){
+    QString GetFieldNames(){
         if(_fields.isEmpty()) return {};
         QString e;
         for(auto&a:_fields){
@@ -462,7 +467,7 @@ public:
         return m;
     }
 
-    QList<SQLHelper::SQLParam> To_SQLParams(const T* s){
+    QList<SQLHelper::SQLParam> ToSQLParams(const T* s){
         QList<SQLHelper::SQLParam> m;
         if(s){
             int i=1;
@@ -479,6 +484,16 @@ public:
         }
         return m;
     }
+
+    QList<MetaFieldBase> ToMetaFieldBases()
+    {
+        QList<MetaFieldBase> m;
+        for (auto&f : _fields) {
+            m.append(f);
+        }
+        return m;
+    }
+
     
     void MetaIdMegnevIndex(int i, const QList<int> m, int c){
         _idMegnevIxs.id = i;
@@ -510,6 +525,8 @@ public:
             e.code = mv3.value.toString();
         }
         return e;
+
+
     }
 
 
@@ -518,7 +535,7 @@ public:
         e.name = _baseName;
 
         for(auto&a:data){
-            IdMegnev i = a.ToIdMegnev();
+            IdMegnev i = ToIdMegnev(&a);
             e.values.append(i);
         }
 
@@ -528,7 +545,8 @@ public:
     // GUI_ADD
     MetaValue GetMetaValue(const T* s, const QString& fieldName){
         if(!s) return MetaValue("","",QMetaType());
-        MetaField* field = s->GetMetaField(fieldName);
+        //MetaField* field = T::Meta().GetMetaField(fieldName);
+        MetaField* field = GetMetaField(fieldName);
         if(!field) return MetaValue("","",QMetaType());
         MetaValue value = field->GetMetaValue((char*)s);
         return value;
@@ -536,7 +554,8 @@ public:
 
     QVariant GetValue(const T* s, const QString& fieldName){
         if(!s) return {};
-        MetaField* field = s->GetMetaField(fieldName);
+        //MetaField* field = T::Meta().GetMetaField(fieldName);
+        MetaField* field = GetMetaField(fieldName);
         if(!field) return {};
         QVariant value = field->GetValue((char*)s);
         return value;

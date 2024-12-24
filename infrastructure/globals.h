@@ -52,10 +52,10 @@ public:
     SqlRepository<Country> country;        
 
     static void MetaInit(){
-        SoldItem::SetMetaVerbose(false);
-        Article::SetMetaVerbose(false);
-        County::SetMetaVerbose(false);
-        Address::SetMetaVerbose(false);
+        SoldItem::Meta().SetVerbose(false);
+        Article::Meta().SetVerbose(false);
+        County::Meta().SetVerbose(false);
+        Address::Meta().SetVerbose(false);
 
         Country::MetaInit();
         County::MetaInit();

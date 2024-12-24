@@ -177,8 +177,8 @@ void MainPresenter::process_Add_AddressAction(IMainView *sender){
     if(connected)
     {
         bool isRepoOk = SqlRepository<Address>::Check();
-        bool refOk_County = CheckRef<County>();
-        bool refOk_Country = CheckRef<Country>();
+        bool refOk_County = CheckRef<Address,County>();
+        bool refOk_Country = CheckRef<Address,Country>();
 
         bool valid = isRepoOk && refOk_County && refOk_Country;
         if(valid)
@@ -191,7 +191,7 @@ void MainPresenter::process_Add_AddressAction(IMainView *sender){
 
             Address data = _globals._repositories.address.Get(2);
             model->data = data;
-            QList<MetaValue> m = data.GetMetaValues();
+            QList<MetaValue> m = Address::Meta().ToMetaValues(&data);
             model->dataForm->setMetaValues(m);
 
             model->dataForm->show();
@@ -228,31 +228,37 @@ void MainPresenter::process_Add_SoldItemAction(IMainView *sender){
     //data.partnerName="teszt partner 1";
     //data.county="teszt county 1";
     model->data = data;
-    QList<MetaValue> m = data.GetMetaValues();
+    QList<MetaValue> m = SoldItem::Meta().ToMetaValues(&data);
     model->dataForm->setMetaValues(m);
 
     // megye defaultjai - county
     // rekordok az sql-ből
     // getall -> rekordok -> model lista
 
+
+
     // partners -> partnerName
     QList<Partner> partners = _globals._repositories.partner.GetAll();
-    DataRowDefaultModel partnerRows = Partner::To_DataRowDefaultModel(partners);
+    //DataRowDefaultModel partnerRows = Partner::To_DataRowDefaultModel(partners);
+    DataRowDefaultModel partnerRows = Partner::Meta().ToIdMegnevs(partners);
     partnerRows.name = "partnerName"; // ennek a mezőnek lesznek ezek a defaultjai
 
     // címek -> partnerHq
     QList<Address> addresses = _globals._repositories.address.GetAll();
-    DataRowDefaultModel addressRows = Address::To_DataRowDefaultModel(addresses);
+    //DataRowDefaultModel addressRows = Address::To_DataRowDefaultModel(addresses);
+    DataRowDefaultModel addressRows = Address::Meta().ToIdMegnevs(addresses);
     addressRows.name = "partnerHq"; // ennek a mezőnek lesznek ezek a defaultjai
 
     // megyék - county
     QList<County> counties = _globals._repositories.county.GetAll();
-    DataRowDefaultModel countyRows = County::To_DataRowDefaultModel(counties);
+    //DataRowDefaultModel countyRows = County::To_DataRowDefaultModel(counties);
+    DataRowDefaultModel countyRows = County::Meta().ToIdMegnevs(counties);
     countyRows.name = "county"; // ennek a mezőnek lesznek ezek a defaultjai
 
     // cikkek - productName
     QList<Article> articles = _globals._repositories.article.GetAll();
-    DataRowDefaultModel articleRows = Article::To_DataRowDefaultModel(articles);
+    //DataRowDefaultModel articleRows = Article::To_DataRowDefaultModel(articles);
+    DataRowDefaultModel articleRows = Article::Meta().ToIdMegnevs(articles);
     articleRows.name = "productName"; // ennek a mezőnek lesznek ezek a defaultjai
 
     QList<DataRowDefaultModel> defaults {countyRows,articleRows,addressRows,partnerRows};
@@ -277,7 +283,7 @@ void MainPresenter::process_Add_SoldItem_AcceptAction(QUuid opId)
         if(m.isValid()){
             b->dataForm->done(1);
             // itt van az hogy le kéne a változtatott rekordot menteni
-            SoldItem data = SoldItem::FromMetaValues(m.values);
+            SoldItem data = SoldItem::Meta().FromMetaValues(m.values);
             _globals._repositories.solditem.Add(data);
         }
         else{
@@ -294,13 +300,10 @@ void MainPresenter::process_CimImport_Action(IMainView *sender)
     zTrace();
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
-    //SqlRepository<Address> repo = _globals._repositories.address;
-    //bool isRepoOk = Import_CheckRepo(repo);
     bool connected = _globals._helpers._sqlHelper.TryConnect();
     if(connected)
     {
         bool isRepoOk = SqlRepository<Address>::Check();
-        //bool valid = isRepoOk;
         if(isRepoOk){
             MainViewModel::FileNameModel fn = sender->get_CSVFileName_Address();
             QString keyColumnName = FieldName(Address, excelId);
@@ -315,13 +318,10 @@ void MainPresenter::process_PartnerImport_Action(IMainView *sender)
     zTrace();
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
-    //SqlRepository<Partner> repo = _globals._repositories.partner;
-    //bool isRepoOk = Import_CheckRepo(repo);
     bool connected = _globals._helpers._sqlHelper.TryConnect();
     if(connected)
     {
         bool isRepoOk = SqlRepository<Partner>::Check();
-        //bool valid = isRepoOk;
         if(isRepoOk){
             MainViewModel::FileNameModel fn = sender->get_CSVFileName_Partner();
             QString keyColumnName = FieldName(Partner, excelId);
@@ -337,14 +337,11 @@ void MainPresenter::process_TetelImport_Action(IMainView *sender)
     zTrace();
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
-    //SqlRepository<SoldItem> repo = _globals._repositories.solditem;
-    //bool isRepoOk = Import_CheckRepo(repo);
     bool connected = _globals._helpers._sqlHelper.TryConnect();
     if(connected)
     {
         bool isRepoOk = SqlRepository<SoldItem>::Check();
-        bool valid = isRepoOk;
-        if(valid){
+        if(isRepoOk){
             MainViewModel::FileNameModel fn = sender->get_CSVFileName_SoldItem();
             QString keyColumnName = FieldName(SoldItem, excelId);
             Import_private(fn, _globals._repositories.solditem, keyColumnName,';');
@@ -358,14 +355,11 @@ void MainPresenter::process_CountyImport_Action(IMainView *sender)
     zTrace();
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
-    // SqlRepository<County> repo = _globals._repositories.county;
-    // bool isRepoOk = Import_CheckRepo(repo);
     bool connected = _globals._helpers._sqlHelper.TryConnect();
     if(connected)
     {
         bool isRepoOk = SqlRepository<County>::Check();
-        bool valid = isRepoOk;
-        if(valid){
+        if(isRepoOk){
             MainViewModel::FileNameModel fn = sender->get_CSVFileName_County();
             QString keyColumnName = FieldName(County, KSHCode);
             Import_private(fn,  _globals._repositories.county, keyColumnName,';');
@@ -379,15 +373,11 @@ void MainPresenter::process_CountryImport_Action(IMainView *sender)
     zTrace();
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
-    //SqlRepository<Country> repo = _globals._repositories.country;
-    //bool isRepoOk = Import_CheckRepo(repo);
-
     bool connected = _globals._helpers._sqlHelper.TryConnect();
     if(connected)
     {
         bool isRepoOk = SqlRepository<Country>::Check();
-        bool valid = isRepoOk;
-        if(valid){
+        if(isRepoOk){
             MainViewModel::FileNameModel fn = sender->get_CSVFileName_Country();
             QString keyColumnName = FieldName(Country, countryCode);
             Import_private(fn, _globals._repositories.country, keyColumnName,',');
@@ -447,13 +437,15 @@ void MainPresenter::process_ArticleImport_Action(IMainView *sender)
 //     return true;
 // }
 
-template<typename T>
+template<typename T, typename R>
 bool MainPresenter::CheckRef()
 {
-    Ref<T>* r1 = Address::GetRef<T>();
+    MetaData<T> m = T::Meta();
+
+    Ref<R>* r1 = m.template GetRef2<R>();
     if(!r1) return false;
 
-    bool ok = SqlRepository<T>::Check();
+    bool ok = SqlRepository<R>::Check();
     return ok;
 }
 

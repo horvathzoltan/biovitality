@@ -8,13 +8,13 @@
 
 class OptionalConverters
 {
-private:
-    int _quint64;
 public:
     OptionalConverters();
     void RegisterAll();
 
-    int TypeCode_quint64(){return _quint64;}
+    static QMap<int, int> _toOpt;
+
+    static int ToNullable_MetaTypeId(int k);
 
     static std::optional<quint64> QVariantToOptionalQuint64(const QVariant& v);
     static QVariant OptionalQuint64ToQVariant(const std::optional<quint64>& v);

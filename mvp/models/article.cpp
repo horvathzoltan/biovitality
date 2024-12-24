@@ -2,7 +2,7 @@
 
 #include <meta/csvhelper.h>
 
-Meta<Article> Article::_meta;
+MetaData<Article> Article::_meta;
 
 Article::Article() {
     //alimedCode = QVariant(QMetaType(QMetaType::ULongLong));
@@ -62,7 +62,7 @@ CSV_ImportModel<Article> Article::CSV_Import(const QList<QVarLengthArray<QString
         QVarLengthArray<QString> row = records[i];
 
         QList<MetaValue> metaValues = CSVHelper::CSV_RowToMetaValues(row, ixs);
-        Article item = Article::FromMetaValues(metaValues);
+        Article item = Article::Meta().FromMetaValues(metaValues);
         item.id = 0;
 
         CSV_ImportModel<Article>::Data data(item, row, i, separator);

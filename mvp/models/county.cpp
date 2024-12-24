@@ -2,7 +2,7 @@
 
 #include <meta/csvhelper.h>
 
-Meta<County> County::_meta;
+MetaData<County> County::_meta;
 // QList<County> County::_data = {
 //     {5,"Budapest","01"},
 //     {2,"Baranya vármegye","02"},
@@ -86,7 +86,7 @@ CSV_ImportModel<County> County::CSV_Import(const QList<QVarLengthArray<QString>>
         QVarLengthArray<QString> row = records[i];
 
         QList<MetaValue> metaValues = CSVHelper::CSV_RowToMetaValues(row, ixs);
-        County item = County::FromMetaValues(metaValues);
+        County item = County::Meta().FromMetaValues(metaValues);
         item.id = 0;
 
         CSV_ImportModel<County>::Data data(item, row, i, separator);

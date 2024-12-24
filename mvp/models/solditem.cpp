@@ -8,7 +8,7 @@
 
 #include <meta/csvhelper.h>
 
-Meta<SoldItem> SoldItem::_meta;
+MetaData<SoldItem> SoldItem::_meta;
 
 SoldItem::SoldItem() {}
 

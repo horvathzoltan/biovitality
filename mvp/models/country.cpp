@@ -5,7 +5,7 @@
 #include <helpers/stringhelper.h>
 #include "helpers/nameof.h"
 
-Meta<Country> Country::_meta;
+MetaData<Country> Country::_meta;
 
 Country::Country(){}
 
@@ -55,7 +55,7 @@ CSV_ImportModel<Country> Country::CSV_Import(const QList<QVarLengthArray<QString
         QVarLengthArray<QString> row = records[i];
 
         QList<MetaValue> metaValues = CSVHelper::CSV_RowToMetaValues(row, ixs);
-        Country item = Country::FromMetaValues(metaValues);
+        Country item = Country::Meta().FromMetaValues(metaValues);
         item.id = 0;
 
         CSV_ImportModel<Country>::Data data(item, row, i, separator);

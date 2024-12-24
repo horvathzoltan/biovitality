@@ -1,5 +1,6 @@
 #include "sqlrecordhelper.h"
 #include "sqlhelper.h"
+#include "optionalconverters.h"
 
 #include <QRegularExpression>
 #include <QSqlField>
@@ -27,13 +28,19 @@ SqlRecordHelper::SqlColumn SqlRecordHelper::SqlColumn::Parse(const QSqlRecord &r
     SqlRecordHelper::SqlColumn m;
 
     m.field = GetValueToString(r, "Field");
-    m.type = GetValueToString(r, "Type");
-    m.null = GetValueToString(r, "Null");
-    m.key = GetValueToString(r, "Key");
-    m._default = GetValueToString(r, "Default");
-    m.extra = GetValueToString(r, "Extra");
+    m.type = GetValueToString(r, "Type").toLower();
+    m.null = GetValueToString(r, "Null").toLower();
+    m.key = GetValueToString(r, "Key").toLower();
+    m._default = GetValueToString(r, "Default").toLower();
+    m.extra = GetValueToString(r, "Extra").toLower();
 
-    m._typeId = MariaDBType_ToTypeId(m.type);
+    int t = MariaDBType_ToMetaTypeId(m.type);
+    if(m.null=="yes"){
+        int t2 = OptionalConverters::ToNullable_MetaTypeId(t);
+        m._metaTypeId = (t2==-1)?t:t2;
+    } else{
+         m._metaTypeId = t;
+    }
 
     return m;
 }
@@ -60,7 +67,7 @@ int SqlRecordHelper::SqlColumn::IndexOf(const QList<SqlColumn> &columns, const Q
     return -1;
 }
 
-int SqlRecordHelper::SqlColumn::MariaDBType_ToTypeId(const QString &typeNameLength)
+int SqlRecordHelper::SqlColumn::MariaDBType_ToMetaTypeId(const QString &typeNameLength)
 {
     /*
     F(Double, 6, double) \
@@ -77,38 +84,63 @@ int SqlRecordHelper::SqlColumn::MariaDBType_ToTypeId(const QString &typeNameLeng
     F(Nullptr, 51, std::nullptr_t) \
     F(QCborSimpleType, 52, QCborSimpleType) \
      */
-    QString name;
-    QString length;
-    QString modifier;
+    // QString name;
+    // QString length;
+    // QString modifier;
 
     QRegularExpression r(R"(^(?:([\w]+)(?:\(([\d,.]+)\))?)(?:\s*([\w\ ]*))$)");
 
     auto m = r.match(typeNameLength);
 
     if(m.hasMatch()){
-        name = m.captured(1).toLower();
-        length = m.captured(2).toLower();
-        modifier = m.captured(3).toLower();
+        ColumnModel column(m.captured(1),
+                           m.captured(2),
+                           m.captured(3));
+
+        return column.GetMetaTypeId();
     }
-
-    if(name == "bool") return QMetaType::Type::Bool;
-    if(name == "int"){
-        if(modifier.contains("unsigned")) return QMetaType::Type::UInt;
-        return QMetaType::Type::Int;
-    }
-
-    if(name == "bigint"){
-        if(modifier.contains("unsigned")) return QMetaType::Type::ULongLong;
-        return QMetaType::Type::LongLong;
-    }
-
-    if(name == "varchar") return QMetaType::Type::QString;
-    if(name == "date") return QMetaType::Type::QDateTime;
-    if(name == "decimal") return QMetaType::Type::QReal;
-
-    if(name == "double") return QMetaType::Type::Double;
-    if(name == "float") return QMetaType::Type::Float;
 
     return -1;
 }
 
+QString SqlRecordHelper::SqlColumn::ToString()
+{
+    QString msg = field+' '+type;
+
+    if(null=="yes") msg+= " nullable";
+
+    return msg;
+}
+
+
+SqlRecordHelper::ColumnModel::ColumnModel(const QString &n, const QString &l, const QString &m)
+{
+    _name = n; _length = l; _modifier = m;
+}
+
+int SqlRecordHelper::ColumnModel::GetMetaTypeId()
+{
+    if(_name == "bool") return QMetaType::Type::Bool;
+    if(_name == "int"){
+        if(_modifier.contains("unsigned")) return QMetaType::Type::UInt;
+        return QMetaType::Type::Int;
+    }
+
+    if(_name == "bigint"){
+        if(_modifier.contains("unsigned")) return QMetaType::Type::ULongLong;
+        return QMetaType::Type::LongLong;
+    }
+
+    if(_name == "varchar") return QMetaType::Type::QString;
+    if(_name == "date") return QMetaType::Type::QDateTime;
+
+    if(_name == "decimal") return QMetaType::Type::QReal;
+    if(_name == "double") return QMetaType::Type::Double;
+    if(_name == "float") return QMetaType::Type::Float;
+
+    return -1;
+}
+
+// int SqlRecordHelper::ColumnModel::ToNullableTypeId(int t){
+//     //if(QMetaType::Type::Bool) return OptionalConverters::
+// }

@@ -2,7 +2,7 @@
 
 #include <meta/csvhelper.h>
 
-Meta<Partner> Partner::_meta;
+MetaData<Partner> Partner::_meta;
 
 Partner::Partner() {}
 

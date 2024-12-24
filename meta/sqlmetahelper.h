@@ -101,7 +101,7 @@ public:
             if(hasKeyColumn)
             {
                 msg+= " key: "+keyColumnName;
-                keyColumnValue = item.GetValue(keyColumnName);
+                keyColumnValue = T::Meta().GetValue(&item, keyColumnName);
                 if(keyColumnValue.isValid())
                 {
                     msg += "="+keyColumnValue.toString();

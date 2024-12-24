@@ -79,7 +79,7 @@ bool RepositoryBase::Contains(int id)
 template<class T>
 T SqlRepository<T>::Get(int id)
 {
-    QString fieldNames=T::GetMetaFieldNames();
+    QString fieldNames=T::Meta().GetFieldNames();
 
     QString cmd=GET_CMD.arg(fieldNames).arg(tableName()).arg(id);
     //zInfo("cmd:"+cmd);
@@ -89,7 +89,7 @@ T SqlRepository<T>::Get(int id)
     {
         QSqlRecord r = rm.records.first();
         QList<MetaValue> m = SqlMetaHelper::RecordToMetaValues(r);
-        T s = T::FromMetaValues(m);
+        T s = T::Meta().FromMetaValues(m);
         if(s.isValid())
         {
             return s;
@@ -102,7 +102,7 @@ T SqlRepository<T>::Get(int id)
 template<class T>
 QList<T> SqlRepository<T>::GetAll()
 {
-    QString fieldNames=T::GetMetaFieldNames();
+    QString fieldNames=T::Meta().GetFieldNames();
 
     QString cmd=GETALL_CMD.arg(tableName()).arg(fieldNames);
     //zInfo("cmd:"+cmd);
@@ -115,7 +115,7 @@ QList<T> SqlRepository<T>::GetAll()
         for(auto&r:rm.records)
         {
             QList<MetaValue> m = SqlMetaHelper::RecordToMetaValues(r);
-            T s = T::FromMetaValues(m);
+            T s = T::Meta().FromMetaValues(m);
             if(s.isValid())
             {
                 items.append(s);
@@ -129,7 +129,7 @@ QList<T> SqlRepository<T>::GetAll()
 template<class T>
 bool SqlRepository<T>::Update(const T &m)
 {
-    QList<SQLHelper::SQLParam> params = m.GetQueryParams();
+    QList<SQLHelper::SQLParam> params = T::Meta().ToSQLParams(&m);
     QString fieldList=SQLHelper::GetFieldNames_UPDATE(params);
     QString cmd=UPDATE_CMD.arg(tableName()).arg(fieldList);
     //zInfo("cmd:"+cmd);
@@ -146,7 +146,7 @@ bool SqlRepository<T>::Update(const T &m)
 
 template<class T>
 bool SqlRepository<T>::Add(const T &m){
-    QList<SQLHelper::SQLParam> params = m.GetQueryParams(); // a modelosztályban van implementálva
+    QList<SQLHelper::SQLParam> params = T::Meta().ToSQLParams(&m); // a modelosztályban van implementálva
     QString fieldList=SQLHelper::GetFieldNames_INSERT(params);
     QString paramList=SQLHelper::GetParamList_INSERT(params);
 
@@ -207,34 +207,40 @@ bool SqlRepository<T>::isFieldsExists()
 
     bool isFields = true;
     if(rm.hasRecords()){
-        const T &m = T::metaInstance();
-        QList<SQLHelper::SQLParam> params = m.GetQueryParams();
+        //const T &m = T::metaInstance();
+        //QList<SQLHelper::SQLParam> params = m.ToSQLParams();
+        QList<MetaFieldBase> fields = T::Meta().ToMetaFieldBases();
 
         QList<SqlRecordHelper::SqlColumn> columns = SqlRecordHelper::SqlColumn::Parse(rm.records);
         if(!columns.isEmpty()){
-            for (SQLHelper::SQLParam &p : params)
+            for (MetaFieldBase&field : fields)
             {
                 // records-ban van e olyan, aminek a Field-je megegyezik a p.fieldName-vel
-                int ix = SqlRecordHelper::SqlColumn::IndexOf(columns, p.fieldName);
+                int ix = SqlRecordHelper::SqlColumn::IndexOf(columns, field.name);
                 if(ix>=0)
                 {
                     SqlRecordHelper::SqlColumn column = columns[ix];
-                    int type_c = column.typeId();
-                    int type_p = p.fieldValue.typeId();
+                    //column: bigint(20) unsigned, null: YES
+                    int columnTypeId = column.metaTypeId();
+                    //field: std::optional<qulonglong>
+                    int fieldTypeId = field.type.id();
 
-                    if(type_c != type_p )
+                    QMetaType columnType(columnTypeId);
+                    //QMetaType fieldType = field.type;
+
+                    if(columnTypeId != fieldTypeId)
                     {
-                        QMetaType ft(column.typeId());
-                        QMetaType pt = p.fieldValue.metaType();
-
-                        zWarning(QStringLiteral("Field type in model:") + tableName()+'.'+p.ToString()+
-                                 ' '+pt.name() +" ,in sql:"+ft.name());
+                        QString msg = QStringLiteral("Field type in model: ")
+                                      + tableName()+'.'+field.ToString()
+                                      + ", sql:"+column.ToString()+" => "+columnType.name();
+                        zWarning(msg);
                         isFields = false;
                     }
                 }
                 else
                 {
-                    zWarning("Field not exists: " + tableName()+'.'+p.ToString());
+                    QString msg = "Field not exists: " + tableName()+'.'+field.ToString();
+                    zWarning(msg);
                     isFields = false;
                 }
             }
@@ -375,3 +381,4 @@ bool SqlRepository<T>::Check()
 //     }
 //     return nullptr;
 // }
+

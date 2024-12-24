@@ -28,9 +28,12 @@ void LogPresenter::appendView(IMainView *w)
 
 }
 
-void LogPresenter::Log(const QString& str){
-
+void LogPresenter::Log(const QString& str0)
+{
     if(!_logView) return;
+
+    QString str(str0);
+    str.replace('<', "&lt;").replace('>', "&gt;");
 
     QString logColor = GetLogColor(str);
     int ix = str.indexOf(':');

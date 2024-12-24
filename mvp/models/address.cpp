@@ -4,7 +4,7 @@
 
 #include <meta/csvhelper.h>
 
-Meta<Address> Address::_meta;
+MetaData<Address> Address::_meta;
 
 Address::Address() {}
 
