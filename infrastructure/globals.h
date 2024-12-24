@@ -14,6 +14,7 @@
 
 #include <helpers/optionalconverters.h>
 #include <helpers/sysinfohelper.h>
+#include <helpers/tcpclient.h>
 #include <helpers/translator.h>
 
 
@@ -97,6 +98,7 @@ public:
     QLocale hu;
     Translator _translator;
     OptionalConverters _optionalConverter;
+    TcpClient _tcpClient;
 public:
     Globals():hu(QLocale::Hungarian)
     {

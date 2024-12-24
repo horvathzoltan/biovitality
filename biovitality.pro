@@ -17,6 +17,7 @@ SOURCES += \
     helpers/optionalconverters.cpp \
     helpers/sqlrecordhelper.cpp \
     helpers/sysinfohelper.cpp \
+    helpers/tcpclient.cpp \
     meta/csv_sqlhelper.cpp \
     meta/csvhelper.cpp \
     meta/sqlmetahelper.cpp \
@@ -60,6 +61,7 @@ HEADERS += \
     helpers/optionalconverters.h \
     helpers/sqlrecordhelper.h \
     helpers/sysinfohelper.h \
+    helpers/tcpclient.h \
     meta/csv_sqlhelper.h \
     mvp/models/country.h \
     mvp/models/invoicehead.h \

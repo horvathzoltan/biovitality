@@ -87,6 +87,8 @@ auto main(int argc, char *argv[]) -> int
     zInfo("testdata_path:"+FileNameHelper::GetTestFolderPath());
     zInfo("working_folder:"+FileNameHelper::GetWorkingFolder());
 
+    _globals._tcpClient.requestNewFortune("manymany");
+
     w.show();    
     p.initView(&w);
 
