@@ -17,11 +17,14 @@ private:
 
 public:
     SQLHelper::SQLSettings _sql_settings;
+    ClientSettings _monitoring_settings;
+
     int _autoComplete_millisec = 1500;
     //int _project = 99;
 
     Settings();
     void SetSqlSettings(const SQLHelper::SQLSettings&a);
+    void SetMonitoringSettings(const ClientSettings&a);
 
     static QString Get_CSVFileName_Address();
     static void Set_CSVFileName_Address(const QString& v);

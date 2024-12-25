@@ -36,7 +36,7 @@ void SQLHelper::UnInit()
 // }
 
 QString SQLHelper::DbMsg(){
-    QString msg = "DB["+_settings.ToString()+"]: "+_settings.dbname;
+    QString msg = "DB["+_settings.ToString()+"]: "+_settings.dbname();
     return msg;
 }
 
@@ -45,8 +45,8 @@ bool SQLHelper::Connect()
     if(!_isInited) return false;
 
     bool connected = false;
-    if(_settings.driver=="QODBC") connected = Connect_odbc(_connName, 5000);
-    else if(_settings.driver=="QMARIADB") connected = Connect_mariadb(_connName, 5000);
+    if(_settings.driver()=="QODBC") connected = Connect_odbc(_connName, 5000);
+    else if(_settings.driver()=="QMARIADB") connected = Connect_mariadb(_connName, 5000);
 
     //QString msg = "DB["+_settings.ToString()+"]: "+_settings.dbname+" is "+(connected?"connected":"not connected");
 
@@ -152,11 +152,13 @@ bool SQLHelper::Connect_odbc(const QString& connName, int timeout)
             if(!driverfn.isEmpty())
             {
                 auto dbname = QStringLiteral("DRIVER=%1;Server=%2,%3;Database=%4")
-                                  .arg(driverfn,_settings.host).arg(_settings.port).arg(_settings.dbname);
+                                  .arg(driverfn,_settings.host())
+                                  .arg(_settings.port())
+                                  .arg(_settings.dbname());
 
-                _db->addDatabase(_settings.driver, connName, dbname);
+                _db->addDatabase(_settings.driver(), connName, dbname);
                 //Before using the connection, it must be initialized.
-                _db->setUserNamePassword(_settings.user,_settings.password);
+                _db->setUserNamePassword(_settings.user(),_settings.password());
                 //db.setDatabaseName(dbname);
                 //db.setUserName(_settings.user);
                 //db.setPassword(_settings.password);
@@ -181,10 +183,10 @@ bool SQLHelper::Connect_mariadb(const QString& connName, int timeout)
         bool contains = QSqlDatabase::contains(connName);
         if(!contains)
         {
-            _db->addDatabase(_settings.driver, connName, _settings.dbname);
+            _db->addDatabase(_settings.driver(), connName, _settings.dbname());
             //Before using the connection, it must be initialized.
-            _db->setUserNamePassword(_settings.user,_settings.password);
-            _db->setHostNamePort(_settings.host, _settings.port);
+            _db->setUserNamePassword(_settings.user(),_settings.password());
+            _db->setHostNamePort(_settings.host(), _settings.port());
 
             // db.setHostName(_settings.host);// Tried www.themindspot.com & ip with http:// and https://
             // db.setPort(_settings.port);
@@ -207,23 +209,23 @@ bool SQLHelper::Connect_mariadb(const QString& connName, int timeout)
 
 bool SQLHelper::CheckHostAvailable(int timeout){
     bool isAvailable = false;
-    if(NetworkHelper::Ping(_settings.host)) {
-        zInfo("host found: "+_settings.host);
+    if(NetworkHelper::Ping(_settings.host())) {
+        zInfo("host found: "+_settings.host());
         QTcpSocket s;
-        s.connectToHost(_settings.host, _settings.port);
+        s.connectToHost(_settings.host(), _settings.port());
         auto isok = s.waitForConnected(timeout);
         if(isok){
             s.disconnectFromHost();
             if (s.state() != QAbstractSocket::UnconnectedState) s.waitForDisconnected();
             isAvailable = true;
-            zInfo("connection ready on port: "+QString::number(_settings.port));
+            zInfo("connection ready on port: "+QString::number(_settings.port()));
         }
         else{
-            zInfo("cannot connect to port: "+QString::number(_settings.port));
+            zInfo("cannot connect to port: "+QString::number(_settings.port()));
         }
     }
     else{
-        zInfo("host not found: "+_settings.host);
+        zWarning("host not found: "+_settings.host());
     }
 
     return isAvailable;
@@ -580,4 +582,13 @@ QString SQLHelper::GetCallSelect(const QString &call)
 
     QString s = "SELECT "+t.join(", ")+';';
     return s;
+}
+
+SQLHelper::SQLSettings::SQLSettings(const QString &d,
+                                    const QString &b,
+                                    const QString &h, int port,
+                                    const QString &u,
+                                    const QString &p) : ClientSettings(h,port)
+{
+    _driver = d; _dbname = b; _user = u; _password=p;
 }

@@ -2,22 +2,27 @@
 #define TCPCLIENT_H
 
 #include <QTcpSocket>
+#include "networkhelper.h"
+
 
 class TcpClient : public QObject
 {
-    Q_OBJECT
+    Q_OBJECT        
 
 private:
     QTcpSocket *tcpSocket = nullptr;
-    //QDataStream in;
     QString _last;
+    bool _hostAvailable = false;
+    bool _isInited=false;
+
+    ClientSettings _settings;
 public:
     explicit TcpClient(QObject *parent = nullptr);
-    void requestNewFortune(const QString& msg);
 
+    void Init(const ClientSettings& s);
+    void SendLog(const QString& msg);
 private slots:
     void displayError(QAbstractSocket::SocketError socketError);
-    //void readFortune();
 };
 
 #endif // TCPCLIENT_H

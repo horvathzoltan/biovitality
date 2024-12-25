@@ -1,6 +1,14 @@
 #include "tcpclient.h"
 
 #include "logger.h"
+#include "networkhelper.h"
+
+void TcpClient::Init(const ClientSettings& s)
+{
+    _isInited = false;
+    _settings = s;
+    _isInited = true;
+}
 
 TcpClient::TcpClient(QObject *parent) :QObject(parent)
 {
@@ -14,38 +22,38 @@ TcpClient::TcpClient(QObject *parent) :QObject(parent)
 
 }
 
-void TcpClient::requestNewFortune(const QString& msg)
+void TcpClient::SendLog(const QString& msg)
 {
-    //tcpSocket->abort();
+    if(!_isInited) return;
 
-    tcpSocket->connectToHost("192.168.1.156", 8081, QIODeviceBase::ReadWrite);
-    //tcpSocket->open(QIODeviceBase::ReadWrite);
-    tcpSocket->waitForConnected();
-    //tcpSocket->write("getlist");
-    QByteArray b = ("addlog:"+msg).toUtf8();
-    tcpSocket->write(b);
-    tcpSocket->flush();
-    //tcpSocket->waitForBytesWritten(1000);
-    tcpSocket->waitForReadyRead(1000);
-    QByteArray a = tcpSocket->readAll();
+    if(!_hostAvailable){
+        _hostAvailable = NetworkHelper::Ping(_settings.host());
+    }
+    if(!_hostAvailable) return;
+
+    _last.clear();
+
+    tcpSocket->connectToHost(_settings.host(), _settings.port(), QIODeviceBase::ReadWrite);
+    bool isConnected = tcpSocket->waitForConnected(1000);
+    if(isConnected){
+        QByteArray b = ("addlog:"+msg).toUtf8();
+        tcpSocket->write(b);
+        tcpSocket->flush();
+        bool isWritten = tcpSocket->waitForBytesWritten(1000);
+        if(isWritten){
+            bool canRead = tcpSocket->waitForReadyRead(1000);
+            if(canRead){
+                QByteArray a = tcpSocket->readAll();
+                _last = QString(a);
+                //ok = true;
+            }
+        }
+    }
+
     tcpSocket->close();
-
-    _last = QString(a);
+    tcpSocket->disconnect();
 
 }
-
-// void TcpClient::readFortune()
-// {
-//     in.startTransaction();
-
-//     QString nextFortune;
-//     in >> nextFortune;
-
-//     if (!in.commitTransaction())
-//         return;
-
-//     qDebug()<<nextFortune;
-// }
 
 void TcpClient::displayError(QAbstractSocket::SocketError socketError)
 {

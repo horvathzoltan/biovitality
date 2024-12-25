@@ -30,6 +30,8 @@ void LogPresenter::appendView(IMainView *w)
 
 void LogPresenter::Log(const QString& str0)
 {
+    _globals._tcpClient.SendLog(str0);
+
     if(!_logView) return;
 
     QString str(str0);

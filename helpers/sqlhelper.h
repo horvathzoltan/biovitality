@@ -1,6 +1,8 @@
 #ifndef SQLHELPER_H
 #define SQLHELPER_H
 
+#include "networkhelper.h"
+
 #include <QVector>
 #include <QList>
 #include <QString>
@@ -175,34 +177,40 @@ public:
     //     int port;
     // };
 
-    struct SQLSettings
-    {
-        QString driver;// = "QODBC";
-        QString dbname;// = "BuildInfoFlex";
-        //QVector<HostPort> hosts;
-        QString host;
-        int port;
-        QString user;// = "sa";
-        QString password;//= "Gtr7jv8fh2";
-
-        QString ToString_HostPort()
-        {
-            return host+":"+QString::number(port);
-        }
+    struct SQLSettings : public ClientSettings
+    {    
+    public:
+        SQLSettings():ClientSettings(){};
+        SQLSettings(const QString& d,
+                    const QString& b,
+                    const QString& h,
+                    int port,
+                    const QString& u,
+                    const QString& p);
+    private:
+        QString _driver;// = "QODBC";
+        QString _dbname;// = "BuildInfoFlex";
+        QString _user;// = "sa";
+        QString _password;//= "Gtr7jv8fh2";
+    public:
+        QString dbname(){return _dbname;}
+        QString driver(){return _driver;}
+        QString user(){return _user;}
+        QString password(){return _password;}
 
         QString ToString()
         {
-            return driver+'@'+ToString_HostPort();
+            return _driver+'@'+ToString_HostPort();
         }
 
         bool isValid() const{
-            if(dbname.isEmpty()) return false;
-            if(driver.isEmpty()) return false;
-            if(host.isEmpty()) return false;
-            if(port < 1) return false;
-            if(port > 65535) return false;
-            if(user.isEmpty()) return false;
-            if(password.isEmpty()) return false;
+            if(_dbname.isEmpty()) return false;
+            if(_driver.isEmpty()) return false;
+            if(_host.isEmpty()) return false;
+            if(_port < 1) return false;
+            if(_port > 65535) return false;
+            if(_user.isEmpty()) return false;
+            if(_password.isEmpty()) return false;
             return true;
         }
     };

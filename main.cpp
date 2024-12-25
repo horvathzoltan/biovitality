@@ -48,28 +48,33 @@ auto main(int argc, char *argv[]) -> int
     {
         _globals._settings.SetSqlSettings(
             {
-                "QMARIADB",
-                "biovitality",
-                "192.168.1.105",
-                3306,
-                "zoli",
-                "Aladar123"
+             "QMARIADB",
+             "biovitality",
+             "192.168.1.105", 3306,
+             "zoli", "Aladar123"
+            });
+        _globals._settings.SetMonitoringSettings(
+            {
+             "192.168.1.191", 8081
             });
     }
     else if(_globals._helpers._sysinfoHelper.hostName()=="hercules")
     {
         _globals._settings.SetSqlSettings(
             {
-                "QMARIADB",
-                "biovitality",
-                "172.16.1.62",
-                3306,
-                "zoli",
-                "Aladar123"
+             "QMARIADB",
+             "biovitality",
+             "172.16.1.62", 3306,
+             "zoli", "Aladar123"
+            });
+        _globals._settings.SetMonitoringSettings(
+            {
+                "197.168.1.192", 8081
             });
     }
 
     _globals._helpers._sqlHelper.Init(_globals._settings._sql_settings);
+    _globals._tcpClient.Init(_globals._settings._monitoring_settings);
 
     MainWindow w;
     MainPresenter p;        
@@ -78,16 +83,21 @@ auto main(int argc, char *argv[]) -> int
     // ui log init
     LogPresenter logPresenter;
     logPresenter.appendView(&w);    
-    Logger::SetFunction(&LogPresenter::Log);        
+    Logger::SetFunction(&LogPresenter::Log);
+
     // innen tudunk loggolni a ui-ra
 
     QString sysInfo = _globals._helpers._sysinfoHelper.Get_SysInfo();
     zInfo(sysInfo);
 
+
     zInfo("testdata_path:"+FileNameHelper::GetTestFolderPath());
     zInfo("working_folder:"+FileNameHelper::GetWorkingFolder());
 
-    _globals._tcpClient.requestNewFortune("manymany");
+
+    //_globals._tcpClient.SendLog("WARNING:manymany1");
+    //_globals._tcpClient.SendLog("ERROR:manymany2");
+    //_globals._tcpClient.SendLog("manymany3");
 
     w.show();    
     p.initView(&w);
