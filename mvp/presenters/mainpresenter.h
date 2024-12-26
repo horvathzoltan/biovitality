@@ -42,7 +42,7 @@ private:
     // // imports from file to SQL repo
     template<typename T>
     void Import_private(const MainViewModel::FileNameModel& fn,
-                        SqlRepository<T>& repo,
+                        //SqlRepository<T>& repo,
                         const QString& keyColumnName,
                         const QChar& separator);
 

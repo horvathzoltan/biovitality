@@ -239,7 +239,7 @@ bool SqlRepository<T>::isFieldsExists()
                 }
                 else
                 {
-                    QString msg = "Field not exists: " + tableName()+'.'+field.ToString();
+                    QString msg = "Column not exists: " + tableName()+'.'+field.ToString();
                     zWarning(msg);
                     isFields = false;
                 }

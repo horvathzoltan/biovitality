@@ -80,6 +80,8 @@ public:
         Ref<R>* r = new Ref<R>(fIx, rt, rIx);
         std::type_index key = GetKey<Ref<R>>();
         _references.insert(key, r);
+
+        zInfo("RefContainer added:"+QString(key.name()));
     }
 
     template<typename R>
@@ -89,6 +91,10 @@ public:
             void* b = _references.take(key);
             Ref<R>* e = reinterpret_cast<Ref<R>*>(b);
             delete e;
+
+            zInfo("RefContainer deleted:"+QString(key.name()));
+        } else{
+            zWarning("RefContainer cannot delete:"+QString(key.name()));
         }
     }
 
@@ -102,6 +108,8 @@ public:
             Ref<R>* e = reinterpret_cast<Ref<R>*>(b);
             zInfo("RefContainer find:" +e->refTypeName());
             return e;
+        } else{
+            zWarning("RefContainer cannnot found:"+QString(key.name()));
         }
         return nullptr;
     }
@@ -301,7 +309,7 @@ public:
     void SetVerbose(bool v){_verbose = v;};
 
     ~MetaData(){
-        T::DeleteRefs();
+        //T::DeleteRefs();
     }
     // QString GetFieldName(const QString& name, char* field_ptr){
     //      return name;

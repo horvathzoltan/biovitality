@@ -172,7 +172,6 @@ void MainPresenter::process_Add_AddressAction(IMainView *sender){
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
     auto addressRepo = _globals._repositories.address;
-    //bool isRepoOk = Import_CheckRepo(addressRepo);
     bool connected = _globals._helpers._sqlHelper.TryConnect();
     if(connected)
     {
@@ -307,7 +306,7 @@ void MainPresenter::process_CimImport_Action(IMainView *sender)
         if(isRepoOk){
             MainViewModel::FileNameModel fn = sender->get_CSVFileName_Address();
             QString keyColumnName = FieldName(Address, excelId);
-            Import_private(fn, _globals._repositories.address, keyColumnName,';');
+            Import_private<Address>(fn, keyColumnName,';');
         }
     }
     Operations::instance().stop(opId);
@@ -325,7 +324,7 @@ void MainPresenter::process_PartnerImport_Action(IMainView *sender)
         if(isRepoOk){
             MainViewModel::FileNameModel fn = sender->get_CSVFileName_Partner();
             QString keyColumnName = FieldName(Partner, excelId);
-            Import_private(fn, _globals._repositories.partner, keyColumnName,';');
+            Import_private<Partner>(fn, keyColumnName,';');
         }
     }
 
@@ -344,7 +343,7 @@ void MainPresenter::process_TetelImport_Action(IMainView *sender)
         if(isRepoOk){
             MainViewModel::FileNameModel fn = sender->get_CSVFileName_SoldItem();
             QString keyColumnName = FieldName(SoldItem, excelId);
-            Import_private(fn, _globals._repositories.solditem, keyColumnName,';');
+            Import_private<SoldItem>(fn, keyColumnName,';');
         }
     }
     Operations::instance().stop(opId);
@@ -362,7 +361,7 @@ void MainPresenter::process_CountyImport_Action(IMainView *sender)
         if(isRepoOk){
             MainViewModel::FileNameModel fn = sender->get_CSVFileName_County();
             QString keyColumnName = FieldName(County, KSHCode);
-            Import_private(fn,  _globals._repositories.county, keyColumnName,';');
+            Import_private<County>(fn, keyColumnName,';');
         }
     }
     Operations::instance().stop(opId);
@@ -380,7 +379,7 @@ void MainPresenter::process_CountryImport_Action(IMainView *sender)
         if(isRepoOk){
             MainViewModel::FileNameModel fn = sender->get_CSVFileName_Country();
             QString keyColumnName = FieldName(Country, countryCode);
-            Import_private(fn, _globals._repositories.country, keyColumnName,',');
+            Import_private<Country>(fn, keyColumnName,',');
         }
     }
     Operations::instance().stop(opId);
@@ -408,7 +407,7 @@ void MainPresenter::process_ArticleImport_Action(IMainView *sender)
         {
             MainViewModel::FileNameModel fn = sender->get_CSVFileName_Article();
             QString keyColumnName = FieldName(Article, Barcode);
-            Import_private(fn, _globals._repositories.article, keyColumnName,';');
+            Import_private<Article>(fn, keyColumnName,';');
         }
     //else
     //{
@@ -440,9 +439,7 @@ void MainPresenter::process_ArticleImport_Action(IMainView *sender)
 template<typename T, typename R>
 bool MainPresenter::CheckRef()
 {
-    MetaData<T> m = T::Meta();
-
-    Ref<R>* r1 = m.template GetRef2<R>();
+    Ref<R>* r1 = T::Meta().template GetRef2<R>();
     if(!r1) return false;
 
     bool ok = SqlRepository<R>::Check();
@@ -451,12 +448,12 @@ bool MainPresenter::CheckRef()
 
 template<typename T>
 void MainPresenter::Import_private(const MainViewModel::FileNameModel& fn,
-                                   SqlRepository<T>& repo,
+                                   //SqlRepository<T>& repo,
                                    const QString& keyColumnName,
                                    const QChar& separator)
 {    
         if(!fn.isCanceled){
-            CSV_SQLHelper::Import(fn.fileName, repo, keyColumnName, separator);
+            CSV_SQLHelper::Import<T>(fn.fileName, keyColumnName, separator);
         } else{
             zInfo("cancelled");
         }   

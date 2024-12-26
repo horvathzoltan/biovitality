@@ -44,7 +44,7 @@ public:
     //CSV_SQLHelper();
     // imports from file to SQL repo
     template<typename T>
-    void static Import(const QString& fn, SqlRepository<T>& repo, const QString& keyColumnName, const QChar& separator)
+    void static Import(const QString& fn, const QString& keyColumnName, const QChar& separator)
     {
         CSVErrModel csverr(fn);
         FileHelper::CSVModel csvModel = FileHelper::LoadCSV(fn, separator);
@@ -58,7 +58,7 @@ public:
             csverr.setItemsCount(m.validItemsCount());
 
             zInfo("items loaded: "+csverr.ToSting());
-            SqlMetaHelper::InsertOrUpdate2(repo, m, keyColumnName);
+            SqlMetaHelper::InsertOrUpdate2<T>(m, keyColumnName);
         }
         else
         {

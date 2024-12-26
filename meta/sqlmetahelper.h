@@ -60,14 +60,24 @@ public:
     // ha a keycolumn értéke null, vagy -1(int) nem lehet updatelni, mert nem lesz -1-es kulcsú rekord
 
     template<typename T>
-    static void InsertOrUpdate2(SqlRepository<T>& repo,
+    static void InsertOrUpdate2(//SqlRepository<T>& repo,
                                 CSV_ImportModel<T>& m,
                                 const QString& keyColumnName)
-    {
+    {                
         if(m.isEmpty()){
             zInfo("no items to import");
             return;
         }
+
+        SqlRepository<T>* repo = SqlRepositoryContainer::Get<T>();
+
+        if(!repo)
+        {
+            auto typeName = typeid(T).name();
+            zWarning("Repository cannot found: "+QString(typeName));
+            return;
+        }
+
         //if(keyColumnName.isEmpty()){}
         //{
         //     zInfo("no columnName to import");
@@ -108,7 +118,7 @@ public:
                     canUpdate = keyColumnValue!=-1 && keyColumnValue!="";
                     if(canUpdate)
                     {
-                        contains = repo.Contains_ByColumn(keyColumnName, keyColumnValue);
+                        contains = repo->Contains_ByColumn(keyColumnName, keyColumnValue);
                     }
                 }
             }
@@ -122,13 +132,13 @@ public:
             if(contains)
             {
                 zInfo("record update");
-                QList<int> ids =  repo.GetIds_ByColumn(keyColumnName, keyColumnValue); // meg kell szerezni az id-t
+                QList<int> ids =  repo->GetIds_ByColumn(keyColumnName, keyColumnValue); // meg kell szerezni az id-t
                 int count = ids.count();
                 if(count == 1)
                 {                    
                     item.id = ids.first();
                     u_all++;
-                    bool ok = repo.Update(item);
+                    bool ok = repo->Update(item);
                     if(ok) u_ok++;
                     zInfo(QStringLiteral("record update:") +(ok?"ok":"failed"));
                 } else if(count == 0){
@@ -141,7 +151,7 @@ public:
             {
                 zInfo("record insert");
                 i_all++;
-                bool ok =  repo.Add(item);
+                bool ok =  repo->Add(item);
                 if(ok) i_ok++;
                 zInfo(QStringLiteral("record insert:") +(ok?"ok":"failed"));
             }
