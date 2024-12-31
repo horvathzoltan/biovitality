@@ -55,7 +55,7 @@ auto main(int argc, char *argv[]) -> int
             });
         _globals._settings.SetMonitoringSettings(
             {
-             "192.168.1.191", 8081
+             "192.168.1.107", 8081
             });
     }
     else if(_globals._helpers._sysinfoHelper.hostName()=="hercules")

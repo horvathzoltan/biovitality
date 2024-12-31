@@ -2,6 +2,7 @@
 #define OPTIONALCONVERTERS_H
 
 #include <optional>
+#include "helpers/logger.h"
 #include "qtypes.h"
 #include "qvariant.h"
 
@@ -16,8 +17,17 @@ public:
 
     static int ToNullable_MetaTypeId(int k);
 
-    static std::optional<quint64> QVariantToOptionalQuint64(const QVariant& v);
-    static QVariant OptionalQuint64ToQVariant(const std::optional<quint64>& v);
+//    static std::optional<quint64> QVariantToOptionalQuint64(const QVariant& v);
+//    static QVariant OptionalQuint64ToQVariant(const std::optional<quint64>& v);
+
+    template<typename T>
+    static std::optional<T> QVariantToType(const QVariant &v);
+
+    template<typename T>
+    static QVariant OptionalTypeToQVariant(const std::optional<T> &v);
+
+    template<typename T>
+    static void Register();
 };
 
 #endif // OPTIONALCONVERTERS_H
