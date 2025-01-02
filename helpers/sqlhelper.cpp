@@ -52,7 +52,7 @@ bool SQLHelper::Connect()
 
     if(connected)
     {
-        zInfo(DbMsg()+" connected")
+        zInfo(DbMsg()+" connected");
     }
     else
     {

@@ -6,7 +6,7 @@
 #include <typeindex>
 
 #include <helpers/sqlhelper.h>
-
+#include <helpers/typehelper.h>
 
 //#include <meta/meta.h>
 
@@ -18,7 +18,7 @@ private:
     QMap<std::type_index, void*> _data;
 
     template<typename T>
-    static std::type_index GetKey(){ return std::type_index(typeid(T));}
+    static std::type_index GetKey(){ return TypeHelper::GetIndex<T>();}
 
 public:
     template< typename T>

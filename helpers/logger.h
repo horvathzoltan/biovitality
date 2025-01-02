@@ -18,16 +18,16 @@
 
 #define zError(msg) Logger::error2((msg), getLocInfo)
 
-#define zWarning(msg) Logger::warning2((msg), getLocInfo);
-#define zInfo(msg) Logger::info2((msg), getLocInfo);
-#define zDebug() Logger::debug2(getLocInfo);
-#define zTrace() Logger::trace2(getLocInfo);
+#define zWarning(msg) Logger::warning2((msg), getLocInfo)
+#define zInfo(msg) Logger::info2((msg), getLocInfo)
+#define zDebug() Logger::debug2(getLocInfo)
+#define zTrace() Logger::trace2(getLocInfo)
 
-#define zError2(msg,i) Logger::error2((msg), getLocInfo,(i));
-#define zWarning2(msg,i) Logger::warning2((msg), getLocInfo,(i));
-#define zInfo2(msg,i) Logger::info2((msg), getLocInfo,(i));
+#define zError2(msg,i) Logger::error2((msg), getLocInfo,(i))
+#define zWarning2(msg,i) Logger::warning2((msg), getLocInfo,(i))
+#define zInfo2(msg,i) Logger::info2((msg), getLocInfo,(i))
 
-#define zMessage(msg) Logger::message((msg));
+#define zMessage(msg) Logger::message((msg))
 
 class Logger
 {

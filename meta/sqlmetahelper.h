@@ -140,7 +140,7 @@ public:
                     u_all++;
                     bool ok = repo->Update(item);
                     if(ok) u_ok++;
-                    zInfo(QStringLiteral("record update:") +(ok?"ok":"failed"));
+                    zInfo(QStringLiteral("record update: ") +(ok?"ok":"failed"));
                 } else if(count == 0){
                     zInfo("no record exists:"+keyColumnName+"="+keyColumnValue.toString());
                 } else{
@@ -153,7 +153,7 @@ public:
                 i_all++;
                 bool ok =  repo->Add(item);
                 if(ok) i_ok++;
-                zInfo(QStringLiteral("record insert:") +(ok?"ok":"failed"));
+                zInfo(QStringLiteral("record insert: ") +(ok?"ok":"failed"));
             }
         }
 

@@ -43,6 +43,7 @@ auto main(int argc, char *argv[]) -> int
     FileNameHelper::Init();
     _globals._helpers._sysinfoHelper.Init(target, Buildnumber::_value);
     _globals._translator.Init();
+    _globals._translator.SetLanguageCode("hu");
 
     if(_globals._helpers._sysinfoHelper.hostName()=="pif")
     {
@@ -88,8 +89,7 @@ auto main(int argc, char *argv[]) -> int
     // innen tudunk loggolni a ui-ra
 
     QString sysInfo = _globals._helpers._sysinfoHelper.Get_SysInfo();
-    zInfo(sysInfo);
-
+    zInfo(sysInfo);    
 
     zInfo("testdata_path:"+FileNameHelper::GetTestFolderPath());
     zInfo("working_folder:"+FileNameHelper::GetWorkingFolder());

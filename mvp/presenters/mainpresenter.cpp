@@ -1,6 +1,7 @@
 #include "mainpresenter.h"
 #include "helpers/logger.h"
 //#include "helpers/sqlhelper.h"
+#include "helpers/translator.h"
 #include "mvp/viewmodels/mainviewmodel.h"
 //#include "dowork.h"
 #include "bi/operations.h"
@@ -188,12 +189,30 @@ void MainPresenter::process_Add_AddressAction(IMainView *sender){
 
             model->dataForm = new DataForm(opId);
 
+            //QString title = _tr(GetWCode(WCodes::AddSoldItem));
+            QString title = _tr(WCodes::AddAddress);
+            model->dataForm->setWindowTitle(title);
+
+            //lekérjük id alapján
             Address data = _globals._repositories.address.Get(2);
             model->data = data;
             QList<MetaValue> m = Address::Meta().ToMetaValues(&data);
             model->dataForm->setMetaValues(m);
 
+            // megyék - county
+            QList<County> counties = _globals._repositories.county.GetAll();
+            //DataRowDefaultModel countyRows = County::To_DataRowDefaultModel(counties);
+            DataRowDefaultModel countyRows = County::Meta().ToIdMegnevs(counties);
+            countyRows.name = "county"; // ennek a mezőnek lesznek ezek a defaultjai
+
+            QList<DataRowDefaultModel> defaults {countyRows};
+
+            model->dataForm->SetDataRowDefaults(defaults);
+
             model->dataForm->show();
+
+            // QObject::connect(model->dataForm, SIGNAL(AcceptActionTriggered(QUuid)),
+            //                  this, SLOT(process_Add_SoldItem_AcceptAction(QUuid)));
         }
     }
     Operations::instance().stop(opId);
@@ -220,7 +239,8 @@ void MainPresenter::process_Add_SoldItemAction(IMainView *sender){
 
     model->dataForm = new DataForm(opId);
 
-    QString title = _tr(GetWCode(WCodes::AddSoldItem));
+    //QString title = _tr(GetWCode(WCodes::AddSoldItem));
+    QString title = _tr(WCodes::AddSoldItem);
     model->dataForm->setWindowTitle(title);
 
     SoldItem data;

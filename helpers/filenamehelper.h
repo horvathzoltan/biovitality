@@ -3,10 +3,6 @@
 
 #include <QString>
 
-#define STRINGIFY(msg) #msg
-#define STRING(msg) QStringLiteral(STRINGIFY(msg))
-#define L(msg) QStringLiteral(msg)
-
 class FileNameHelper{
 private:
     static bool _inited;

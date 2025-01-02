@@ -1,38 +1,67 @@
 #include "translator.h"
+#include "helpers/logger.h"
+#include <helpers/typehelper.h>
 
 Translator::Translator() {}
 
-void Translator::AddTranslation(const QString &lcode, const QString &key, const QString &value)
+void Translator::AddTranslation_(const QString &lcode, const QString &key, const QString &value)
 {
-    _translations[key]=value;
+    _translations2[lcode][key]=value;
 }
 
-QString Translator::Translate(const QString &key){
-    bool c = _translations.contains(key);
-    if(!c) return key;
-    return _translations.value(key);
+QString Translator::Translate(const QString &key)
+{
+    if(_languageCode.isEmpty()){
+        zWarning(QStringLiteral("No language to translate"));
+        return key;
+    }
+
+    if(!_translations2.contains(_languageCode)){
+        zWarning(QStringLiteral("No translations for language: ")+ _languageCode);
+        return key;
+    }
+
+    QMap<QString, QString> &m = _translations2[_languageCode];
+
+    if(!m.contains(key)){
+        zWarning(QStringLiteral("No translation for wordcode: ")+ key);
+        return key;
+    }
+
+    return _translations2[_languageCode][key];
 }
 
 void Translator::Init()
 {
-    AddTr("hu", WCodes::AddSoldItem, "Új számla tétel hozzáadása");
+    Add_tr("hu", WCodes::AddSoldItem, "Új számla tétel hozzáadása");
 
-    AddTr("hu", WCodes::SoldItem, "Számla tétel");
-    AddTr("hu", WCodes::SoldItem::id , "ID");
-    AddTr("hu", WCodes::SoldItem::partnerName , "Partner neve");
+    Add_tr("hu", WCodes::SoldItem, "Számla tétel");
+    Add_tr("hu", WCodes::SoldItem::id , "ID");
+    Add_tr("hu", WCodes::SoldItem::partnerName , "Partner neve");
 
-    AddTr("hu", WCodes::SoldItem::partnerHq , "Székhelye");
-    AddTr("hu", WCodes::SoldItem::county , "Megye");
-    AddTr("hu", WCodes::SoldItem::fullfillment , "Teljesítés");
-    AddTr("hu", WCodes::SoldItem::accountNr , "Számlaszám");
-    AddTr("hu", WCodes::SoldItem::productName , "Termék megnevezése");
+    Add_tr("hu", WCodes::SoldItem::partnerHq , "Székhelye");
+    Add_tr("hu", WCodes::SoldItem::county , "Megye");
+    Add_tr("hu", WCodes::SoldItem::fullfillment , "Teljesítés");
+    Add_tr("hu", WCodes::SoldItem::accountNr , "Számlaszám");
+    Add_tr("hu", WCodes::SoldItem::productName , "Termék megnevezése");
 
-    AddTr("hu", WCodes::SoldItem::units , "Darab");
-    AddTr("hu", WCodes::SoldItem::unitPrice , "Egységár");
-    AddTr("hu", WCodes::SoldItem::unitCurrency , "Eá. Pénznem");
+    Add_tr("hu", WCodes::SoldItem::units , "Darab");
+    Add_tr("hu", WCodes::SoldItem::unitPrice , "Egységár");
+    Add_tr("hu", WCodes::SoldItem::unitCurrency , "Eá. Pénznem");
 
-    AddTr("hu", WCodes::SoldItem::netPrice , "Nettó ár");
-    AddTr("hu", WCodes::SoldItem::netCurrency , "Nettó pénznem");
+    Add_tr("hu", WCodes::SoldItem::netPrice , "Nettó ár");
+    Add_tr("hu", WCodes::SoldItem::netCurrency , "Nettó pénznem");
 
-    AddTr("hu", WCodes::SoldItem::excelId , "Excel ID");
+    Add_tr("hu", WCodes::SoldItem::excelId , "Excel ID");
+
+    Add_tr("hu", WCodes::AddSoldItem, "Új cím hozzáadása");
+
+    Add_tr("hu", WCodes::Address, "Cím");
+    Add_tr("hu", WCodes::Address::id , "ID");
+    Add_tr("hu", WCodes::Address::postalCode , "Irányítószám");
+    Add_tr("hu", WCodes::Address::settlementName , "Településnév");
+    Add_tr("hu", WCodes::Address::publicAreaName , "Közterületnév");
+    Add_tr("hu", WCodes::Address::excelId , "ExcelId ID");
+    Add_tr("hu", WCodes::Address::countyId , "Megye");
+    Add_tr("hu", WCodes::Address::countryId , "Ország");
 }

@@ -2,67 +2,66 @@
 #define TRANSLATOR_H
 
 #include <QMap>
+//#include <typeindex>
 
-
+namespace _WC_
+{
 class WCodes{
 public:
-    class AddSoldItem{};
+    void* AddSoldItem;
+    void* AddAddress;
     class SoldItem{
     public:
-        int id;
-        int partnerName;
-        int partnerHq;
-        int county;
-        int fullfillment;
-        int accountNr;
-        int productName;
-        int units=-1;
-        int unitPrice=0;
-        int unitCurrency;
-        int netPrice=0;
-        int netCurrency;
-        int excelId=-1;
+        void* id;
+        void* partnerName;
+        void* partnerHq;
+        void* county;
+        void* fullfillment;
+        void* accountNr;
+        void* productName;
+        void* units;
+        void* unitPrice;
+        void* unitCurrency;
+        void* netPrice;
+        void* netCurrency;
+        void* excelId;
     };
     class Validation{
     public:
-        int CannotConvert;
+        void* CannotConvert;
+    };
+
+    class Address{
+    public:
+        void* id;
+        void* postalCode;
+        void* settlementName;
+        void* publicAreaName;
+        void* excelId;
+        void* countyId;
+        void* countryId;
     };
 };
+}
 
-#define AddTr(a, b, c) AddTr2(a, #b, c,  sizeof(b));
-#define GetWCode(b) _globals._translator.GetWCode2(QStringLiteral(#b), sizeof(b))
-#define _tr(b) _globals._translator.Translate(b);
+#define GetWCode(b) TypeHelper::GetTypeName_(QStringLiteral(#b), sizeof(_WC_::b))
+#define Add_tr(a, b, c) AddTranslation_(a, GetWCode(b), c)
+#define _tr(b) _globals._translator.Translate(GetWCode(b))
 
 class Translator
 {
 private:
-    QString _languageCode;
-    QMap<QString, QString> _translations;
+    QString _languageCode;    
+    QMap<QString, QMap<QString, QString>> _translations2;
+
 public:
     Translator();
-
-    void AddTranslation(const QString &lcode, const QString& key, const QString& value);
-
-    QString tr(const QString& key){ return Translate(key);}
-    QString Translate(const QString& key);
-
     void Init();
 
-    void AddTr2(const QString &lcode, const QString& key, const QString& value, unsigned long l){
-        Q_UNUSED(l)
-        AddTranslation(lcode, key, value);
-    }
+    void SetLanguageCode(const QString&v){ _languageCode = v;}
 
-    QString GetWCode2(const QString& key, unsigned long l){
-        Q_UNUSED(l)
-        return key;
-    }
-
-    QString Translate2(const QString& key, unsigned long l){
-        Q_UNUSED(l)
-        return Translate(key);
-    }
-
+    void AddTranslation_(const QString &lcode, const QString& key, const QString& value);
+    QString Translate(const QString& key);    
 };
 
 #endif // TRANSLATOR_H

@@ -364,11 +364,11 @@ bool SqlRepository<T>::Check()
         //SqlRepository<T>* repo = reinterpret_cast<SqlRepository<T>*>(rx);
         tableExists = repo->isTableExists();
 
-        zInfo(QStringLiteral("tableExists") + (tableExists ? "ok" : "failed"));
+        zInfo(QStringLiteral("tableExists: ") + (tableExists ? "ok" : "failed"));
 
         fieldsExists = repo->isFieldsExists();
     } else{
-        zInfo(QStringLiteral("no TypeName:") + repo->tableName());
+        zInfo(QStringLiteral("no TypeName: ") + repo->tableName());
     }
 
     bool e = tableExists && fieldsExists;

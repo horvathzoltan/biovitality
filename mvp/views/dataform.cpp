@@ -98,7 +98,7 @@ void DataForm::setMetaValues(QList<MetaValue> m)
     // todo 002 a modelben át lehetne adni az értékkészletet amiből választani lehet
     // todo3
     for (MetaValue &a : m) {
-        a.translatedName = _tr(a.wcode);
+        a.translatedName = _globals._translator.Translate(a.wcode);
         int i = l0.fontMetrics().boundingRect(a.translatedName).width();
         if (i > w0) w0 = i;
     }

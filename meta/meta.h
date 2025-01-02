@@ -14,8 +14,8 @@
 #define AddMetaBase(b) _meta.AddBaseName(#b, sizeof(b));
 
 //#define AddRowToField(b,c) Add_RowToField(#b, c); {(void)_meta._instance.b;}
-#define FieldName(t, b) QString(#b); { (void)t::Meta()._instance.b;}
-#define AddRowToField(a,b,c) if(_meta.Contains(#b)){a.Add_RowToField(#b, c); {(void)_meta._instance.b;}} else {zWarning(QStringLiteral("MetaField is not exists:")+#b);}
+#define FieldName(t, b) QStringLiteral(#b); { (void)t::Meta()._instance.b;}
+#define AddRowToField(a,b,c) if(_meta.Contains(#b)){a.Add_RowToField(#b, c); {(void)_meta._instance.b;}} else {zWarning(QStringLiteral("MetaField is not exists: ")+#b);}
 
 // class optConv{
 //     quint64 ToUint64(bool *ok = nullptr) const
@@ -331,7 +331,7 @@ public:
         f._offset = offset;
 
         if(_verbose){
-            QString msg = QStringLiteral("AddField:")
+            QString msg = QStringLiteral("AddField: ")
                           +QString::number(offset)
                           +" "+t.name() + '('+QString::number(t.sizeOf())+")"
                           +" "+name

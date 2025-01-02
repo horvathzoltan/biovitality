@@ -3,7 +3,7 @@
 #include "qcoreapplication.h"
 
 #include <QDir>
-
+#include "helpers/stringify.h"
 //#include <stdio.h>
 //#include <string.h>
 
@@ -15,7 +15,7 @@ bool FileNameHelper::Init(const char *file)
 {
     _inited = false;
 
-#if defined (STRING) && defined (TARGI) && defined (SOURCE_PATH)
+#if defined (STRINGIFY_H) && defined (STRING) && defined (SOURCE_PATH)
     Q_UNUSED(file)
     _projectPath = STRING(SOURCE_PATH);
 #else
