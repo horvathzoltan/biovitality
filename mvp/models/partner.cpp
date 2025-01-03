@@ -75,7 +75,7 @@ CSV_ImportModel<Partner> Partner::CSV_Import(const QList<QVarLengthArray<QString
         // if(item.isValid()){
         //     m.append(item);
         // } else{
-        //     zInfo("invalid row:"+QString::number(i+1)+" excelId:"+excelIdValue.toString());
+        //     zInfo("invalid row: "+QString::number(i+1)+" excelId: "+excelIdValue.toString());
         // }
     }
 

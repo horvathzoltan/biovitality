@@ -369,8 +369,8 @@ SQLHelper::DoQueryRModel SQLHelper::Call(const QString& cmd)//, const QList<SQLH
     if(select.isEmpty()) return {};
     QString call = "call "+cmd;
 
-    zInfo("Call cmd_0:"+call);
-    zInfo("Call cmd_1:"+select);
+    zInfo("Call cmd_0: "+call);
+    zInfo("Call cmd_1: "+select);
 
     DoQueryRModel m;
     bool opened = TryOpen();
@@ -415,7 +415,7 @@ SQLHelper::DoQueryRModel SQLHelper::Call(const QString& cmd)//, const QList<SQLH
     QString msg = QStringLiteral("Call ")+(m.isOk?"succeed":"failed");
     if(m.rowsAffected > 0)
     {
-        msg+=" rowsAffected:"+ QString::number(m.rowsAffected);
+        msg+=" rowsAffected: "+ QString::number(m.rowsAffected);
     }
     zInfo(msg);
     return m;
@@ -426,7 +426,7 @@ SQLHelper::DoQueryRModel SQLHelper::DoQuery(const QString& cmd, const QList<SQLH
 {
     if(!_isInited) return {};
 
-    zInfo("Query cmd:"+cmd);
+    zInfo("Query cmd: "+cmd);
 
     DoQueryRModel m;    
     bool opened = TryOpen();
@@ -481,7 +481,7 @@ SQLHelper::DoQueryRModel SQLHelper::DoQuery(const QString& cmd, const QList<SQLH
     QString msg = QStringLiteral("Query ")+(m.isOk?"succeed":"failed");
     if(m.rowsAffected > 0)
     {
-        msg+=" rowsAffected:"+ QString::number(m.rowsAffected);
+        msg+=" rowsAffected: "+ QString::number(m.rowsAffected);
     }
     zInfo(msg);
     return m;
@@ -494,7 +494,7 @@ QString SQLHelper::GetFieldNames_UPDATE(const QList<SQLHelper::SQLParam>& params
     for(auto&a:params){
         if(a.fieldName.toLower()=="id") continue;
         if(!e.isEmpty()) e+=",";
-        e+=a.fieldName+"=:"+a.paramName;
+        e+=a.fieldName+"=: "+a.paramName;
     }
     return e;
 }
@@ -556,7 +556,7 @@ QString SQLHelper::ErrorString(const QString &p, const QSqlError &err)
         auto db = err.databaseText();
         QString t = ErrorType_ToString(err.type());
 
-        QString msg2 = p+": "+t+ "("+n+") "+d+", "+db;
+        QString msg2 = p+":"+t+ "("+n+") "+d+", "+db;
         return msg2;
     }
     return QStringLiteral("%1: no error").arg(p);

@@ -45,7 +45,7 @@ void LogPresenter::Log(const QString& str0)
     for(auto&a:strs){
         if(a.isEmpty()) continue;
         if(!a.startsWith(keyword)){
-            a=keyword+": "+a;
+            a=keyword+":"+a;
         }
         QString msg = ColorizeLog2(a, logColor);
         _logView->set_StatusLine({msg});
@@ -94,6 +94,6 @@ void LogPresenter::processToLogFile_Action(IMainView *sender)
         FileHelper::FileErrors err;
         bool ok = FileHelper::Save(r.str, fileName, &err, FileHelper::SaveModes::Overwrite);
 
-        zInfo("Log file:"+fileName+" save:"+(ok?"success":"failed"));
+        zInfo("Log file: "+fileName+" save: "+(ok?"success":"failed"));
     }
 }

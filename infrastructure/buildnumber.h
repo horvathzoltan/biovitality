@@ -16,7 +16,7 @@ private:
 // buildnumber.cpp should contain this lines below to forcing build with makefile depencencies
 // usage:
 // QCoreApplication::setApplicationVersion(Buildnumber::_value);
-// zInfo(QStringLiteral("started ")+target+" as "+user + " build:"+ Buildnumber::_value);
+// zInfo(QStringLiteral("started ")+target+" as "+user + " build: "+ Buildnumber::_value);
 
 #include <QString>
 #include "buildnumber.h"

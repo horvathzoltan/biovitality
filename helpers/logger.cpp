@@ -67,10 +67,10 @@ QString Logger::ToString(DbgLevel level, const QString &msg, const QString &loci
     QString msg3;
     switch(level){
     case DbgLevel::TRACE:
-        msg3= txt+": "+loci;
+        msg3= txt+":"+loci;
         break;
     case DbgLevel::DEBUG:
-        msg3= txt+": "+msg+"\n"+loci+"\n"+st;
+        msg3= txt+":"+msg+"\n"+loci+"\n"+st;
         break;
     default: break;
     }
@@ -80,7 +80,7 @@ QString Logger::ToString(DbgLevel level, const QString &msg, const QString &loci
 QString Logger::ToString(ErrLevel errlevel, const QString &msg, const QString &loci, const QString &st)
 {
     auto level = ToString(errlevel);
-    QString msg3 = ToString(errlevel)+": "+msg;
+    QString msg3 = ToString(errlevel)+":"+msg;
     if(!loci.isEmpty())
     {
         msg3+="\n"+loci;
@@ -92,7 +92,7 @@ QString Logger::ToString(ErrLevel errlevel, const QString &msg, const QString &l
     // switch(errlevel)
     // {
     // case ErrLevel::ERROR_:
-    //     msg3= level+": "+msg;//+"\n"+loci+"\n"+st;
+    //     msg3= level+":"+msg;//+"\n"+loci+"\n"+st;
     //     if(!loci.isEmpty()){
     //         msg3+="\n"+loci;
     //     }
@@ -101,14 +101,14 @@ QString Logger::ToString(ErrLevel errlevel, const QString &msg, const QString &l
     //     }
     //     break;
     // case ErrLevel::WARNING:
-    //     msg3= level+": "+msg;
+    //     msg3= level+":"+msg;
     //     if(!loci.isEmpty()){
     //         msg3+="\n"+loci;
     //     }
     //     break;
 
     // case ErrLevel::INFO:
-    //     msg3= level+": "+msg;
+    //     msg3= level+":"+msg;
     //     if(!loci.isEmpty()){
     //         msg3+="\n"+loci;
     //     }

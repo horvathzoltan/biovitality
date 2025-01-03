@@ -22,7 +22,7 @@ void Operations::stop(QUuid id)
         _operations.remove(id);
         zInfo("operation "+o.name+ " stopped");
     } else {
-        zWarning("no operation:"+id.toString());
+        zWarning("no operation: "+id.toString());
     }
 }
 
@@ -34,7 +34,7 @@ void Operations::setData(QUuid id, OperationModel* m)
         o._data = m;
         zInfo("operation "+o.name+ " added data");
     } else {
-        zInfo("no operation:"+id.toString());
+        zInfo("no operation: "+id.toString());
     }
 }
 
@@ -47,7 +47,7 @@ OperationModel* Operations::data(QUuid id)
         return o._data;
         zInfo("operation "+o.name+ " added data");
     } else {
-        zInfo("no operation:"+id.toString());
+        zInfo("no operation: "+id.toString());
     }
     return nullptr;
 }

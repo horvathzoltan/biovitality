@@ -91,8 +91,8 @@ auto main(int argc, char *argv[]) -> int
     QString sysInfo = _globals._helpers._sysinfoHelper.Get_SysInfo();
     zInfo(sysInfo);    
 
-    zInfo("testdata_path:"+FileNameHelper::GetTestFolderPath());
-    zInfo("working_folder:"+FileNameHelper::GetWorkingFolder());
+    zInfo("testdata_path: "+FileNameHelper::GetTestFolderPath());
+    zInfo("working_folder: "+FileNameHelper::GetWorkingFolder());
 
 
     //_globals._tcpClient.SendLog("WARNING:manymany1");

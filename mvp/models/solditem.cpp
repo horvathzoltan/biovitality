@@ -124,7 +124,7 @@ CSV_ImportModel<SoldItem> SoldItem::CSV_Import(const QList<QVarLengthArray<QStri
         // if(item.isValid()){
         //     m.append(item);
         // } else{
-        //     zInfo("invalid row:"+QString::number(i+1)+" excelId:"+excelIdValue.toString());
+        //     zInfo("invalid row: "+QString::number(i+1)+" excelId: "+excelIdValue.toString());
         // }
     }
 

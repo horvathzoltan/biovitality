@@ -142,9 +142,9 @@ public:
                     if(ok) u_ok++;
                     zInfo(QStringLiteral("record update: ") +(ok?"ok":"failed"));
                 } else if(count == 0){
-                    zInfo("no record exists:"+keyColumnName+"="+keyColumnValue.toString());
+                    zInfo("no record exists: "+keyColumnName+"="+keyColumnValue.toString());
                 } else{
-                    zInfo("record is not unique:"+keyColumnName+"="+keyColumnValue.toString());
+                    zInfo("record is not unique: "+keyColumnName+"="+keyColumnValue.toString());
                 }
             }
             else

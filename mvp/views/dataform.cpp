@@ -27,6 +27,7 @@ DataRowWidget *DataForm::FindWidget(const QString &name)
             if(dataRowWidget && dataRowWidget->name()==name) return dataRowWidget;
         }
     }
+    zWarning("Cannot find widget for dataRow: "+name);
     return nullptr;
 }
 
@@ -68,19 +69,20 @@ void DataForm::SetValidations(QList<MetaValidationMessage> validations)
         if(w){
             w->SetValidateLabel(validation.wcode);
         }else{
-            zError("Cannot set validation:"+validation.name);
+            zWarning("Cannot set validation for dataRow: "+validation.name);
         }
     }
 }
 
 void DataForm::SetDataRowDefaults(QList<DataRowDefaultModel> values)
 {
-    for(auto&v:values){
-        DataRowWidget* w = FindWidget(v.name);
-        if(w){
-            w->SetDataRowDefault(v.values);        
-        }else{
-            zError("Cannot set defaults:"+v.name);
+    for (DataRowDefaultModel &v : values) {
+        QString dataRowName = v.name();
+        DataRowWidget *w = FindWidget(dataRowName);
+        if (w) {
+            w->SetDataRowDefault(v.values());
+        } else {
+            zWarning("Cannot set defaults for dataRow: " + dataRowName);
         }
     }
 }

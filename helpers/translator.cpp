@@ -54,7 +54,7 @@ void Translator::Init()
 
     Add_tr("hu", WCodes::SoldItem::excelId , "Excel ID");
 
-    Add_tr("hu", WCodes::AddSoldItem, "Új cím hozzáadása");
+    Add_tr("hu", WCodes::AddAddress, "Új cím hozzáadása");
 
     Add_tr("hu", WCodes::Address, "Cím");
     Add_tr("hu", WCodes::Address::id , "ID");

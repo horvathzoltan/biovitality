@@ -135,7 +135,7 @@ public:
        //      }
 
        //      if(rowsAffected>0){
-       //          return "Rows affected:"+QString::number(rowsAffected);
+       //          return "Rows affected: "+QString::number(rowsAffected);
        //      }
        //      return "No rows affected";
        //  }
@@ -143,7 +143,7 @@ public:
         // QString ToString_RowsAffected(){
         //     if(rowsAffected>0)
         //     {
-        //         return "Rows affected:"+QString::number(rowsAffected);
+        //         return "Rows affected: "+QString::number(rowsAffected);
         //     }
         //     return "No rows affected";
         // }

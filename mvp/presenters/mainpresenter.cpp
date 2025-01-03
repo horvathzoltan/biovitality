@@ -137,17 +137,17 @@ void MainPresenter::processDBTestAction(IMainView *sender)
     zTrace();
     QLocale hu(QLocale::Hungarian);
 
-    zInfo("hu:"+hu.dateFormat());
+    zInfo("hu: "+hu.dateFormat());
     QString str = QStringLiteral("2020.04.10.");
     QDate fullfillment = hu.toDate(str);
-    zInfo("fullfillment("+str+"):"+fullfillment.toString());
+    zInfo("fullfillment("+str+"): "+fullfillment.toString());
 
     fullfillment = hu.toDate(str,"yyyy.M.d");
-    zInfo("fullfillment("+str+"):"+fullfillment.toString());
+    zInfo("fullfillment("+str+"): "+fullfillment.toString());
 
     //str = QStringLiteral("2020.04.10.");
     fullfillment = hu.toDate(str,"yyyy.M.d");
-    zInfo("fullfillment("+str+"):"+fullfillment.toString());
+    zInfo("fullfillment("+str+"): "+fullfillment.toString());
     /*
     //SqlRepository<SoldItem> sr("SoldItem");
     auto a = sr.Get(2);
@@ -201,11 +201,14 @@ void MainPresenter::process_Add_AddressAction(IMainView *sender){
 
             // megyék - county
             QList<County> counties = _globals._repositories.county.GetAll();
-            //DataRowDefaultModel countyRows = County::To_DataRowDefaultModel(counties);
             DataRowDefaultModel countyRows = County::Meta().ToIdMegnevs(counties);
-            countyRows.name = "county"; // ennek a mezőnek lesznek ezek a defaultjai
+            countyRows.SetName(Address,countyId);
 
-            QList<DataRowDefaultModel> defaults {countyRows};
+            QList<Country> countries = _globals._repositories.country.GetAll();
+            DataRowDefaultModel countryRows = Country::Meta().ToIdMegnevs(countries);
+            countyRows.SetName(Address,countryId);
+
+            QList<DataRowDefaultModel> defaults {countyRows, countryRows};
 
             model->dataForm->SetDataRowDefaults(defaults);
 
@@ -235,7 +238,7 @@ void MainPresenter::process_Add_SoldItemAction(IMainView *sender){
 
 
     // QString baseTypeName = data.GetBaseTypeName();
-    // zInfo("baseTypeName:"+baseTypeName);
+    // zInfo("baseTypeName: "+baseTypeName);
 
     model->dataForm = new DataForm(opId);
 
@@ -260,25 +263,25 @@ void MainPresenter::process_Add_SoldItemAction(IMainView *sender){
     QList<Partner> partners = _globals._repositories.partner.GetAll();
     //DataRowDefaultModel partnerRows = Partner::To_DataRowDefaultModel(partners);
     DataRowDefaultModel partnerRows = Partner::Meta().ToIdMegnevs(partners);
-    partnerRows.name = "partnerName"; // ennek a mezőnek lesznek ezek a defaultjai
+    partnerRows.SetName(SoldItem,partnerName); // ennek a mezőnek lesznek ezek a defaultjai
 
     // címek -> partnerHq
     QList<Address> addresses = _globals._repositories.address.GetAll();
     //DataRowDefaultModel addressRows = Address::To_DataRowDefaultModel(addresses);
     DataRowDefaultModel addressRows = Address::Meta().ToIdMegnevs(addresses);
-    addressRows.name = "partnerHq"; // ennek a mezőnek lesznek ezek a defaultjai
+    addressRows.SetName(SoldItem,partnerHq); // ennek a mezőnek lesznek ezek a defaultjai
 
     // megyék - county
     QList<County> counties = _globals._repositories.county.GetAll();
     //DataRowDefaultModel countyRows = County::To_DataRowDefaultModel(counties);
     DataRowDefaultModel countyRows = County::Meta().ToIdMegnevs(counties);
-    countyRows.name = "county"; // ennek a mezőnek lesznek ezek a defaultjai
+    countyRows.SetName(SoldItem,county); // ennek a mezőnek lesznek ezek a defaultjai
 
     // cikkek - productName
     QList<Article> articles = _globals._repositories.article.GetAll();
     //DataRowDefaultModel articleRows = Article::To_DataRowDefaultModel(articles);
     DataRowDefaultModel articleRows = Article::Meta().ToIdMegnevs(articles);
-    articleRows.name = "productName"; // ennek a mezőnek lesznek ezek a defaultjai
+    articleRows.SetName(SoldItem,productName); // ennek a mezőnek lesznek ezek a defaultjai
 
     QList<DataRowDefaultModel> defaults {countyRows,articleRows,addressRows,partnerRows};
 

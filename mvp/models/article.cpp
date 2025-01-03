@@ -71,7 +71,7 @@ CSV_ImportModel<Article> Article::CSV_Import(const QList<QVarLengthArray<QString
         // if(valid){
         //     m.append(item);
         // } else{
-        //     zInfo("invalid row:"+QString::number(i+1)+" row:"+QString::number(i));
+        //     zInfo("invalid row: "+QString::number(i+1)+" row: "+QString::number(i));
         // }
     }
 

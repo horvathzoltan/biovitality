@@ -14,8 +14,12 @@
 #define AddMetaBase(b) _meta.AddBaseName(#b, sizeof(b));
 
 //#define AddRowToField(b,c) Add_RowToField(#b, c); {(void)_meta._instance.b;}
-#define FieldName(t, b) QStringLiteral(#b); { (void)t::Meta()._instance.b;}
+#define FieldName(t, b) TypeHelper::GetTypeName_(QStringLiteral(#b), sizeof(t::Meta()._instance.b))
 #define AddRowToField(a,b,c) if(_meta.Contains(#b)){a.Add_RowToField(#b, c); {(void)_meta._instance.b;}} else {zWarning(QStringLiteral("MetaField is not exists: ")+#b);}
+
+//
+//#define SetName(t, b) SetName_(QStringLiteral(#b), sizeof(t::Meta()._instance.b))
+#define SetName(t, b) SetName_(FieldName(t,b))
 
 // class optConv{
 //     quint64 ToUint64(bool *ok = nullptr) const
@@ -81,7 +85,7 @@ public:
         std::type_index key = GetKey<Ref<R>>();
         _references.insert(key, r);
 
-        zInfo("RefContainer added:"+QString(key.name()));
+        zInfo("RefContainer added: "+QString(key.name()));
     }
 
     template<typename R>
@@ -92,9 +96,9 @@ public:
             Ref<R>* e = reinterpret_cast<Ref<R>*>(b);
             delete e;
 
-            zInfo("RefContainer deleted:"+QString(key.name()));
+            zInfo("RefContainer deleted: "+QString(key.name()));
         } else{
-            zWarning("RefContainer cannot delete:"+QString(key.name()));
+            zWarning("RefContainer cannot delete: "+QString(key.name()));
         }
     }
 
@@ -109,7 +113,7 @@ public:
             zInfo("RefContainer find:" +e->refTypeName());
             return e;
         } else{
-            zWarning("RefContainer cannnot found:"+QString(key.name()));
+            zWarning("RefContainer cannnot found: "+QString(key.name()));
         }
         return nullptr;
     }
@@ -265,9 +269,21 @@ public:
 };
 
 struct DataRowDefaultModel{
+private:
+    DataRowDefaultModel(){};
+    QString _name;
+    QList<IdMegnev> _values;
 public:
-    QString name;
-    QList<IdMegnev> values;
+    DataRowDefaultModel(const QString& n){ _name=n;};
+    void SetName_(const QString& v){ _name = v;}
+    void AddValue(const IdMegnev& v){ _values.append(v);}
+    QString name(){return _name;}
+    const QList<IdMegnev>& values(){return _values;}
+
+    // void SetName_(const QString& v, unsigned long l){
+    //     Q_UNUSED(l);
+    //     _name = v;
+    // };
 };
 
 struct FieldType{
@@ -377,7 +393,7 @@ public:
     //     for(auto&a:_fields){
     //         if(a.name.toLower()=="id") continue;
     //         if(!e.isEmpty()) e+=",";
-    //         e+=a.name+"=:"+a.name;
+    //         e+=a.name+"=: "+a.name;
     //     }
     //     return e;
     // }
@@ -539,12 +555,11 @@ public:
 
 
     DataRowDefaultModel ToIdMegnevs(const QList<T>& data){
-        DataRowDefaultModel e;
-        e.name = _baseName;
+        DataRowDefaultModel e(_baseName);
 
         for(auto&a:data){
             IdMegnev i = ToIdMegnev(&a);
-            e.values.append(i);
+            e.AddValue(i);
         }
 
         return e;
@@ -567,7 +582,8 @@ public:
         if(!field) return {};
         QVariant value = field->GetValue((char*)s);
         return value;
-    }                
+    }
+
 };
 
 
