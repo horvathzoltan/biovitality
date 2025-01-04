@@ -200,13 +200,20 @@ void MainPresenter::process_Add_AddressAction(IMainView *sender){
             model->dataForm->setMetaValues(m);
 
             // megyék - county
-            QList<County> counties = _globals._repositories.county.GetAll();
-            DataRowDefaultModel countyRows = County::Meta().ToIdMegnevs(counties);
-            countyRows.SetName(Address,countyId);
+            // QList<County> counties = _globals._repositories.county.GetAll();
+            // DataRowDefaultModel countyRows = County::Meta().ToIdMegnevs(counties);
+            // countyRows.SetName(Address,countyId);
 
-            QList<Country> countries = _globals._repositories.country.GetAll();
-            DataRowDefaultModel countryRows = Country::Meta().ToIdMegnevs(countries);
-            countyRows.SetName(Address,countryId);
+            // QList<Country> countries = _globals._repositories.country.GetAll();
+            // DataRowDefaultModel countryRows = Country::Meta().ToIdMegnevs(countries);
+            // countryRows.SetName(Address,countryId);
+
+            // for(auto&r: Address::Meta()._refcontainer){
+
+            // }
+
+            DataRowDefaultModel countyRows = Get_DataRowDefaultModel_<Address, County>();//, countyId);
+            DataRowDefaultModel countryRows = Get_DataRowDefaultModel_<Address, Country>();//, countryId);
 
             QList<DataRowDefaultModel> defaults {countyRows, countryRows};
 
@@ -220,6 +227,8 @@ void MainPresenter::process_Add_AddressAction(IMainView *sender){
     }
     Operations::instance().stop(opId);
 }
+
+
 
 void MainPresenter::process_Add_SoldItemAction(IMainView *sender){
     zTrace();
@@ -468,6 +477,24 @@ bool MainPresenter::CheckRef()
     bool ok = SqlRepository<R>::Check();
     return ok;
 }
+
+template<typename T, typename R>
+DataRowDefaultModel MainPresenter::Get_DataRowDefaultModel_()
+{
+    //Ref<R>* r1 = T::Meta().template GetRef2<R>();
+
+    QString fieldName = T::Meta().template GetRef_FieldName<R>();
+    SqlRepository<R> *repo = SqlRepositoryContainer::Get<R>();
+
+    bool valid = repo && !fieldName.isEmpty();
+    if(!valid) return DataRowDefaultModel("");
+
+    QList<R> data = repo->GetAll();
+    DataRowDefaultModel rows = R::Meta().ToIdMegnevs(data);
+    rows.SetName_(fieldName);
+    return rows;
+}
+
 
 template<typename T>
 void MainPresenter::Import_private(const MainViewModel::FileNameModel& fn,

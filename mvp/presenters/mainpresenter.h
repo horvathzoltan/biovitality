@@ -8,11 +8,14 @@
 #include <QObject>
 #include <QSqlError>
 #include <QUuid>
-#include "helpers/sqlhelper.h"
+#include <meta/meta.h>
+//#include "helpers/sqlhelper.h"
 #include "mvp/viewinterfaces/imainview.h"
 #include "presenter.h"
-#include "repositories/sqlrepository.h"
+//#include "repositories/sqlrepository.h"
 
+//#define Get_DataRowDefaultModel(t, r, b) Get_DataRowDefaultModel_<r>(QStringLiteral(#b), sizeof(t::Meta()._instance.b))
+//#define Get_DataRowDefaultModel(t, r) Get_DataRowDefaultModel_<r>()
 
 class IMainView;
 
@@ -46,6 +49,10 @@ private:
                         const QString& keyColumnName,
                         const QChar& separator);
 
+    template<typename T, typename R>
+    DataRowDefaultModel Get_DataRowDefaultModel_();//const QString& fieldName, unsigned long l);
+
+
 private slots:
     void processPushButtonAction(IMainView *sender);
     void processDBTestAction(IMainView *sender);
@@ -68,7 +75,6 @@ private slots:
     void process_CountyImport_Action(IMainView *sender);
     // CSV Imort cikk
     void process_ArticleImport_Action(IMainView *sender);
-
 };
 
 #endif // MAINPRESENTER_H

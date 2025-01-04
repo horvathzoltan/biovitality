@@ -49,6 +49,7 @@ public:
 
     std::type_index a1(){return _a1;}
     QString refTypeName(){ return _refTypeName;}
+    int fieldIx(){return _fieldIx;}
 };
 
 template<typename T>
@@ -280,6 +281,7 @@ public:
     QString name(){return _name;}
     const QList<IdMegnev>& values(){return _values;}
 
+    bool IsValid(){return !_name.isEmpty();}
     // void SetName_(const QString& v, unsigned long l){
     //     Q_UNUSED(l);
     //     _name = v;
@@ -307,6 +309,16 @@ public:
 
     template<typename R>
     Ref<R>* GetRef2(){return _refcontainer.GetRef<R>();}
+
+    template<typename R>
+    QString GetRef_FieldName(){
+        Ref<R>* r1 = T::Meta().template GetRef2<R>();
+        if(!r1) return {};
+        int rIx = r1->fieldIx();
+        if(rIx<0) return{};
+        MetaField a = _fields[rIx];
+        return a.name;
+    }
 
     template<typename R>
     void AddMetaRef(const QString& f, const QString& rt, const QString& rf){

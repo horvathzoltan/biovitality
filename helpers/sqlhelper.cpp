@@ -209,7 +209,8 @@ bool SQLHelper::Connect_mariadb(const QString& connName, int timeout)
 
 bool SQLHelper::CheckHostAvailable(int timeout){
     bool isAvailable = false;
-    if(NetworkHelper::Ping(_settings.host())) {
+    bool pingOk = NetworkHelper::Ping(_settings.host(), 50);
+    if(pingOk) {
         zInfo("host found: "+_settings.host());
         QTcpSocket s;
         s.connectToHost(_settings.host(), _settings.port());

@@ -27,7 +27,7 @@ void TcpClient::SendLog(const QString& msg)
     if(!_isInited) return;
 
     if(!_hostAvailable){
-        _hostAvailable = NetworkHelper::Ping(_settings.host());
+        _hostAvailable = NetworkHelper::Ping(_settings.host(), 50);
     }
     if(!_hostAvailable) return;
 
@@ -35,7 +35,8 @@ void TcpClient::SendLog(const QString& msg)
 
     tcpSocket->connectToHost(_settings.host(), _settings.port(), QIODeviceBase::ReadWrite);
     bool isConnected = tcpSocket->waitForConnected(1000);
-    if(isConnected){
+    if(isConnected)
+    {
         QByteArray b = ("addlog:"+msg).toUtf8();
         tcpSocket->write(b);
         tcpSocket->flush();
@@ -48,6 +49,8 @@ void TcpClient::SendLog(const QString& msg)
                 //ok = true;
             }
         }
+    } else{
+        _hostAvailable = false;
     }
 
     tcpSocket->close();

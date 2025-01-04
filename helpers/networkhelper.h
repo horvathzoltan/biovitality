@@ -20,7 +20,7 @@ public:
 class NetworkHelper
 {
 public:
-    static bool Ping(const QString &ip);
+    static bool Ping(const QString &ip, int timeout);
 };
 
 #endif // NETWORKHELPER_H

@@ -35,6 +35,7 @@ public:
     DataModel metaValues();
     void SetValidations(QList<MetaValidationMessage> validations);
     void SetDataRowDefaults(QList<DataRowDefaultModel> v);
+    //void SetDataRowReferences(QList<DataRowDefaultModel> v);
 
 //private slots:
     //void on_buttonBox_accepted();

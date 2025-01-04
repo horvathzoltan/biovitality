@@ -87,6 +87,19 @@ void DataForm::SetDataRowDefaults(QList<DataRowDefaultModel> values)
     }
 }
 
+// void DataForm::SetDataRowReferences(QList<DataRowDefaultModel> values)
+// {
+//     for (DataRowDefaultModel &v : values) {
+//         QString dataRowName = v.name();
+//         DataRowWidget *w = FindWidget(dataRowName);
+//         if (w) {
+//             w->SetDataRowReference(v.values());
+//         } else {
+//             zWarning("Cannot set references for dataRow: " + dataRowName);
+//         }
+//     }
+// }
+
 
 
 void DataForm::setMetaValues(QList<MetaValue> m)
