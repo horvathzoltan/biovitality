@@ -197,7 +197,7 @@ void MainPresenter::process_Add_AcceptAction(QUuid opId)
     AddModel<T> *b = reinterpret_cast<AddModel<T>*>(a);
 
     if(b){
-        DataModel m = b->dataForm->metaValues();
+        DataForm::DataModel m = b->dataForm->Get_MetaValues();
         if(m.isValid()){
             b->dataForm->done(1);
             // itt van az hogy le kéne a változtatott rekordot menteni
@@ -213,6 +213,8 @@ void MainPresenter::process_Add_AcceptAction(QUuid opId)
         }
         else{
             b->dataForm->SetValidations(m.validations);
+            QStringList e = m.Get_ValidationMessages();
+            zWarning(e.join('\n'));
         }
     }
 
@@ -256,8 +258,8 @@ void MainPresenter::process_Add_AddressAction(IMainView *sender){
             model->dataForm->setMetaValues(m);
 
             DataRowDefaultModel countyRows = Get_DataRowDefaultModel(Address, countyId, County);
-            DataRowDefaultModel county2Rows = Get_DataRowDefaultModel(Address, county2Id, County);
-            DataRowDefaultModel county3Rows = Get_DataRowDefaultModel(Address, county3Id, County);
+            DataRowDefaultModel county2Rows = Copy_DataRowDefaultModel(countyRows, Address, county2Id);
+            DataRowDefaultModel county3Rows = Copy_DataRowDefaultModel(countyRows, Address, county3Id);
 
             DataRowDefaultModel countryRows = Get_DataRowDefaultModel(Address, countryId, Country);
 

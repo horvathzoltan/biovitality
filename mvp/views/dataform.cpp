@@ -31,7 +31,7 @@ DataRowWidget *DataForm::FindWidget(const QString &name)
     return nullptr;
 }
 
-DataModel DataForm::metaValues()
+DataForm::DataModel DataForm::Get_MetaValues()
 {
     DataModel m;
 
@@ -67,7 +67,8 @@ void DataForm::SetValidations(QList<MetaValidationMessage> validations)
     for(auto&validation:validations){
         DataRowWidget* w = FindWidget(validation.name);
         if(w){
-            w->SetValidateLabel(validation.wcode);
+            QString msg = _globals._translator.Translate(validation.wcode);
+            w->SetValidateLabel(msg);
         }else{
             zWarning("Cannot set validation for dataRow: "+validation.name);
         }

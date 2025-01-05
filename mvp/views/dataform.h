@@ -11,28 +11,36 @@ namespace Ui {
 class DataForm;
 }
 
-struct DataModel{
-public:
-    QList<MetaValue> values;
-    QList<MetaValidationMessage> validations;
-
-    bool isValid(){return validations.isEmpty();}
-};
-
-
-
-
-
-class DataForm : public QDialog
-{
+class DataForm : public QDialog{
     Q_OBJECT
 
 public:
+    struct DataModel
+    {
+    public:
+        QList<MetaValue> values;
+        QList<MetaValidationMessage> validations;
+
+        bool isValid(){return validations.isEmpty();}
+
+        QStringList Get_ValidationMessages()
+        {
+            QStringList e;
+            for(MetaValidationMessage&a:validations)
+            {
+                QString msg = a.ToString();
+                e.append(msg);
+            }
+            return e;
+        }
+    };
+
+
     explicit DataForm(QUuid opId, QWidget *parent = nullptr);
     ~DataForm();
 
     void setMetaValues(QList<MetaValue> m);
-    DataModel metaValues();
+    DataModel Get_MetaValues();
     void SetValidations(QList<MetaValidationMessage> validations);
     void SetDataRowDefaults(QList<DataRowDefaultModel> v);
     //void SetDataRowReferences(QList<DataRowDefaultModel> v);

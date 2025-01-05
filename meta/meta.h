@@ -25,6 +25,7 @@
 
 #define CheckRef(t, b, r) CheckRef_<t,r>(FieldName(t,b))
 #define Get_DataRowDefaultModel(t, b, r) Get_DataRowDefaultModel_<t,r>(FieldName(t,b))
+#define Copy_DataRowDefaultModel(v, t, b) Copy_DataRowDefaultModel_(v, FieldName(t,b))
 
 // class optConv{
 
@@ -239,6 +240,11 @@ struct MetaValidationMessage{
     QString name;
     QString wcode;
     QString value;
+
+public:
+    QString ToString(){
+        return wcode+": "+name+"="+value;
+    }
 };
 
 struct MetaFieldBase{

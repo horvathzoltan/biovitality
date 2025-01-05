@@ -52,6 +52,13 @@ private:
     template<typename T, typename R>
     DataRowDefaultModel Get_DataRowDefaultModel_(const QString& f);//const QString& fieldName, unsigned long l);
 
+    DataRowDefaultModel Copy_DataRowDefaultModel_(const DataRowDefaultModel& v, const QString& f)
+    {
+        DataRowDefaultModel r(v);
+        r.SetName_(f);
+        return r;
+    }
+
     template<typename T>
     void process_Add_AcceptAction(QUuid opId);
 
