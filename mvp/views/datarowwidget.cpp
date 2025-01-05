@@ -11,19 +11,24 @@ DataRowWidget::DataRowWidget(const MetaValue &m, int w, bool isLight, int autoCo
 
     QColor color1 = Qt::green;//status?Qt::green:Qt::red;
     QColor color2 = Qt::darkGray;//status?Qt::green:Qt::red;
+    QColor color3 = Qt::gray;//status?Qt::green:Qt::red;
     QPalette pal = QPalette();
-    int l1_width = w;
+
+    int l2_width = 30;
+    int l1_width = w-l2_width;
+
     int e1_width = 100;
     int height = 20;
 
     // layout
     QHBoxLayout *lay= new QHBoxLayout();
-    lay->setGeometry(QRect(0, 0, l1_width+e1_width, height));
+    lay->setGeometry(QRect(0, 0, l1_width+l2_width+e1_width, height));
     lay->setAlignment(Qt::AlignVCenter|Qt::AlignLeft);
 
     lay->setSpacing(2);
     lay->setContentsMargins(2,2,2,2);
-    //label
+
+    //label - NameLabel
     _label = new QLabel();
     QFont f1 = _label->font();
     f1.setPointSize(10);
@@ -64,6 +69,27 @@ DataRowWidget::DataRowWidget(const MetaValue &m, int w, bool isLight, int autoCo
     _edit->setAutoFillBackground(true);
 
     _edit->connect(_edit, &QLineEdit::textEdited, this, &DataRowWidget::on_textEdited ); //textEdited, this, on_textEdited);
+
+    // _idLabel
+
+    _idLabel = new QLabel();
+    f1 = _idLabel->font();
+    f1.setPointSize(10);
+    _idLabel->setFont(f1);
+
+    _idLabel->setGeometry(QRect(0, 0, l2_width, height));
+    _idLabel->setMinimumSize(l2_width, height);
+    //_validateLabel->setMaximumSize(l1_width, height);
+
+    _idLabel->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+    _idLabel->setAlignment(Qt::AlignVCenter|Qt::AlignRight);
+
+    pal.setColor(_label->backgroundRole(), color3);
+    _idLabel->setPalette(pal);
+    _idLabel->setAutoFillBackground(true);
+    _idLabel->update();
+
+    // _validateLabel
     _validateLabel = new QLabel();
     f1 = _validateLabel->font();
     f1.setPointSize(10);
@@ -81,13 +107,14 @@ DataRowWidget::DataRowWidget(const MetaValue &m, int w, bool isLight, int autoCo
 
     lay->addWidget(_label);
     lay->addWidget(_edit);
+    lay->addWidget(_idLabel);
     lay->addWidget(_validateLabel);
     lay->addSpacerItem(_spacer);
     // widget
     //setMinimumSize(l1_width+e1_width+10, height);
     //setMaximumSize(l1_width+e1_width+10, height);
     //setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-   setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
+    setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
 
     setLayout( lay );
 
@@ -134,37 +161,54 @@ DataRowWidget::~DataRowWidget()
 
 void DataRowWidget::on_textEdited(const QString &text){
     zTrace();
-    if(text.length()>0){
+    if(text.length()>0)
+    {
         _editTimer.start();
     }
+    else
+    {
+        _idLabel->clear();
+        _validateLabel->clear();
+    }
 }
+
+void DataRowWidget::SetIdMegnev(const IdMegnev& v){
+    _edit->setText(v.name);
+    _idLabel->setText(QString::number(v.id));
+}
+
 
 void DataRowWidget::on_timeout()
 {
     zTrace();
+    // ha ref, nem a textet kell beletenni hanem az id-t
     QString txt = _edit->text();
     int L = txt.length();
-    QStringList a = GetDefaultValue_ByCode(txt);
+    QList<IdMegnev> a = GetDefault_ByCode(txt);
+
     if(a.length()==1){
-        _edit->setText(a[0]);
-    } else{
-        if(txt.length()>=3){
-            a = GetDefaultValue_ByName_Start(txt);
+        SetIdMegnev(a[0]);
+    } else {
+        if(txt.length()>=3)
+        {
+            a = GetDefault_ByName_Start(txt);
             if(a.length()==1){
-                // 1 találat - start
-                _edit->setText(a[0]);
+                // 1 találat startra
+                SetIdMegnev(a[0]);
                 _validateLabel->clear();
             }
             else if(a.length()==0){
-                // nincs találat - start
-                a = GetDefaultValue_ByName_Contains(txt);
+                // nincs találat startra
+                a = GetDefault_ByName_Contains(txt);
                 if(a.length()==1){
-                    // 1 találat - contains
-                    _edit->setText(a[0]);
+                    // 1 találat containsra
+                    SetIdMegnev(a[0]);
                     _validateLabel->clear();
+
                 } else if(a.length()==0){
                     // nincs találat - contains
                     _validateLabel->clear();
+                    _idLabel->clear();
                 }
                 else{
                     // több találat - contains
@@ -204,68 +248,139 @@ QString DataRowWidget::ToString(const QSet<QChar> &chars)
     return e;
 }
 
-QSet<QChar> DataRowWidget::Talalat(const QStringList &a, int L)
+QSet<QChar> DataRowWidget::Talalat(const QList<IdMegnev> &a, int L)
 {
     QSet<QChar> e;
     for(auto &b:a){
-        if(b.length()<=L) continue;
-        e.insert(b[L]);
+        if(b.name.length()<=L) continue;
+        e.insert(b.name[L]);
     }
     return e;
 }
 
-QSet<QChar> DataRowWidget::Talalat2(const QStringList &a, const QString &txt)
+QSet<QChar> DataRowWidget::Talalat2(const QList<IdMegnev> &a, const QString &txt)
 {
     QSet<QChar> e;
     int L = txt.length();
     for(auto &b:a){
-        int ix = b.indexOf(txt);
+        int ix = b.name.indexOf(txt);
         if(ix==-1) continue;
-        e.insert(b[ix+L]);
+        e.insert(b.name[ix+L]);
     }
     return e;
 }
 
 
-QStringList DataRowWidget::GetDefaultValue_ByName_Start(const QString &txt)
+// QStringList DataRowWidget::GetDefaultValue_ByName_Start(const QString &txt)
+// {
+//     if(txt.isEmpty()) return {};
+//     QString n_txt = StringHelper::Normalize(txt);
+//     QStringList m;
+//     for(auto&a:_defaultValues){
+//         QString b = StringHelper::Normalize(a.name);
+//         if(b.startsWith(n_txt)){
+//             m.append(a.name);
+//         }
+//     }
+//     return m;
+// }
+
+// QStringList DataRowWidget::GetDefaultValue_ByName_Contains(const QString &txt)
+// {
+//     if(txt.isEmpty()) return {};
+//     QString n_txt = StringHelper::Normalize(txt);
+//     QStringList m;
+//     for(auto&a:_defaultValues){
+//         QString b = StringHelper::Normalize(a.name);
+//         if(b.contains(n_txt)){
+//             m.append(a.name);
+//         }
+//     }
+//     return m;
+// }
+
+
+// QStringList DataRowWidget::GetDefaultValue_ByCode(const QString &txt)
+// {
+//     if(txt.isEmpty()) return {};
+//     QString n_txt = StringHelper::Normalize(txt);
+//     QStringList m;
+//     for(auto&a:_defaultValues){
+//         QString b = StringHelper::Normalize(a.code);
+//         if(b.startsWith(n_txt)){
+//             m.append(a.name);
+//         }
+//     }
+//     return m;
+// }
+
+// QList<int> DataRowWidget::GetDefaultId_ByCode(const QString &txt)
+// {
+//     if(txt.isEmpty()) return {};
+//     QString n_txt = StringHelper::Normalize(txt);
+//     QList<int> m;
+//     for(auto&a:_defaultValues){
+//         QString b = StringHelper::Normalize(a.code);
+//         if(b.startsWith(n_txt)){
+//             m.append(a.id);
+//         }
+//     }
+//     return m;
+// }
+
+QList<IdMegnev> DataRowWidget::GetDefault_ByName_Start(const QString &txt)
 {
     if(txt.isEmpty()) return {};
     QString n_txt = StringHelper::Normalize(txt);
-    QStringList m;
+    QList<IdMegnev> m;
     for(auto&a:_defaultValues){
         QString b = StringHelper::Normalize(a.name);
         if(b.startsWith(n_txt)){
-            m.append(a.name);
+            m.append(a);
         }
     }
     return m;
 }
 
-QStringList DataRowWidget::GetDefaultValue_ByName_Contains(const QString &txt)
+QList<IdMegnev> DataRowWidget::GetDefault_ByName_Contains(const QString &txt)
 {
     if(txt.isEmpty()) return {};
     QString n_txt = StringHelper::Normalize(txt);
-    QStringList m;
+    QList<IdMegnev> m;
     for(auto&a:_defaultValues){
         QString b = StringHelper::Normalize(a.name);
         if(b.contains(n_txt)){
-            m.append(a.name);
+            m.append(a);
         }
     }
     return m;
 }
 
 
-QStringList DataRowWidget::GetDefaultValue_ByCode(const QString &txt)
+QList<IdMegnev> DataRowWidget::GetDefault_ByCode(const QString &txt)
 {
     if(txt.isEmpty()) return {};
     QString n_txt = StringHelper::Normalize(txt);
-    QStringList m;
+    QList<IdMegnev> m;
     for(auto&a:_defaultValues){
         QString b = StringHelper::Normalize(a.code);
         if(b.startsWith(n_txt)){
-            m.append(a.name);
+            m.append(a);
         }
     }
     return m;
 }
+
+// QList<int> DataRowWidget::GetDefaultId_ByCode(const QString &txt)
+// {
+//     if(txt.isEmpty()) return {};
+//     QString n_txt = StringHelper::Normalize(txt);
+//     QList<int> m;
+//     for(auto&a:_defaultValues){
+//         QString b = StringHelper::Normalize(a.code);
+//         if(b.startsWith(n_txt)){
+//             m.append(a.id);
+//         }
+//     }
+//     return m;
+// }

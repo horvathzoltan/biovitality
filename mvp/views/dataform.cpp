@@ -141,10 +141,20 @@ void DataForm::setMetaValues(QList<MetaValue> m)
 
 void DataForm::accept()
 {
-     //zInfo("dialog accept");
     emit AcceptActionTriggered(_opId);
 }
 
+void DataForm::reject()
+{
+    QDialog::reject();
+    emit RejectActionTriggered(_opId);
+}
+
+void DataForm::done(int r)
+{
+    QDialog::done(r);
+    emit DoneActionTriggered(_opId, r);
+}
 
 
 void DataForm::AddWidget(QWidget *w)

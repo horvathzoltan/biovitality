@@ -20,8 +20,14 @@
 //
 //#define SetName(t, b) SetName_(QStringLiteral(#b), sizeof(t::Meta()._instance.b))
 #define SetName(t, b) SetName_(FieldName(t,b))
+#define AddMetaReference(t, b, r, c) AddMetaRef_<r>(FieldName(t,b), #r, FieldName(r,c))
+#define DeleteMetaReference(t, b, r) DeleteMetaRef_<r>(FieldName(t,b))
+
+#define CheckRef(t, b, r) CheckRef_<t,r>(FieldName(t,b))
+#define Get_DataRowDefaultModel(t, b, r) Get_DataRowDefaultModel_<t,r>(FieldName(t,b))
 
 // class optConv{
+
 //     quint64 ToUint64(bool *ok = nullptr) const
 //     {
 //          const bool canConvertSafely = l < std::numeric_limits<int>::max();
@@ -35,7 +41,7 @@ protected:
     int _fieldIx;
     QString _refTypeName;
     int _refIx;
-    std::type_index _a1 = std::type_index(typeid(void*));;
+    std::type_index _a1 = std::type_index(typeid(void*));
     void* _metaInstancePtr;
 
 public:
@@ -69,12 +75,41 @@ public:
     T* metaInstance(){return reinterpret_cast<T*>(_metaInstancePtr);}
 };
 
+struct RefContainerKey
+{
+private:
+    std::type_index _typeIndex = std::type_index(typeid(void*));
+    int _fieldIndex = -1;
+
+    RefContainerKey(){};
+
+public:
+    RefContainerKey(const std::type_index& a, int b)
+    {
+        _typeIndex = a;
+        _fieldIndex = b;
+    };
+
+    bool
+    operator<(const RefContainerKey& b) const{
+        if(_typeIndex == b._typeIndex){
+            return _fieldIndex < b._fieldIndex;
+        }
+        return _typeIndex<b._typeIndex;
+    }
+
+    QString name(){return _typeIndex.name();}
+};
+
 class RefContainer{
 private:
-    QMap<std::type_index, void*> _references;
+    QMap<RefContainerKey, void*> _references;
 
     template<typename R>
-    static std::type_index GetKey(){ return std::type_index(typeid(R));}
+    static RefContainerKey GetKey(int ix){
+        RefContainerKey r(std::type_index(typeid(R)), ix);
+        return r;
+    }
 
 public:
     template< typename R>
@@ -83,15 +118,15 @@ public:
         int rIx = R::Meta().GetMetaFieldIx(rf);
 
         Ref<R>* r = new Ref<R>(fIx, rt, rIx);
-        std::type_index key = GetKey<Ref<R>>();
+        RefContainerKey key = GetKey<Ref<R>>(fIx);
         _references.insert(key, r);
 
         zInfo("RefContainer added: "+QString(key.name()));
     }
 
     template<typename R>
-    void DeleteMetaRef(){
-        std::type_index key = GetKey<Ref<R>>();
+    void DeleteMetaRef(int fIx){
+        RefContainerKey key = GetKey<Ref<R>>(fIx);
         if(_references.contains(key)){
             void* b = _references.take(key);
             Ref<R>* e = reinterpret_cast<Ref<R>*>(b);
@@ -104,9 +139,9 @@ public:
     }
 
     template<typename R>
-    Ref<R>* GetRef()
+    Ref<R>* GetRef(int fIx)
     {
-        std::type_index key = GetKey<Ref<R>>();
+        RefContainerKey key = GetKey<Ref<R>>(fIx);
         if(_references.contains(key))
         {
             void* b = _references.value(key);
@@ -308,11 +343,17 @@ public:
     RefContainer _refcontainer;
 
     template<typename R>
-    Ref<R>* GetRef2(){return _refcontainer.GetRef<R>();}
+    Ref<R>* GetRef2(const QString& f)
+    {
+        int fIx = GetMetaFieldIx(f);
+        return _refcontainer.GetRef<R>(fIx);
+    }
 
     template<typename R>
-    QString GetRef_FieldName(){
-        Ref<R>* r1 = T::Meta().template GetRef2<R>();
+    QString GetRef_FieldName(const QString& f)
+    {
+        int fIx = GetMetaFieldIx(f);
+        Ref<R>* r1 = T::Meta().template GetRef2<R>(fIx);
         if(!r1) return {};
         int rIx = r1->fieldIx();
         if(rIx<0) return{};
@@ -321,15 +362,21 @@ public:
     }
 
     template<typename R>
-    void AddMetaRef(const QString& f, const QString& rt, const QString& rf){
+    void AddMetaRef_(const QString& f, const QString& rt, const QString& rf){
         int fIx = GetMetaFieldIx(f);
         return _refcontainer.AddMetaRef<R>(fIx, rt, rf);
     };
 
     template<typename R>
-    void DeleteMetaRef(){
-        _refcontainer.DeleteMetaRef<R>();
+    void DeleteMetaRef_(const QString& f){
+        int fIx = GetMetaFieldIx(f);
+
+        _refcontainer.DeleteMetaRef<R>(fIx);
     }
+
+    // void DeleteMetaRef_All(){
+    //     _refcontainer.DeleteMetaRef_All();
+    // }
 
     QString _baseName;
     QString _baseWcode;

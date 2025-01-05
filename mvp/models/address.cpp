@@ -1,5 +1,6 @@
 #include "address.h"
 
+#include "helpers/typehelper.h"
 #include "qregularexpression.h"
 
 #include <meta/csvhelper.h>
@@ -18,25 +19,32 @@ void Address::MetaInit()
     AddMetaField(excelId);
 
     AddMetaField(countyId);
+    AddMetaField(county2Id);
+    AddMetaField(county3Id);
+
     AddMetaField(countryId);
+
     // 1+2+3
     _meta.MetaIdMegnevIndex(0,{1,2,3},-1);
 
-    //ref1;
-    //_meta.AddMetaRef<County>("countyId","County", "id");
-    //_meta.AddMetaRef<Country>("countryId","Country", "id");
-    //countyRef;
     AddRefs();
 }
 
-void Address::AddRefs(){
-    _meta.AddMetaRef<County>("countyId","County", "id");
-    _meta.AddMetaRef<Country>("countryId","Country", "id");
+
+void Address::AddRefs(){    
+    _meta.AddMetaReference(Address, countyId, County, id);
+    _meta.AddMetaReference(Address, county2Id, County, id);
+    _meta.AddMetaReference(Address, county3Id, County, id);
+
+    _meta.AddMetaReference(Address, countryId, Country, id);
 }
 
 void Address::DeleteRefs(){
-    _meta.DeleteMetaRef<County>();
-    _meta.DeleteMetaRef<Country>();
+    _meta.DeleteMetaReference(Address, countyId, County);
+    _meta.DeleteMetaReference(Address, county2Id, County);
+    _meta.DeleteMetaReference(Address, county3Id, County);
+
+    _meta.DeleteMetaReference(Address, countryId, Country);
 }
 
 

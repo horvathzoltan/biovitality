@@ -48,13 +48,20 @@ private:
     QUuid _opId;
 
     void accept();
+    void reject();
+
+
     DataRowWidget* FindWidget(const QString& name);
 public:
     //QVBoxLayout* GetLayout(){ return ui->verticalLayout;}
     void AddWidget(QWidget* w);
 
+    void done(int r);
+
 signals:
     void AcceptActionTriggered(QUuid);
+    void RejectActionTriggered(QUuid);
+    void DoneActionTriggered(QUuid, int r);
 };
 
 #endif // DATAFORM_H

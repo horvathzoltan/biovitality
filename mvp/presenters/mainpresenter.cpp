@@ -168,6 +168,57 @@ void MainPresenter::Error(const QSqlError& err)
     if(err.isValid()) zInfo(QStringLiteral("QSqlError: %1 - %2").arg(err.type()).arg(err.text()));
 }
 
+//
+
+void MainPresenter::process_Add_SoldItem_AcceptAction(QUuid opId)
+{
+    zTrace();
+    process_Add_AcceptAction<SoldItem>(opId);
+}
+
+void MainPresenter::process_Add_Address_AcceptAction(QUuid opId)
+{
+    zTrace();
+    process_Add_AcceptAction<Address>(opId);
+}
+
+void MainPresenter::process_DoneAction(QUuid opId, int r){
+    zTrace();
+    Operations::instance().stop(opId);
+}
+
+
+template<typename T>
+void MainPresenter::process_Add_AcceptAction(QUuid opId)
+{
+    zTrace();
+
+    OperationModel *a = Operations::instance().data(opId);
+    AddModel<T> *b = reinterpret_cast<AddModel<T>*>(a);
+
+    if(b){
+        DataModel m = b->dataForm->metaValues();
+        if(m.isValid()){
+            b->dataForm->done(1);
+            // itt van az hogy le kéne a változtatott rekordot menteni
+            T data = T::Meta().FromMetaValues(m.values);
+
+            SqlRepository<T> *repo = //_globals._repositories.address;
+                SqlRepositoryContainer::Get<T>();
+
+            if(repo)
+            {
+                repo->Add(data);
+            }
+        }
+        else{
+            b->dataForm->SetValidations(m.validations);
+        }
+    }
+
+    //Operations::instance().stop(opId);
+}
+
 void MainPresenter::process_Add_AddressAction(IMainView *sender){
     zTrace();
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
@@ -177,10 +228,15 @@ void MainPresenter::process_Add_AddressAction(IMainView *sender){
     if(connected)
     {
         bool isRepoOk = SqlRepository<Address>::Check();
-        bool refOk_County = CheckRef<Address,County>();
-        bool refOk_Country = CheckRef<Address,Country>();
+        bool ref1Ok_County = CheckRef(Address, countyId, County);
+        bool ref2Ok_County = CheckRef(Address, county2Id, County);
+        bool ref3Ok_County = CheckRef(Address, county3Id, County);
 
-        bool valid = isRepoOk && refOk_County && refOk_Country;
+        bool refOk_Country = CheckRef(Address, countryId, Country);
+
+        bool valid = isRepoOk
+                     && ref1Ok_County && ref2Ok_County && ref3Ok_County
+                     && refOk_Country ;
         if(valid)
         {
             AddModel<Address>* model = new AddModel<Address>();
@@ -193,40 +249,33 @@ void MainPresenter::process_Add_AddressAction(IMainView *sender){
             QString title = _tr(WCodes::AddAddress);
             model->dataForm->setWindowTitle(title);
 
-            //lekérjük id alapján
+            //referenciákat lekérjük id alapján
             Address data = _globals._repositories.address.Get(2);
             model->data = data;
             QList<MetaValue> m = Address::Meta().ToMetaValues(&data);
             model->dataForm->setMetaValues(m);
 
-            // megyék - county
-            // QList<County> counties = _globals._repositories.county.GetAll();
-            // DataRowDefaultModel countyRows = County::Meta().ToIdMegnevs(counties);
-            // countyRows.SetName(Address,countyId);
+            DataRowDefaultModel countyRows = Get_DataRowDefaultModel(Address, countyId, County);
+            DataRowDefaultModel county2Rows = Get_DataRowDefaultModel(Address, county2Id, County);
+            DataRowDefaultModel county3Rows = Get_DataRowDefaultModel(Address, county3Id, County);
 
-            // QList<Country> countries = _globals._repositories.country.GetAll();
-            // DataRowDefaultModel countryRows = Country::Meta().ToIdMegnevs(countries);
-            // countryRows.SetName(Address,countryId);
+            DataRowDefaultModel countryRows = Get_DataRowDefaultModel(Address, countryId, Country);
 
-            // for(auto&r: Address::Meta()._refcontainer){
-
-            // }
-
-            DataRowDefaultModel countyRows = Get_DataRowDefaultModel_<Address, County>();//, countyId);
-            DataRowDefaultModel countryRows = Get_DataRowDefaultModel_<Address, Country>();//, countryId);
-
-            QList<DataRowDefaultModel> defaults {countyRows, countryRows};
+            QList<DataRowDefaultModel> defaults {countyRows, county2Rows, county3Rows, countryRows};
 
             model->dataForm->SetDataRowDefaults(defaults);
 
             model->dataForm->show();
 
-            // QObject::connect(model->dataForm, SIGNAL(AcceptActionTriggered(QUuid)),
-            //                  this, SLOT(process_Add_SoldItem_AcceptAction(QUuid)));
+            QObject::connect(model->dataForm, SIGNAL(AcceptActionTriggered(QUuid)),
+                              this, SLOT(process_Add_Address_AcceptAction(QUuid)));
+
+            QObject::connect(model->dataForm, SIGNAL(DoneActionTriggered(QUuid, int)),
+                             this, SLOT(process_DoneAction(QUuid, int)));
         }
-    }
-    Operations::instance().stop(opId);
+    }    
 }
+
 
 
 
@@ -300,29 +349,12 @@ void MainPresenter::process_Add_SoldItemAction(IMainView *sender){
     QObject::connect(model->dataForm, SIGNAL(AcceptActionTriggered(QUuid)),
                      this, SLOT(process_Add_SoldItem_AcceptAction(QUuid)));
 
-}
-
-void MainPresenter::process_Add_SoldItem_AcceptAction(QUuid opId)
-{
-    zInfo("processAcceptAction");
-
-    OperationModel *a = Operations::instance().data(opId);
-    AddModel<SoldItem> *b = reinterpret_cast<AddModel<SoldItem>*>(a);
-
-    if(b){
-        DataModel m = b->dataForm->metaValues();
-        if(m.isValid()){
-            b->dataForm->done(1);
-            // itt van az hogy le kéne a változtatott rekordot menteni
-            SoldItem data = SoldItem::Meta().FromMetaValues(m.values);
-            _globals._repositories.solditem.Add(data);
-        }
-        else{
-            b->dataForm->SetValidations(m.validations);
-        }
-    }
+    QObject::connect(model->dataForm, SIGNAL(DoneActionTriggered(QUuid, int)),
+                     this, SLOT(process_DoneAction(QUuid, int)));
 
 }
+
+
 
 // import
 
@@ -469,9 +501,9 @@ void MainPresenter::process_ArticleImport_Action(IMainView *sender)
 // }
 
 template<typename T, typename R>
-bool MainPresenter::CheckRef()
+bool MainPresenter::CheckRef_(const QString& f)
 {
-    Ref<R>* r1 = T::Meta().template GetRef2<R>();
+    Ref<R>* r1 = T::Meta().template GetRef2<R>(f);
     if(!r1) return false;
 
     bool ok = SqlRepository<R>::Check();
@@ -479,11 +511,11 @@ bool MainPresenter::CheckRef()
 }
 
 template<typename T, typename R>
-DataRowDefaultModel MainPresenter::Get_DataRowDefaultModel_()
+DataRowDefaultModel MainPresenter::Get_DataRowDefaultModel_(const QString& f)
 {
     //Ref<R>* r1 = T::Meta().template GetRef2<R>();
 
-    QString fieldName = T::Meta().template GetRef_FieldName<R>();
+    QString fieldName = f;// T::Meta().template GetRef_FieldName<R>();
     SqlRepository<R> *repo = SqlRepositoryContainer::Get<R>();
 
     bool valid = repo && !fieldName.isEmpty();

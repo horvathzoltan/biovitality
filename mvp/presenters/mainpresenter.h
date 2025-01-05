@@ -41,7 +41,7 @@ private:
 //    bool Import_CheckRepo(SqlRepository<T>& repo);
 
     template<typename T, typename R>
-    bool CheckRef();
+    bool CheckRef_(const QString& f);
     // // imports from file to SQL repo
     template<typename T>
     void Import_private(const MainViewModel::FileNameModel& fn,
@@ -50,8 +50,10 @@ private:
                         const QChar& separator);
 
     template<typename T, typename R>
-    DataRowDefaultModel Get_DataRowDefaultModel_();//const QString& fieldName, unsigned long l);
+    DataRowDefaultModel Get_DataRowDefaultModel_(const QString& f);//const QString& fieldName, unsigned long l);
 
+    template<typename T>
+    void process_Add_AcceptAction(QUuid opId);
 
 private slots:
     void processPushButtonAction(IMainView *sender);
@@ -60,9 +62,10 @@ private slots:
     void process_Add_SoldItemAction(IMainView *sender);
     void process_Add_SoldItem_AcceptAction(QUuid opId);
 
+    void process_DoneAction(QUuid opId, int r);
     // Add Address
     void process_Add_AddressAction(IMainView *sender);
-    //void process_Add_Address_AcceptAction(QUuid opId);
+    void process_Add_Address_AcceptAction(QUuid opId);
 
     // CSV Import Tétel
     void process_TetelImport_Action(IMainView *sender);
