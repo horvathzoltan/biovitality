@@ -51,12 +51,12 @@ auto main(int argc, char *argv[]) -> int
             {
              "QMARIADB",
              "biovitality",
-             "192.168.1.105", 3306,
+             "192.168.1.109", 3306,
              "zoli", "Aladar123"
             });
         _globals._settings.SetMonitoringSettings(
             {
-             "192.168.1.108", 8081
+             "192.168.1.109", 8081
             });
     }
     else if(_globals._helpers._sysinfoHelper.hostName()=="hercules")
