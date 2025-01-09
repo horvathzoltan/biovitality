@@ -6,8 +6,10 @@
 #include <QSqlQuery>
 #include <QSqlRecord>
 #include "repositories/sqlrepository.h"
-#include "csvhelper.h"
+#include "csv_importmodel.h"
+//#include "csvhelper.h"
 //#include "mvp/models/partner.h"
+
 
 
 class SqlMetaHelper

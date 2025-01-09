@@ -34,7 +34,7 @@ public:
     void SetValidateLabel(const QString& v){_validateLabel->setText(v);}
     ~DataRowWidget();
 
-    QString name(){return _metaValue.name;}
+    QString name(){return _metaValue.metaField_name;}
     void SetDataRowDefault(const QList<IdMegnev>& v){_defaultValues = v;}
 
     // QStringList GetDefaultValue_ByName_Start(const QString& txt);

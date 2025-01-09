@@ -48,7 +48,7 @@ DataForm::DataModel DataForm::Get_MetaValues()
                     dataRowWidget->SetValidateLabel("");
                 } else{
                     MetaValidationMessage e{
-                        .name = v.name,
+                        .name = v.metaField_name,
                         .wcode = GetWCode(WCodes::Validation::CannotConvert),
                         .value = dataRowWidget->text()
                     };
@@ -118,6 +118,7 @@ void DataForm::setMetaValues(QList<MetaValue> m)
         int i = l0.fontMetrics().boundingRect(a.translatedName).width();
         if (i > w0) w0 = i;
     }
+
 
     int i = 0;
     for (MetaValue &a : m) {

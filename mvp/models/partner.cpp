@@ -1,5 +1,4 @@
 #include "partner.h"
-
 #include <meta/csvhelper.h>
 
 MetaData<Partner> Partner::_meta;

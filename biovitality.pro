@@ -64,7 +64,10 @@ HEADERS += \
     helpers/sysinfohelper.h \
     helpers/tcpclient.h \
     helpers/typehelper.h \
+    meta/csv_importmodel.h \
     meta/csv_sqlhelper.h \
+    meta/metafield.h \
+    meta/metavalue.h \
     mvp/models/country.h \
     mvp/models/invoicehead.h \
     mvp/models/invoiceitem.h \

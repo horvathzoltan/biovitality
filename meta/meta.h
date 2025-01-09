@@ -2,6 +2,8 @@
 #define META_H
 
 #include "helpers/logger.h"
+#include "metafield.h"
+#include "metavalue.h"
 #include <QList>
 #include <QMetaType>
 #include <QString>
@@ -156,151 +158,11 @@ public:
     }
 };
 
-
-template<typename T>
-struct CSV_ImportModel
-{
-    struct Data{
-    private:
-        T _item;
-        QVarLengthArray<QString> _csvFields;
-        int _rowNumber;
-        QChar _separator;        
-    public:
-        Data(T i, QVarLengthArray<QString> r, int n, QChar s){
-            _csvFields = r;
-            _item = i;
-            _rowNumber = n;
-            _separator = s;
-        }
-
-        T item(){return _item;}
-        bool isValid(){return _item.isValid();};
-
-        QString csvRow(){
-            QString e = "";
-            for(auto&a:_csvFields)
-            {
-                if(!e.isEmpty()) e+=_separator;
-                e+=a;
-            }
-            return e;
-        }
-
-        int rowNumber(){return _rowNumber;}
-    };
-
-private:
-    QList<Data> _data;
-public:
-    void Add(const Data& d){ _data.append(d);}
-    bool isEmpty(){return _data.isEmpty();}
-    int validItemsCount(){
-        int i=0;
-        for(auto&a:_data) if(a.isValid()) i++;
-        return i;
-    };
-    QList<Data> data(){return _data;}
-};
-
 class IdMegnev{
 public:
     int id = -1;
     QString name;
     QString code;
-};
-
-
-// ez megy ki az UI felé
-struct MetaValue{
-private:
-    MetaValue(){};    
-public:
-    MetaValue(const QString& _name, const QString& _wcode,const QMetaType& type ){
-        name = _name;
-        wcode = _wcode;
-        value = QVariant(type);
-    }
-
-    MetaValue(const QString& _name, const QString& _wcode,const QVariant& _value ){
-        name = _name;
-        wcode = _wcode;
-        value = _value;
-    }
-
-    QString name;
-    QString translatedName;
-    QString wcode;
-    QVariant value;
-
-    bool isValid(){ return !name.isEmpty();}
-};
-
-struct MetaValidationMessage{
-    QString name;
-    QString wcode;
-    QString value;
-
-public:
-    QString ToString(){
-        return wcode+": "+name+"="+value;
-    }
-};
-
-struct MetaFieldBase{
-    public:
-        QString name;
-        QMetaType type;
-
-        QString ToString(){return name+' '+type.name();}
-};
-
-// a meta ezekből a mezőkből áll
-struct MetaField : public MetaFieldBase{
-public:
-    QString wcode;
-    int _offset;
-    char* GetPtr(char* s){ return s+ _offset; }
-
-    // ez megy ki az UI felé
-    MetaValue GetMetaValue(char* s){
-        // if(name == "alimedCode")
-        // {
-        //      zInfo("alimedCode");
-        // }
-        MetaValue mv(name, wcode, type);
-        mv.value = GetValue(s);
-        return mv;
-    }
-
-    QVariant GetValue(char* s){
-        char* ptr = GetPtr(s);
-        if(type.id()==QMetaType::QVariant){
-            //QMetaType qvm = type;
-            //QVariant v(qvm, ptr);
-            qWarning("Do not use QVariant in model!");
-            // QVariant* p = (QVariant*)s;
-
-            // QVariant v(*p);
-            // return v;
-            return {};
-        } else if(type.id()<QMetaType::User){
-            QVariant v(type, ptr);
-            return v;
-        } else {
-            QMetaType qvm = QMetaType(QMetaType::QVariant);
-            bool cc = QMetaType::canConvert(type, qvm);
-            QVariant v;
-            if(cc){
-                bool ok = QMetaType::convert(type, ptr, qvm, &v);
-                if(!ok){
-                    zInfo("cc err");
-                }
-            }
-            return v;
-        }
-    }
-
 };
 
 struct IdMegnevIxs{
@@ -463,7 +325,7 @@ public:
     //     return e;
     // }
 
-
+private:
     MetaField* GetMetaField(const QString& name){
         for(auto&a:_fields){
             if(a.name==name) return &a;
@@ -471,6 +333,8 @@ public:
         return nullptr;
     }
 
+public:
+    // AddMetaRef-ben használjuk az indexét
     int GetMetaFieldIx(const QString& name){
         int L= _fields.count();
         for(int i=0;i<L;i++){
@@ -484,10 +348,10 @@ public:
     T FromMetaValues(const QList<MetaValue>& metaValues){
         T s;
         for(auto&m:metaValues){
-            // if(m.name == "alimedCode"){
+            // if(m.metaField_name == "alimedCode"){
             //      zInfo("alimedCode megvan");
             // }
-            MetaField* f = GetMetaField(m.name);            
+            MetaField* f = GetMetaField(m.metaField_name);
             if(f){
                 char* ptr = f->GetPtr((char*)&s);
                 auto typeId = f->type.id();
@@ -566,7 +430,7 @@ public:
 
                 SQLHelper::SQLParam p;
                 p.paramName = isId?"id":"p"+QString::number(i++);
-                p.fieldName = mv.name;
+                p.fieldName = mv.metaField_name;
                 p.fieldValue = mv.value;
                 m.append(p);
             }

@@ -2,7 +2,7 @@
 #define CSV_SQLHELPER_H
 
 #include "helpers/logger.h"
-#include "csvhelper.h"
+//#include "csvhelper.h"
 #include "sqlmetahelper.h"
 #include <QString>
 

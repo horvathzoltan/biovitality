@@ -2,6 +2,7 @@
 #define COUNTRY_H
 
 #include "meta/meta.h"
+#include <meta/csv_importmodel.h>
 //#include "modelinterfaces.h"
 #include <QString>
 
