@@ -12,6 +12,8 @@ DataRowWidget::DataRowWidget(const MetaValue &m, int w, bool isLight, int autoCo
     QColor color1 = Qt::green;//status?Qt::green:Qt::red;
     QColor color2 = Qt::darkGray;//status?Qt::green:Qt::red;
     QColor color3 = Qt::gray;//status?Qt::green:Qt::red;
+    QColor color3_1N = QColorConstants::Svg::salmon;//Qt::GlobalColor::darkBlue;//status?Qt::green:Qt::red;
+    QColor color3_NM = QColorConstants::Svg::firebrick;//Qt::GlobalColor::darkGreen;//status?Qt::green:Qt::red;
     QPalette pal = QPalette();
 
     int l2_width = 30;
@@ -84,7 +86,16 @@ DataRowWidget::DataRowWidget(const MetaValue &m, int w, bool isLight, int autoCo
     _idLabel->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
     _idLabel->setAlignment(Qt::AlignVCenter|Qt::AlignRight);
 
-    pal.setColor(_label->backgroundRole(), color3);
+    if(_metaValue.refType == RefType::R_1N){
+        pal.setColor(_idLabel->backgroundRole(), color3_1N);
+    }
+    else if(_metaValue.refType == RefType::R_NM){
+        pal.setColor(_idLabel->backgroundRole(), color3_NM);
+    }
+    else{
+        pal.setColor(_label->backgroundRole(), color3);
+    }
+
     _idLabel->setPalette(pal);
     _idLabel->setAutoFillBackground(true);
     _idLabel->update();
@@ -139,6 +150,19 @@ DataRowWidget::DataRowWidget(const MetaValue &m, int w, bool isLight, int autoCo
 QVariant DataRowWidget::value()
 {
     if(_edit == nullptr) return QVariant();
+    if(_metaValue.refType == RefType::R_1N)
+    {
+        QString txt = _idLabel->text();
+        QVariant v(txt);
+        return v;
+    }
+    if(_metaValue.refType == RefType::R_NM)
+    {
+        QString txt("R_NM_not_implemented");
+        QVariant v(txt);
+        return v;
+    }
+
     QString txt = _edit->text();
     QVariant v(txt);
     return v;

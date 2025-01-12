@@ -1,9 +1,11 @@
 #include "address.h"
 
-#include "helpers/typehelper.h"
 #include "qregularexpression.h"
 
-#include <meta/csvhelper.h>
+#include "meta/csvhelper.h"
+
+#include "mvp/models/county.h"
+#include "mvp/models/country.h"
 
 MetaData<Address> Address::_meta;
 
@@ -32,11 +34,11 @@ void Address::MetaInit()
 
 
 void Address::AddRefs(){    
-    _meta.AddMetaReference(Address, countyId, County, id);
-    _meta.AddMetaReference(Address, county2Id, County, id);
-    _meta.AddMetaReference(Address, county3Id, County, id);
+    _meta.AddMetaReference_1N(Address, countyId, County, id);
+    _meta.AddMetaReference_1N(Address, county2Id, County, id);
+    _meta.AddMetaReference_1N(Address, county3Id, County, id);
 
-    _meta.AddMetaReference(Address, countryId, Country, id);
+    _meta.AddMetaReference_1N(Address, countryId, Country, id);
 }
 
 void Address::DeleteRefs(){

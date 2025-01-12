@@ -7,10 +7,10 @@
 #include <QList>
 #include <QVariant>
 
-#include <meta/csv_importmodel.h>
+#include "meta/csv_importmodel.h"
 
-#include <helpers/filehelper.h>
-#include <helpers/sqlhelper.h>
+#include "helpers/filehelper.h"
+#include "helpers/sqlhelper.h"
 
 // enum MetaFieldListTypes{
 //     Select, Update, Insert

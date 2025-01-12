@@ -5,8 +5,8 @@
 #include <QMap>
 #include <QVarLengthArray>
 #include <QVariant>
-#include <meta/meta.h>
-#include <helpers/stringhelper.h>
+#include "meta/meta.h"
+#include "helpers/stringhelper.h"
 
 
 class CSVHelper

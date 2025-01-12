@@ -1,18 +1,19 @@
 #ifndef PARTNER_H
 #define PARTNER_H
 
-#include "meta/meta.h"
-#include <meta/csv_importmodel.h>
 
 //#include "modelinterfaces.h"
 #include <QDateTime>
 #include <QList>
 #include <QVariant>
 
-#include <helpers/filehelper.h>
-#include <helpers/sqlhelper.h>
+#include "helpers/filehelper.h"
+#include "helpers/sqlhelper.h"
 
-#include <mvp/views/dataform.h>
+#include "meta/meta.h"
+#include "meta/csv_importmodel.h"
+
+#include "mvp/views/dataform.h"
 
 class Partner /*: I_Meta<Partner>
     , I_SQLRepo_Read<Partner>

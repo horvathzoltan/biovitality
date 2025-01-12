@@ -1,15 +1,17 @@
 #ifndef META_H
 #define META_H
 
-#include "helpers/logger.h"
-#include "metafield.h"
-#include "metavalue.h"
+#include <typeindex>
+
 #include <QList>
 #include <QMetaType>
 #include <QString>
 #include <QVariant>
-#include <helpers/sqlhelper.h>
-#include <typeindex>
+#include "helpers/logger.h"
+#include "metafield.h"
+#include "metavalue.h"
+#include "helpers/sqlhelper.h"
+#include "helpers/typehelper.h"
 
 
 #define AddMetaField(b) _meta.AddField(#b, QMetaType::fromType<decltype(_meta._instance.b)>(), (char*)(&_meta._instance.b));
@@ -22,7 +24,8 @@
 //
 //#define SetName(t, b) SetName_(QStringLiteral(#b), sizeof(t::Meta()._instance.b))
 #define SetName(t, b) SetName_(FieldName(t,b))
-#define AddMetaReference(t, b, r, c) AddMetaRef_<r>(FieldName(t,b), #r, FieldName(r,c))
+#define AddMetaReference_1N(t, b, r, c) AddMetaRef_<r>(FieldName(t,b), #r, FieldName(r,c), RefType::R_1N)
+#define AddMetaReference_NM(t, b, r, c) AddMetaRef_<r>(FieldName(t,b), #r, FieldName(r,c), RefType::R_NM)
 #define DeleteMetaReference(t, b, r) DeleteMetaRef_<r>(FieldName(t,b))
 
 #define CheckRef(t, b, r) CheckRef_<t,r>(FieldName(t,b))
@@ -46,14 +49,16 @@ protected:
     int _refIx;
     std::type_index _a1 = std::type_index(typeid(void*));
     void* _metaInstancePtr;
+    RefType _refType;
 
 public:
-    RefBase(int f, const QString& rt, int rf)
+    RefBase(int f, const QString& rt, int rf,RefType refType)
     {
         _fieldIx = f;
         _refTypeName = rt;
         _refIx = rf;
         _metaInstancePtr = nullptr;
+        _refType = refType;
     }    
 
     std::type_index a1(){return _a1;}
@@ -69,7 +74,7 @@ private:
 
 public:
 
-    Ref(int f, const QString& rt, int rf) : RefBase(f, rt, rf)
+    Ref(int f, const QString& rt, int rf, RefType refType) : RefBase(f, rt, rf, refType)
     {
         _metaInstancePtr = &(T::Meta()._instance);//Address();
         _a1 = std::type_index(typeid(T));
@@ -116,11 +121,11 @@ private:
 
 public:
     template< typename R>
-    void AddMetaRef(int fIx, const QString& rt, const QString& rf){
+    void Add(int fIx, const QString& rt, const QString& rf, RefType refType){
         //int fIx = T::GetMetaFieldIx(f);
         int rIx = R::Meta().GetMetaFieldIx(rf);
 
-        Ref<R>* r = new Ref<R>(fIx, rt, rIx);
+        Ref<R>* r = new Ref<R>(fIx, rt, rIx, refType);
         RefContainerKey key = GetKey<Ref<R>>(fIx);
         _references.insert(key, r);
 
@@ -128,7 +133,7 @@ public:
     }
 
     template<typename R>
-    void DeleteMetaRef(int fIx){
+    void Delete(int fIx){
         RefContainerKey key = GetKey<Ref<R>>(fIx);
         if(_references.contains(key)){
             void* b = _references.take(key);
@@ -142,7 +147,7 @@ public:
     }
 
     template<typename R>
-    Ref<R>* GetRef(int fIx)
+    Ref<R>* Get(int fIx)
     {
         RefContainerKey key = GetKey<Ref<R>>(fIx);
         if(_references.contains(key))
@@ -214,7 +219,7 @@ public:
     Ref<R>* GetRef2(const QString& f)
     {
         int fIx = GetMetaFieldIx(f);
-        return _refcontainer.GetRef<R>(fIx);
+        return _refcontainer.Get<R>(fIx);
     }
 
     template<typename R>
@@ -230,16 +235,17 @@ public:
     }
 
     template<typename R>
-    void AddMetaRef_(const QString& f, const QString& rt, const QString& rf){
+    void AddMetaRef_(const QString& f, const QString& rt, const QString& rf, RefType refType){
         int fIx = GetMetaFieldIx(f);
-        return _refcontainer.AddMetaRef<R>(fIx, rt, rf);
+        _fields[fIx].refType = refType;
+        return _refcontainer.Add<R>(fIx, rt, rf, refType);
     };
 
     template<typename R>
     void DeleteMetaRef_(const QString& f){
         int fIx = GetMetaFieldIx(f);
 
-        _refcontainer.DeleteMetaRef<R>(fIx);
+        _refcontainer.Delete<R>(fIx);
     }
 
     // void DeleteMetaRef_All(){
@@ -412,7 +418,7 @@ public:
     QList<MetaValue> ToMetaValues(const T* s){
         QList<MetaValue> m;
         if(s){
-            for (MetaField &f : _fields) {
+            for (MetaField &f : _fields) {                
                 MetaValue mv =  f.GetMetaValue((char*)s);
                 m.append(mv);
             }
@@ -496,10 +502,10 @@ public:
 
     // GUI_ADD
     MetaValue GetMetaValue(const T* s, const QString& fieldName){
-        if(!s) return MetaValue("","",QMetaType());
+        if(!s) return MetaValue("","",QMetaType(), RefType::None);
         //MetaField* field = T::Meta().GetMetaField(fieldName);
         MetaField* field = GetMetaField(fieldName);
-        if(!field) return MetaValue("","",QMetaType());
+        if(!field) return MetaValue("","",QMetaType(), RefType::None);
         MetaValue value = field->GetMetaValue((char*)s);
         return value;
     }

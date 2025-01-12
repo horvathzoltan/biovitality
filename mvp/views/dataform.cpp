@@ -42,7 +42,16 @@ DataForm::DataModel DataForm::Get_MetaValues()
             if(dataRowWidget){
                 MetaValue v = dataRowWidget->metaValue();
                 QVariant v2 = dataRowWidget->value();
-                bool ok = v2.convert(v.value.metaType());
+                if(v.metaField_name=="countyId"){
+                    zInfo("countyId");
+                }
+                // todo 001: a convert-nél a target típus a v értékének típusa kellene legyen
+                // a v.value.metatype nem jó ha v.value invalid, akkor nem viszi a típusát
+                // a metavalueba kell egy metatype mező
+
+                // todo 002: ha ref, akkor az id-t kellene átadni, nem a textet
+                //
+                bool ok = v2.convert(v.type);//.value.metaType());
                 if(ok){
                     v.value.setValue(v2);
                     dataRowWidget->SetValidateLabel("");
@@ -52,6 +61,10 @@ DataForm::DataModel DataForm::Get_MetaValues()
                         .wcode = GetWCode(WCodes::Validation::CannotConvert),
                         .value = dataRowWidget->text()
                     };
+
+                    // todo 002: ha ref,nem a text kell bele, hanem az id
+
+
                     m.validations.append(e);
                     //dataRowWidget->SetValidateLabel(e.wcode);
                 }
@@ -112,7 +125,7 @@ void DataForm::setMetaValues(QList<MetaValue> m)
 
     // todo 001 az m-et át lehet adni a formnak, hogy építse föl magát
     // todo 002 a modelben át lehetne adni az értékkészletet amiből választani lehet
-    // todo3
+
     for (MetaValue &a : m) {
         a.translatedName = _globals._translator.Translate(a.wcode);
         int i = l0.fontMetrics().boundingRect(a.translatedName).width();
@@ -121,8 +134,8 @@ void DataForm::setMetaValues(QList<MetaValue> m)
 
 
     int i = 0;
-    for (MetaValue &a : m) {
-        DataRowWidget *w = new DataRowWidget(a, w0, i++%2==0, _globals._settings._autoComplete_millisec);
+    for (MetaValue &metaValue : m) {
+        DataRowWidget *w = new DataRowWidget(metaValue, w0, i++%2==0, _globals._settings._autoComplete_millisec);
         AddWidget(w);
     }
 }

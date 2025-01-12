@@ -1,19 +1,21 @@
 #ifndef ARTICLE_H
 #define ARTICLE_H
 
-#include "meta/meta.h"
-#include <meta/csv_importmodel.h>
+
 //#include "modelinterfaces.h"
 #include <QDateTime>
 #include <QList>
 #include <QVariant>
 
-#include <helpers/filehelper.h>
-#include <helpers/sqlhelper.h>
+#include "helpers/filehelper.h"
+#include "helpers/sqlhelper.h"
 
-#include <mvp/views/dataform.h>
+#include "meta/meta.h"
+#include "meta/csv_importmodel.h"
 
-#include <meta/csvhelper.h>
+#include "mvp/views/dataform.h"
+
+#include "meta/csvhelper.h"
 
 //DataForm
 class Article /*: I_Meta<Article>

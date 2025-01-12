@@ -3,6 +3,7 @@
 
 #include "mvp/models/solditem.h"
 #include "mvp/models/county.h"
+
 #include "mvp/models/address.h"
 #include "mvp/models/article.h"
 #include "mvp/models/partner.h"
@@ -12,10 +13,10 @@
 #include "settings.h"
 #include <QLocale>
 
-#include <helpers/optionalconverters.h>
-#include <helpers/sysinfohelper.h>
-#include <helpers/tcpclient.h>
-#include <helpers/translator.h>
+#include "helpers/optionalconverters.h"
+#include "helpers/sysinfohelper.h"
+#include "helpers/tcpclient.h"
+#include "helpers/translator.h"
 
 
 class Helpers{

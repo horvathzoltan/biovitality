@@ -1,14 +1,15 @@
-#include "mainwindow.h"
-#include "helpers/logger.h"
-#include "ui_mainwindow.h"
 #include "QDebug"
-//#include "imainview.h"
-#include "infrastructure/settings.h"
-
 #include <QFileDialog>
 #include <QSettings>
 
-#include <helpers/filenamehelper.h>
+#include "mainwindow.h"
+#include "helpers/logger.h"
+#include "ui_mainwindow.h"
+
+//#include "imainview.h"
+#include "infrastructure/settings.h"
+
+#include "helpers/filenamehelper.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)

@@ -1,6 +1,6 @@
 #include "csvhelper.h"
 
-#include <helpers/stringhelper.h>
+#include "helpers/stringhelper.h"
 
 
 
@@ -44,7 +44,8 @@ int CSVHelper::GetId(const QVariant& v){
 MetaValue CSVHelper::CSV_RowToMetaValue(const QVarLengthArray<QString> &row, const QString& fieldName , int fieldIx)
 {
     QVariant v2 = GetData(row, fieldIx);
-    MetaValue v1(fieldName, "", v2);
+    RefType refType = RefType::None;
+    MetaValue v1(fieldName, "", v2, refType);
     return v1;
 }
 

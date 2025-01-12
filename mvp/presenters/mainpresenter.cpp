@@ -1,3 +1,13 @@
+#include <QFileDialog>
+#include <QDateTime>
+
+#include <QSqlDatabase>
+#include <QSqlError>
+#include <QSqlQuery>
+#include <QDebug>
+#include <QStringLiteral>
+
+
 #include "mainpresenter.h"
 #include "helpers/logger.h"
 //#include "helpers/sqlhelper.h"
@@ -10,27 +20,19 @@
 //#include "datarowwidget.h"
 #include "infrastructure/globals.h"
 
-#include <QFileDialog>
-#include <QDateTime>
 
-#include <QSqlDatabase>
-#include <QSqlError>
-#include <QSqlQuery>
-#include <QDebug>
-#include <QStringLiteral>
+#include "helpers/filehelper.h"
+#include "helpers/sqlhelper.h"
 
-#include <helpers/filehelper.h>
-#include <helpers/sqlhelper.h>
+#include "mvp/models/county.h"
+#include "mvp/models/article.h"
+#include "mvp/models/solditem.h"
+#include "mvp/models/address.h"
 
-#include <mvp/models/county.h>
-#include <mvp/models/article.h>
-#include <mvp/models/solditem.h>
-#include <mvp/models/address.h>
+#include "repositories/sqlrepository.h"
 
-#include <repositories/sqlrepository.h>
-
-#include <meta/csv_sqlhelper.h>
-#include <meta/sqlmetahelper.h>
+#include "meta/csv_sqlhelper.h"
+#include "meta/sqlmetahelper.h"
 
 
 extern Globals _globals;

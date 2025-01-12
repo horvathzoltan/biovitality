@@ -4,9 +4,9 @@
 #include <QRegularExpression>
 #include <QVarLengthArray>
 
-#include <helpers/stringhelper.h>
+#include "helpers/stringhelper.h"
 
-#include <meta/csvhelper.h>
+#include "meta/csvhelper.h"
 
 MetaData<SoldItem> SoldItem::_meta;
 

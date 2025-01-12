@@ -4,25 +4,30 @@
 #include <QString>
 #include <QVariant>
 
+enum RefType{
+    None, R_1N, R_NM
+};
 
 struct MetaValue{
 private:
     MetaValue(){};    
 public:
-    MetaValue(const QString& _name, const QString& _wcode,const QMetaType& type)// , RefType _refType)
+    MetaValue(const QString& _name, const QString& _wcode,const QMetaType& _type, RefType _refType)
     {
         metaField_name = _name;
         wcode = _wcode;
-        value = QVariant(type);
-        //  refType = _refType;
+        value = QVariant(_type);
+        type = _type;
+        refType = _refType;
     }
     
-    MetaValue(const QString& _name, const QString& _wcode,const QVariant& _value)// , RefType _refType)
+    MetaValue(const QString& _name, const QString& _wcode,const QVariant& _value, RefType _refType)
     {
         metaField_name = _name;
         wcode = _wcode;
         value = _value;
-        //  refType = _refType;
+        type = _value.metaType();
+        refType = _refType;
     }
     
     // ez köti a MetaField-hez, talán jobb lenne egy index
@@ -34,9 +39,22 @@ public:
     QString translatedName;
     
     QVariant value;
-    //RefType refType;
+    QMetaType type;
+
+    RefType refType;
     
     bool isValid(){ return !metaField_name.isEmpty();}
+};
+
+struct MetaValidationMessage{
+    QString name;
+    QString wcode;
+    QString value;
+
+public:
+    QString ToString(){
+        return wcode+": "+name+"="+value;
+    }
 };
 
 #endif // METAVALUE_H

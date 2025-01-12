@@ -19,7 +19,7 @@ private:
     QLabel* _idLabel;
     QLabel* _validateLabel;
     QSpacerItem* _spacer;
-    MetaValue _metaValue {"", "", QMetaType()};
+    MetaValue _metaValue {"", "", QMetaType(), RefType::None};
     QList<IdMegnev> _defaultValues;    
     QTimer _editTimer;
     //int _autoCompleteMillisec;

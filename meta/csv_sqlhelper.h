@@ -6,10 +6,10 @@
 #include "sqlmetahelper.h"
 #include <QString>
 
-#include <repositories/sqlrepository.h>
+#include "repositories/sqlrepository.h"
 
-#include <helpers/filehelper.h>
-#include <helpers/sqlhelper.h>
+#include "helpers/filehelper.h"
+#include "helpers/sqlhelper.h"
 
 
 class CSV_SQLHelper

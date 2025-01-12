@@ -1,9 +1,9 @@
 #include <QApplication>
 #include <QtCharts>
-#include <infrastructure/globals.h>
-#include <helpers/signalhelper.h>
-#include <helpers/filenamehelper.h>
-#include <helpers/sysinfohelper.h>
+#include "infrastructure/globals.h"
+#include "helpers/signalhelper.h"
+#include "helpers/filenamehelper.h"
+#include "helpers/sysinfohelper.h"
 #include "infrastructure/buildnumber.h"
 #include "helpers/logger.h"
 #include "helpers/stringify.h"

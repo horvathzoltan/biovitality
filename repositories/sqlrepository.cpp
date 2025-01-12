@@ -1,15 +1,16 @@
+#include <QSqlField>
+
 #include "sqlrepository.h"
 //#include "bi/models/solditem.h"
 
 #include "infrastructure/globals.h"
 #include "helpers/logger.h"
-#include <helpers/sqlhelper.h>
+#include "helpers/sqlhelper.h"
 
-#include <QSqlField>
-#include <helpers/sqlrecordhelper.h>
-#include <infrastructure/settings.h>
+#include "helpers/sqlrecordhelper.h"
+#include "infrastructure/settings.h"
 
-#include <meta/sqlmetahelper.h>
+#include "meta/sqlmetahelper.h"
 
 // template class SqlRepository<SoldItem>;
 // template class SqlRepository<County>;

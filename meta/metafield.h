@@ -6,26 +6,11 @@
 #include <QMetaType>
 
 
-struct MetaValidationMessage{
-    QString name;
-    QString wcode;
-    QString value;
-
-public:
-    QString ToString(){
-        return wcode+": "+name+"="+value;
-    }
-};
-
-enum RefType{
-    None, R_1N, R_NM
-};
-
 struct MetaFieldBase{
 public:
     QString name;
     QMetaType type;
-    //RefType refType;
+    RefType refType=RefType::None;
 
     QString ToString(){return name+' '+type.name();}
 };
@@ -39,11 +24,15 @@ public:
     
     // ez megy ki az UI felé
     MetaValue GetMetaValue(char* s){
-        // if(name == "alimedCode")
-        // {
-        //      zInfo("alimedCode");
-        // }
-        MetaValue mv(name, wcode, type);//, refType);
+        // todo 001a a megyére [5] invalid qvariant row widget keletkezik
+
+        if(name == "countyId")
+        {
+              zInfo("countyId");
+         }
+        MetaValue mv(name, wcode, type, refType);
+        // todo 001b a megyére az optional int mivel nincs értéke, invalid qvariant lesz az eredmény, és a row widget is invalid lesz
+        //és elvész a típus - a metavalueba kell egy metatype mező
         mv.value = GetValue(s);
         return mv;
     }

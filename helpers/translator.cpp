@@ -1,6 +1,6 @@
 #include "translator.h"
 #include "helpers/logger.h"
-#include <helpers/typehelper.h>
+#include "helpers/typehelper.h"
 
 Translator::Translator() {}
 
