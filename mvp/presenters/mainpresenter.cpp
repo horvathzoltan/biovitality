@@ -215,7 +215,7 @@ void MainPresenter::process_Add_AcceptAction(QUuid opId)
         }
         else{
             b->dataForm->SetValidations(m.validations);
-            QStringList e = m.Get_ValidationMessages();
+            QStringList e = m.Get_LogMessages();
             zWarning(e.join('\n'));
         }
     }

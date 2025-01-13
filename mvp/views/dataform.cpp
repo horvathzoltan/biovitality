@@ -42,31 +42,34 @@ DataForm::DataModel DataForm::Get_MetaValues()
             if(dataRowWidget){
                 MetaValue v = dataRowWidget->metaValue();
                 QVariant v2 = dataRowWidget->value();
-                if(v.metaField_name=="countyId"){
-                    zInfo("countyId");
+                QVariant v22(v2);
+                // if(v.metaField_name=="countyId"){
+                //     zInfo("countyId");
+                // }
+
+                QMetaType destType = v.type;
+                // todo 001c QString -> optional<int> megírni a convert-ot
+
+                bool canConvert = v2.canConvert(destType);
+                if(canConvert)
+                {
+                    bool ok = v2.convert(destType);
+                    if(ok){
+                        v.value.setValue(v2);
+                        dataRowWidget->SetValidateLabel("");
+                    }
                 }
-                // todo 001: a convert-nél a target típus a v értékének típusa kellene legyen
-                // a v.value.metatype nem jó ha v.value invalid, akkor nem viszi a típusát
-                // a metavalueba kell egy metatype mező
-
-                // todo 002: ha ref, akkor az id-t kellene átadni, nem a textet
-                //
-                bool ok = v2.convert(v.type);//.value.metaType());
-                if(ok){
-                    v.value.setValue(v2);
-                    dataRowWidget->SetValidateLabel("");
-                } else{
-                    MetaValidationMessage e{
-                        .name = v.metaField_name,
-                        .wcode = GetWCode(WCodes::Validation::CannotConvert),
-                        .value = dataRowWidget->text()
-                    };
-
-                    // todo 002: ha ref,nem a text kell bele, hanem az id
-
-
-                    m.validations.append(e);
-                    //dataRowWidget->SetValidateLabel(e.wcode);
+                else
+                {
+                    MetaValidationMessage e(
+                        v.metaField_name,
+                        GetWCode(WCodes::Validation::CannotConvert),
+                        QStringLiteral("Cannot convert ")
+                                      +v.metaField_name +" = " + v22.toString() +", "+
+                        QStringLiteral("no converter registered from ")
+                                      +v22.typeName()+" to "+ destType.name()
+                        );
+                    m.validations.append(e);                    
                 }
                 m.values.append(v);
             }
@@ -78,12 +81,12 @@ DataForm::DataModel DataForm::Get_MetaValues()
 void DataForm::SetValidations(QList<MetaValidationMessage> validations)
 {
     for(auto&validation:validations){
-        DataRowWidget* w = FindWidget(validation.name);
+        DataRowWidget* w = FindWidget(validation.name());
         if(w){
-            QString msg = _globals._translator.Translate(validation.wcode);
+            QString msg = _globals._translator.Translate(validation.wcode());
             w->SetValidateLabel(msg);
         }else{
-            zWarning("Cannot set validation for dataRow: "+validation.name);
+            zWarning("Cannot set validation for dataRow: "+validation.name());
         }
     }
 }
@@ -179,4 +182,5 @@ void DataForm::AddWidget(QWidget *w)
     ui->verticalLayout->addWidget(w);
     //w->setLayout(ui->verticalLayout);    
 }
+
 

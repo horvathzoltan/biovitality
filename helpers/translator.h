@@ -29,6 +29,7 @@ public:
     class Validation{
     public:
         void* CannotConvert;
+        void* NoConverterRegisteredFrom;
     };
 
     class Address{

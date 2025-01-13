@@ -47,14 +47,24 @@ public:
 };
 
 struct MetaValidationMessage{
-    QString name;
-    QString wcode;
-    QString value;
+private:
+    QString _name;
+    QString _wcode;
+   // QString _value;
+    QString _logMessage;
 
 public:
-    QString ToString(){
-        return wcode+": "+name+"="+value;
+    MetaValidationMessage(const QString& name, const QString& wcode, const QString& logMessage)
+    {
+        _name = name;
+        _wcode = wcode;
+        _logMessage = logMessage;
     }
+
+    QString logMessage(){return _logMessage;}
+    QString name(){return _name;}
+    QString wcode(){return _wcode;}
+
 };
 
 #endif // METAVALUE_H

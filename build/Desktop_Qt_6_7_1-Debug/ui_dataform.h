@@ -31,7 +31,7 @@ public:
     {
         if (DataForm->objectName().isEmpty())
             DataForm->setObjectName("DataForm");
-        DataForm->resize(400, 68);
+        DataForm->resize(960, 68);
         verticalLayout_2 = new QVBoxLayout(DataForm);
         verticalLayout_2->setObjectName("verticalLayout_2");
         verticalLayout = new QVBoxLayout();
@@ -51,8 +51,8 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(buttonBox->sizePolicy().hasHeightForWidth());
         buttonBox->setSizePolicy(sizePolicy);
-        buttonBox->setOrientation(Qt::Horizontal);
-        buttonBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
+        buttonBox->setOrientation(Qt::Orientation::Horizontal);
+        buttonBox->setStandardButtons(QDialogButtonBox::StandardButton::Cancel|QDialogButtonBox::StandardButton::Ok);
 
         verticalLayout_2->addWidget(buttonBox);
 

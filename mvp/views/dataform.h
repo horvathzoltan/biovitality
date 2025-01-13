@@ -23,13 +23,16 @@ public:
 
         bool isValid(){return validations.isEmpty();}
 
-        QStringList Get_ValidationMessages()
+        QStringList Get_LogMessages()
         {
             QStringList e;
             for(MetaValidationMessage&a:validations)
             {
-                QString msg = a.ToString();
-                e.append(msg);
+                QString msg = a.logMessage();
+                if(!msg.isEmpty())
+                {
+                    e.append(msg);
+                }
             }
             return e;
         }

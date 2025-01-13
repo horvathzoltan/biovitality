@@ -64,4 +64,10 @@ void Translator::Init()
     Add_tr("hu", WCodes::Address::excelId , "ExcelId ID");
     Add_tr("hu", WCodes::Address::countyId , "Megye");
     Add_tr("hu", WCodes::Address::countryId , "Ország");
+
+    Add_tr("hu", WCodes::Validation::CannotConvert , "Az érték nem konvertálható");
+    Add_tr("hu", WCodes::Validation::NoConverterRegisteredFrom , "Nincs regisztrált konverter");
+
+
+
 }
