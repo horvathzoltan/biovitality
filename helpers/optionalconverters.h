@@ -27,7 +27,17 @@ public:
     static QVariant OptionalTypeToQVariant(const std::optional<T> &v);
 
     template<typename T>
-    static void Register();
+    static void RegisterQVariant();
+
+    //
+    template<typename T>
+    static void RegisterQString();
+
+    template<typename T>
+    static std::optional<T> QStringToType(const QString &v);
+
+    template<typename T>
+    static QString OptionalTypeToQString(const std::optional<T> &v);
 };
 
 #endif // OPTIONALCONVERTERS_H

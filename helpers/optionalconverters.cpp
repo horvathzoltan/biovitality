@@ -18,48 +18,36 @@ void OptionalConverters::RegisterAll()
     _toOpt.insert(QMetaType::Type::UShort, qRegisterMetaType<std::optional<quint16>>());
     _toOpt.insert(QMetaType::Type::UChar, qRegisterMetaType<std::optional<quint8>>());
 
-    //_toOpt.insert(QMetaType::Type::QReal, qRegisterMetaType<std::optional<qreal>>());
     _toOpt.insert(QMetaType::Type::Double, qRegisterMetaType<std::optional<double>>());
     _toOpt.insert(QMetaType::Type::Float, qRegisterMetaType<std::optional<float>>());
 
-    Register<bool>();
 
-    Register<quint64>();
-    Register<quint32>();
-    Register<quint16>();
-    Register<quint8>();
+    RegisterQVariant<bool>();
 
-    Register<qint64>();
-    Register<qint32>();
-    Register<qint16>();
-    Register<qint8>();
+    RegisterQVariant<quint64>();
+    RegisterQVariant<quint32>();
+    RegisterQVariant<quint16>();
+    RegisterQVariant<quint8>();
 
-    Register<double>();
-    Register<float>();
+    RegisterQVariant<qint64>();
+    RegisterQVariant<qint32>();
+    RegisterQVariant<qint16>();
+    RegisterQVariant<qint8>();
 
-    //quint64
-    // QMetaType::registerConverter<QVariant, std::optional<quint64>>(
-    //     &OptionalConverters::QVariantToOptionalQuint64);
-    // QMetaType::registerConverter<std::optional<quint64>, QVariant>(
-    //     &OptionalConverters::OptionalQuint64ToQVariant);
+    RegisterQVariant<double>();
+    RegisterQVariant<float>();
 
-    //quint64
-    // QMetaType::registerConverter<QVariant, std::optional<quint64>>(
-    //     &OptionalConverters::QVariantToType<quint64>);
-    // QMetaType::registerConverter<std::optional<quint64>, QVariant>(
-    //     &OptionalConverters::OptionalTypeToQVariant<quint64>);
 
-    //quint32
-    // QMetaType::registerConverter<QVariant, std::optional<quint32>>(
-    //     &OptionalConverters::QVariantToType<quint32>);
-    // QMetaType::registerConverter<std::optional<quint32>, QVariant>(
-    //     &OptionalConverters::OptionalTypeToQVariant<quint32>);
+    // _toOpt.insert(QMetaType::Type::QString, qRegisterMetaType<std::optional<qint64>>());
+     _toOpt.insert(QMetaType::Type::QString, qRegisterMetaType<std::optional<qint32>>());
+    // _toOpt.insert(QMetaType::Type::QString, qRegisterMetaType<std::optional<qint16>>());
+    // _toOpt.insert(QMetaType::Type::QString, qRegisterMetaType<std::optional<qint8>>());
 
-    //int
-    // QMetaType::registerConverter<QVariant, std::optional<qint32>>(
-    //     &OptionalConverters::QVariantToType<qint32>);
-    // QMetaType::registerConverter<std::optional<qint32>, QVariant>(
-    //      &OptionalConverters::OptionalTypeToQVariant<qint32>);
+    // RegisterQString<qint64>();
+     RegisterQString<qint32>();
+    // RegisterQString<qint16>();
+    // RegisterQString<qint8>();
+
 }
 
 int OptionalConverters::ToNullable_MetaTypeId(int k)
@@ -68,25 +56,9 @@ int OptionalConverters::ToNullable_MetaTypeId(int k)
     return _toOpt.value(k);
 }
 
-// std::optional<quint64> OptionalConverters::QVariantToOptionalQuint64(const QVariant &v)
-// {
-//     if(!v.isValid()) return std::optional<quint64>();
-//     if(v.isNull()) return std::optional<quint64>();
-//     bool ok;
-//     qulonglong e = v.toULongLong(&ok);
-//     return (ok)?std::optional<quint64>(e):std::optional<quint64>();
-// }
-
-// QVariant OptionalConverters::OptionalQuint64ToQVariant(const std::optional<quint64> &v)
-// {
-//     if(!v.has_value()) return {};
-//     return QVariant(v.value());
-// }
-
-
 
 template<typename T>
-void OptionalConverters::Register(){
+void OptionalConverters::RegisterQVariant(){
     QMetaType::registerConverter<QVariant, std::optional<T>>(
         &OptionalConverters::QVariantToType<T>);
     QMetaType::registerConverter<std::optional<T>, QVariant>(
@@ -122,5 +94,47 @@ QVariant OptionalConverters::OptionalTypeToQVariant(const std::optional<T> &v)
 {
     if(!v.has_value()) return {};
     QVariant r = QVariant(v.value());
+    return r;
+}
+
+//string
+
+template<typename T>
+void OptionalConverters::RegisterQString(){
+    QMetaType::registerConverter<QString, std::optional<T>>(
+        &OptionalConverters::QStringToType<T>);
+    QMetaType::registerConverter<std::optional<T>, QString>(
+        &OptionalConverters::OptionalTypeToQString<T>);
+}
+
+template<typename T>
+std::optional<T> OptionalConverters::QStringToType(const QString &v)
+{
+    if(v.isEmpty()) return std::optional<T>();
+
+    QMetaType qvm = QMetaType(QMetaType::QString);//v.metaType();
+    QMetaType f_type = QMetaType::fromType<T>();
+
+    bool cc = QMetaType::canConvert(qvm, f_type);
+    if(cc){
+        T e;
+        bool ok = QMetaType::convert(qvm, v.constData(), f_type, &e);
+        if(!ok) return std::optional<T>();
+        auto r = std::optional<T>(e);
+        return r;
+    }
+
+    QString msg = QStringLiteral("Cannot convert QString from ")
+                  +qvm.name()+" to "+ f_type.name();
+    zWarning(msg);
+    return {};
+}
+
+template<typename T>
+QString OptionalConverters::OptionalTypeToQString(const std::optional<T> &v)
+{
+    if(!v.has_value()) return {};
+    T x = v.value();
+    QString r = QString::number(x);
     return r;
 }

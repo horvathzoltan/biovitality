@@ -368,6 +368,8 @@ bool SqlRepository<T>::Check()
         zInfo(QStringLiteral("tableExists: ") + (tableExists ? "ok" : "failed"));
 
         fieldsExists = repo->isFieldsExists();
+
+        zInfo(QStringLiteral("fieldsExists: ") + (fieldsExists ? "ok" : "failed"));
     } else{
         zInfo(QStringLiteral("no TypeName: ") + repo->tableName());
     }
