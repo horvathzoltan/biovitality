@@ -36,6 +36,7 @@ SqlRecordHelper::SqlColumn SqlRecordHelper::SqlColumn::Parse(const QSqlRecord &r
 
     int t = MariaDBType_ToMetaTypeId(m.type);
     if(m.null=="yes"){
+        // todo 001 a varchar nullable nem jelent ám automatikusan optional<int> -et
         int t2 = OptionalConverters::ToNullable_MetaTypeId(t);
         m._metaTypeId = (t2==-1)?t:t2;
     } else{
