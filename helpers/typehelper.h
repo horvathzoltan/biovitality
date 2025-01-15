@@ -17,6 +17,8 @@ public:
         Q_UNUSED(l)
         return key;
     }
+
+    static int ToNullable(int);
 };
 
 #endif // TYPEHELPER_H

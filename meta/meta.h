@@ -354,59 +354,54 @@ public:
     T FromMetaValues(const QList<MetaValue>& metaValues){
         T s;
         for(auto&m:metaValues){
-            // if(m.metaField_name == "alimedCode"){
-            //      zInfo("alimedCode megvan");
-            // }
+            if(m.metaField_name == "postalCode"){
+                  zInfo("postalCode megvan");
+            }
             MetaField* f = GetMetaField(m.metaField_name);
             if(f){
                 char* ptr = f->GetPtr((char*)&s);
                 auto typeId = f->type.id();
 
                 if(typeId==QMetaType::QVariant){
-                    qWarning("Do not use QVariant in model!");
-                    // két QVariantot underlying type alapján
-                    // QMetaType qvm = m.value.metaType();
-                    // QVariant* ptr2 = (QVariant*)ptr;
-                    // QMetaType mt = ptr2->metaType();
-                    // QVariant a(m.value);
-                    // bool cc = a.canConvert(mt);
-                    // if(cc){
-                    //     bool ok = a.convert(mt);
-                    //     if(ok)
-                    //     {
-                    //         ptr2->setValue(a);
-                    //     }
-                    // } else{
-                    //     QString msg = QStringLiteral("No converter registered from ")
-                    //     +qvm.name()+" to "+ f->type.name();
-                    //     zWarning(msg);
-                    // }
-                    //zInfo("alimedCode megvan");
-                } else if(typeId<QMetaType::User){
-                    // QVariant értékét underlying típusba
-                    // fromtype, from, totype, to
+                    qWarning("Do not use QVariant in model!");                  
+                }
+                else if(typeId < QMetaType::User)
+                {
+                    // mivel a konverter QMetaTypeok közt működik
+                    // ha a qvariant egyszerű típusú értéket tárol
+                    // QVariant értékét kell átadni a konverternek
+                    // kell konvertálni
                     QMetaType qvm = m.value.metaType();
+
+                    QString msg2 = QString(qvm.name())+" to "+ f->type.name();
+
                     bool cc = QMetaType::canConvert(qvm, f->type);
                     if(cc)
                     {
                         QMetaType::convert(qvm, m.value.constData(), f->type, ptr);
                     } else{
-                        QString msg = QStringLiteral("No converter registered from ")
-                                      +qvm.name()+" to "+ f->type.name();
+                        QString msg = QStringLiteral("No converter registered from ") +msg2;
                         zWarning(msg);
                     }
-                } else{
-                    //std::optional *e;
-                    //user type
-                    // QVariantot user típusba
+                }
+                else
+                {
+                    // mivel a konverter QMetaTypeok közt működik
+                    // és mivel az optionalból qvariantot csinálunk
+                    // ezért a qvariantot MAGÁT kell átadni a konverternek
+                    // QVariant értékű QVariantoit user típusba
                     QMetaType qvm = QMetaType(QMetaType::QVariant);
+
+                    QMetaType qvm2 = m.value.metaType();
+
+                    QString msg2 = QString(qvm.name())+"("+qvm2.name()+") to "+ f->type.name();
+
                     bool cc = QMetaType::canConvert(qvm, f->type);
                     if(cc)
                     {
                         QMetaType::convert(qvm, &m.value, f->type, ptr);
                     } else{
-                        QString msg = QStringLiteral("No converter registered from ")
-                        +qvm.name()+" to "+ f->type.name();
+                        QString msg = QStringLiteral("No converter registered from ") +msg2;
                         zWarning(msg);
                     }
                 }

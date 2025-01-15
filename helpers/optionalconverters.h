@@ -3,9 +3,7 @@
 
 #include <optional>
 #include "helpers/logger.h"
-#include "qtypes.h"
 #include "qvariant.h"
-
 
 class OptionalConverters
 {
@@ -13,12 +11,6 @@ public:
     OptionalConverters();
     void RegisterAll();
 
-    //static QMap<int, int> _toOpt;
-
-    //static int ToNullable_MetaTypeId(int k);
-
-//    static std::optional<quint64> QVariantToOptionalQuint64(const QVariant& v);
-//    static QVariant OptionalQuint64ToQVariant(const std::optional<quint64>& v);
 
     template<typename T>
     static std::optional<T> QVariantToType(const QVariant &v);
@@ -27,7 +19,7 @@ public:
     static QVariant OptionalTypeToQVariant(const std::optional<T> &v);
 
     template<typename T>
-    static void RegisterConverter_QVariant();
+    static void Register_OptionalConverter_QVariant();
 
     //
     template<typename T>

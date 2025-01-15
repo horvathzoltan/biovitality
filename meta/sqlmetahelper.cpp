@@ -12,7 +12,23 @@ QList<MetaValue> SqlMetaHelper::RecordToMetaValues(const QSqlRecord& r)
     for(int i=0;i<L;i++){
         QSqlField f = r.field(i);
         RefType refType = RefType::None;
-        MetaValue v(f.name(), "", f.metaType(), refType);
+
+        QMetaType t;
+        if(f.requiredStatus() == QSqlField::Required)
+        {
+            t = f.metaType();
+        }
+        else if (f.requiredStatus() == QSqlField::Optional)
+        {
+            int id = f.metaType().id();
+            int nid = TypeHelper::ToNullable(id);
+            t = QMetaType(nid);
+        }
+        else
+        {
+            t = f.metaType();
+        }
+        MetaValue v(f.name(), "", t, refType);
         //v.name = f.name();
         v.value = f.value();
         m.append(v);

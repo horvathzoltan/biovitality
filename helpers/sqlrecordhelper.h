@@ -52,8 +52,6 @@
 
 
      };
-
-    static int ToNullable(int);
  };
 
  #endif // SQLRECORDHELPER_H

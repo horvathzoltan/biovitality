@@ -21,36 +21,41 @@ void OptionalConverters::RegisterAll()
     qRegisterMetaType<std::optional<double>>();
     qRegisterMetaType<std::optional<float>>();
 
-    RegisterConverter_QVariant<bool>();
+    //QVariant converters
+    Register_OptionalConverter_QVariant<bool>();
 
-    RegisterConverter_QVariant<quint64>();
-    RegisterConverter_QVariant<quint32>();
-    RegisterConverter_QVariant<quint16>();
-    RegisterConverter_QVariant<quint8>();
+    Register_OptionalConverter_QVariant<quint64>();
+    Register_OptionalConverter_QVariant<quint32>();
+    Register_OptionalConverter_QVariant<quint16>();
+    Register_OptionalConverter_QVariant<quint8>();
 
-    RegisterConverter_QVariant<qint64>();
-    RegisterConverter_QVariant<qint32>();
-    RegisterConverter_QVariant<qint16>();
-    RegisterConverter_QVariant<qint8>();
+    Register_OptionalConverter_QVariant<qint64>();
+    Register_OptionalConverter_QVariant<qint32>();
+    Register_OptionalConverter_QVariant<qint16>();
+    Register_OptionalConverter_QVariant<qint8>();
 
-    RegisterConverter_QVariant<double>();
-    RegisterConverter_QVariant<float>();
+    Register_OptionalConverter_QVariant<double>();
+    Register_OptionalConverter_QVariant<float>();
 
+    //QString converters
+    RegisterConverter_QString<bool>();
 
+    RegisterConverter_QString<qint64>();
+    RegisterConverter_QString<qint32>();
+    RegisterConverter_QString<qint16>();
+    RegisterConverter_QString<qint8>();
 
-     RegisterConverter_QString<qint32>();
+    RegisterConverter_QString<quint64>();
+    RegisterConverter_QString<quint32>();
+    RegisterConverter_QString<quint16>();
+    RegisterConverter_QString<quint8>();
 
+    RegisterConverter_QString<double>();
+    RegisterConverter_QString<float>();
 }
 
-// int OptionalConverters::ToNullable_MetaTypeId(int k)
-// {
-//     if(!_toOpt.contains(k)) return -1;
-//     return _toOpt.value(k);
-// }
-
-
 template<typename T>
-void OptionalConverters::RegisterConverter_QVariant(){
+void OptionalConverters::Register_OptionalConverter_QVariant(){
     QMetaType::registerConverter<QVariant, std::optional<T>>(
         &OptionalConverters::QVariantToType<T>);
     QMetaType::registerConverter<std::optional<T>, QVariant>(
@@ -63,9 +68,17 @@ std::optional<T> OptionalConverters::QVariantToType(const QVariant &v)
     if(!v.isValid()) return std::optional<T>();
     if(v.isNull()) return std::optional<T>();
 
-    QMetaType qvm = v.metaType();
-    QMetaType f_type = QMetaType::fromType<T>();
+    QMetaType qvm = v.metaType();    
+    QMetaType o_type = QMetaType::fromType<std::optional<T>>();
 
+    // saját típusát kell visszaadni
+    if(qvm == o_type) {
+        std::optional<T> a = v.value<std::optional<T>>();
+        return a;
+    }
+
+    // más egyéb típusról kell konvertálni
+    QMetaType f_type = QMetaType::fromType<T>();
     bool cc = QMetaType::canConvert(qvm, f_type);
     if(cc){
         T e;

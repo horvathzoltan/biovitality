@@ -1,6 +1,8 @@
 #include "sqlrecordhelper.h"
-#include "sqlhelper.h"
-#include "optionalconverters.h"
+#include "typehelper.h"
+#include "helpers/logger.h"
+//#include "sqlhelper.h"
+//#include "optionalconverters.h"
 
 #include <QRegularExpression>
 #include <QSqlField>
@@ -40,7 +42,7 @@ SqlRecordHelper::SqlColumn SqlRecordHelper::SqlColumn::Parse(const QSqlRecord &r
         // todo 001c4 a varchar nullable nem jelent ám automatikusan optional<int> -et
         //int t2 = OptionalConverters::ToNullable_MetaTypeId(t);
         //int metaTypeId_Nullable = ToNullable(metaTypeId);
-        m._metaTypeId = ToNullable(metaTypeId);//(metaTypeId_Nullable == -1)?metaTypeId:metaTypeId_Nullable;
+        m._metaTypeId = TypeHelper::ToNullable(metaTypeId);//(metaTypeId_Nullable == -1)?metaTypeId:metaTypeId_Nullable;
     } else{
          m._metaTypeId = metaTypeId;
     }
@@ -127,36 +129,7 @@ int SqlRecordHelper::ColumnModel::MariaDBType_ToMetaTypeId()
     return -1;
 }
 
-int SqlRecordHelper::ToNullable(int typeId)
-{
-    if(typeId == QMetaType::Type::Bool) return qMetaTypeId<std::optional<bool>>();
 
-    if(typeId == QMetaType::Type::LongLong) return qMetaTypeId<std::optional<qint64>>();
-    if(typeId == QMetaType::Type::Int) return qMetaTypeId<std::optional<qint32>>();
-    if(typeId == QMetaType::Type::Short) return qMetaTypeId<std::optional<qint16>>();
-    if(typeId == QMetaType::Type::Char) return qMetaTypeId<std::optional<qint8>>();
-
-    if(typeId == QMetaType::Type::ULongLong) return qMetaTypeId<std::optional<quint64>>();
-    if(typeId == QMetaType::Type::UInt) return qMetaTypeId<std::optional<quint32>>();
-    if(typeId == QMetaType::Type::UShort) return qMetaTypeId<std::optional<quint16>>();
-    if(typeId == QMetaType::Type::UChar) return qMetaTypeId<std::optional<quint8>>();
-
-    if(typeId == QMetaType::Type::Double) return qMetaTypeId<std::optional<double>>();
-    if(typeId == QMetaType::Type::Float) return qMetaTypeId<std::optional<float>>();
-
-    if(typeId == QMetaType::Type::QString) return QMetaType::Type::QString;
-    if(typeId == QMetaType::Type::QDateTime) return QMetaType::Type::QDateTime;
-
-    QString msg = "ToNullable not implements conversion to typeId: "+QString::number(typeId);
-
-    QMetaType t = QMetaType(typeId);
-    if(t.isValid())
-    {
-        msg += QStringLiteral(" ")+t.name();
-    }
-    zWarning(msg);
-    return -1;
-}
 
 
 
