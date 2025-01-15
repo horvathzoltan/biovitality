@@ -34,13 +34,15 @@ SqlRecordHelper::SqlColumn SqlRecordHelper::SqlColumn::Parse(const QSqlRecord &r
     m._default = GetValueToString(r, "Default").toLower();
     m.extra = GetValueToString(r, "Extra").toLower();
 
-    int t = MariaDBType_ToMetaTypeId(m.type);
+    int metaTypeId = MariaDBType_ToMetaTypeId(m.type);
+
     if(m.null=="yes"){
-        // todo 001 a varchar nullable nem jelent ám automatikusan optional<int> -et
-        int t2 = OptionalConverters::ToNullable_MetaTypeId(t);
-        m._metaTypeId = (t2==-1)?t:t2;
+        // todo 001c4 a varchar nullable nem jelent ám automatikusan optional<int> -et
+        //int t2 = OptionalConverters::ToNullable_MetaTypeId(t);
+        //int metaTypeId_Nullable = ToNullable(metaTypeId);
+        m._metaTypeId = ToNullable(metaTypeId);//(metaTypeId_Nullable == -1)?metaTypeId:metaTypeId_Nullable;
     } else{
-         m._metaTypeId = t;
+         m._metaTypeId = metaTypeId;
     }
 
     return m;
@@ -69,26 +71,7 @@ int SqlRecordHelper::SqlColumn::IndexOf(const QList<SqlColumn> &columns, const Q
 }
 
 int SqlRecordHelper::SqlColumn::MariaDBType_ToMetaTypeId(const QString &typeNameLength)
-{
-    /*
-    F(Double, 6, double) \
-    F(Long, 32, long) \
-    F(Short, 33, short) \
-    F(Char, 34, char) \
-    F(Char16, 56, char16_t) \
-    F(Char32, 57, char32_t) \
-    F(ULong, 35, ulong) \
-    F(UShort, 36, ushort) \
-    F(UChar, 37, uchar) \
-    F(Float, 38, float) \
-    F(SChar, 40, signed char) \
-    F(Nullptr, 51, std::nullptr_t) \
-    F(QCborSimpleType, 52, QCborSimpleType) \
-     */
-    // QString name;
-    // QString length;
-    // QString modifier;
-
+{   
     QRegularExpression r(R"(^(?:([\w]+)(?:\(([\d,.]+)\))?)(?:\s*([\w\ ]*))$)");
 
     auto m = r.match(typeNameLength);
@@ -98,11 +81,12 @@ int SqlRecordHelper::SqlColumn::MariaDBType_ToMetaTypeId(const QString &typeName
                            m.captured(2),
                            m.captured(3));
 
-        return column.GetMetaTypeId();
+        return column.MariaDBType_ToMetaTypeId();
     }
 
     return -1;
 }
+
 
 QString SqlRecordHelper::SqlColumn::ToString()
 {
@@ -119,7 +103,7 @@ SqlRecordHelper::ColumnModel::ColumnModel(const QString &n, const QString &l, co
     _name = n; _length = l; _modifier = m;
 }
 
-int SqlRecordHelper::ColumnModel::GetMetaTypeId()
+int SqlRecordHelper::ColumnModel::MariaDBType_ToMetaTypeId()
 {
     if(_name == "bool") return QMetaType::Type::Bool;
     if(_name == "int"){
@@ -139,8 +123,42 @@ int SqlRecordHelper::ColumnModel::GetMetaTypeId()
     if(_name == "double") return QMetaType::Type::Double;
     if(_name == "float") return QMetaType::Type::Float;
 
+    zWarning("MariaDBType_ToMetaTypeId not implements conversion to type: "+_name);
     return -1;
 }
+
+int SqlRecordHelper::ToNullable(int typeId)
+{
+    if(typeId == QMetaType::Type::Bool) return qMetaTypeId<std::optional<bool>>();
+
+    if(typeId == QMetaType::Type::LongLong) return qMetaTypeId<std::optional<qint64>>();
+    if(typeId == QMetaType::Type::Int) return qMetaTypeId<std::optional<qint32>>();
+    if(typeId == QMetaType::Type::Short) return qMetaTypeId<std::optional<qint16>>();
+    if(typeId == QMetaType::Type::Char) return qMetaTypeId<std::optional<qint8>>();
+
+    if(typeId == QMetaType::Type::ULongLong) return qMetaTypeId<std::optional<quint64>>();
+    if(typeId == QMetaType::Type::UInt) return qMetaTypeId<std::optional<quint32>>();
+    if(typeId == QMetaType::Type::UShort) return qMetaTypeId<std::optional<quint16>>();
+    if(typeId == QMetaType::Type::UChar) return qMetaTypeId<std::optional<quint8>>();
+
+    if(typeId == QMetaType::Type::Double) return qMetaTypeId<std::optional<double>>();
+    if(typeId == QMetaType::Type::Float) return qMetaTypeId<std::optional<float>>();
+
+    if(typeId == QMetaType::Type::QString) return QMetaType::Type::QString;
+    if(typeId == QMetaType::Type::QDateTime) return QMetaType::Type::QDateTime;
+
+    QString msg = "ToNullable not implements conversion to typeId: "+QString::number(typeId);
+
+    QMetaType t = QMetaType(typeId);
+    if(t.isValid())
+    {
+        msg += QStringLiteral(" ")+t.name();
+    }
+    zWarning(msg);
+    return -1;
+}
+
+
 
 // int SqlRecordHelper::ColumnModel::ToNullableTypeId(int t){
 //     //if(QMetaType::Type::Bool) return OptionalConverters::

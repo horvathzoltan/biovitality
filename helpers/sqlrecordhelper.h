@@ -8,7 +8,7 @@
  class SqlRecordHelper
  {
  public:
-     struct SqlColumn{
+    struct SqlColumn{
     private:
          QString field;
          QString type;
@@ -25,8 +25,7 @@
 
          static int IndexOf(const QList<SqlRecordHelper::SqlColumn>& columns, const QString& fieldName);
 
-         static int MariaDBType_ToMetaTypeId(const QString& typeName);
-         //static int ToNullableTypeId(int n);
+         static int MariaDBType_ToMetaTypeId(const QString& typeName);                  
 
          QString ToString();
      };
@@ -49,8 +48,12 @@
                      const QString&l,
                      const QString& m);
 
-         int GetMetaTypeId();
+         int MariaDBType_ToMetaTypeId();
+
+
      };
+
+    static int ToNullable(int);
  };
 
  #endif // SQLRECORDHELPER_H

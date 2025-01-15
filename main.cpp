@@ -65,12 +65,12 @@ auto main(int argc, char *argv[]) -> int
             {
              "QMARIADB",
              "biovitality",
-             "172.16.1.62", 3306,
+             "172.16.1.250", 3306,
              "zoli", "Aladar123"
             });
         _globals._settings.SetMonitoringSettings(
             {
-                "192.168.1.192", 8081
+                "172.16.1.250", 8081
             });
     }
 

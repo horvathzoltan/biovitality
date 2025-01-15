@@ -24,14 +24,14 @@ public:
     
     // ez megy ki az UI felé
     MetaValue GetMetaValue(char* s){
-        // todo 001a a megyére [5] invalid qvariant row widget keletkezik
+        // todo 001c3 a megyére [5] invalid qvariant row widget keletkezik
 
         // if(name == "countyId")
         // {
         //       zInfo("countyId");
         //  }
         MetaValue mv(name, wcode, type, refType);
-        // todo 001b a megyére az optional int mivel nincs értéke, invalid qvariant lesz az eredmény, és a row widget is invalid lesz
+        // todo 001c2 a megyére az optional int mivel nincs értéke, invalid qvariant lesz az eredmény, és a row widget is invalid lesz
         //és elvész a típus - a metavalueba kell egy metatype mező
         mv.value = GetValue(s);
         return mv;

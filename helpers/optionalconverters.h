@@ -13,9 +13,9 @@ public:
     OptionalConverters();
     void RegisterAll();
 
-    static QMap<int, int> _toOpt;
+    //static QMap<int, int> _toOpt;
 
-    static int ToNullable_MetaTypeId(int k);
+    //static int ToNullable_MetaTypeId(int k);
 
 //    static std::optional<quint64> QVariantToOptionalQuint64(const QVariant& v);
 //    static QVariant OptionalQuint64ToQVariant(const std::optional<quint64>& v);
@@ -27,11 +27,11 @@ public:
     static QVariant OptionalTypeToQVariant(const std::optional<T> &v);
 
     template<typename T>
-    static void RegisterQVariant();
+    static void RegisterConverter_QVariant();
 
     //
     template<typename T>
-    static void RegisterQString();
+    static void RegisterConverter_QString();
 
     template<typename T>
     static std::optional<T> QStringToType(const QString &v);
