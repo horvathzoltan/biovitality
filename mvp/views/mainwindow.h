@@ -34,11 +34,14 @@ public:
     template<typename T>
     QString get_CSVFileName();
 
+    void Translate();
+
 signals:
     void PushButtonActionTriggered(IMainView *sender) override;
     //add
     void Add_SoldItem_ActionTriggered(IMainView *sender) override;
     void Add_Address_ActionTriggered(IMainView *sender) override;
+    void Update_Address_ActionTriggered(IMainView *sender) override;
     //import
     void TetelImport_ActionTriggered(IMainView *sender) override;    
     void CimImport_ActionTriggered(IMainView *sender) override;
@@ -70,5 +73,6 @@ private slots:
     void on_pushButton_ArticleImport_clicked();
     void on_pushButton_CoutntyImport_clicked();
     void on_pushButton_AddressCreate_clicked();
+    void on_pushButton_AddressUpdate_clicked();
 };
 #endif // MAINWINDOW_H

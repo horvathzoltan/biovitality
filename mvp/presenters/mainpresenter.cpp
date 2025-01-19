@@ -21,7 +21,7 @@
 #include "infrastructure/globals.h"
 
 
-#include "helpers/filehelper.h"
+//#include "helpers/filehelper.h"
 #include "helpers/sqlhelper.h"
 
 #include "mvp/models/county.h"
@@ -32,7 +32,7 @@
 #include "repositories/sqlrepository.h"
 
 #include "meta/csv_sqlhelper.h"
-#include "meta/sqlmetahelper.h"
+//#include "meta/sqlmetahelper.h"
 
 
 extern Globals _globals;
@@ -67,6 +67,9 @@ void MainPresenter::appendView(IMainView *w)
     // UI Form Add Address
     QObject::connect(view_obj, SIGNAL(Add_Address_ActionTriggered(IMainView *)),
                      this, SLOT(process_Add_AddressAction(IMainView *)));
+
+    QObject::connect(view_obj, SIGNAL(Update_Address_ActionTriggered(IMainView *)),
+                     this, SLOT(process_Update_AddressAction(IMainView *)));
 
     // CSV_Import SoldItem - Tetel
     QObject::connect(view_obj, SIGNAL(TetelImport_ActionTriggered(IMainView *)),
@@ -175,13 +178,13 @@ void MainPresenter::Error(const QSqlError& err)
 void MainPresenter::process_Add_SoldItem_AcceptAction(QUuid opId)
 {
     zTrace();
-    process_Add_AcceptAction<SoldItem>(opId);
+    process_CreateUpdate_AcceptAction<SoldItem>(opId);
 }
 
-void MainPresenter::process_Add_Address_AcceptAction(QUuid opId)
+void MainPresenter::process_CreateUpdate_Address_AcceptAction(QUuid opId)
 {
     zTrace();
-    process_Add_AcceptAction<Address>(opId);
+    process_CreateUpdate_AcceptAction<Address>(opId);
 }
 
 void MainPresenter::process_DoneAction(QUuid opId, int r){
@@ -191,7 +194,7 @@ void MainPresenter::process_DoneAction(QUuid opId, int r){
 
 
 template<typename T>
-void MainPresenter::process_Add_AcceptAction(QUuid opId)
+void MainPresenter::process_CreateUpdate_AcceptAction(QUuid opId)
 {
     zTrace();
 
@@ -210,7 +213,11 @@ void MainPresenter::process_Add_AcceptAction(QUuid opId)
 
             if(repo)
             {
-                repo->Add(data);
+                if(b->amType == AddModel_Type::Create){
+                    repo->Add(data);
+                } else if(b->amType == AddModel_Type::Update){
+                    repo->Update(data);
+                };
             }
         }
         else{
@@ -226,6 +233,20 @@ void MainPresenter::process_Add_AcceptAction(QUuid opId)
 void MainPresenter::process_Add_AddressAction(IMainView *sender){
     zTrace();
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
+    CreateUpdate_Address(opId, AddModel_Type::Create);
+}
+
+void MainPresenter::process_Update_AddressAction(IMainView *sender){
+    zTrace();
+    QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
+    CreateUpdate_Address(opId, AddModel_Type::Update);
+}
+
+void MainPresenter::CreateUpdate_Address(QUuid opId, AddModel_Type amType)
+{
+    OperationModel *a = Operations::instance().data(opId);
+    AddModel<Address> *b = reinterpret_cast<AddModel<Address>*>(a);
+    b->amType = amType;
 
     auto addressRepo = _globals._repositories.address;
     bool connected = _globals._helpers._sqlHelper.TryConnect();
@@ -249,8 +270,7 @@ void MainPresenter::process_Add_AddressAction(IMainView *sender){
 
             model->dataForm = new DataForm(opId);
 
-            //QString title = _tr(GetWCode(WCodes::AddSoldItem));
-            QString title = _tr(WCodes::AddAddress);
+            QString title = GetOpname(b->amType)+": "+_tr(WCodes::Address);
             model->dataForm->setWindowTitle(title);
 
             //referenciákat lekérjük id alapján
@@ -272,15 +292,21 @@ void MainPresenter::process_Add_AddressAction(IMainView *sender){
             model->dataForm->show();
 
             QObject::connect(model->dataForm, SIGNAL(AcceptActionTriggered(QUuid)),
-                              this, SLOT(process_Add_Address_AcceptAction(QUuid)));
+                             this, SLOT(process_CreateUpdate_Address_AcceptAction(QUuid)));
 
             QObject::connect(model->dataForm, SIGNAL(DoneActionTriggered(QUuid, int)),
                              this, SLOT(process_DoneAction(QUuid, int)));
+
         }
-    }    
+    }
 }
 
-
+QString MainPresenter::GetOpname(AddModel_Type amType)
+{
+    if(amType == AddModel_Type::Create) return _tr(WCodes::AddNew);
+    if(amType == AddModel_Type::Update) return _tr(WCodes::Update);
+    return "unknown";
+}
 
 
 void MainPresenter::process_Add_SoldItemAction(IMainView *sender){
@@ -305,7 +331,8 @@ void MainPresenter::process_Add_SoldItemAction(IMainView *sender){
     model->dataForm = new DataForm(opId);
 
     //QString title = _tr(GetWCode(WCodes::AddSoldItem));
-    QString title = _tr(WCodes::AddSoldItem);
+
+    QString title = _tr(WCodes::AddNew)+": "+_tr(WCodes::SoldItem);
     model->dataForm->setWindowTitle(title);
 
     SoldItem data;

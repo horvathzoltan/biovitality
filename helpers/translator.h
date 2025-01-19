@@ -8,8 +8,12 @@ namespace _WC_
 {
 class WCodes{
 public:
-    void* AddSoldItem;
-    void* AddAddress;
+    //void* AddSoldItem;
+    //void* AddAddress;
+    void* AddNew;
+    void* Import;
+    void* Update;
+
     class SoldItem{
     public:
         void* id;
@@ -32,6 +36,11 @@ public:
         void* NoConverterRegisteredFrom;
     };
 
+    class Article{};
+    class County{};
+    class Country{};
+    class Partner{};
+
     class Address{
     public:
         void* id;
@@ -42,8 +51,11 @@ public:
         void* countyId;
         void* countryId;
     };
-};
-}
+
+
+}; // class WCodes
+} // namespace _WC_
+
 
 #define GetWCode(b) TypeHelper::GetTypeName_(QStringLiteral(#b), sizeof(_WC_::b))
 #define Add_tr(a, b, c) AddTranslation_(a, GetWCode(b), c)

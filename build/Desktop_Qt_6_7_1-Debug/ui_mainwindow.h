@@ -44,9 +44,10 @@ public:
     QPushButton *pushButton_ArticleImport;
     QPushButton *pushButton_CoutntyImport;
     QPushButton *pushButton_CountryImpot;
-    QGroupBox *groupBox_2;
+    QGroupBox *groupBox_Address;
     QHBoxLayout *horizontalLayout_5;
     QPushButton *pushButton_AddressCreate;
+    QPushButton *pushButton_AddressUpdate;
     QSpacerItem *horizontalSpacer_4;
     QPushButton *pushButton_AddressImport;
     QSpacerItem *verticalSpacer;
@@ -137,26 +138,31 @@ public:
 
         verticalLayout->addWidget(groupBox_Import);
 
-        groupBox_2 = new QGroupBox(centralwidget);
-        groupBox_2->setObjectName("groupBox_2");
-        horizontalLayout_5 = new QHBoxLayout(groupBox_2);
+        groupBox_Address = new QGroupBox(centralwidget);
+        groupBox_Address->setObjectName("groupBox_Address");
+        horizontalLayout_5 = new QHBoxLayout(groupBox_Address);
         horizontalLayout_5->setObjectName("horizontalLayout_5");
-        pushButton_AddressCreate = new QPushButton(groupBox_2);
+        pushButton_AddressCreate = new QPushButton(groupBox_Address);
         pushButton_AddressCreate->setObjectName("pushButton_AddressCreate");
 
         horizontalLayout_5->addWidget(pushButton_AddressCreate);
+
+        pushButton_AddressUpdate = new QPushButton(groupBox_Address);
+        pushButton_AddressUpdate->setObjectName("pushButton_AddressUpdate");
+
+        horizontalLayout_5->addWidget(pushButton_AddressUpdate);
 
         horizontalSpacer_4 = new QSpacerItem(761, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
 
         horizontalLayout_5->addItem(horizontalSpacer_4);
 
-        pushButton_AddressImport = new QPushButton(groupBox_2);
+        pushButton_AddressImport = new QPushButton(groupBox_Address);
         pushButton_AddressImport->setObjectName("pushButton_AddressImport");
 
         horizontalLayout_5->addWidget(pushButton_AddressImport);
 
 
-        verticalLayout->addWidget(groupBox_2);
+        verticalLayout->addWidget(groupBox_Address);
 
         verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Expanding);
 
@@ -207,14 +213,15 @@ public:
         groupBox->setTitle(QCoreApplication::translate("MainWindow", "T\303\251tel", nullptr));
         pushButton_AddSoldItem->setText(QCoreApplication::translate("MainWindow", "Hozz\303\241ad\303\241s", nullptr));
         pushButton_TetelImport->setText(QCoreApplication::translate("MainWindow", "Import", nullptr));
-        groupBox_Import->setTitle(QCoreApplication::translate("MainWindow", "T\303\266rzs Import", nullptr));
+        groupBox_Import->setTitle(QCoreApplication::translate("MainWindow", "MainDataImport", nullptr));
         pushButton_PartnerImport->setText(QCoreApplication::translate("MainWindow", "Partner Import", nullptr));
         pushButton_ArticleImport->setText(QCoreApplication::translate("MainWindow", "Cikk Import", nullptr));
         pushButton_CoutntyImport->setText(QCoreApplication::translate("MainWindow", "Megye Import", nullptr));
         pushButton_CountryImpot->setText(QCoreApplication::translate("MainWindow", "Orsz\303\241g Import", nullptr));
-        groupBox_2->setTitle(QCoreApplication::translate("MainWindow", "C\303\255m", nullptr));
-        pushButton_AddressCreate->setText(QCoreApplication::translate("MainWindow", "PushButton", nullptr));
-        pushButton_AddressImport->setText(QCoreApplication::translate("MainWindow", "Import", nullptr));
+        groupBox_Address->setTitle(QCoreApplication::translate("MainWindow", "address", nullptr));
+        pushButton_AddressCreate->setText(QCoreApplication::translate("MainWindow", "create", nullptr));
+        pushButton_AddressUpdate->setText(QCoreApplication::translate("MainWindow", "update", nullptr));
+        pushButton_AddressImport->setText(QCoreApplication::translate("MainWindow", "import", nullptr));
         pushButton_ToClipBoard->setText(QCoreApplication::translate("MainWindow", "ToClipBoard", nullptr));
         pushButton_ToLogFile->setText(QCoreApplication::translate("MainWindow", "ToLogFile", nullptr));
     } // retranslateUi

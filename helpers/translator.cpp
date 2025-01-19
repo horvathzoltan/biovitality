@@ -33,18 +33,20 @@ QString Translator::Translate(const QString &key)
 
 void Translator::Init()
 {
-    Add_tr("hu", WCodes::AddSoldItem, "Új számla tétel hozzáadása");
+    //Add_tr("hu", WCodes::AddSoldItem, "Új számla tétel hozzáadása");
+
+    Add_tr("hu", WCodes::AddNew , "Új hozzáadása");
+    Add_tr("hu", WCodes::Update , "Módosítás");
+    Add_tr("hu", WCodes::Import , "Import");
 
     Add_tr("hu", WCodes::SoldItem, "Számla tétel");
     Add_tr("hu", WCodes::SoldItem::id , "ID");
     Add_tr("hu", WCodes::SoldItem::partnerName , "Partner neve");
-
     Add_tr("hu", WCodes::SoldItem::partnerHq , "Székhelye");
     Add_tr("hu", WCodes::SoldItem::county , "Megye");
     Add_tr("hu", WCodes::SoldItem::fullfillment , "Teljesítés");
     Add_tr("hu", WCodes::SoldItem::accountNr , "Számlaszám");
     Add_tr("hu", WCodes::SoldItem::productName , "Termék megnevezése");
-
     Add_tr("hu", WCodes::SoldItem::units , "Darab");
     Add_tr("hu", WCodes::SoldItem::unitPrice , "Egységár");
     Add_tr("hu", WCodes::SoldItem::unitCurrency , "Eá. Pénznem");
@@ -54,7 +56,7 @@ void Translator::Init()
 
     Add_tr("hu", WCodes::SoldItem::excelId , "Excel ID");
 
-    Add_tr("hu", WCodes::AddAddress, "Új cím hozzáadása");
+    //Add_tr("hu", WCodes::AddAddress, "Új cím hozzáadása");
 
     Add_tr("hu", WCodes::Address, "Cím");
     Add_tr("hu", WCodes::Address::id , "ID");
@@ -67,6 +69,11 @@ void Translator::Init()
 
     Add_tr("hu", WCodes::Validation::CannotConvert , "Az érték nem konvertálható");
     Add_tr("hu", WCodes::Validation::NoConverterRegisteredFrom , "Nincs regisztrált konverter");
+
+    Add_tr("hu", WCodes::Article , "Cikk");
+    Add_tr("hu", WCodes::County , "Megye");
+    Add_tr("hu", WCodes::Country , "Ország");
+    Add_tr("hu", WCodes::Partner , "Partner");
 
 
 

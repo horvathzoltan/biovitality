@@ -85,7 +85,7 @@
     <item>
      <widget class="QGroupBox" name="groupBox_Import">
       <property name="title">
-       <string>Törzs Import</string>
+       <string>MainDataImport</string>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_4">
        <item>
@@ -133,15 +133,22 @@
      </widget>
     </item>
     <item>
-     <widget class="QGroupBox" name="groupBox_2">
+     <widget class="QGroupBox" name="groupBox_Address">
       <property name="title">
-       <string>Cím</string>
+       <string>address</string>
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_5">
        <item>
         <widget class="QPushButton" name="pushButton_AddressCreate">
          <property name="text">
-          <string>PushButton</string>
+          <string>create</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="pushButton_AddressUpdate">
+         <property name="text">
+          <string>update</string>
          </property>
         </widget>
        </item>
@@ -161,7 +168,7 @@
        <item>
         <widget class="QPushButton" name="pushButton_AddressImport">
          <property name="text">
-          <string>Import</string>
+          <string>import</string>
          </property>
         </widget>
        </item>

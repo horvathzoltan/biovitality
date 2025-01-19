@@ -16,13 +16,17 @@ class OperationModel{
 
 };
 
+enum AddModel_Type{ Create, Update };
+
 template<class T>
 class AddModel: public OperationModel
 {
-public:
+public:    
     //QUuid opId
     T data;
     DataForm* dataForm;
+
+    AddModel_Type amType;
 };
 
 class Operations :public Singleton<Operations>
@@ -36,6 +40,7 @@ public:
         QString name;
 
         OperationModel* _data;
+
     };
 private:
     QMap<QUuid, Operation> _operations;

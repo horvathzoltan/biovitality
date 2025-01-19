@@ -8,19 +8,43 @@
 
 //#include "imainview.h"
 #include "infrastructure/settings.h"
+#include "infrastructure/globals.h"
 
 #include "helpers/filenamehelper.h"
+#include "helpers/translator.h"
+
+extern Globals _globals;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
       , ui(new Ui::MainWindow)
 {
-    ui->setupUi(this);   
+    ui->setupUi(this);
+    Translate();
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::Translate()
+{
+    //import
+    ui->groupBox_Import->setTitle(_tr(WCodes::Import));
+    ui->pushButton_ArticleImport->setText(_tr(WCodes::Article));
+    ui->pushButton_CountryImpot->setText(_tr(WCodes::Country));
+    ui->pushButton_CoutntyImport->setText(_tr(WCodes::County));
+    ui->pushButton_PartnerImport->setText(_tr(WCodes::Partner));
+    //address
+    ui->groupBox_Address->setTitle(_tr(WCodes::Address));
+    ui->pushButton_AddressCreate->setText(_tr(WCodes::AddNew));
+    ui->pushButton_AddressUpdate->setText(_tr(WCodes::Update));
+    ui->pushButton_AddressImport->setText(_tr(WCodes::Import));
+    //solditem
+    ui->pushButton_AddSoldItem->setText(_tr(WCodes::AddNew));
+    ui->pushButton_TetelImport->setText(_tr(WCodes::Import));
+    //ui->pushButton_UpdateSoldItem->setText(_tr(WCodes::Update));
 }
 
 void MainWindow::set_DoWorkRModel(const MainViewModel::StringModel& m)
@@ -220,8 +244,9 @@ void MainWindow::on_pushButton_ToLogFile_clicked()
 }
 
 
-
-
-
-
+void MainWindow::on_pushButton_AddressUpdate_clicked()
+{
+    zTrace();
+    emit Update_Address_ActionTriggered(this);
+}
 

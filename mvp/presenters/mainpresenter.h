@@ -8,7 +8,8 @@
 #include <QObject>
 #include <QSqlError>
 #include <QUuid>
-#include <meta/meta.h>
+#include "bi/operations.h"
+#include "meta/meta.h"
 //#include "helpers/sqlhelper.h"
 #include "mvp/viewinterfaces/imainview.h"
 #include "presenter.h"
@@ -60,7 +61,11 @@ private:
     }
 
     template<typename T>
-    void process_Add_AcceptAction(QUuid opId);
+    void process_CreateUpdate_AcceptAction(QUuid opId);
+
+    void CreateUpdate_Address(QUuid opId, AddModel_Type amType);
+
+    QString GetOpname(AddModel_Type amType);
 
 private slots:
     void processPushButtonAction(IMainView *sender);
@@ -72,7 +77,9 @@ private slots:
     void process_DoneAction(QUuid opId, int r);
     // Add Address
     void process_Add_AddressAction(IMainView *sender);
-    void process_Add_Address_AcceptAction(QUuid opId);
+    void process_Update_AddressAction(IMainView *sender);
+
+    void process_CreateUpdate_Address_AcceptAction(QUuid opId);
 
     // CSV Import Tétel
     void process_TetelImport_Action(IMainView *sender);
