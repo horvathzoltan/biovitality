@@ -495,7 +495,7 @@ QString SQLHelper::GetFieldNames_UPDATE(const QList<SQLHelper::SQLParam>& params
     for(auto&a:params){
         if(a.fieldName.toLower()=="id") continue;
         if(!e.isEmpty()) e+=",";
-        e+=a.fieldName+"=: "+a.paramName;
+        e+=a.fieldName+"=:"+a.paramName;
     }
     return e;
 }

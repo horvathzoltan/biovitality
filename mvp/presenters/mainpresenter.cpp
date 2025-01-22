@@ -233,70 +233,80 @@ void MainPresenter::process_CreateUpdate_AcceptAction(QUuid opId)
 void MainPresenter::process_Add_AddressAction(IMainView *sender){
     zTrace();
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
-    CreateUpdate_Address(opId, AddModel_Type::Create);
+
+    AddModel<Address>* model = new AddModel<Address>();
+    model->amType = AddModel_Type::Create;
+    Operations::instance().setData(opId, model);
+
+    CreateUpdate_Address(opId);
 }
 
 void MainPresenter::process_Update_AddressAction(IMainView *sender){
     zTrace();
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
-    CreateUpdate_Address(opId, AddModel_Type::Update);
+
+    AddModel<Address>* model = new AddModel<Address>();
+    model->amType = AddModel_Type::Update;
+    Operations::instance().setData(opId, model);
+
+    CreateUpdate_Address(opId);
 }
 
-void MainPresenter::CreateUpdate_Address(QUuid opId, AddModel_Type amType)
+void MainPresenter::CreateUpdate_Address(QUuid opId)
 {
     OperationModel *a = Operations::instance().data(opId);
-    AddModel<Address> *b = reinterpret_cast<AddModel<Address>*>(a);
-    b->amType = amType;
+    AddModel<Address> *model = reinterpret_cast<AddModel<Address>*>(a);
 
-    auto addressRepo = _globals._repositories.address;
-    bool connected = _globals._helpers._sqlHelper.TryConnect();
-    if(connected)
+    if(model)
     {
-        bool isRepoOk = SqlRepository<Address>::Check();
-        bool ref1Ok_County = CheckRef(Address, countyId, County);
-        bool ref2Ok_County = CheckRef(Address, county2Id, County);
-        bool ref3Ok_County = CheckRef(Address, county3Id, County);
 
-        bool refOk_Country = CheckRef(Address, countryId, Country);
 
-        bool valid = isRepoOk
-                     && ref1Ok_County && ref2Ok_County && ref3Ok_County
-                     && refOk_Country ;
-        if(valid)
+        auto addressRepo = _globals._repositories.address;
+        bool connected = _globals._helpers._sqlHelper.TryConnect();
+        if(connected)
         {
-            AddModel<Address>* model = new AddModel<Address>();
+            bool isRepoOk = SqlRepository<Address>::Check();
+            bool ref1Ok_County = CheckRef(Address, countyId, County);
+            bool ref2Ok_County = CheckRef(Address, county2Id, County);
+            bool ref3Ok_County = CheckRef(Address, county3Id, County);
 
-            Operations::instance().setData(opId, model);
+            bool refOk_Country = CheckRef(Address, countryId, Country);
 
-            model->dataForm = new DataForm(opId);
+            bool valid = isRepoOk
+                         && ref1Ok_County && ref2Ok_County && ref3Ok_County
+                         && refOk_Country ;
+            if(valid)
+            {
+                model->dataForm = new DataForm(opId);
 
-            QString title = GetOpname(b->amType)+": "+_tr(WCodes::Address);
-            model->dataForm->setWindowTitle(title);
+                QString title = GetOpname(model->amType)+": "+_tr(WCodes::Address);
+                model->dataForm->setWindowTitle(title);
 
-            //referenciákat lekérjük id alapján
-            Address data = _globals._repositories.address.Get(2);
-            model->data = data;
-            QList<MetaValue> m = Address::Meta().ToMetaValues(&data);
-            model->dataForm->setMetaValues(m);
+                //referenciákat lekérjük id alapján
+                Address data = _globals._repositories.address.Get(2);
+                model->data = data;
+                QList<MetaValue> m = Address::Meta().ToMetaValues(&data);
+                model->dataForm->setMetaValues(m);
 
-            DataRowDefaultModel countyRows = Get_DataRowDefaultModel(Address, countyId, County);
-            DataRowDefaultModel county2Rows = Copy_DataRowDefaultModel(countyRows, Address, county2Id);
-            DataRowDefaultModel county3Rows = Copy_DataRowDefaultModel(countyRows, Address, county3Id);
+                DataRowDefaultModel countyRows = Get_DataRowDefaultModel(Address, countyId, County);
+                DataRowDefaultModel county2Rows = Copy_DataRowDefaultModel(countyRows, Address, county2Id);
+                DataRowDefaultModel county3Rows = Copy_DataRowDefaultModel(countyRows, Address, county3Id);
 
-            DataRowDefaultModel countryRows = Get_DataRowDefaultModel(Address, countryId, Country);
+                DataRowDefaultModel countryRows = Get_DataRowDefaultModel(Address, countryId, Country);
 
-            QList<DataRowDefaultModel> defaults {countyRows, county2Rows, county3Rows, countryRows};
+                QList<DataRowDefaultModel> defaults {countyRows, county2Rows, county3Rows, countryRows};
 
-            model->dataForm->SetDataRowDefaults(defaults);
+                model->dataForm->SetDataRowDefaults(defaults);
 
-            model->dataForm->show();
+                model->dataForm->show();
 
-            QObject::connect(model->dataForm, SIGNAL(AcceptActionTriggered(QUuid)),
-                             this, SLOT(process_CreateUpdate_Address_AcceptAction(QUuid)));
+                QObject::connect(model->dataForm, SIGNAL(AcceptActionTriggered(QUuid)),
+                                 this, SLOT(process_CreateUpdate_Address_AcceptAction(QUuid)));
 
-            QObject::connect(model->dataForm, SIGNAL(DoneActionTriggered(QUuid, int)),
-                             this, SLOT(process_DoneAction(QUuid, int)));
+                QObject::connect(model->dataForm, SIGNAL(DoneActionTriggered(QUuid, int)),
+                                 this, SLOT(process_DoneAction(QUuid, int)));
 
+            }
         }
     }
 }

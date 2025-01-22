@@ -63,7 +63,7 @@ private:
     template<typename T>
     void process_CreateUpdate_AcceptAction(QUuid opId);
 
-    void CreateUpdate_Address(QUuid opId, AddModel_Type amType);
+    void CreateUpdate_Address(QUuid opId);
 
     QString GetOpname(AddModel_Type amType);
 
