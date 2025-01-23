@@ -35,7 +35,7 @@ public:
     ~DataRowWidget();
 
     QString name(){return _metaValue.metaField_name;}
-    void SetDataRowDefault(const QList<IdMegnev>& v){_defaultValues = v;}
+    void SetDataRowDefault(const QList<IdMegnev>& v);
 
     // QStringList GetDefaultValue_ByName_Start(const QString& txt);
     // QStringList GetDefaultValue_ByName_Contains(const QString& txt);

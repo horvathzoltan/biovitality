@@ -53,12 +53,13 @@ DataRowWidget::DataRowWidget(const MetaValue &m, int w, bool isLight, int autoCo
     _label->setAutoFillBackground(true);
     _label->update();
 */
+
     //LineEdit
     _edit = new QLineEdit();
     f1 = _label->font();
     f1.setPointSize(10);
     _edit->setFont(f1);
-    _edit->setText(m.value.toString());
+
     _edit->setFrame(false);
 
     _edit->setGeometry(QRect(0, 0, e1_width, height));
@@ -88,9 +89,13 @@ DataRowWidget::DataRowWidget(const MetaValue &m, int w, bool isLight, int autoCo
 
     if(_metaValue.refType == RefType::R_1N){
         pal.setColor(_idLabel->backgroundRole(), color3_1N);
+        _idLabel->setText(m.value.toString());
     }
     else if(_metaValue.refType == RefType::R_NM){
         pal.setColor(_idLabel->backgroundRole(), color3_NM);
+    }
+    else if(_metaValue.refType == RefType::None){
+         _edit->setText(m.value.toString());
     }
     else{
         pal.setColor(_label->backgroundRole(), color3);
@@ -181,6 +186,13 @@ DataRowWidget::~DataRowWidget()
     delete(_edit);
     delete(_validateLabel);
     delete(_spacer);
+}
+
+void DataRowWidget::SetDataRowDefault(const QList<IdMegnev> &v)
+{
+    // todo 001 ami a value, az az id, ha 1:N és akkor ide azt a textet kell tenni ami az
+    // de nem kellene úgy tenni, mintha begépeltük volna, nem kell a changed event
+    _defaultValues = v;
 }
 
 void DataRowWidget::on_textEdited(const QString &text){

@@ -259,8 +259,6 @@ void MainPresenter::CreateUpdate_Address(QUuid opId)
 
     if(model)
     {
-
-
         auto addressRepo = _globals._repositories.address;
         bool connected = _globals._helpers._sqlHelper.TryConnect();
         if(connected)
@@ -283,9 +281,20 @@ void MainPresenter::CreateUpdate_Address(QUuid opId)
                 model->dataForm->setWindowTitle(title);
 
                 //referenciákat lekérjük id alapján
-                Address data = _globals._repositories.address.Get(2);
-                model->data = data;
-                QList<MetaValue> m = Address::Meta().ToMetaValues(&data);
+
+                if(model->amType == AddModel_Type::Update)
+                {
+
+                    Address data = _globals._repositories.address.Get(2);
+                    model->data = data;
+                } else{
+                    Address data;
+                    model->data = data;
+                }
+
+                // ez a mezők neveit és azok típusát tartalmazza
+                // referencia esetén a value a hivatkozott id,
+                QList<MetaValue> m = Address::Meta().ToMetaValues(&model->data);
                 model->dataForm->setMetaValues(m);
 
                 DataRowDefaultModel countyRows = Get_DataRowDefaultModel(Address, countyId, County);

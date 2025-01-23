@@ -138,7 +138,8 @@ void DataForm::setMetaValues(QList<MetaValue> m)
 
     int i = 0;
     for (MetaValue &metaValue : m) {
-        DataRowWidget *w = new DataRowWidget(metaValue, w0, i++%2==0, _globals._settings._autoComplete_millisec);
+        bool isDarkRow = i++%2==0;
+        DataRowWidget *w = new DataRowWidget(metaValue, w0, isDarkRow, _globals._settings._autoComplete_millisec);
         AddWidget(w);
     }
 }
