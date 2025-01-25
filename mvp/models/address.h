@@ -22,8 +22,8 @@ public:
     std::optional<int> countyId; // ref megye
 
     // többszörös hivatkozás teszt
-    std::optional<int> county2Id; // ref megye
-    std::optional<int> county3Id; // ref megye
+//    std::optional<int> county2Id; // ref megye
+//    std::optional<int> county3Id; // ref megye
 
     std::optional<int> countryId; // ref a country-ra az id-n keresztül
     //QString houseNumber;  // házszám - a cím utolsó tagja

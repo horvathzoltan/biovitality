@@ -265,13 +265,13 @@ void MainPresenter::CreateUpdate_Address(QUuid opId)
         {
             bool isRepoOk = SqlRepository<Address>::Check();
             bool ref1Ok_County = CheckRef(Address, countyId, County);
-            bool ref2Ok_County = CheckRef(Address, county2Id, County);
-            bool ref3Ok_County = CheckRef(Address, county3Id, County);
+            //bool ref2Ok_County = CheckRef(Address, county2Id, County);
+            //bool ref3Ok_County = CheckRef(Address, county3Id, County);
 
             bool refOk_Country = CheckRef(Address, countryId, Country);
 
             bool valid = isRepoOk
-                         && ref1Ok_County && ref2Ok_County && ref3Ok_County
+                         && ref1Ok_County //&& ref2Ok_County && ref3Ok_County
                          && refOk_Country ;
             if(valid)
             {
@@ -298,12 +298,12 @@ void MainPresenter::CreateUpdate_Address(QUuid opId)
                 model->dataForm->setMetaValues(m);
 
                 DataRowDefaultModel countyRows = Get_DataRowDefaultModel(Address, countyId, County);
-                DataRowDefaultModel county2Rows = Copy_DataRowDefaultModel(countyRows, Address, county2Id);
-                DataRowDefaultModel county3Rows = Copy_DataRowDefaultModel(countyRows, Address, county3Id);
+                //DataRowDefaultModel county2Rows = Copy_DataRowDefaultModel(countyRows, Address, county2Id);
+                //DataRowDefaultModel county3Rows = Copy_DataRowDefaultModel(countyRows, Address, county3Id);
 
                 DataRowDefaultModel countryRows = Get_DataRowDefaultModel(Address, countryId, Country);
 
-                QList<DataRowDefaultModel> defaults {countyRows, county2Rows, county3Rows, countryRows};
+                QList<DataRowDefaultModel> defaults {countyRows, countryRows};//county2Rows, county3Rows,
 
                 model->dataForm->SetDataRowDefaults(defaults);
 

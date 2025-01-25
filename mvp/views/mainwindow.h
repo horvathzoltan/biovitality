@@ -74,5 +74,6 @@ private slots:
     void on_pushButton_CoutntyImport_clicked();
     void on_pushButton_AddressCreate_clicked();
     void on_pushButton_AddressUpdate_clicked();
+    void on_pushButton_AddressList_clicked();
 };
 #endif // MAINWINDOW_H

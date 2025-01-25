@@ -190,9 +190,21 @@ DataRowWidget::~DataRowWidget()
 
 void DataRowWidget::SetDataRowDefault(const QList<IdMegnev> &v)
 {
-    // todo 001 ami a value, az az id, ha 1:N és akkor ide azt a textet kell tenni ami az
-    // de nem kellene úgy tenni, mintha begépeltük volna, nem kell a changed event
     _defaultValues = v;
+
+    QList<IdMegnev>::const_iterator it =
+        std::find_if(v.begin(), v.end(), [&](const IdMegnev &a) {return a.id == _metaValue.value.toInt();});
+
+    if(it!=v.end()){
+        _edit->setText(it->name);
+    }
+
+    // for(auto&a:v){
+    //     if(a.id == _metaValue.value.toInt()){
+    //         _edit->setText(a.name);
+    //         return;
+    //     }
+    // }
 }
 
 void DataRowWidget::on_textEdited(const QString &text){

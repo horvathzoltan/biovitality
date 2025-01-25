@@ -141,7 +141,7 @@ bool SqlRepository<T>::Update(const T &m)
     //     zWarning(msg);
     // }
 
-    zInfo("records updated: "+QString::number(rm.recordCount()));
+    zInfo("records updated: "+QString::number(rm.rowsAffected));
     return rm.isOk;
 }
 
@@ -160,7 +160,7 @@ bool SqlRepository<T>::Add(const T &m){
     //     zWarning(msg);
     // }
 
-    zInfo("records inserted: "+QString::number(rm.recordCount()));
+    zInfo("records inserted: "+QString::number(rm.rowsAffected));
     return rm.isOk;
 }
 

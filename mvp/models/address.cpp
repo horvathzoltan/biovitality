@@ -21,8 +21,8 @@ void Address::MetaInit()
     AddMetaField(excelId);
 
     AddMetaField(countyId);
-    AddMetaField(county2Id);
-    AddMetaField(county3Id);
+    //AddMetaField(county2Id);
+    //AddMetaField(county3Id);
 
     AddMetaField(countryId);
 
@@ -35,16 +35,16 @@ void Address::MetaInit()
 
 void Address::AddRefs(){    
     _meta.AddMetaReference_1N(Address, countyId, County, id);
-    _meta.AddMetaReference_1N(Address, county2Id, County, id);
-    _meta.AddMetaReference_1N(Address, county3Id, County, id);
+    //_meta.AddMetaReference_1N(Address, county2Id, County, id);
+    //_meta.AddMetaReference_1N(Address, county3Id, County, id);
 
     _meta.AddMetaReference_1N(Address, countryId, Country, id);
 }
 
 void Address::DeleteRefs(){
     _meta.DeleteMetaReference(Address, countyId, County);
-    _meta.DeleteMetaReference(Address, county2Id, County);
-    _meta.DeleteMetaReference(Address, county3Id, County);
+    //_meta.DeleteMetaReference(Address, county2Id, County);
+    //_meta.DeleteMetaReference(Address, county3Id, County);
 
     _meta.DeleteMetaReference(Address, countryId, Country);
 }

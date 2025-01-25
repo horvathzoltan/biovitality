@@ -121,9 +121,9 @@ public:
             return true;
         }
 
-        int recordCount(){
-            return records.count();
-        }                
+        // int recordCount(){
+        //     return records.count();
+        // }
 
        //  QString ToString(){
        //      if(!isOk){
