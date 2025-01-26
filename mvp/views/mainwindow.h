@@ -42,6 +42,10 @@ signals:
     void Add_SoldItem_ActionTriggered(IMainView *sender) override;
     void Add_Address_ActionTriggered(IMainView *sender) override;
     void Update_Address_ActionTriggered(IMainView *sender) override;
+
+    // list
+    void AddressList_ActionTriggered(IMainView *sender) override;
+
     //import
     void TetelImport_ActionTriggered(IMainView *sender) override;    
     void CimImport_ActionTriggered(IMainView *sender) override;

@@ -254,6 +254,6 @@ void MainWindow::on_pushButton_AddressUpdate_clicked()
 void MainWindow::on_pushButton_AddressList_clicked()
 {
     zTrace();
-    emit Update_Address_ActionTriggered(this);
+    emit AddressList_ActionTriggered(this);
 }
 

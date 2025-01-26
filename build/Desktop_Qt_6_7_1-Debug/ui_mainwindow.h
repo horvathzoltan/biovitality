@@ -48,6 +48,7 @@ public:
     QHBoxLayout *horizontalLayout_5;
     QPushButton *pushButton_AddressCreate;
     QPushButton *pushButton_AddressUpdate;
+    QPushButton *pushButton_AddressList;
     QSpacerItem *horizontalSpacer_4;
     QPushButton *pushButton_AddressImport;
     QSpacerItem *verticalSpacer;
@@ -152,6 +153,11 @@ public:
 
         horizontalLayout_5->addWidget(pushButton_AddressUpdate);
 
+        pushButton_AddressList = new QPushButton(groupBox_Address);
+        pushButton_AddressList->setObjectName("pushButton_AddressList");
+
+        horizontalLayout_5->addWidget(pushButton_AddressList);
+
         horizontalSpacer_4 = new QSpacerItem(761, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
 
         horizontalLayout_5->addItem(horizontalSpacer_4);
@@ -221,6 +227,7 @@ public:
         groupBox_Address->setTitle(QCoreApplication::translate("MainWindow", "address", nullptr));
         pushButton_AddressCreate->setText(QCoreApplication::translate("MainWindow", "create", nullptr));
         pushButton_AddressUpdate->setText(QCoreApplication::translate("MainWindow", "update", nullptr));
+        pushButton_AddressList->setText(QCoreApplication::translate("MainWindow", "AddressList", nullptr));
         pushButton_AddressImport->setText(QCoreApplication::translate("MainWindow", "import", nullptr));
         pushButton_ToClipBoard->setText(QCoreApplication::translate("MainWindow", "ToClipBoard", nullptr));
         pushButton_ToLogFile->setText(QCoreApplication::translate("MainWindow", "ToLogFile", nullptr));

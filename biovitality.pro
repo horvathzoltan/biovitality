@@ -31,6 +31,7 @@ SOURCES += \
     mvp/models/invoiceitems.cpp \
     mvp/models/partner.cpp \
     mvp/models/solditem.cpp \
+    mvp/views/datalistform.cpp \
     repositories/sqlrepository.cpp \
     infrastructure/buildnumber.cpp \
     mvp/views/dataform.cpp \
@@ -75,6 +76,7 @@ HEADERS += \
     mvp/models/modelinterfaces.h \
     mvp/models/partner.h \
     mvp/viewinterfaces/iview.h \
+    mvp/views/datalistform.h \
     patterns/singleton.h \
     meta/csvhelper.h \
     meta/sqlmetahelper.h \
@@ -114,6 +116,7 @@ HEADERS += \
 
 FORMS += \
     mvp/views/dataform.ui \
+    mvp/views/datalistform.ui \
     mvp/views/mainwindow.ui
 
 # Default rules for deployment.

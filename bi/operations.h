@@ -4,6 +4,7 @@
 #include "mvp/models/solditem.h"
 #include "helpers/logger.h"
 #include "mvp/views/dataform.h"
+#include "mvp/views/datalistform.h"
 #include "mvp/presenters/presenter.h"
 
 #include <QString>
@@ -25,6 +26,17 @@ public:
     //QUuid opId
     T data;
     DataForm* dataForm;
+
+    AddModel_Type amType;
+};
+
+template<class T>
+class ListModel: public OperationModel
+{
+public:
+    //QUuid opId
+    QList<T> data;
+    DataListForm* dataListForm;
 
     AddModel_Type amType;
 };

@@ -29,6 +29,7 @@
 #include "mvp/models/solditem.h"
 #include "mvp/models/address.h"
 
+#include "mvp/views/datalistform.h"
 #include "repositories/sqlrepository.h"
 
 #include "meta/csv_sqlhelper.h"
@@ -78,6 +79,9 @@ void MainPresenter::appendView(IMainView *w)
     // CSV_Import Address - Cím
     QObject::connect(view_obj, SIGNAL(CimImport_ActionTriggered(IMainView *)),
                      this, SLOT(process_CimImport_Action(IMainView *)));
+
+    QObject::connect(view_obj, SIGNAL(AddressList_ActionTriggered(IMainView *)),
+                     this, SLOT(process_AddressList_Action(IMainView *)));
 
     //CSV_Import Country - Ország
     QObject::connect(view_obj, SIGNAL(CountryImport_ActionTriggered(IMainView *)),
@@ -327,7 +331,6 @@ QString MainPresenter::GetOpname(AddModel_Type amType)
     return "unknown";
 }
 
-
 void MainPresenter::process_Add_SoldItemAction(IMainView *sender){
     zTrace();
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
@@ -531,6 +534,7 @@ void MainPresenter::process_ArticleImport_Action(IMainView *sender)
     }
     Operations::instance().stop(opId);
 }
+
 /*
     bool connected = _globals._helpers._sqlHelper.TryConnect();
     if(connected)
@@ -589,4 +593,87 @@ void MainPresenter::Import_private(const MainViewModel::FileNameModel& fn,
         } else{
             zInfo("cancelled");
         }   
+}
+
+///
+void MainPresenter::process_AddressList_Action(IMainView *sender)
+{
+    zTrace();
+    QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
+
+    ListModel<Address>* model = new ListModel<Address>();
+    model->amType = AddModel_Type::Update;
+    Operations::instance().setData(opId, model);
+
+    List_Address(opId);
+}
+
+void MainPresenter::List_Address(QUuid opId)
+{
+    OperationModel *a = Operations::instance().data(opId);
+    ListModel<Address> *model = reinterpret_cast<ListModel<Address>*>(a);
+
+    if(model)
+    {
+        auto addressRepo = _globals._repositories.address;
+        bool connected = _globals._helpers._sqlHelper.TryConnect();
+        if(connected)
+        {
+            bool isRepoOk = SqlRepository<Address>::Check();
+            bool ref1Ok_County = CheckRef(Address, countyId, County);
+            //bool ref2Ok_County = CheckRef(Address, county2Id, County);
+            //bool ref3Ok_County = CheckRef(Address, county3Id, County);
+
+            bool refOk_Country = CheckRef(Address, countryId, Country);
+
+            bool valid = isRepoOk
+                         && ref1Ok_County //&& ref2Ok_County && ref3Ok_County
+                         && refOk_Country ;
+            if(valid)
+            {
+                model->dataListForm = new DataListForm(opId);
+
+                QString title = _tr(WCodes::List)+": "+_tr(WCodes::Address);
+                model->dataListForm->setWindowTitle(title);
+
+                //referenciákat lekérjük id alapján
+
+                QList<Address> data = _globals._repositories.address.GetAll();
+
+                // if(model->amType == AddModel_Type::Update)
+                // {
+
+                //     Address data = _globals._repositories.address.Get(2);
+                //     model->data = data;
+                // } else{
+                //     Address data;
+                     model->data = data;
+                // }
+
+                // ez a mezők neveit és azok típusát tartalmazza
+                // referencia esetén a value a hivatkozott id,
+                QList<QList<MetaValue>> m = Address::Meta().ToMetaValueList(&model->data);
+                model->dataListForm->setMetaValueList(m);
+
+                DataRowDefaultModel countyRows = Get_DataRowDefaultModel(Address, countyId, County);
+                //DataRowDefaultModel county2Rows = Copy_DataRowDefaultModel(countyRows, Address, county2Id);
+                //DataRowDefaultModel county3Rows = Copy_DataRowDefaultModel(countyRows, Address, county3Id);
+
+                // DataRowDefaultModel countryRows = Get_DataRowDefaultModel(Address, countryId, Country);
+
+                // QList<DataRowDefaultModel> defaults {countyRows, countryRows};//county2Rows, county3Rows,
+
+                //     model->dataListForm->SetDataRowDefaults(defaults);
+
+                model->dataListForm->show();
+
+                // QObject::connect(model->dataListForm, SIGNAL(AcceptActionTriggered(QUuid)),
+                //                  this, SLOT(process_CreateUpdate_Address_AcceptAction(QUuid)));
+
+                // QObject::connect(model->dataListForm, SIGNAL(DoneActionTriggered(QUuid, int)),
+                //                  this, SLOT(process_DoneAction(QUuid, int)));
+
+            }
+        }
+    }
 }

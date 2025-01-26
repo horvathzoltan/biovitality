@@ -421,6 +421,18 @@ public:
         return m;
     }
 
+    QList<QList<MetaValue>> ToMetaValueList(QList<T>* values){
+        QList<QList<MetaValue>> e;
+        if(values){
+            for(T&a:*values)
+            {
+                QList<MetaValue> m = ToMetaValues(&a);
+                e.append(m);
+            }
+        }
+        return e;
+    }
+
     QList<SQLHelper::SQLParam> ToSQLParams(const T* s){
         QList<SQLHelper::SQLParam> m;
         if(s){

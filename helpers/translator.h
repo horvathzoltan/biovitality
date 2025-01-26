@@ -13,6 +13,7 @@ public:
     void* AddNew;
     void* Import;
     void* Update;
+    void* List;
 
     class SoldItem{
     public:

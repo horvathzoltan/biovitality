@@ -67,6 +67,8 @@ private:
 
     QString GetOpname(AddModel_Type amType);
 
+    void List_Address(QUuid opId);
+
 private slots:
     void processPushButtonAction(IMainView *sender);
     void processDBTestAction(IMainView *sender);
@@ -92,6 +94,8 @@ private slots:
     void process_CountyImport_Action(IMainView *sender);
     // CSV Imort cikk
     void process_ArticleImport_Action(IMainView *sender);
+
+    void process_AddressList_Action(IMainView *sender);
 };
 
 #endif // MAINPRESENTER_H

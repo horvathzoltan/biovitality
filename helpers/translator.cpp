@@ -38,6 +38,7 @@ void Translator::Init()
     Add_tr("hu", WCodes::AddNew , "Új hozzáadása");
     Add_tr("hu", WCodes::Update , "Módosítás");
     Add_tr("hu", WCodes::Import , "Import");
+    Add_tr("hu", WCodes::List , "Lista");
 
     Add_tr("hu", WCodes::SoldItem, "Számla tétel");
     Add_tr("hu", WCodes::SoldItem::id , "ID");
