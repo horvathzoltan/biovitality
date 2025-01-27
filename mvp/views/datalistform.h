@@ -1,6 +1,7 @@
 #ifndef DATALISTFORM_H
 #define DATALISTFORM_H
 
+#include "meta/meta.h"
 #include "meta/metavalue.h"
 #include <QDialog>
 #include <QUuid>
@@ -18,12 +19,14 @@ public:
     ~DataListForm();
 
     void setMetaValueList(QList<QList<MetaValue>> m);
-
+    
+    void SetDataRowDefaults(QList<DataRowDefaultModel>);
 private:
     Ui::DataListForm *ui;
     QUuid _opId;
 
+    QMap<QString,int> _metaFieldColumnMap;
+    QList<int> _refColumnIxs;
 
 };
-
 #endif // DATALISTFORM_H

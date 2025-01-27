@@ -659,11 +659,11 @@ void MainPresenter::List_Address(QUuid opId)
                 //DataRowDefaultModel county2Rows = Copy_DataRowDefaultModel(countyRows, Address, county2Id);
                 //DataRowDefaultModel county3Rows = Copy_DataRowDefaultModel(countyRows, Address, county3Id);
 
-                // DataRowDefaultModel countryRows = Get_DataRowDefaultModel(Address, countryId, Country);
+                DataRowDefaultModel countryRows = Get_DataRowDefaultModel(Address, countryId, Country);
 
-                // QList<DataRowDefaultModel> defaults {countyRows, countryRows};//county2Rows, county3Rows,
+                QList<DataRowDefaultModel> defaults {countyRows, countryRows};//county2Rows, county3Rows,
 
-                //     model->dataListForm->SetDataRowDefaults(defaults);
+                model->dataListForm->SetDataRowDefaults(defaults);
 
                 model->dataListForm->show();
 
