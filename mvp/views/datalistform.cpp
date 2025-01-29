@@ -108,3 +108,38 @@ void DataListForm::SetDataRowDefaults(QList<DataRowDefaultModel> values)
 
     }
 }
+
+QString DataListForm::GetColumnNameByItem(QTableWidgetItem *item) {
+    if(!item) return {};
+
+    int column = item->column();
+    QTableWidgetItem *headerItem = ui->tableWidget->horizontalHeaderItem(column);
+    if (!headerItem) return {};
+
+    return headerItem->text();
+}
+
+
+
+void DataListForm::on_pushButton_Update_clicked()
+{
+    zTrace();
+
+    QList<QTableWidgetItem *> items = ui->tableWidget->selectedItems();
+    //auto indexes = ui->tableWidget->selectedIndexes();
+    for(auto&a:items){
+        //int columnIx = a->column();
+        QString columnName = GetColumnNameByItem(a);
+
+    }
+
+    emit UpdateActionTriggered(2);
+}
+
+
+void DataListForm::on_pushButton_Insert_clicked()
+{
+    zTrace();
+    emit InsertActionTriggered();
+}
+

@@ -236,21 +236,32 @@ void MainPresenter::process_CreateUpdate_AcceptAction(QUuid opId)
 
 void MainPresenter::process_Add_AddressAction(IMainView *sender){
     zTrace();
+    Operation_InsertAddress(sender);
+}
+
+void MainPresenter::process_Update_AddressAction(IMainView *sender){
+    zTrace();        
+
+    Operation_UpdateAddress(sender, 2);
+}
+
+void MainPresenter::Operation_UpdateAddress(IMainView *sender, int id){
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
     AddModel<Address>* model = new AddModel<Address>();
-    model->amType = AddModel_Type::Create;
+    model->amType = AddModel_Type::Update;
+    model->id = id;
     Operations::instance().setData(opId, model);
 
     CreateUpdate_Address(opId);
 }
 
-void MainPresenter::process_Update_AddressAction(IMainView *sender){
-    zTrace();
+void MainPresenter::Operation_InsertAddress(IMainView *sender)
+{
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
     AddModel<Address>* model = new AddModel<Address>();
-    model->amType = AddModel_Type::Update;
+    model->amType = AddModel_Type::Create;
     Operations::instance().setData(opId, model);
 
     CreateUpdate_Address(opId);
@@ -288,8 +299,7 @@ void MainPresenter::CreateUpdate_Address(QUuid opId)
 
                 if(model->amType == AddModel_Type::Update)
                 {
-
-                    Address data = _globals._repositories.address.Get(2);
+                    Address data = _globals._repositories.address.Get(model->id);
                     model->data = data;
                 } else{
                     Address data;
@@ -406,7 +416,6 @@ void MainPresenter::process_Add_SoldItemAction(IMainView *sender){
                      this, SLOT(process_DoneAction(QUuid, int)));
 
 }
-
 
 
 // import
@@ -608,6 +617,9 @@ void MainPresenter::process_AddressList_Action(IMainView *sender)
     List_Address(opId);
 }
 
+/*
+*
+*/
 void MainPresenter::List_Address(QUuid opId)
 {
     OperationModel *a = Operations::instance().data(opId);
@@ -621,8 +633,6 @@ void MainPresenter::List_Address(QUuid opId)
         {
             bool isRepoOk = SqlRepository<Address>::Check();
             bool ref1Ok_County = CheckRef(Address, countyId, County);
-            //bool ref2Ok_County = CheckRef(Address, county2Id, County);
-            //bool ref3Ok_County = CheckRef(Address, county3Id, County);
 
             bool refOk_Country = CheckRef(Address, countryId, Country);
 
@@ -639,16 +649,7 @@ void MainPresenter::List_Address(QUuid opId)
                 //referenciákat lekérjük id alapján
 
                 QList<Address> data = _globals._repositories.address.GetAll();
-
-                // if(model->amType == AddModel_Type::Update)
-                // {
-
-                //     Address data = _globals._repositories.address.Get(2);
-                //     model->data = data;
-                // } else{
-                //     Address data;
-                     model->data = data;
-                // }
+                model->data = data;
 
                 // ez a mezők neveit és azok típusát tartalmazza
                 // referencia esetén a value a hivatkozott id,
@@ -656,19 +657,17 @@ void MainPresenter::List_Address(QUuid opId)
                 model->dataListForm->setMetaValueList(m);
 
                 DataRowDefaultModel countyRows = Get_DataRowDefaultModel(Address, countyId, County);
-                //DataRowDefaultModel county2Rows = Copy_DataRowDefaultModel(countyRows, Address, county2Id);
-                //DataRowDefaultModel county3Rows = Copy_DataRowDefaultModel(countyRows, Address, county3Id);
-
                 DataRowDefaultModel countryRows = Get_DataRowDefaultModel(Address, countryId, Country);
-
-                QList<DataRowDefaultModel> defaults {countyRows, countryRows};//county2Rows, county3Rows,
-
+                QList<DataRowDefaultModel> defaults {countyRows, countryRows};
                 model->dataListForm->SetDataRowDefaults(defaults);
 
                 model->dataListForm->show();
 
-                // QObject::connect(model->dataListForm, SIGNAL(AcceptActionTriggered(QUuid)),
-                //                  this, SLOT(process_CreateUpdate_Address_AcceptAction(QUuid)));
+                QObject::connect(model->dataListForm, SIGNAL(UpdateActionTriggered(int)),
+                                  this, SLOT(process_UpdateAction(int)));
+
+                QObject::connect(model->dataListForm, SIGNAL(InsertActionTriggered()),
+                                 this, SLOT(process_InsertAction(int)));
 
                 // QObject::connect(model->dataListForm, SIGNAL(DoneActionTriggered(QUuid, int)),
                 //                  this, SLOT(process_DoneAction(QUuid, int)));
@@ -677,3 +676,20 @@ void MainPresenter::List_Address(QUuid opId)
         }
     }
 }
+
+void MainPresenter::process_UpdateAction(int id)
+{
+    zTrace();
+    Operation_UpdateAddress(_views.at(0), id);
+
+    // be kell frissíteni a táblában az id rekordot
+}
+
+void MainPresenter::process_InsertAction()
+{
+    zTrace();
+    Operation_InsertAddress(_views.at(0));
+
+    // be kell frissíteni a táblában az új rekordot
+}
+

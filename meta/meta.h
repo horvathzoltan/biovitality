@@ -354,9 +354,9 @@ public:
     T FromMetaValues(const QList<MetaValue>& metaValues){
         T s;
         for(auto&m:metaValues){
-            if(m.metaField_name == "postalCode"){
-                  zInfo("postalCode megvan");
-            }
+            // if(m.metaField_name == "postalCode"){
+            //       zInfo("postalCode megvan");
+            // }
             MetaField* f = GetMetaField(m.metaField_name);
             if(f){
                 char* ptr = f->GetPtr((char*)&s);
@@ -461,8 +461,8 @@ public:
     }
 
     
-    void MetaIdMegnevIndex(int i, const QList<int> m, int c){
-        _idMegnevIxs.id = i;
+    void MetaIdMegnevIndex(int indexId, const QList<int> m, int c){
+        _idMegnevIxs.id = indexId;
         _idMegnevIxs.megnev = m;
         _idMegnevIxs.code = c;
     }

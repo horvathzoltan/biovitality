@@ -17,6 +17,7 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QTableWidget>
 #include <QtWidgets/QVBoxLayout>
@@ -31,6 +32,10 @@ public:
     QSpacerItem *horizontalSpacer;
     QLabel *label;
     QTableWidget *tableWidget;
+    QHBoxLayout *horizontalLayout_2;
+    QPushButton *pushButton_Insert;
+    QPushButton *pushButton_Update;
+    QSpacerItem *horizontalSpacer_2;
     QDialogButtonBox *buttonBox;
 
     void setupUi(QDialog *DataListForm)
@@ -62,12 +67,31 @@ public:
 
         verticalLayout_2->addWidget(tableWidget);
 
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setObjectName("horizontalLayout_2");
+        pushButton_Insert = new QPushButton(DataListForm);
+        pushButton_Insert->setObjectName("pushButton_Insert");
+
+        horizontalLayout_2->addWidget(pushButton_Insert);
+
+        pushButton_Update = new QPushButton(DataListForm);
+        pushButton_Update->setObjectName("pushButton_Update");
+
+        horizontalLayout_2->addWidget(pushButton_Update);
+
+        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
+
+        horizontalLayout_2->addItem(horizontalSpacer_2);
+
         buttonBox = new QDialogButtonBox(DataListForm);
         buttonBox->setObjectName("buttonBox");
         buttonBox->setOrientation(Qt::Orientation::Horizontal);
         buttonBox->setStandardButtons(QDialogButtonBox::StandardButton::Cancel|QDialogButtonBox::StandardButton::Ok);
 
-        verticalLayout_2->addWidget(buttonBox);
+        horizontalLayout_2->addWidget(buttonBox);
+
+
+        verticalLayout_2->addLayout(horizontalLayout_2);
 
 
         retranslateUi(DataListForm);
@@ -81,6 +105,8 @@ public:
     {
         DataListForm->setWindowTitle(QCoreApplication::translate("DataListForm", "Dialog", nullptr));
         label->setText(QCoreApplication::translate("DataListForm", "TextLabel", nullptr));
+        pushButton_Insert->setText(QCoreApplication::translate("DataListForm", "Insert", nullptr));
+        pushButton_Update->setText(QCoreApplication::translate("DataListForm", "Update", nullptr));
     } // retranslateUi
 
 };

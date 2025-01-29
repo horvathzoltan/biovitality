@@ -69,6 +69,9 @@ private:
 
     void List_Address(QUuid opId);
 
+    void Operation_UpdateAddress(IMainView *sender, int id);
+    void Operation_InsertAddress(IMainView *sender);
+
 private slots:
     void processPushButtonAction(IMainView *sender);
     void processDBTestAction(IMainView *sender);
@@ -96,6 +99,10 @@ private slots:
     void process_ArticleImport_Action(IMainView *sender);
 
     void process_AddressList_Action(IMainView *sender);
+
+
+    void process_UpdateAction(int id);
+    void process_InsertAction();
 };
 
 #endif // MAINPRESENTER_H

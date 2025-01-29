@@ -26,6 +26,7 @@ public:
     //QUuid opId
     T data;
     DataForm* dataForm;
+    int id = -1;
 
     AddModel_Type amType;
 };
