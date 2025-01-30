@@ -22,22 +22,31 @@ public:
     void setMetaValueList(QList<QList<MetaValue>> m);
     
     void SetDataRowDefaults(QList<DataRowDefaultModel>);
-private slots:
-    void on_pushButton_Update_clicked();
-    void on_pushButton_Insert_clicked();
 
+    void done(int r);
+
+    int CurrentId(){return _currentId;}
 private:
     Ui::DataListForm *ui;
     QUuid _opId;
+
+    int _currentId;
+    //void accept();
+    //void reject();
 
     QMap<QString,int> _metaFieldColumnMap;
     QList<int> _refColumnIxs;
 
     QString GetColumnNameByItem(QTableWidgetItem *item);
 
+private slots:
+    void on_pushButton_Update_clicked();
+    void on_pushButton_Insert_clicked();
+
 signals:
-    void UpdateActionTriggered(int id);
-    void InsertActionTriggered();
+    void UpdateActionTriggered(QUuid);
+    void InsertActionTriggered(QUuid);
+    void DoneActionTriggered(QUuid, int r);
 
 };
 #endif // DATALISTFORM_H

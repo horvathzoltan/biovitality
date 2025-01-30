@@ -101,8 +101,13 @@ private slots:
     void process_AddressList_Action(IMainView *sender);
 
 
-    void process_UpdateAction(int id);
-    void process_InsertAction();
+    void process_UpdateAction(QUuid opid);
+    void process_InsertAction(QUuid opid);
+
+    void process_TableFresh();
+
+signals:
+    void TableFresh();
 };
 
 #endif // MAINPRESENTER_H

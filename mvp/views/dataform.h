@@ -62,11 +62,11 @@ private:
     void reject();
 
 
+
     DataRowWidget* FindWidget(const QString& name);
 public:
     //QVBoxLayout* GetLayout(){ return ui->verticalLayout;}
     void AddWidget(QWidget* w);
-
     void done(int r);
 
 signals:

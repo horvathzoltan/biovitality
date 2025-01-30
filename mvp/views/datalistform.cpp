@@ -17,6 +17,25 @@ DataListForm::~DataListForm()
     delete ui;
 }
 
+// void DataListForm::accept()
+// {
+//     emit AcceptActionTriggered(_opId);
+// }
+
+// void DataListForm::reject()
+// {
+//     QDialog::reject();
+//     emit RejectActionTriggered(_opId);
+// }
+
+void DataListForm::done(int r)
+{
+    QDialog::done(r);
+    emit DoneActionTriggered(_opId, r);
+}
+
+
+
 void DataListForm::setMetaValueList(QList<QList<MetaValue>> m)
 {
     QList<MetaValue> a = m.first();
@@ -130,16 +149,15 @@ void DataListForm::on_pushButton_Update_clicked()
     for(auto&a:items){
         //int columnIx = a->column();
         QString columnName = GetColumnNameByItem(a);
-
     }
 
-    emit UpdateActionTriggered(2);
+    emit UpdateActionTriggered(_opId);
 }
 
 
 void DataListForm::on_pushButton_Insert_clicked()
 {
     zTrace();
-    emit InsertActionTriggered();
+    emit InsertActionTriggered(_opId);
 }
 

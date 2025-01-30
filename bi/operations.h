@@ -38,6 +38,7 @@ public:
     //QUuid opId
     QList<T> data;
     DataListForm* dataListForm;
+     int id = -1;
 
     AddModel_Type amType;
 };
