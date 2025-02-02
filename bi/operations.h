@@ -12,6 +12,7 @@
 #include <mvp/viewinterfaces/iview.h>
 #include <patterns/singleton.h>
 #include <QMap>
+#include <helpers/translator.h>
 
 class OperationModel{
 
@@ -22,25 +23,65 @@ enum AddModel_Type{ Create, Update };
 template<class T>
 class AddModel: public OperationModel
 {
-public:    
-    //QUuid opId
-    T data;
-    DataForm* dataForm;
-    int id = -1;
+public:
+    AddModel(AddModel_Type amType, int id){
+        _amType = amType;
+        _id = id;
+    };
+    ~AddModel(){
+        zTrace();
+        delete _dataForm;
+    };
+private:
+    AddModel(){};
 
-    AddModel_Type amType;
+    T _data;
+    DataForm* _dataForm;
+    int _id = -1;
+    AddModel_Type _amType;
+
+public:
+    int Id(){return _id;};
+
+    QString GetOpname()
+    {
+        if(_amType == AddModel_Type::Create) return GetWCode(WCodes::AddNew);
+        if(_amType == AddModel_Type::Update) return GetWCode(WCodes::Update);
+        return "unknown";
+    }
+
+    bool IsUpdate(){return _amType == AddModel_Type::Update;};
+    bool IsCreate(){return _amType == AddModel_Type::Create;};
+
+    void Set_data(DataForm *f, const T& d){
+        zTrace();
+        _dataForm = f;
+        _data = d;
+    };
+
+    DataForm::DataModel Get_MetaValues(){return _dataForm->Get_MetaValues();}
+    void dataForm_done(int i){_dataForm->done(i);};
+
+    void dataForm_Set_Validations(const QList<MetaValidationMessage>& v){_dataForm->SetValidations(v);}
 };
 
 template<class T>
 class ListModel: public OperationModel
 {
-public:
-    //QUuid opId
-    QList<T> data;
-    DataListForm* dataListForm;
-     int id = -1;
-
-    AddModel_Type amType;
+private:
+    ~ListModel(){
+        _data.clear();
+        delete _dataListForm;
+    }
+    QList<T> _data;
+    DataListForm* _dataListForm;    
+    //AddModel_Type amType;
+public:    
+    int CurrentId(){return _dataListForm->CurrentId();};
+    void Set_data(DataListForm *f, const QList<T>& d){
+        _dataListForm = f;
+        _data = d;
+    }
 };
 
 class Operations :public Singleton<Operations>
@@ -48,6 +89,7 @@ class Operations :public Singleton<Operations>
 public:
     class Operation{
     public:
+
         QUuid id;
         Presenter* presenter;
         IView* view;

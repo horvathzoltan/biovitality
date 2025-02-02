@@ -20,6 +20,7 @@ void Operations::stop(QUuid id)
     bool contains = _operations.contains(id);
     if(contains){
         Operation o = _operations.value(id);
+
         _operations.remove(id);
         zInfo("operation " + o.name + " stopped: " + id.toString());
     } else {

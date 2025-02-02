@@ -410,26 +410,26 @@ public:
         return s;
     }
 
-    QList<MetaValue> ToMetaValues(const T* s){
+    QList<MetaValue> ToMetaValues(const T& s){
         QList<MetaValue> m;
-        if(s){
-            for (MetaField &f : _fields) {                
-                MetaValue mv =  f.GetMetaValue((char*)s);
-                m.append(mv);
-            }
+
+        for (MetaField &f : _fields) {
+            MetaValue mv =  f.GetMetaValue((char*)(&s));
+            m.append(mv);
         }
+
         return m;
     }
 
-    QList<QList<MetaValue>> ToMetaValueList(QList<T>* values){
+    QList<QList<MetaValue>> ToMetaValueList(const QList<T>& values){
         QList<QList<MetaValue>> e;
-        if(values){
-            for(T&a:*values)
-            {
-                QList<MetaValue> m = ToMetaValues(&a);
-                e.append(m);
-            }
+
+        for(auto&a:values)
+        {
+            QList<MetaValue> m = ToMetaValues(a);
+            e.append(m);
         }
+
         return e;
     }
 

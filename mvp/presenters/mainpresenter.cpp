@@ -192,8 +192,7 @@ void MainPresenter::process_CreateUpdate_Address_AcceptAction(QUuid opId)
 }
 
 void MainPresenter::process_DoneAction(QUuid opId, int r){
-    zTrace();
-    Operations::instance().stop(opId);
+    zTrace();    
 }
 
 
@@ -206,9 +205,9 @@ void MainPresenter::process_CreateUpdate_AcceptAction(QUuid opId)
     AddModel<T> *b = reinterpret_cast<AddModel<T>*>(a);
 
     if(b){
-        DataForm::DataModel m = b->dataForm->Get_MetaValues();
+        DataForm::DataModel m = b->Get_MetaValues();
         if(m.isValid()){
-            b->dataForm->done(1);
+            b->dataForm_done(1);
             // itt van az hogy le kéne a változtatott rekordot menteni
             T data = T::Meta().FromMetaValues(m.values);
 
@@ -217,21 +216,23 @@ void MainPresenter::process_CreateUpdate_AcceptAction(QUuid opId)
 
             if(repo)
             {
-                if(b->amType == AddModel_Type::Create){
+                if(b->IsCreate()){
                     bool added = repo->Add(data);
                     if(added){
                         emit TableFresh();
                     }
-                } else if(b->amType == AddModel_Type::Update){
+                } else if(b->IsUpdate()){
                     bool updated = repo->Update(data);
                     if(updated){
                         emit TableFresh();
                     }
                 };
             }
+
+            Operations::instance().stop(opId);
         }
         else{
-            b->dataForm->SetValidations(m.validations);
+            b->dataForm_Set_Validations(m.validations);
             QStringList e = m.Get_LogMessages();
             zWarning(e.join('\n'));
         }
@@ -254,9 +255,7 @@ void MainPresenter::process_Update_AddressAction(IMainView *sender){
 void MainPresenter::Operation_UpdateAddress(IMainView *sender, int id){
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
-    AddModel<Address>* model = new AddModel<Address>();
-    model->amType = AddModel_Type::Update;
-    model->id = id;
+    AddModel<Address>* model = new AddModel<Address>(AddModel_Type::Update, id);
     Operations::instance().setData(opId, model);
 
     CreateUpdate_Address(opId);
@@ -266,8 +265,7 @@ void MainPresenter::Operation_InsertAddress(IMainView *sender)
 {
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
-    AddModel<Address>* model = new AddModel<Address>();
-    model->amType = AddModel_Type::Create;
+    AddModel<Address>* model = new AddModel<Address>(AddModel_Type::Create, -1);
     Operations::instance().setData(opId, model);
 
     CreateUpdate_Address(opId);
@@ -296,26 +294,26 @@ void MainPresenter::CreateUpdate_Address(QUuid opId)
                          && refOk_Country ;
             if(valid)
             {
-                model->dataForm = new DataForm(opId);
+                DataForm *form = new DataForm(opId);
 
-                QString title = GetOpname(model->amType)+": "+_tr(WCodes::Address);
-                model->dataForm->setWindowTitle(title);
+                QString wCode_title = model->GetOpname();//
+                QString title =  _globals._translator.Translate(wCode_title) + ": " + _tr(WCodes::Address);
 
-                //referenciákat lekérjük id alapján
+                form->setWindowTitle(title);
 
-                if(model->amType == AddModel_Type::Update)
-                {
-                    Address data = _globals._repositories.address.Get(model->id);
-                    model->data = data;
-                } else{
-                    Address data;
-                    model->data = data;
+                // referenciákat lekérjük id alapján
+
+                Address data;
+
+                if (model->IsUpdate()) {
+                    data = _globals._repositories.address.Get(model->Id());
+                    //model->Set_data(data);
                 }
 
                 // ez a mezők neveit és azok típusát tartalmazza
                 // referencia esetén a value a hivatkozott id,
-                QList<MetaValue> m = Address::Meta().ToMetaValues(&model->data);
-                model->dataForm->setMetaValues(m);
+                QList<MetaValue> m = Address::Meta().ToMetaValues(data);
+                form->setMetaValues(m);
 
                 DataRowDefaultModel countyRows = Get_DataRowDefaultModel(Address, countyId, County);
                 //DataRowDefaultModel county2Rows = Copy_DataRowDefaultModel(countyRows, Address, county2Id);
@@ -325,26 +323,22 @@ void MainPresenter::CreateUpdate_Address(QUuid opId)
 
                 QList<DataRowDefaultModel> defaults {countyRows, countryRows};//county2Rows, county3Rows,
 
-                model->dataForm->SetDataRowDefaults(defaults);
+                form->SetDataRowDefaults(defaults);
 
-                model->dataForm->show();
+                form->show();
 
-                QObject::connect(model->dataForm, SIGNAL(AcceptActionTriggered(QUuid)),
+                QObject::connect(form, SIGNAL(AcceptActionTriggered(QUuid)),
                                  this, SLOT(process_CreateUpdate_Address_AcceptAction(QUuid)));
 
-                QObject::connect(model->dataForm, SIGNAL(DoneActionTriggered(QUuid, int)),
+                QObject::connect(form, SIGNAL(DoneActionTriggered(QUuid, int)),
                                  this, SLOT(process_DoneAction(QUuid, int)));
+
+
+                model->Set_data(form, data);
 
             }
         }
     }
-}
-
-QString MainPresenter::GetOpname(AddModel_Type amType)
-{
-    if(amType == AddModel_Type::Create) return _tr(WCodes::AddNew);
-    if(amType == AddModel_Type::Update) return _tr(WCodes::Update);
-    return "unknown";
 }
 
 void MainPresenter::process_Add_SoldItemAction(IMainView *sender){
@@ -352,7 +346,7 @@ void MainPresenter::process_Add_SoldItemAction(IMainView *sender){
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
 
-    AddModel<SoldItem>* model = new AddModel<SoldItem>();
+    AddModel<SoldItem>* model = new AddModel<SoldItem>(AddModel_Type::Create, -1);
 
     //int excelId = 806;
 
@@ -366,19 +360,19 @@ void MainPresenter::process_Add_SoldItemAction(IMainView *sender){
     // QString baseTypeName = data.GetBaseTypeName();
     // zInfo("baseTypeName: "+baseTypeName);
 
-    model->dataForm = new DataForm(opId);
+    DataForm *form = new DataForm(opId);
 
     //QString title = _tr(GetWCode(WCodes::AddSoldItem));
 
     QString title = _tr(WCodes::AddNew)+": "+_tr(WCodes::SoldItem);
-    model->dataForm->setWindowTitle(title);
+    form->setWindowTitle(title);
 
     SoldItem data;
     //data.partnerName="teszt partner 1";
     //data.county="teszt county 1";
-    model->data = data;
-    QList<MetaValue> m = SoldItem::Meta().ToMetaValues(&data);
-    model->dataForm->setMetaValues(m);
+    //model->data = data;
+    QList<MetaValue> m = SoldItem::Meta().ToMetaValues(data);
+    form->setMetaValues(m);
 
     // megye defaultjai - county
     // rekordok az sql-ből
@@ -412,13 +406,13 @@ void MainPresenter::process_Add_SoldItemAction(IMainView *sender){
 
     QList<DataRowDefaultModel> defaults {countyRows,articleRows,addressRows,partnerRows};
 
-    model->dataForm->SetDataRowDefaults(defaults);
+    form->SetDataRowDefaults(defaults);
 
-    model->dataForm->show();
-    QObject::connect(model->dataForm, SIGNAL(AcceptActionTriggered(QUuid)),
+    form->show();
+    QObject::connect(form, SIGNAL(AcceptActionTriggered(QUuid)),
                      this, SLOT(process_Add_SoldItem_AcceptAction(QUuid)));
 
-    QObject::connect(model->dataForm, SIGNAL(DoneActionTriggered(QUuid, int)),
+    QObject::connect(form, SIGNAL(DoneActionTriggered(QUuid, int)),
                      this, SLOT(process_DoneAction(QUuid, int)));
 
 }
@@ -617,7 +611,7 @@ void MainPresenter::process_AddressList_Action(IMainView *sender)
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
     ListModel<Address>* model = new ListModel<Address>();
-    model->amType = AddModel_Type::Update;
+    //model->amType = AddModel_Type::Update;
     Operations::instance().setData(opId, model);
 
     List_Address(opId);
@@ -647,39 +641,41 @@ void MainPresenter::List_Address(QUuid opId)
                          && refOk_Country ;
             if(valid)
             {
-                model->dataListForm = new DataListForm(opId);
+                DataListForm* form = new DataListForm(opId);
 
                 QString title = _tr(WCodes::List)+": "+_tr(WCodes::Address);
-                model->dataListForm->setWindowTitle(title);
+                form->setWindowTitle(title);
 
                 //referenciákat lekérjük id alapján
 
                 QList<Address> data = _globals._repositories.address.GetAll();
-                model->data = data;
+                //model->data = data;
 
                 // ez a mezők neveit és azok típusát tartalmazza
                 // referencia esetén a value a hivatkozott id,
-                QList<QList<MetaValue>> m = Address::Meta().ToMetaValueList(&model->data);
-                model->dataListForm->setMetaValueList(m);
+                QList<QList<MetaValue>> m = Address::Meta().ToMetaValueList(data);
+                form->setMetaValueList(m);
 
                 DataRowDefaultModel countyRows = Get_DataRowDefaultModel(Address, countyId, County);
                 DataRowDefaultModel countryRows = Get_DataRowDefaultModel(Address, countryId, Country);
                 QList<DataRowDefaultModel> defaults {countyRows, countryRows};
-                model->dataListForm->SetDataRowDefaults(defaults);
+                form->SetDataRowDefaults(defaults);
 
-                model->dataListForm->show();
+                form->show();
 
-                QObject::connect(model->dataListForm, SIGNAL(UpdateActionTriggered(QUuid)),
+                QObject::connect(form, SIGNAL(UpdateActionTriggered(QUuid)),
                                  this, SLOT(process_UpdateAction(QUuid)));
 
-                QObject::connect(model->dataListForm, SIGNAL(InsertActionTriggered(QUuid)),
+                QObject::connect(form, SIGNAL(InsertActionTriggered(QUuid)),
                                  this, SLOT(process_InsertAction(QUuid)));
 
                 QObject::connect(this, SIGNAL(TableFresh()),
                                  this, SLOT(process_TableFresh()));
 
-                QObject::connect(model->dataListForm, SIGNAL(DoneActionTriggered(QUuid, int)),
+                QObject::connect(form, SIGNAL(DoneActionTriggered(QUuid, int)),
                                  this, SLOT(process_DoneAction(QUuid, int)));
+
+                model->Set_data(form, data);
 
             }
         }
