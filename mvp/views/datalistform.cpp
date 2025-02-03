@@ -142,22 +142,26 @@ QString DataListForm::GetColumnNameByItem(QTableWidgetItem *item) {
 
 void DataListForm::on_pushButton_Update_clicked()
 {
-    zTrace();
-
-    QList<QTableWidgetItem *> items = ui->tableWidget->selectedItems();
-    //auto indexes = ui->tableWidget->selectedIndexes();
-    for(auto&a:items){
-        //int columnIx = a->column();
-        QString columnName = GetColumnNameByItem(a);
-    }
-
     emit UpdateActionTriggered(_opId);
 }
 
 
 void DataListForm::on_pushButton_Insert_clicked()
 {
-    zTrace();
     emit InsertActionTriggered(_opId);
+}
+
+
+void DataListForm::on_tableWidget_itemSelectionChanged()
+{
+    int rowIx = ui->tableWidget->currentRow();
+    QTableWidgetItem* item = ui->tableWidget->item(rowIx, _idColumnIx);
+    if(!item) return;
+
+    QVariant a = item->data(Qt::DisplayRole);
+    bool ok;
+    int b = a.toInt(&ok);
+    if(!b) return;
+    _currentId = b;
 }
 

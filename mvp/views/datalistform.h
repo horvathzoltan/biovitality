@@ -30,7 +30,9 @@ private:
     Ui::DataListForm *ui;
     QUuid _opId;
 
+    int _idColumnIx=0;
     int _currentId;
+
     //void accept();
     //void reject();
 
@@ -42,6 +44,8 @@ private:
 private slots:
     void on_pushButton_Update_clicked();
     void on_pushButton_Insert_clicked();
+
+    void on_tableWidget_itemSelectionChanged();
 
 signals:
     void UpdateActionTriggered(QUuid);
