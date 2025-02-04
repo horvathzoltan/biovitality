@@ -142,7 +142,7 @@ QString DataListForm::GetColumnNameByItem(QTableWidgetItem *item) {
 
 void DataListForm::on_pushButton_Update_clicked()
 {
-    emit UpdateActionTriggered(_opId);
+    emit UpdateActionTriggered(_opId, _currentId);
 }
 
 

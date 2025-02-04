@@ -76,8 +76,8 @@ private:
     QList<T> _data;
     DataListForm* _dataListForm;    
     //AddModel_Type amType;
-public:    
-    int CurrentId(){return _dataListForm->CurrentId();};
+public:
+    //int CurrentId(){return _dataListForm->CurrentId();};
     void Set_data(DataListForm *f, const QList<T>& d){
         _dataListForm = f;
         _data = d;

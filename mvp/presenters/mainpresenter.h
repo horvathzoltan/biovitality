@@ -80,6 +80,7 @@ private slots:
     void process_Add_SoldItem_AcceptAction(QUuid opId);
 
     void process_DoneAction(QUuid opId, int r);
+    void process_DoneAction2(QUuid opId, int r);
     // Add Address
     void process_Add_AddressAction(IMainView *sender);
     void process_Update_AddressAction(IMainView *sender);
@@ -101,13 +102,13 @@ private slots:
     void process_AddressList_Action(IMainView *sender);
 
 
-    void process_UpdateAction(QUuid opid);
+    void process_UpdateAction(QUuid opid, int);
     void process_InsertAction(QUuid opid);
 
-    void process_TableFresh();
+    void process_TableFresh(QUuid opid);
 
 signals:
-    void TableFresh();
+    void TableFresh(QUuid opid);
 };
 
 #endif // MAINPRESENTER_H

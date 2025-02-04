@@ -25,7 +25,7 @@ public:
 
     void done(int r);
 
-    int CurrentId(){return _currentId;}
+   // int CurrentId(){return _currentId;}
 private:
     Ui::DataListForm *ui;
     QUuid _opId;
@@ -48,7 +48,7 @@ private slots:
     void on_tableWidget_itemSelectionChanged();
 
 signals:
-    void UpdateActionTriggered(QUuid);
+    void UpdateActionTriggered(QUuid, int);
     void InsertActionTriggered(QUuid);
     void DoneActionTriggered(QUuid, int r);
 

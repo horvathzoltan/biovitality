@@ -192,7 +192,7 @@ void MainPresenter::process_CreateUpdate_Address_AcceptAction(QUuid opId)
 }
 
 void MainPresenter::process_DoneAction(QUuid opId, int r){
-    zTrace();    
+    zTrace();
 }
 
 
@@ -663,17 +663,17 @@ void MainPresenter::List_Address(QUuid opId)
 
                 form->show();
 
-                QObject::connect(form, SIGNAL(UpdateActionTriggered(QUuid)),
-                                 this, SLOT(process_UpdateAction(QUuid)));
+                QObject::connect(form, SIGNAL(UpdateActionTriggered(QUuid, int)),
+                                 this, SLOT(process_UpdateAction(QUuid, int)));
 
                 QObject::connect(form, SIGNAL(InsertActionTriggered(QUuid)),
                                  this, SLOT(process_InsertAction(QUuid)));
 
-                QObject::connect(this, SIGNAL(TableFresh()),
-                                 this, SLOT(process_TableFresh()));
+                QObject::connect(this, SIGNAL(TableFresh(QUuid)),
+                                 this, SLOT(process_TableFresh(QUuid)));
 
                 QObject::connect(form, SIGNAL(DoneActionTriggered(QUuid, int)),
-                                 this, SLOT(process_DoneAction(QUuid, int)));
+                                 this, SLOT(process_DoneAction2(QUuid, int)));
 
                 model->Set_data(form, data);
 
@@ -682,7 +682,20 @@ void MainPresenter::List_Address(QUuid opId)
     }
 }
 
-void MainPresenter::process_UpdateAction(QUuid opId)
+
+void MainPresenter::process_DoneAction2(QUuid opId, int r){
+    zTrace();
+
+    QObject::disconnect(this, SIGNAL(TableFresh()),
+                     this, SLOT(process_TableFresh()));
+
+
+    Operations::instance().stop(opId);
+}
+
+
+
+void MainPresenter::process_UpdateAction(QUuid opId, int id)
 {
     zTrace();
 
@@ -690,12 +703,9 @@ void MainPresenter::process_UpdateAction(QUuid opId)
     ListModel<Address> *model = reinterpret_cast<ListModel<Address>*>(a);
     if(model)
     {
-        Operation_UpdateAddress(_views.at(0), model->CurrentId());
+        Operation_UpdateAddress(_views.at(0), id);
     }
-    // QObject::connect(this, SIGNAL(TableFresh()),
-    //                  this, SLOT(process_TableFresh()));
-    // be kell frissíteni a táblában az id rekordot
-    // kell egy event ami frissíti a táblát
+
 }
 
 void MainPresenter::process_InsertAction(QUuid opid)
@@ -706,7 +716,7 @@ void MainPresenter::process_InsertAction(QUuid opid)
     // be kell frissíteni a táblában az új rekordot
 }
 
-void MainPresenter::process_TableFresh()
+void MainPresenter::process_TableFresh(QUuid opid)
 {
     zTrace();
 }
