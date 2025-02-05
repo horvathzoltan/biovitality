@@ -65,7 +65,7 @@ private:
 
     void CreateUpdate_Address(QUuid opId);
 
-    QString GetOpname(AddModel_Type amType);
+    QString GetOpname(FormModel_Type amType);
 
     void List_Address(QUuid opId);
 

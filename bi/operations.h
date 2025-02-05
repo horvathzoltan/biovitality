@@ -18,40 +18,41 @@ class OperationModel{
 
 };
 
-enum AddModel_Type{ Create, Update };
+enum FormModel_Type{ Create, Update };
 
 template<class T>
-class AddModel: public OperationModel
+class FormModel: public OperationModel
 {
 public:
-    AddModel(AddModel_Type amType, int id){
+    FormModel(FormModel_Type amType, int id){
         _amType = amType;
         _id = id;
     };
-    ~AddModel(){
+    ~FormModel(){
         zTrace();
         delete _dataForm;
     };
 private:
-    AddModel(){};
+    FormModel(){};
 
     T _data;
     DataForm* _dataForm;
     int _id = -1;
-    AddModel_Type _amType;
+    FormModel_Type _amType;
+
 
 public:
     int Id(){return _id;};
 
     QString GetOpname()
     {
-        if(_amType == AddModel_Type::Create) return GetWCode(WCodes::AddNew);
-        if(_amType == AddModel_Type::Update) return GetWCode(WCodes::Update);
+        if(_amType == FormModel_Type::Create) return GetWCode(WCodes::AddNew);
+        if(_amType == FormModel_Type::Update) return GetWCode(WCodes::Update);
         return "unknown";
     }
 
-    bool IsUpdate(){return _amType == AddModel_Type::Update;};
-    bool IsCreate(){return _amType == AddModel_Type::Create;};
+    bool IsUpdate(){return _amType == FormModel_Type::Update;};
+    bool IsCreate(){return _amType == FormModel_Type::Create;};
 
     void Set_data(DataForm *f, const T& d){
         zTrace();

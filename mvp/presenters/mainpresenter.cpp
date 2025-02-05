@@ -202,7 +202,7 @@ void MainPresenter::process_CreateUpdate_AcceptAction(QUuid opId)
     zTrace();
 
     OperationModel *a = Operations::instance().data(opId);
-    AddModel<T> *b = reinterpret_cast<AddModel<T>*>(a);
+    FormModel<T> *b = reinterpret_cast<FormModel<T>*>(a);
 
     if(b){
         DataForm::DataModel m = b->Get_MetaValues();
@@ -219,12 +219,12 @@ void MainPresenter::process_CreateUpdate_AcceptAction(QUuid opId)
                 if(b->IsCreate()){
                     bool added = repo->Add(data);
                     if(added){
-                        emit TableFresh();
+                        emit TableFresh(QUuid());
                     }
                 } else if(b->IsUpdate()){
                     bool updated = repo->Update(data);
                     if(updated){
-                        emit TableFresh();
+                        emit TableFresh(QUuid());
                     }
                 };
             }
@@ -255,7 +255,7 @@ void MainPresenter::process_Update_AddressAction(IMainView *sender){
 void MainPresenter::Operation_UpdateAddress(IMainView *sender, int id){
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
-    AddModel<Address>* model = new AddModel<Address>(AddModel_Type::Update, id);
+    FormModel<Address>* model = new FormModel<Address>(FormModel_Type::Update, id);
     Operations::instance().setData(opId, model);
 
     CreateUpdate_Address(opId);
@@ -265,7 +265,7 @@ void MainPresenter::Operation_InsertAddress(IMainView *sender)
 {
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
-    AddModel<Address>* model = new AddModel<Address>(AddModel_Type::Create, -1);
+    FormModel<Address>* model = new FormModel<Address>(FormModel_Type::Create, -1);
     Operations::instance().setData(opId, model);
 
     CreateUpdate_Address(opId);
@@ -274,7 +274,7 @@ void MainPresenter::Operation_InsertAddress(IMainView *sender)
 void MainPresenter::CreateUpdate_Address(QUuid opId)
 {
     OperationModel *a = Operations::instance().data(opId);
-    AddModel<Address> *model = reinterpret_cast<AddModel<Address>*>(a);
+    FormModel<Address> *model = reinterpret_cast<FormModel<Address>*>(a);
 
     if(model)
     {
@@ -346,7 +346,7 @@ void MainPresenter::process_Add_SoldItemAction(IMainView *sender){
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
 
-    AddModel<SoldItem>* model = new AddModel<SoldItem>(AddModel_Type::Create, -1);
+    FormModel<SoldItem>* model = new FormModel<SoldItem>(FormModel_Type::Create, -1);
 
     //int excelId = 806;
 
