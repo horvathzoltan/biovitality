@@ -201,7 +201,7 @@ void MainPresenter::process_CreateUpdate_AcceptAction(QUuid opId)
 {
     zTrace();
 
-    Operation *a = Operations::instance();
+    Operation *op = Operations::instance();
     void *a = Operations::instance().data(opId);
     FormModel<T> *b = reinterpret_cast<FormModel<T>*>(a);
 
