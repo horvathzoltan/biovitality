@@ -201,7 +201,8 @@ void MainPresenter::process_CreateUpdate_AcceptAction(QUuid opId)
 {
     zTrace();
 
-    OperationModel *a = Operations::instance().data(opId);
+    Operation *a = Operations::instance();
+    void *a = Operations::instance().data(opId);
     FormModel<T> *b = reinterpret_cast<FormModel<T>*>(a);
 
     if(b){
@@ -219,12 +220,12 @@ void MainPresenter::process_CreateUpdate_AcceptAction(QUuid opId)
                 if(b->IsCreate()){
                     bool added = repo->Add(data);
                     if(added){
-                        emit TableFresh(QUuid());
+                        emit TableFresh(b->parent);
                     }
                 } else if(b->IsUpdate()){
                     bool updated = repo->Update(data);
                     if(updated){
-                        emit TableFresh(QUuid());
+                        emit TableFresh(b->parent);
                     }
                 };
             }

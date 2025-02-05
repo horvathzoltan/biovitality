@@ -28,7 +28,7 @@ void Operations::stop(QUuid id)
     }
 }
 
-void Operations::setData(QUuid id, OperationModel* m)
+void Operations::setData(QUuid id, void* m)
 {
     bool contains = _operations.contains(id);
     if(contains){
@@ -41,7 +41,7 @@ void Operations::setData(QUuid id, OperationModel* m)
 }
 
 
-OperationModel* Operations::data(QUuid id)
+void* Operations::data(QUuid id)
 {
     bool contains = _operations.contains(id);
     if(contains){
@@ -52,4 +52,14 @@ OperationModel* Operations::data(QUuid id)
         zInfo("no operation: "+id.toString());
     }
     return nullptr;
+}
+
+Operations::Operation Operations::operation(QUuid id)
+{
+    bool contains = _operations.contains(id);
+    if(contains){
+        Operation &o = _operations[id];
+        return o;
+    }
+    return Operation();
 }

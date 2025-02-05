@@ -14,14 +14,14 @@
 #include <QMap>
 #include <helpers/translator.h>
 
-class OperationModel{
+// class OperationModel{
 
-};
+// };
 
 enum FormModel_Type{ Create, Update };
 
 template<class T>
-class FormModel: public OperationModel
+class FormModel//: public OperationModel
 {
 public:
     FormModel(FormModel_Type amType, int id){
@@ -39,7 +39,6 @@ private:
     DataForm* _dataForm;
     int _id = -1;
     FormModel_Type _amType;
-
 
 public:
     int Id(){return _id;};
@@ -67,7 +66,7 @@ public:
 };
 
 template<class T>
-class ListModel: public OperationModel
+class ListModel//: public OperationModel
 {
 private:
     ~ListModel(){
@@ -92,12 +91,13 @@ public:
     public:
 
         QUuid id;
+        QUuid parent;
         Presenter* presenter;
         IView* view;
-        QString name;
+        QString name;                
 
-        OperationModel* _data;
-
+        void* _data;
+        QMetaType _dataType;
     };
 private:
     QMap<QUuid, Operation> _operations;
@@ -105,8 +105,9 @@ public:
     QUuid startNew(Presenter *presenter, IView *sender, const QString& name);
     void stop(QUuid id);
 
-    void setData(QUuid id, OperationModel* m);
-    OperationModel* data(QUuid id);
+    void setData(QUuid id, void* m);
+    void* data(QUuid id);
+    Operation operation(QUuid id);
 };
 
 #endif // OPERATIONS_H
