@@ -84,21 +84,20 @@ public:
     }
 };
 
+class Operation{
+public:
+    QUuid id;
+    QUuid parentId;
+    Presenter* presenter;
+    IView* view;
+    QString name;
+
+    void* _data;
+    QMetaType _dataType;
+};
+
 class Operations :public Singleton<Operations>
 {
-public:
-    class Operation{
-    public:
-
-        QUuid id;
-        QUuid parent;
-        Presenter* presenter;
-        IView* view;
-        QString name;                
-
-        void* _data;
-        QMetaType _dataType;
-    };
 private:
     QMap<QUuid, Operation> _operations;
 public:
@@ -107,7 +106,8 @@ public:
 
     void setData(QUuid id, void* m);
     void* data(QUuid id);
-    Operation operation(QUuid id);
+    Operation* operation(QUuid id);
+    QUuid parentId(QUuid id);
 };
 
 #endif // OPERATIONS_H

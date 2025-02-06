@@ -105,10 +105,12 @@ private slots:
     void process_UpdateAction(QUuid opid, int);
     void process_InsertAction(QUuid opid);
 
-    void process_TableFresh(QUuid opid);
+    void process_TableFresh_AddRow(QUuid opid);
+    void process_TableFresh_UpdateRow(QUuid opid);
 
 signals:
-    void TableFresh(QUuid opid);
+    void TableFresh_AddRow(QUuid opid);
+    void TableFresh_UpdateRow(QUuid opid);
 };
 
 #endif // MAINPRESENTER_H

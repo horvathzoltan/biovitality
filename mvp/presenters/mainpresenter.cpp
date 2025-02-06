@@ -199,9 +199,7 @@ void MainPresenter::process_DoneAction(QUuid opId, int r){
 template<typename T>
 void MainPresenter::process_CreateUpdate_AcceptAction(QUuid opId)
 {
-    zTrace();
-
-    Operation *op = Operations::instance();
+    zTrace();    
     void *a = Operations::instance().data(opId);
     FormModel<T> *b = reinterpret_cast<FormModel<T>*>(a);
 
@@ -220,12 +218,19 @@ void MainPresenter::process_CreateUpdate_AcceptAction(QUuid opId)
                 if(b->IsCreate()){
                     bool added = repo->Add(data);
                     if(added){
-                        emit TableFresh(b->parent);
+                        QUuid parentId = Operations::instance().parentId(opId);
+                        if(!parentId.isNull())
+                        {
+                            emit TableFresh_AddRow(parentId);
+                        }
                     }
                 } else if(b->IsUpdate()){
                     bool updated = repo->Update(data);
                     if(updated){
-                        emit TableFresh(b->parent);
+                        QUuid parentId = Operations::instance().parentId(opId);
+                        if(!parentId.isNull()){
+                            emit TableFresh_UpdateRow(parentId);
+                        }
                     }
                 };
             }
@@ -274,7 +279,7 @@ void MainPresenter::Operation_InsertAddress(IMainView *sender)
 
 void MainPresenter::CreateUpdate_Address(QUuid opId)
 {
-    OperationModel *a = Operations::instance().data(opId);
+    void *a = Operations::instance().data(opId);
     FormModel<Address> *model = reinterpret_cast<FormModel<Address>*>(a);
 
     if(model)
@@ -623,7 +628,7 @@ void MainPresenter::process_AddressList_Action(IMainView *sender)
 */
 void MainPresenter::List_Address(QUuid opId)
 {
-    OperationModel *a = Operations::instance().data(opId);
+    void *a = Operations::instance().data(opId);
     ListModel<Address> *model = reinterpret_cast<ListModel<Address>*>(a);
 
     if(model)
@@ -700,7 +705,7 @@ void MainPresenter::process_UpdateAction(QUuid opId, int id)
 {
     zTrace();
 
-    OperationModel *a = Operations::instance().data(opId);
+    void *a = Operations::instance().data(opId);
     ListModel<Address> *model = reinterpret_cast<ListModel<Address>*>(a);
     if(model)
     {
@@ -717,7 +722,12 @@ void MainPresenter::process_InsertAction(QUuid opid)
     // be kell frissíteni a táblában az új rekordot
 }
 
-void MainPresenter::process_TableFresh(QUuid opid)
+void MainPresenter::process_TableFresh_AddRow(QUuid opid)
+{
+    zTrace();
+}
+
+void MainPresenter::process_TableFresh_UpdateRow(QUuid opid)
 {
     zTrace();
 }

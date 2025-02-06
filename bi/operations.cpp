@@ -16,13 +16,13 @@ QUuid Operations::startNew(Presenter *presenter, IView *sender, const QString& n
 }
 
 void Operations::stop(QUuid id)
-{
+{    
     bool contains = _operations.contains(id);
     if(contains){
-        Operation o = _operations.value(id);
+        QString name = _operations.value(id).name;
 
         _operations.remove(id);
-        zInfo("operation " + o.name + " stopped: " + id.toString());
+        zInfo("operation " + name + " stopped: " + id.toString());
     } else {
         zWarning("no operation: "+id.toString());
     }
@@ -30,11 +30,10 @@ void Operations::stop(QUuid id)
 
 void Operations::setData(QUuid id, void* m)
 {
-    bool contains = _operations.contains(id);
-    if(contains){
-        auto& o = _operations[id];
-        o._data = m;
-        zInfo("operation "+o.name+ " added data: "+ id.toString());
+    Operation *o = operation(id);
+    if(o){
+        o->_data = m;
+        zInfo("operation "+o->name+ " added data: "+ id.toString());
     } else {
         zInfo("no operation: "+id.toString());
     }
@@ -43,23 +42,35 @@ void Operations::setData(QUuid id, void* m)
 
 void* Operations::data(QUuid id)
 {
+    Operation *o = operation(id);
+    if(o){
+        zInfo("operation "+o->name+ " find data: "+id.toString());
+        return o->_data;
+    }
+
+    zInfo("no operation: "+id.toString());
+    return nullptr;
+}
+
+Operation* Operations::operation(QUuid id)
+{
     bool contains = _operations.contains(id);
     if(contains){
-        auto& o = _operations[id];
-        return o._data;
-        zInfo("operation "+o.name+ " find data: "+id.toString());
-    } else {
-        zInfo("no operation: "+id.toString());
+        Operation* o = &_operations[id];
+        return o;
     }
     return nullptr;
 }
 
-Operations::Operation Operations::operation(QUuid id)
+QUuid Operations::parentId(QUuid id)
 {
-    bool contains = _operations.contains(id);
-    if(contains){
-        Operation &o = _operations[id];
-        return o;
+    Operation *o = operation(id);
+    if(o){
+        zInfo("operation "+o->name+ " find data: "+id.toString());
+        auto p = o->parentId;
+        return p;
     }
-    return Operation();
+
+    zInfo("no operation: "+id.toString());
+    return QUuid();
 }
