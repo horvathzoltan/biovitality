@@ -215,21 +215,24 @@ void MainPresenter::process_CreateUpdate_AcceptAction(QUuid opId)
 
             if(repo)
             {
+                QUuid parentId = Operations::instance().parentId(opId);
                 if(b->IsCreate()){
                     bool added = repo->Add(data);
                     if(added){
-                        QUuid parentId = Operations::instance().parentId(opId);
+
                         if(!parentId.isNull())
                         {
-                            emit TableFresh_AddRow(parentId);
+                            // todo 001a kell a row data is átadni, beszúrjuk a rowt a végére
+                            emit TableFresh_AddRow(parentId, m.values);
                         }
                     }
                 } else if(b->IsUpdate()){
                     bool updated = repo->Update(data);
                     if(updated){
-                        QUuid parentId = Operations::instance().parentId(opId);
+                        //QUuid parentId = Operations::instance().parentId(opId);
                         if(!parentId.isNull()){
-                            emit TableFresh_UpdateRow(parentId);
+                            // todo 001b kell a row data is átadni, felupdateljük a rowt
+                            emit TableFresh_UpdateRow(parentId, m.values);
                         }
                     }
                 };
@@ -253,13 +256,13 @@ void MainPresenter::process_Add_AddressAction(IMainView *sender){
 }
 
 void MainPresenter::process_Update_AddressAction(IMainView *sender){
-    zTrace();        
+    zTrace();
 
-    Operation_UpdateAddress(sender, 2);
+    Operation_UpdateAddress(sender, QUuid(), 2);
 }
 
-void MainPresenter::Operation_UpdateAddress(IMainView *sender, int id){
-    QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
+void MainPresenter::Operation_UpdateAddress(IMainView *sender, QUuid parent_opId, int id){
+    QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__, parent_opId);
 
     FormModel<Address>* model = new FormModel<Address>(FormModel_Type::Update, id);
     Operations::instance().setData(opId, model);
@@ -675,8 +678,11 @@ void MainPresenter::List_Address(QUuid opId)
                 QObject::connect(form, SIGNAL(InsertActionTriggered(QUuid)),
                                  this, SLOT(process_InsertAction(QUuid)));
 
-                QObject::connect(this, SIGNAL(TableFresh(QUuid)),
-                                 this, SLOT(process_TableFresh(QUuid)));
+                QObject::connect(this, SIGNAL(TableFresh_AddRow(QUuid, const  QList<MetaValue>&)),
+                                 this, SLOT(process_TableFresh_AddRow(QUuid, const  QList<MetaValue>&)));
+
+                QObject::connect(this, SIGNAL(TableFresh_UpdateRow(QUuid, const  QList<MetaValue>&)),
+                                 this, SLOT(process_TableFresh_UpdateRow(QUuid, const  QList<MetaValue>&)));
 
                 QObject::connect(form, SIGNAL(DoneActionTriggered(QUuid, int)),
                                  this, SLOT(process_DoneAction2(QUuid, int)));
@@ -705,12 +711,12 @@ void MainPresenter::process_UpdateAction(QUuid opId, int id)
 {
     zTrace();
 
-    void *a = Operations::instance().data(opId);
-    ListModel<Address> *model = reinterpret_cast<ListModel<Address>*>(a);
-    if(model)
-    {
-        Operation_UpdateAddress(_views.at(0), id);
-    }
+    //void *a = Operations::instance().data(opId);
+    //ListModel<Address> *model = reinterpret_cast<ListModel<Address>*>(a);
+    //if(model)
+   // {
+        Operation_UpdateAddress(_views.at(0), opId, id);
+    //}
 
 }
 
@@ -722,12 +728,12 @@ void MainPresenter::process_InsertAction(QUuid opid)
     // be kell frissíteni a táblában az új rekordot
 }
 
-void MainPresenter::process_TableFresh_AddRow(QUuid opid)
+void MainPresenter::process_TableFresh_AddRow(QUuid opid, const QList<MetaValue>& values)
 {
     zTrace();
 }
 
-void MainPresenter::process_TableFresh_UpdateRow(QUuid opid)
+void MainPresenter::process_TableFresh_UpdateRow(QUuid opid, const QList<MetaValue>& values)
 {
     zTrace();
 }

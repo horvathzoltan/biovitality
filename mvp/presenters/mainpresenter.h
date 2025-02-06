@@ -69,7 +69,7 @@ private:
 
     void List_Address(QUuid opId);
 
-    void Operation_UpdateAddress(IMainView *sender, int id);
+    void Operation_UpdateAddress(IMainView *sender, QUuid opId, int id);
     void Operation_InsertAddress(IMainView *sender);
 
 private slots:
@@ -101,16 +101,15 @@ private slots:
 
     void process_AddressList_Action(IMainView *sender);
 
-
     void process_UpdateAction(QUuid opid, int);
     void process_InsertAction(QUuid opid);
 
-    void process_TableFresh_AddRow(QUuid opid);
-    void process_TableFresh_UpdateRow(QUuid opid);
+    void process_TableFresh_AddRow(QUuid opid, const QList<MetaValue> &values);
+    void process_TableFresh_UpdateRow(QUuid opid, const QList<MetaValue> &values);
 
 signals:
-    void TableFresh_AddRow(QUuid opid);
-    void TableFresh_UpdateRow(QUuid opid);
+    void TableFresh_AddRow(QUuid opid,const  QList<MetaValue>& values);
+    void TableFresh_UpdateRow(QUuid opid,const QList<MetaValue>& values);
 };
 
 #endif // MAINPRESENTER_H
