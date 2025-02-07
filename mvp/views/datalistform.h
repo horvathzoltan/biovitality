@@ -25,7 +25,8 @@ public:
 
     void done(int r);
 
-   // int CurrentId(){return _currentId;}
+    void AddRow(const QList<MetaValue>& values);
+    void UpdateRow(const QList<MetaValue>& values);
 private:
     Ui::DataListForm *ui;
     QUuid _opId;

@@ -34,8 +34,6 @@ void DataListForm::done(int r)
     emit DoneActionTriggered(_opId, r);
 }
 
-
-
 void DataListForm::setMetaValueList(QList<QList<MetaValue>> m)
 {
     QList<MetaValue> a = m.first();
@@ -75,6 +73,12 @@ void DataListForm::setMetaValueList(QList<QList<MetaValue>> m)
         }
     }
 }
+
+void DataListForm::UpdateRow(const QList<MetaValue> &values)
+{
+
+}
+
 
 void DataListForm::SetDataRowDefaults(QList<DataRowDefaultModel> values)
 {

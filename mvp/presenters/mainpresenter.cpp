@@ -732,11 +732,19 @@ void MainPresenter::process_InsertAction(QUuid opid)
 
 void MainPresenter::process_TableFresh_AddRow(QUuid opid, const QList<MetaValue>& values)
 {
-    zTrace();
+    //zTrace();
+    DataListForm *d = Operations::instance().data<DataListForm>(opid);
+    if(d){
+        d->AddRow(values);
+    }
 }
 
 void MainPresenter::process_TableFresh_UpdateRow(QUuid opid, const QList<MetaValue>& values)
 {
-    zTrace();
+    //zTrace();
+    DataListForm *d = Operations::instance().data<DataListForm>(opid);
+    if(d){
+        d->UpdateRow(values);
+    }
 }
 
