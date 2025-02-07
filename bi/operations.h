@@ -95,7 +95,7 @@ private:
     QString _name;
     void* _data;
     //QMetaType::Type _dataType;
-    std::type_index _typeIndex;// = std::type_index(typeid(void*));
+    std::type_index _typeIndex = std::type_index(typeid(void*));
 public:
     Operation();
     Operation(QUuid parentId, Presenter *presenter, IView *sender, const QString &name);
@@ -105,8 +105,30 @@ public:
     Presenter* presenter(){return _presenter;}
     IView* view(){return _view;}
     QString name(){return _name;}
-    void* data(){return _data;}
-    void setData(void* m, std::type_index _typeIndex);
+    //void* data(){return _data;}
+    //void setData(void* m, std::type_index _typeIndex);
+
+    // template<typename T>
+    // void setData(T* m);
+
+    // template<typename T>
+    // T* data();
+
+    template<typename T>
+    void setData(T *m)
+    {
+        _data = m;
+        _typeIndex = TypeHelper::GetIndex<T>();
+    }
+
+    template<typename T>
+    T* data()
+    {
+        if(_typeIndex == TypeHelper::GetIndex<T>()){
+            return reinterpret_cast<T*>(_data);
+        }
+        return nullptr;
+    }
 };
 
 class Operations :public Singleton<Operations>
@@ -121,10 +143,42 @@ public:
     QUuid startNew(Presenter *presenter, IView *sender, const QString& name, QUuid parentId);
     void stop(QUuid id);
 
-    void setData(QUuid id, void* m, std::type_index typeIx);
-    void* data(QUuid id);
+    // template<typename T>
+    // void setData(QUuid id, T* m);
+    // template<typename T>
+    // T* data(QUuid id);
+
     Operation* operation(QUuid id);
     QUuid parentId(QUuid id);
+
+    template<typename T>
+    void setData(QUuid id, T *m)
+    {
+        Operation *o = operation(id);
+        if(o){
+            o->setData(m);
+            zInfo("operation "+o->name()+ " added data: "+ id.toString());
+        } else {
+            zInfo("no operation: "+id.toString());
+        }
+    }
+
+
+
+
+    template<typename T>
+    T* data(QUuid id)
+    {
+        Operation *o = operation(id);
+        if(o){
+            zInfo("operation "+o->name()+ " find data: "+id.toString());
+            return o->data<T>();
+        }
+
+        zInfo("no operation: "+id.toString());
+        return nullptr;
+    }
+
 };
 
 #endif // OPERATIONS_H
