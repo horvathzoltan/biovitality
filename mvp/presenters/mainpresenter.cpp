@@ -265,7 +265,7 @@ void MainPresenter::Operation_UpdateAddress(IMainView *sender, QUuid parent_opId
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__, parent_opId);
 
     FormModel<Address>* model = new FormModel<Address>(FormModel_Type::Update, id);
-    Operations::instance().setData(opId, model);
+    Operations::instance().setData(opId, model, std::type_index(typeid(FormModel<Address>)) );
 
     CreateUpdate_Address(opId);
 }
@@ -275,7 +275,7 @@ void MainPresenter::Operation_InsertAddress(IMainView *sender)
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
     FormModel<Address>* model = new FormModel<Address>(FormModel_Type::Create, -1);
-    Operations::instance().setData(opId, model);
+    Operations::instance().setData(opId, model, std::type_index(typeid(FormModel<Address>)));
 
     CreateUpdate_Address(opId);
 }
@@ -362,7 +362,7 @@ void MainPresenter::process_Add_SoldItemAction(IMainView *sender){
     //int id = _globals._repositories.sr.GetIdBy_ExcelId(excelId);
     //SoldItem data = _globals._repositories.sr.Get(id);
 
-    Operations::instance().setData(opId, model);
+    Operations::instance().setData(opId, model, std::type_index(typeid(FormModel<SoldItem>)));
 
 
 
@@ -621,7 +621,7 @@ void MainPresenter::process_AddressList_Action(IMainView *sender)
 
     ListModel<Address>* model = new ListModel<Address>();
     //model->amType = AddModel_Type::Update;
-    Operations::instance().setData(opId, model);
+    Operations::instance().setData(opId, model, std::type_index(typeid(FormModel<Address>)));
 
     List_Address(opId);
 }

@@ -1,25 +1,59 @@
 #include "operations.h"
 
-//Operations::Operations() {}
+Operation::Operation(){
+    _data = nullptr;
+    _typeIndex = std::type_index(typeid(void*));
+}
+
+Operation::Operation(QUuid parentId, Presenter *presenter, IView *sender, const QString &name)
+{
+    _id = QUuid::createUuid();
+    _presenter = presenter;
+    _view = sender;
+    _name = name;
+    _data = nullptr;
+    //_dataType = QMetaType::UnknownType;
+    _typeIndex = std::type_index(typeid(void*));
+    _parentId = parentId;
+}
+
+void Operation::setData(void* m, std::type_index _typeIndex)
+{
+    _data = m;
+    //_dataType = QMetaType::fromType<decltype(m)>().type();
+}
+
+// Operation Operations::startNew_private(Presenter *presenter, IView *sender, const QString &name)
+// {
+//     Operation(QUuid::createUuid(), presenter, sender, name);
+//     return o;
+// }
 
 QUuid Operations::startNew(Presenter *presenter, IView *sender, const QString& name)
 {
-    Operation o;
-    o.id = QUuid::createUuid();
-    o.presenter = presenter;
-    o.view = sender;
-    o.name = name;
-    o._data = nullptr;
-    _operations.insert(o.id, o);
-    zInfo("operation "+name+ " started: " + o.id.toString());
-    return o.id;
+    Operation o(QUuid(), presenter, sender, name);
+
+    QUuid id = o.id();
+    _operations.insert(id, o);
+    zInfo("operation "+name+ " started: " + id.toString());
+    return id;
+}
+
+QUuid Operations::startNew(Presenter *presenter, IView *sender, const QString &name, QUuid parentId)
+{
+     Operation o(parentId,presenter, sender, name);
+
+     QUuid id = o.id();
+     _operations.insert(id, o);
+     zInfo("operation "+name+ " started: " + id.toString());
+     return id;
 }
 
 void Operations::stop(QUuid id)
 {    
     bool contains = _operations.contains(id);
     if(contains){
-        QString name = _operations.value(id).name;
+        QString name = _operations.value(id).name();
 
         _operations.remove(id);
         zInfo("operation " + name + " stopped: " + id.toString());
@@ -28,12 +62,12 @@ void Operations::stop(QUuid id)
     }
 }
 
-void Operations::setData(QUuid id, void* m)
+void Operations::setData(QUuid id, void* m, std::type_index typeIx)
 {
     Operation *o = operation(id);
     if(o){
-        o->_data = m;
-        zInfo("operation "+o->name+ " added data: "+ id.toString());
+        o->setData(m, typeIx);
+        zInfo("operation "+o->name()+ " added data: "+ id.toString());
     } else {
         zInfo("no operation: "+id.toString());
     }
@@ -44,8 +78,8 @@ void* Operations::data(QUuid id)
 {
     Operation *o = operation(id);
     if(o){
-        zInfo("operation "+o->name+ " find data: "+id.toString());
-        return o->_data;
+        zInfo("operation "+o->name()+ " find data: "+id.toString());
+        return o->data();
     }
 
     zInfo("no operation: "+id.toString());
@@ -66,11 +100,12 @@ QUuid Operations::parentId(QUuid id)
 {
     Operation *o = operation(id);
     if(o){
-        zInfo("operation "+o->name+ " find data: "+id.toString());
-        auto p = o->parentId;
-        return p;
+        zInfo("operation "+o->name()+ " find data: "+id.toString());
+        return o->parentId();
     }
 
     zInfo("no operation: "+id.toString());
     return QUuid();
 }
+
+

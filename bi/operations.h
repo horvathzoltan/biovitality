@@ -1,6 +1,8 @@
 #ifndef OPERATIONS_H
 #define OPERATIONS_H
 
+#include <typeindex>
+
 #include "mvp/models/solditem.h"
 #include "helpers/logger.h"
 #include "mvp/views/dataform.h"
@@ -85,26 +87,41 @@ public:
 };
 
 class Operation{
-public:
-    QUuid id;
-    QUuid parentId;
-    Presenter* presenter;
-    IView* view;
-    QString name;
-
+private:
+    QUuid _id;
+    QUuid _parentId;
+    Presenter* _presenter;
+    IView* _view;
+    QString _name;
     void* _data;
-    QMetaType _dataType;
+    //QMetaType::Type _dataType;
+    std::type_index _typeIndex;// = std::type_index(typeid(void*));
+public:
+    Operation();
+    Operation(QUuid parentId, Presenter *presenter, IView *sender, const QString &name);
+
+    QUuid id(){return _id;}
+    QUuid parentId(){return _parentId;}
+    Presenter* presenter(){return _presenter;}
+    IView* view(){return _view;}
+    QString name(){return _name;}
+    void* data(){return _data;}
+    void setData(void* m, std::type_index _typeIndex);
 };
 
 class Operations :public Singleton<Operations>
 {
 private:
     QMap<QUuid, Operation> _operations;
+
+    //Operation startNew_private(Presenter *presenter, IView *sender, const QString& name);
 public:
+
     QUuid startNew(Presenter *presenter, IView *sender, const QString& name);
+    QUuid startNew(Presenter *presenter, IView *sender, const QString& name, QUuid parentId);
     void stop(QUuid id);
 
-    void setData(QUuid id, void* m);
+    void setData(QUuid id, void* m, std::type_index typeIx);
     void* data(QUuid id);
     Operation* operation(QUuid id);
     QUuid parentId(QUuid id);
