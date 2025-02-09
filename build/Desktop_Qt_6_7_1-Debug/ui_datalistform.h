@@ -64,6 +64,7 @@ public:
         tableWidget->setEditTriggers(QAbstractItemView::EditTrigger::NoEditTriggers);
         tableWidget->setSelectionMode(QAbstractItemView::SelectionMode::SingleSelection);
         tableWidget->setSelectionBehavior(QAbstractItemView::SelectionBehavior::SelectRows);
+        tableWidget->verticalHeader()->setVisible(false);
 
         verticalLayout_2->addWidget(tableWidget);
 

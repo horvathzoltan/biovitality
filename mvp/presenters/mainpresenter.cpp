@@ -220,7 +220,6 @@ void MainPresenter::process_CreateUpdate_AcceptAction(QUuid opId)
                 if(b->IsCreate()){
                     bool added = repo->Add(data);
                     if(added){
-
                         if(!parentId.isNull())
                         {
                             // todo 001a kell a row data is átadni, beszúrjuk a rowt a végére
@@ -657,13 +656,17 @@ void MainPresenter::List_Address(QUuid opId)
                 QString title = _tr(WCodes::List)+": "+_tr(WCodes::Address);
                 form->setWindowTitle(title);
 
+                auto h0 =  Address::Meta().ToMetaValues(Address::Meta()._instance);
+                form->setHeaderLine(h0);
+
                 //referenciákat lekérjük id alapján
 
                 QList<Address> data = _globals._repositories.address.GetAll();
                 //model->data = data;
 
                 // ez a mezők neveit és azok típusát tartalmazza
-                // referencia esetén a value a hivatkozott id,
+                // referencia esetén a value a hivatkozott id,                             
+
                 QList<QList<MetaValue>> m = Address::Meta().ToMetaValueList(data);
                 form->setMetaValueList(m);
 
@@ -730,21 +733,25 @@ void MainPresenter::process_InsertAction(QUuid opid)
     // be kell frissíteni a táblában az új rekordot
 }
 
-void MainPresenter::process_TableFresh_AddRow(QUuid opid, const QList<MetaValue>& values)
+void MainPresenter::process_TableFresh_AddRow(QUuid opId, const QList<MetaValue>& values)
 {
     //zTrace();
-    DataListForm *d = Operations::instance().data<DataListForm>(opid);
-    if(d){
-        d->AddRow(values);
-    }
+    ListModel<Address> *model = Operations::instance().data<ListModel<Address>>(opId);
+    if(!model) return;
+    DataListForm *d = model->dataListForm();
+    if(!d) return;
+
+    d->AddRow(values);
 }
 
-void MainPresenter::process_TableFresh_UpdateRow(QUuid opid, const QList<MetaValue>& values)
+void MainPresenter::process_TableFresh_UpdateRow(QUuid opId, const QList<MetaValue>& values)
 {
     //zTrace();
-    DataListForm *d = Operations::instance().data<DataListForm>(opid);
-    if(d){
-        d->UpdateRow(values);
-    }
+    ListModel<Address> *model = Operations::instance().data<ListModel<Address>>(opId);
+    if(!model) return;
+    DataListForm *d = model->dataListForm();
+    if(!d) return;
+
+    d->UpdateRow(values);
 }
 

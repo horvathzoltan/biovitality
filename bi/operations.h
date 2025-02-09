@@ -84,6 +84,7 @@ public:
         _dataListForm = f;
         _data = d;
     }
+    DataListForm* dataListForm(){return _dataListForm;}
 };
 
 class Operation{

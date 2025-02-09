@@ -190,6 +190,15 @@ public:
     const QList<IdMegnev>& values(){return _values;}
 
     bool IsValid(){return !_name.isEmpty();}
+
+    QString GetMegnev(int id)
+    {
+        for(auto&v:_values){
+            if(v.id==id) return v.name;
+        }
+        return {};
+    }
+
     // void SetName_(const QString& v, unsigned long l){
     //     Q_UNUSED(l);
     //     _name = v;
