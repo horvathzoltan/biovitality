@@ -139,20 +139,6 @@
       </property>
       <layout class="QHBoxLayout" name="horizontalLayout_5">
        <item>
-        <widget class="QPushButton" name="pushButton_AddressCreate">
-         <property name="text">
-          <string>create</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="pushButton_AddressUpdate">
-         <property name="text">
-          <string>update</string>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="QPushButton" name="pushButton_AddressList">
          <property name="text">
           <string>AddressList</string>

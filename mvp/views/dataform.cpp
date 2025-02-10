@@ -48,7 +48,7 @@ DataForm::DataModel DataForm::Get_MetaValues()
                 // }
 
                 QMetaType destType = v.type;
-                // todo 001c1 QString -> optional<int> megírni a convert-ot
+                // 001c1 QString -> optional<int> megírni a convert-ot
 
                 bool canConvert = v2.canConvert(destType);
                 if(canConvert)

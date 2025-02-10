@@ -38,8 +38,8 @@ void MainWindow::Translate()
     ui->pushButton_PartnerImport->setText(_tr(WCodes::Partner));
     //address
     ui->groupBox_Address->setTitle(_tr(WCodes::Address));
-    ui->pushButton_AddressCreate->setText(_tr(WCodes::AddNew));
-    ui->pushButton_AddressUpdate->setText(_tr(WCodes::Update));
+    //ui->pushButton_AddressCreate->setText(_tr(WCodes::AddNew));
+    //ui->pushButton_AddressUpdate->setText(_tr(WCodes::Update));
     ui->pushButton_AddressImport->setText(_tr(WCodes::Import));
     //solditem
     ui->pushButton_AddSoldItem->setText(_tr(WCodes::AddNew));

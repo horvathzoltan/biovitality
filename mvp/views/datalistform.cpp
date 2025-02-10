@@ -175,7 +175,7 @@ void DataListForm::SetDataRowDefaults(QList<DataRowDefaultModel> values)
         QString dataRowName = v.name();
         //DataRowWidget *w = FindWidget(dataRowName);
 
-        // todo 00 a columt kell megtalálni meta mező név alapján
+        //  00 a columt kell megtalálni meta mező név alapján
         // végig kell menni a rowokon
         // a benne lévő id alapján ki kell cserélni az adatot a cellában
 

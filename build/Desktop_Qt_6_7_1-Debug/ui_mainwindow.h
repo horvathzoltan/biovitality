@@ -46,8 +46,6 @@ public:
     QPushButton *pushButton_CountryImpot;
     QGroupBox *groupBox_Address;
     QHBoxLayout *horizontalLayout_5;
-    QPushButton *pushButton_AddressCreate;
-    QPushButton *pushButton_AddressUpdate;
     QPushButton *pushButton_AddressList;
     QSpacerItem *horizontalSpacer_4;
     QPushButton *pushButton_AddressImport;
@@ -143,16 +141,6 @@ public:
         groupBox_Address->setObjectName("groupBox_Address");
         horizontalLayout_5 = new QHBoxLayout(groupBox_Address);
         horizontalLayout_5->setObjectName("horizontalLayout_5");
-        pushButton_AddressCreate = new QPushButton(groupBox_Address);
-        pushButton_AddressCreate->setObjectName("pushButton_AddressCreate");
-
-        horizontalLayout_5->addWidget(pushButton_AddressCreate);
-
-        pushButton_AddressUpdate = new QPushButton(groupBox_Address);
-        pushButton_AddressUpdate->setObjectName("pushButton_AddressUpdate");
-
-        horizontalLayout_5->addWidget(pushButton_AddressUpdate);
-
         pushButton_AddressList = new QPushButton(groupBox_Address);
         pushButton_AddressList->setObjectName("pushButton_AddressList");
 
@@ -225,8 +213,6 @@ public:
         pushButton_CoutntyImport->setText(QCoreApplication::translate("MainWindow", "Megye Import", nullptr));
         pushButton_CountryImpot->setText(QCoreApplication::translate("MainWindow", "Orsz\303\241g Import", nullptr));
         groupBox_Address->setTitle(QCoreApplication::translate("MainWindow", "address", nullptr));
-        pushButton_AddressCreate->setText(QCoreApplication::translate("MainWindow", "create", nullptr));
-        pushButton_AddressUpdate->setText(QCoreApplication::translate("MainWindow", "update", nullptr));
         pushButton_AddressList->setText(QCoreApplication::translate("MainWindow", "AddressList", nullptr));
         pushButton_AddressImport->setText(QCoreApplication::translate("MainWindow", "import", nullptr));
         pushButton_ToClipBoard->setText(QCoreApplication::translate("MainWindow", "ToClipBoard", nullptr));

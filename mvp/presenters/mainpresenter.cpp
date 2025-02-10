@@ -222,7 +222,7 @@ void MainPresenter::process_CreateUpdate_AcceptAction(QUuid opId)
                     if(added){
                         if(!parentId.isNull())
                         {
-                            // todo 001a kell a row data is átadni, beszúrjuk a rowt a végére
+                            //  001a kell a row data is átadni, beszúrjuk a rowt a végére
                             emit TableFresh_AddRow(parentId, m.values);
                         }
                     }
@@ -231,7 +231,7 @@ void MainPresenter::process_CreateUpdate_AcceptAction(QUuid opId)
                     if(updated){
                         //QUuid parentId = Operations::instance().parentId(opId);
                         if(!parentId.isNull()){
-                            // todo 001b kell a row data is átadni, felupdateljük a rowt
+                            //  001b kell a row data is átadni, felupdateljük a rowt
                             emit TableFresh_UpdateRow(parentId, m.values);
                         }
                     }
