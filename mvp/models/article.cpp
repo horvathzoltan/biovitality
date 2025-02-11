@@ -29,7 +29,10 @@ void Article::MetaInit()
     //AddMetaField(excelId); //excelId
 
     // 1+2+3
-    _meta.MetaIdMegnevIndex(0,{1},2);
+    //_meta.MetaIdMegnevIndex(0,{1},2);
+
+    _meta.SetMetaIdMegnev(Article, id, Name);
+    _meta.AddCode(Article, Barcode);
 }
 
 void Article::AddRefs(){};

@@ -34,8 +34,11 @@ void County::MetaInit()
     AddMetaField(countyName); //megnev
     AddMetaField(KSHCode); //code
 
-    _meta.MetaIdMegnevIndex(0,{1},2);
+    //_meta.MetaIdMegnevIndex(0,{1},2);
     //AddMetaIdMegnevIndex(id, name, KSH_code);
+
+    _meta.SetMetaIdMegnev(County, id, countyName);
+    _meta.AddCode(County, KSHCode);
 
 }
 

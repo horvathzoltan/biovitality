@@ -18,7 +18,10 @@ void Country::MetaInit()
     AddMetaField(countryCode);
 
     // 1+2+3
-    _meta.MetaIdMegnevIndex(0,{1},2);
+    //_meta.MetaIdMegnevIndex(0,{1},2);
+
+    _meta.SetMetaIdMegnev(Country, id, name);
+    _meta.AddCode(Country, alpha2);
 
 }
 
