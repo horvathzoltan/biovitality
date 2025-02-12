@@ -54,10 +54,12 @@ public:
         {
             zInfo("file ok");
             // az adott model osztály importját hívjuk
+            // todo 001a vissza kell térni azokkal a fieldekke (indexekkel) is, amik bejöttek a csv-ből
             CSV_ImportModel<T> m = T::CSV_Import(csvModel.records, separator);
             csverr.setItemsCount(m.validItemsCount());
 
             zInfo("items loaded: "+csverr.ToSting());
+            // todo 001b csak azokat a fieldeket kell updatelni, amik bejöttek a csv-ből
             SqlMetaHelper::InsertOrUpdate2<T>(m, keyColumnName);
         }
         else

@@ -218,6 +218,7 @@ void MainPresenter::process_CreateUpdate_AcceptAction(QUuid opId)
             {
                 QUuid parentId = Operations::instance().parentId(opId);
                 if(b->IsCreate()){
+                    // CREATE
                     bool added = repo->Add(data);
                     if(added){
                         if(!parentId.isNull())
@@ -227,6 +228,7 @@ void MainPresenter::process_CreateUpdate_AcceptAction(QUuid opId)
                         }
                     }
                 } else if(b->IsUpdate()){
+                    // UPDATE
                     bool updated = repo->Update(data);
                     if(updated){
                         //QUuid parentId = Operations::instance().parentId(opId);
