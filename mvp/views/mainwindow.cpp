@@ -250,10 +250,18 @@ void MainWindow::on_pushButton_AddressUpdate_clicked()
     emit Update_Address_ActionTriggered(this);
 }
 
+// list
 
 void MainWindow::on_pushButton_AddressList_clicked()
 {
     zTrace();
     emit AddressList_ActionTriggered(this);
+}
+
+
+void MainWindow::on_pushButton_PartnerList_clicked()
+{
+    zTrace();
+    emit PartnerList_ActionTriggered(this);
 }
 

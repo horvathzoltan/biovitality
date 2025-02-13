@@ -100,6 +100,7 @@ private slots:
     void process_ArticleImport_Action(IMainView *sender);
 
     void process_AddressList_Action(IMainView *sender);
+    void process_PartnerList_Action(IMainView *sender);
 
     void process_UpdateAction(QUuid opid, int);
     void process_InsertAction(QUuid opid);

@@ -80,8 +80,14 @@ void MainPresenter::appendView(IMainView *w)
     QObject::connect(view_obj, SIGNAL(CimImport_ActionTriggered(IMainView *)),
                      this, SLOT(process_CimImport_Action(IMainView *)));
 
+    // Address List
     QObject::connect(view_obj, SIGNAL(AddressList_ActionTriggered(IMainView *)),
                      this, SLOT(process_AddressList_Action(IMainView *)));
+
+    // Partner List
+    QObject::connect(view_obj, SIGNAL(PartnerList_ActionTriggered(IMainView *)),
+                     this, SLOT(process_PartnerList_Action(IMainView *)));
+
 
     //CSV_Import Country - Ország
     QObject::connect(view_obj, SIGNAL(CountryImport_ActionTriggered(IMainView *)),
@@ -757,3 +763,16 @@ void MainPresenter::process_TableFresh_UpdateRow(QUuid opId, const QList<MetaVal
     d->UpdateRow(values);
 }
 
+//
+
+void MainPresenter::process_PartnerList_Action(IMainView *sender)
+{
+    zTrace();
+    QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
+
+    ListModel<Partner>* model = new ListModel<Partner>();
+    //model->amType = AddModel_Type::Update;
+    Operations::instance().setData(opId, model);
+
+    //List_Partner(opId);
+}
