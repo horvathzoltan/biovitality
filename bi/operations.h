@@ -76,7 +76,7 @@ private:
         delete _dataListForm;
     }
     QList<T> _data;
-    DataListForm* _dataListForm;    
+    DataListForm* _dataListForm;
     //AddModel_Type amType;
 public:
     //int CurrentId(){return _dataListForm->CurrentId();};

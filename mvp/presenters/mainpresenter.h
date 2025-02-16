@@ -41,8 +41,6 @@ private:
 //    template<typename T>
 //    bool Import_CheckRepo(SqlRepository<T>& repo);
 
-    template<typename T, typename R>
-    bool CheckRef_(const QString& f);
     // // imports from file to SQL repo
     template<typename T>
     void Import_private(const MainViewModel::FileNameModel& fn,
@@ -50,8 +48,6 @@ private:
                         const QString& keyColumnName,
                         const QChar& separator);
 
-    template<typename T, typename R>
-    DataRowDefaultModel Get_DataRowDefaultModel_(const QString& f);//const QString& fieldName, unsigned long l);
 
     DataRowDefaultModel Copy_DataRowDefaultModel_(const DataRowDefaultModel& v, const QString& f)
     {
@@ -63,14 +59,9 @@ private:
     template<typename T>
     void process_CreateUpdate_AcceptAction(QUuid opId);
 
-    void CreateUpdate_Address(QUuid opId);
 
     QString GetOpname(FormModel_Type amType);
 
-    void List_Address(QUuid opId);
-
-    void Operation_UpdateAddress(IMainView *sender, QUuid opId, int id);
-    void Operation_InsertAddress(IMainView *sender);
 
 private slots:
     void processPushButtonAction(IMainView *sender);
@@ -80,7 +71,6 @@ private slots:
     void process_Add_SoldItem_AcceptAction(QUuid opId);
 
     void process_DoneAction(QUuid opId, int r);
-    void process_DoneAction2(QUuid opId, int r);
     // Add Address
     void process_Add_AddressAction(IMainView *sender);
     void process_Update_AddressAction(IMainView *sender);
@@ -101,12 +91,6 @@ private slots:
 
     void process_AddressList_Action(IMainView *sender);
     void process_PartnerList_Action(IMainView *sender);
-
-    void process_UpdateAction(QUuid opid, int);
-    void process_InsertAction(QUuid opid);
-
-    void process_TableFresh_AddRow(QUuid opid, const QList<MetaValue> &values);
-    void process_TableFresh_UpdateRow(QUuid opid, const QList<MetaValue> &values);
 
 signals:
     void TableFresh_AddRow(QUuid opid,const  QList<MetaValue>& values);

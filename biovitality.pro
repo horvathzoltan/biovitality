@@ -14,6 +14,8 @@ message( "TARGET = "$$TARGET )
 
 SOURCES += \
     #actions.cpp \
+    bi/address/addresslist.cpp \
+    bi/address/addressoperations.cpp \
     helpers/optionalconverters.cpp \
     helpers/sqlrecordhelper.cpp \
     helpers/sysinfohelper.cpp \
@@ -59,6 +61,8 @@ SOURCES += \
 
 HEADERS += \
     #actions.h \
+    bi/address/addresslist.h \
+    bi/address/addressoperations.h \
     helpers/nameof.h \
     helpers/optionalconverters.h \
     helpers/sqlrecordhelper.h \

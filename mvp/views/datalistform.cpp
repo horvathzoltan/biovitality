@@ -235,6 +235,7 @@ QString DataListForm::GetColumnNameByItem(QTableWidgetItem *item) {
 
 void DataListForm::on_pushButton_Update_clicked()
 {
+    zTrace();
     emit UpdateActionTriggered(_opId, _currentId);
 }
 

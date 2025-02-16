@@ -28,8 +28,7 @@
 #define AddMetaReference_NM(t, b, r, c) AddMetaRef_<r>(FieldName(t,b), #r, FieldName(r,c), RefType::R_NM)
 #define DeleteMetaReference(t, b, r) DeleteMetaRef_<r>(FieldName(t,b))
 
-#define CheckRef(t, b, r) CheckRef_<t,r>(FieldName(t,b))
-#define Get_DataRowDefaultModel(t, b, r) Get_DataRowDefaultModel_<t,r>(FieldName(t,b))
+
 #define Copy_DataRowDefaultModel(v, t, b) Copy_DataRowDefaultModel_(v, FieldName(t,b))
 
 #define SetMetaIdMegnev(t, a, b) setMetaIdMegnev(FieldName(t,a), FieldName(t,b))
