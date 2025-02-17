@@ -13,7 +13,7 @@ AddressList::AddressList(QObject *parent):QObject(parent) {}
 /*
 *
 */
-void AddressList::List_Address(QUuid opId, MainPresenter *presenter)
+void AddressList::List_Address(QUuid opId, Presenter *presenter)
 {
     //void *a = Operations::instance().data(opId);
     //ListModel<Address> *model = reinterpret_cast<ListModel<Address>*>(a);

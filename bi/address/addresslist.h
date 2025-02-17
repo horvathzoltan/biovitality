@@ -1,7 +1,9 @@
 #ifndef ADDRESSLIST_H
 #define ADDRESSLIST_H
 
-#include "mvp/presenters/mainpresenter.h"
+//#include "mvp/presenters/mainpresenter.h"
+#include "meta/metavalue.h"
+#include "mvp/presenters/presenter.h"
 #include <QUuid>
 #include <QObject>
 
@@ -12,7 +14,7 @@ class AddressList: public QObject
 
 public:
     explicit AddressList(QObject *parent = nullptr);
-    void List_Address(QUuid opId, MainPresenter* presenter);
+    void List_Address(QUuid opId, Presenter* presenter);
 
 private slots:
     void process_UpdateAction(QUuid opId, int);
