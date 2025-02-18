@@ -88,11 +88,7 @@ void AddressList::process_UpdateAction(QUuid opId, int id)
     zTrace();
 
     Operation *a = Operations::instance().operation(opId);
-    //ListModel<Address> *model = reinterpret_cast<ListModel<Address>*>(a);
-    //if(model)
-    // {
     AddressOperations::Operation_UpdateAddress(a->presenter(), a->view(), opId, id);
-    //}
 }
 
 void AddressList::process_InsertAction(QUuid opId)
