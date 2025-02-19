@@ -530,8 +530,6 @@ void MainPresenter::process_AddressList_Action(IMainView *sender)
     //model->amType = AddModel_Type::Update;
     Operations::instance().setData(opId, model);
 
-
-
     adl->List_Address(opId, this);
 }
 
