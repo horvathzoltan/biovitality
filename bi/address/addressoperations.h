@@ -25,6 +25,8 @@ public:
         QUuid _opId = QUuid();
 
     public:
+        void setOpId(QUuid opId){_opId = opId;};
+        void setRepoOk(bool v){_isRepoOk = v;};
         bool isValid(){return _isRepoOk;}
         QUuid opId(){return _opId;}
     };

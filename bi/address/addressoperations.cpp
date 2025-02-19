@@ -106,14 +106,14 @@ AddressOperations::Import1Result AddressOperations::Operation_ImportAddress1(Pre
 {
     zTrace();
     Import1Result r;
-    r.opId = Operations::instance().startNew(presenter, sender, __FUNCTION__);
+    r.setOpId(Operations::instance().startNew(presenter, sender, __FUNCTION__));
 
     bool connected = _globals._helpers._sqlHelper.TryConnect();
     if(connected)
     {
         bool isRepoOk = SqlRepository<Address>::Check();
         if(isRepoOk){
-            r.isRepoOk = true;
+            r.setRepoOk(true);
         }
     }
     return r;
