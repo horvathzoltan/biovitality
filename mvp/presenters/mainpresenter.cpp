@@ -263,16 +263,7 @@ void MainPresenter::process_CreateUpdate_AcceptAction(QUuid opId)
     //Operations::instance().stop(opId);
 }
 
-void MainPresenter::process_Add_AddressAction(IMainView *sender){
-    zTrace();
-    AddressOperations::Operation_InsertAddress(this, sender);
-}
 
-void MainPresenter::process_Update_AddressAction(IMainView *sender){
-    zTrace();
-
-    AddressOperations::Operation_UpdateAddress(this, sender, QUuid(), 2);
-}
 
 
 
@@ -353,25 +344,7 @@ void MainPresenter::process_Add_SoldItemAction(IMainView *sender){
 }
 
 
-// import
 
-void MainPresenter::process_CimImport_Action(IMainView *sender)
-{
-    zTrace();
-    QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
-
-    bool connected = _globals._helpers._sqlHelper.TryConnect();
-    if(connected)
-    {
-        bool isRepoOk = SqlRepository<Address>::Check();
-        if(isRepoOk){
-            MainViewModel::FileNameModel fn = sender->get_CSVFileName_Address();
-            QString keyColumnName = FieldName(Address, excelId);
-            Import_private<Address>(fn, keyColumnName,';');
-        }
-    }
-    Operations::instance().stop(opId);
-}
 
 void MainPresenter::process_PartnerImport_Action(IMainView *sender)
 {
@@ -516,7 +489,33 @@ void MainPresenter::Import_private(const MainViewModel::FileNameModel& fn,
         }   
 }
 
-///
+//
+
+void MainPresenter::process_PartnerList_Action(IMainView *sender)
+{
+    zTrace();
+    QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
+
+    ListModel<Partner>* model = new ListModel<Partner>();
+    //model->amType = AddModel_Type::Update;
+    Operations::instance().setData(opId, model);
+
+    //List_Partner(opId);
+}
+
+// Buttons: Address
+
+void MainPresenter::process_Add_AddressAction(IMainView *sender){
+    zTrace();
+    AddressOperations::Operation_InsertAddress(this, sender);
+}
+
+void MainPresenter::process_Update_AddressAction(IMainView *sender){
+    zTrace();
+
+    AddressOperations::Operation_UpdateAddress(this, sender, QUuid(), 2);
+}
+
 void MainPresenter::process_AddressList_Action(IMainView *sender)
 {
     zTrace();
@@ -536,19 +535,23 @@ void MainPresenter::process_AddressList_Action(IMainView *sender)
     adl->List_Address(opId, this);
 }
 
+// import
 
-
-
-//
-
-void MainPresenter::process_PartnerList_Action(IMainView *sender)
+void MainPresenter::process_CimImport_Action(IMainView *sender)
 {
     zTrace();
-    QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
+    AddressOperations::Import1Result a = AddressOperations::Operation_ImportAddress1(this, sender);
 
-    ListModel<Partner>* model = new ListModel<Partner>();
-    //model->amType = AddModel_Type::Update;
-    Operations::instance().setData(opId, model);
-
-    //List_Partner(opId);
+    if(a.isValid())
+    {
+        MainViewModel::FileNameModel fn = sender->get_CSVFileName_Address();
+        if(fn.IsValid())
+        {
+            AddressOperations::Operation_ImportAddress2(fn);
+        }
+    }
+    Operations::instance().stop(a.opId());
 }
+
+
+

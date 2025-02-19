@@ -3,6 +3,7 @@
 #include "infrastructure/globals.h"
 #include "mvp/models/address.h"
 #include "../operations.h"
+#include "../operationhelper.h"
 
 extern Globals _globals;
 
@@ -99,3 +100,30 @@ void AddressOperations::CreateUpdate_Address(QUuid opId)
         }
     }
 }
+
+
+AddressOperations::Import1Result AddressOperations::Operation_ImportAddress1(Presenter *presenter, IView *sender)
+{
+    zTrace();
+    Import1Result r;
+    r.opId = Operations::instance().startNew(presenter, sender, __FUNCTION__);
+
+    bool connected = _globals._helpers._sqlHelper.TryConnect();
+    if(connected)
+    {
+        bool isRepoOk = SqlRepository<Address>::Check();
+        if(isRepoOk){
+            r.isRepoOk = true;
+        }
+    }
+    return r;
+}
+
+void AddressOperations::Operation_ImportAddress2(const MainViewModel::FileNameModel& fn)
+{
+    //MainViewModel::FileNameModel fn = sender->get_CSVFileName_Address();
+    QString keyColumnName = FieldName(Address, excelId);
+    OperationHelper::Import_private<Address>(fn, keyColumnName,';');
+}
+
+

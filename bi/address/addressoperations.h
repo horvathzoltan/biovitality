@@ -5,6 +5,8 @@
 #include "mvp/viewinterfaces/iview.h"
 
 #include <QUuid>
+#include <mvp/viewmodels/mainviewmodel.h>
+
 class AddressOperations
 {
 public:
@@ -14,6 +16,23 @@ public:
     static void Operation_InsertAddress(Presenter *presenter, IView *sender);
 
     static void CreateUpdate_Address(QUuid opId);
+
+    // CSV Import Cim
+
+    struct Import1Result{
+    private:
+        bool _isRepoOk = false;
+        QUuid _opId = QUuid();
+
+    public:
+        bool isValid(){return _isRepoOk;}
+        QUuid opId(){return _opId;}
+    };
+
+    static Import1Result Operation_ImportAddress1(Presenter *presenter, IView *sender);
+    static void Operation_ImportAddress2(const MainViewModel::FileNameModel& fn);
+
+
 
 };
 
