@@ -39,7 +39,7 @@
 #include "meta/csv_sqlhelper.h"
 #include "../../bi/address/addresslist.h"
 //#include "meta/sqlmetahelper.h"
-
+#include "../../bi/operationhelper.h"
 
 extern Globals _globals;
 
@@ -193,80 +193,18 @@ void MainPresenter::Error(const QSqlError& err)
 void MainPresenter::process_Add_SoldItem_AcceptAction(QUuid opId)
 {
     zTrace();
-    process_CreateUpdate_AcceptAction<SoldItem>(opId);
+    OperationHelper::process_CreateUpdate_AcceptAction<SoldItem>(opId);
 }
 
 void MainPresenter::process_CreateUpdate_Address_AcceptAction(QUuid opId)
 {
     zTrace();
-    process_CreateUpdate_AcceptAction<Address>(opId);
+    OperationHelper::process_CreateUpdate_AcceptAction<Address>(opId);
 }
 
 void MainPresenter::process_DoneAction(QUuid opId, int r){
     zTrace();
 }
-
-
-template<typename T>
-void MainPresenter::process_CreateUpdate_AcceptAction(QUuid opId)
-{
-    zTrace();
-    //void *a = Operations::instance().data(opId);
-    //FormModel<T> *b = reinterpret_cast<FormModel<T>*>(a);
-    FormModel<T> *b = Operations::instance().data<FormModel<T>>(opId);
-
-    if(b){
-        DataForm::DataModel m = b->Get_MetaValues();
-        if(m.isValid()){
-            b->dataForm_done(1);
-            // itt van az hogy le kéne a változtatott rekordot menteni
-            T data = T::Meta().FromMetaValues(m.values);
-
-            SqlRepository<T> *repo = //_globals._repositories.address;
-                SqlRepositoryContainer::Get<T>();
-
-            if(repo)
-            {
-                QUuid parentId = Operations::instance().parentId(opId);
-                if(b->IsCreate()){
-                    // CREATE
-                    bool added = repo->Add(data);
-                    if(added){
-                        if(!parentId.isNull())
-                        {
-                            //  001a kell a row data is átadni, beszúrjuk a rowt a végére
-                            emit TableFresh_AddRow(parentId, m.values);
-                        }
-                    }
-                } else if(b->IsUpdate()){
-                    // UPDATE
-                    bool updated = repo->Update(data);
-                    if(updated){
-                        //QUuid parentId = Operations::instance().parentId(opId);
-                        if(!parentId.isNull()){
-                            //  001b kell a row data is átadni, felupdateljük a rowt
-                            emit TableFresh_UpdateRow(parentId, m.values);
-                        }
-                    }
-                };
-            }
-
-            Operations::instance().stop(opId);
-        }
-        else{
-            b->dataForm_Set_Validations(m.validations);
-            QStringList e = m.Get_LogMessages();
-            zWarning(e.join('\n'));
-        }
-    }
-
-    //Operations::instance().stop(opId);
-}
-
-
-
-
-
 
 void MainPresenter::process_Add_SoldItemAction(IMainView *sender){
     zTrace();
@@ -342,9 +280,6 @@ void MainPresenter::process_Add_SoldItemAction(IMainView *sender){
                      this, SLOT(process_DoneAction(QUuid, int)));
 
 }
-
-
-
 
 void MainPresenter::process_PartnerImport_Action(IMainView *sender)
 {

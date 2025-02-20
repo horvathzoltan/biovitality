@@ -56,10 +56,6 @@ private:
         return r;
     }
 
-    template<typename T>
-    void process_CreateUpdate_AcceptAction(QUuid opId);
-
-
     QString GetOpname(FormModel_Type amType);
 
 
@@ -92,9 +88,7 @@ private slots:
     void process_AddressList_Action(IMainView *sender);
     void process_PartnerList_Action(IMainView *sender);
 
-signals:
-    void TableFresh_AddRow(QUuid opid,const  QList<MetaValue>& values);
-    void TableFresh_UpdateRow(QUuid opid,const QList<MetaValue>& values);
+
 };
 
 #endif // MAINPRESENTER_H

@@ -15,10 +15,11 @@ public:
     static void Operation_UpdateAddress(Presenter *presenter, IView *sender, QUuid opId, int id);
     static void Operation_InsertAddress(Presenter *presenter, IView *sender);
 
+private:
     static void CreateUpdate_Address(QUuid opId);
 
+public:
     // CSV Import Cim
-
     struct Import1Result{
     private:
         bool _isRepoOk = false;
@@ -33,9 +34,6 @@ public:
 
     static Import1Result Operation_ImportAddress1(Presenter *presenter, IView *sender);
     static void Operation_ImportAddress2(const MainViewModel::FileNameModel& fn);
-
-
-
 };
 
 #endif // ADDRESSOPERATIONS_H
