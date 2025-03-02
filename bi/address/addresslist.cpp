@@ -6,6 +6,8 @@
 #include "../../mvp/models/county.h"
 #include "../../repositories/sqlrepository.h"
 
+#include <bi/operationhelper.cpp>
+
 extern Globals _globals;
 
 AddressList::AddressList(QObject *parent):QObject(parent) {}
@@ -51,7 +53,7 @@ void AddressList::List_Address(QUuid opId, Presenter *presenter)
                 // ez a mezők neveit és azok típusát tartalmazza
                 // referencia esetén a value a hivatkozott id,
 
-                    QList<QList<MetaValue>> m = Address::Meta().ToMetaValueList(data);
+                QList<QList<MetaValue>> m = Address::Meta().ToMetaValueList(data);
                 form->setMetaValueList(m);
 
                 DataRowDefaultModel countyRows = Get_DataRowDefaultModel(Address, countyId, County);
@@ -72,6 +74,7 @@ void AddressList::List_Address(QUuid opId, Presenter *presenter)
 
                 QObject::connect(presenter, SIGNAL(TableFresh_UpdateRow(QUuid, const  QList<MetaValue>&)),
                                  this, SLOT(process_TableFresh_UpdateRow(QUuid, const  QList<MetaValue>&)));
+
 
                 QObject::connect(form, SIGNAL(DoneActionTriggered(QUuid, int)),
                                  this, SLOT(process_DoneAction2(QUuid, int)));

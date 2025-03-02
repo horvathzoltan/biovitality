@@ -5,8 +5,10 @@
 #include "../../meta/csv_sqlhelper.h"
 #include "bi/operations.h"
 
-class OperationHelper
+class OperationHelper//: public QObject
 {
+//    Q_OBJECT
+
 public:
     template<typename T>
     static void Import_private(const MainViewModel::FileNameModel& fn,
@@ -20,12 +22,6 @@ public:
             zInfo("cancelled");
         }
     }
-
-signals:
-    void TableFresh_AddRow(QUuid opid,const  QList<MetaValue>& values);
-    void TableFresh_UpdateRow(QUuid opid,const QList<MetaValue>& values);
-
-
 
 
     template<typename T>
@@ -80,8 +76,8 @@ signals:
                 zWarning(e.join('\n'));
             }
         }
-
         //Operations::instance().stop(opId);
     }
+
 };
 #endif // OPERATIONHELPER_H
