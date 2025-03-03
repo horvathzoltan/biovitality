@@ -23,10 +23,18 @@ public:
         }
     }
 
+    enum AcceptActionResponse:int
+    {
+        None = 0,
+        AddRow,
+        UpdateRow
+    };
 
     template<typename T>
-    static void process_CreateUpdate_AcceptAction(QUuid opId)
+    static AcceptActionResponse process_CreateUpdate_AcceptAction(QUuid opId)
     {
+
+        AcceptActionResponse e = None;
         zTrace();
         //void *a = Operations::instance().data(opId);
         //FormModel<T> *b = reinterpret_cast<FormModel<T>*>(a);
@@ -52,7 +60,8 @@ public:
                             if(!parentId.isNull())
                             {
                                 //  001a kell a row data is átadni, beszúrjuk a rowt a végére
-                                emit TableFresh_AddRow(parentId, m.values);
+                                emit  TableFresh_AddRow(parentId, m.values);
+                                e = AddRow;
                             }
                         }
                     } else if(b->IsUpdate()){
@@ -62,7 +71,8 @@ public:
                             //QUuid parentId = Operations::instance().parentId(opId);
                             if(!parentId.isNull()){
                                 //  001b kell a row data is átadni, felupdateljük a rowt
-                                emit TableFresh_UpdateRow(parentId, m.values);
+                                //emit TableFresh_UpdateRow(parentId, m.values);
+                                e = UpdateRow;
                             }
                         }
                     };
@@ -77,6 +87,7 @@ public:
             }
         }
         //Operations::instance().stop(opId);
+        return e;
     }
 
 };
