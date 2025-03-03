@@ -23,21 +23,27 @@ public:
         }
     }
 
-    enum AcceptActionResponse:int
+    enum AcceptActionType:int
     {
         None = 0,
         AddRow,
         UpdateRow
     };
 
+    struct AcceptActionResponse{
+
+    };
+
     template<typename T>
     static AcceptActionResponse process_CreateUpdate_AcceptAction(QUuid opId)
     {
 
-        AcceptActionResponse e = None;
+        AcceptActionResponse e;
         zTrace();
         //void *a = Operations::instance().data(opId);
         //FormModel<T> *b = reinterpret_cast<FormModel<T>*>(a);
+        auto op = Operations::instance().operation(opId);
+
         FormModel<T> *b = Operations::instance().data<FormModel<T>>(opId);
 
         if(b){
@@ -71,7 +77,7 @@ public:
                             //QUuid parentId = Operations::instance().parentId(opId);
                             if(!parentId.isNull()){
                                 //  001b kell a row data is átadni, felupdateljük a rowt
-                                //emit TableFresh_UpdateRow(parentId, m.values);
+                                emit TableFresh_UpdateRow(parentId, m.values);
                                 e = UpdateRow;
                             }
                         }
