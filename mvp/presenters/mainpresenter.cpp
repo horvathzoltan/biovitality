@@ -193,13 +193,15 @@ void MainPresenter::Error(const QSqlError& err)
 void MainPresenter::process_Add_SoldItem_AcceptAction(QUuid opId)
 {
     zTrace();
-    OperationHelper::process_CreateUpdate_AcceptAction<SoldItem>(opId);
+    auto e = OperationHelper::process_CreateUpdate_AcceptAction<SoldItem>(opId);
+
 }
 
 void MainPresenter::process_CreateUpdate_Address_AcceptAction(QUuid opId)
 {
     zTrace();
-    OperationHelper::process_CreateUpdate_AcceptAction<Address>(opId);
+    auto e = OperationHelper::process_CreateUpdate_AcceptAction<Address>(opId);
+
 }
 
 void MainPresenter::process_DoneAction(QUuid opId, int r){
