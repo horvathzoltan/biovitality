@@ -28,9 +28,12 @@
 #define AddMetaReference_NM(t, b, r, c) AddMetaRef_<r>(FieldName(t,b), #r, FieldName(r,c), RefType::R_NM)
 #define DeleteMetaReference(t, b, r) DeleteMetaRef_<r>(FieldName(t,b))
 
-#define CheckRef(t, b, r) CheckRef_<t,r>(FieldName(t,b))
-#define Get_DataRowDefaultModel(t, b, r) Get_DataRowDefaultModel_<t,r>(FieldName(t,b))
+
 #define Copy_DataRowDefaultModel(v, t, b) Copy_DataRowDefaultModel_(v, FieldName(t,b))
+
+#define SetMetaIdMegnev(t, a, b) setMetaIdMegnev(FieldName(t,a), FieldName(t,b))
+#define AddMegnev(t, a) addMetaIdMegnev(FieldName(t,a))
+#define AddCode(t, a) addMetaIdCode(FieldName(t,a))
 
 // class optConv{
 
@@ -39,6 +42,8 @@
 //          const bool canConvertSafely = l < std::numeric_limits<int>::max();
 //     }
 // }
+
+
 
 class RefBase{
 public:
@@ -190,6 +195,15 @@ public:
     const QList<IdMegnev>& values(){return _values;}
 
     bool IsValid(){return !_name.isEmpty();}
+
+    QString GetMegnev(int id)
+    {
+        for(auto&v:_values){
+            if(v.id==id) return v.name;
+        }
+        return {};
+    }
+
     // void SetName_(const QString& v, unsigned long l){
     //     Q_UNUSED(l);
     //     _name = v;
@@ -460,12 +474,68 @@ public:
         return m;
     }
 
-    
-    void MetaIdMegnevIndex(int indexId, const QList<int> m, int c){
-        _idMegnevIxs.id = indexId;
-        _idMegnevIxs.megnev = m;
-        _idMegnevIxs.code = c;
+    // struct MetaIdMegnevModel{
+    // private:
+    //     int _ixId;
+    //     QList<int> _ixMegnevs;
+    //     int _ixCode;
+    //     MetaData* _m;
+    // public:
+    //     MetaIdMegnevModel(MetaData* p, int ix_id, int ix_m){
+    //         _ixId = ix_id;
+    //         _ixMegnevs.append(ix_m);
+    //         _ixCode = -1;
+    //         _m = p;
+    //     }
+    //     void addMegnev(const QString& megnev){
+    //         int ix_m = _m->GetMetaFieldIx(megnev);
+    //         _ixMegnevs.append(ix_m);
+    //     }
+    //     void addCode(const QString& code){
+    //         int ix_m = _m->GetMetaFieldIx(code);
+    //         _ixCode=ix_m;
+    //     }
+
+    //     int ixId(){return _ixId;}
+    //     QList<int> ixMegnevs(){return _ixMegnevs;}
+    //     int ixCode(){return _ixCode;}
+    // };
+
+    // MetaIdMegnevModel GetMetaIdMegnevModel(const QString& id, const QString& m){
+    //     int ix_id = GetMetaFieldIx(id);
+    //     int ix_m = GetMetaFieldIx(m);
+
+    //     return MetaIdMegnevModel(this, ix_id, ix_m);
+    // }
+
+    // void MetaIdMegnevIndex(MetaIdMegnevModel a){
+    //     _idMegnevIxs.id = a.ixId();
+    //     _idMegnevIxs.megnev = a.ixMegnevs();
+    //     _idMegnevIxs.code = a.ixCode();
+    // }
+
+    void setMetaIdMegnev(const QString& id, const QString& m){
+        _idMegnevIxs.id = GetMetaFieldIx(id);
+        _idMegnevIxs.megnev = {GetMetaFieldIx(m)};
+        _idMegnevIxs.code =-1;
     }
+
+    void addMetaIdMegnev(const QString& m){
+        int ix = GetMetaFieldIx(m);
+        _idMegnevIxs.megnev.append(ix);
+    }
+
+    void addMetaIdCode(const QString& m){
+        int ix = GetMetaFieldIx(m);
+        _idMegnevIxs.code = ix;
+    }
+
+
+    // void MetaIdMegnevIndex(int indexId, const QList<int> m, int c){
+    //     _idMegnevIxs.id = indexId;
+    //     _idMegnevIxs.megnev = m;
+    //     _idMegnevIxs.code = c;
+    // }
     
     IdMegnev ToIdMegnev(const T* s){
         IdMegnev e;

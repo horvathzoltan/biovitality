@@ -27,7 +27,11 @@ void Address::MetaInit()
     AddMetaField(countryId);
 
     // 1+2+3
-    _meta.MetaIdMegnevIndex(0,{1,2,3},-1);
+    //_meta.MetaIdMegnevIndex(0,{1,2,3},-1);
+
+    _meta.SetMetaIdMegnev(Address, id, postalCode);
+    _meta.AddMegnev(Address, settlementName);
+    _meta.AddMegnev(Address, publicAreaName);
 
     AddRefs();
 }

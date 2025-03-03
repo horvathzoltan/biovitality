@@ -8,6 +8,10 @@
 #include <QStringLiteral>
 
 
+#include <bi/address/addresslist.h>
+#include <bi/address/addressoperations.h>
+
+
 #include "mainpresenter.h"
 #include "helpers/logger.h"
 //#include "helpers/sqlhelper.h"
@@ -29,12 +33,13 @@
 #include "mvp/models/solditem.h"
 #include "mvp/models/address.h"
 
-#include "mvp/views/datalistform.h"
+//#include "mvp/views/datalistform.h"
 #include "repositories/sqlrepository.h"
 
 #include "meta/csv_sqlhelper.h"
+#include "../../bi/address/addresslist.h"
 //#include "meta/sqlmetahelper.h"
-
+#include "../../bi/operationhelper.h"
 
 extern Globals _globals;
 
@@ -80,8 +85,14 @@ void MainPresenter::appendView(IMainView *w)
     QObject::connect(view_obj, SIGNAL(CimImport_ActionTriggered(IMainView *)),
                      this, SLOT(process_CimImport_Action(IMainView *)));
 
+    // Address List
     QObject::connect(view_obj, SIGNAL(AddressList_ActionTriggered(IMainView *)),
                      this, SLOT(process_AddressList_Action(IMainView *)));
+
+    // Partner List
+    QObject::connect(view_obj, SIGNAL(PartnerList_ActionTriggered(IMainView *)),
+                     this, SLOT(process_PartnerList_Action(IMainView *)));
+
 
     //CSV_Import Country - Ország
     QObject::connect(view_obj, SIGNAL(CountryImport_ActionTriggered(IMainView *)),
@@ -182,174 +193,17 @@ void MainPresenter::Error(const QSqlError& err)
 void MainPresenter::process_Add_SoldItem_AcceptAction(QUuid opId)
 {
     zTrace();
-    process_CreateUpdate_AcceptAction<SoldItem>(opId);
+    OperationHelper::process_CreateUpdate_AcceptAction<SoldItem>(opId);
 }
 
 void MainPresenter::process_CreateUpdate_Address_AcceptAction(QUuid opId)
 {
     zTrace();
-    process_CreateUpdate_AcceptAction<Address>(opId);
+    OperationHelper::process_CreateUpdate_AcceptAction<Address>(opId);
 }
 
 void MainPresenter::process_DoneAction(QUuid opId, int r){
     zTrace();
-}
-
-
-template<typename T>
-void MainPresenter::process_CreateUpdate_AcceptAction(QUuid opId)
-{
-    zTrace();
-    //void *a = Operations::instance().data(opId);
-    //FormModel<T> *b = reinterpret_cast<FormModel<T>*>(a);
-    FormModel<T> *b = Operations::instance().data<FormModel<T>>(opId);
-
-    if(b){
-        DataForm::DataModel m = b->Get_MetaValues();
-        if(m.isValid()){
-            b->dataForm_done(1);
-            // itt van az hogy le kéne a változtatott rekordot menteni
-            T data = T::Meta().FromMetaValues(m.values);
-
-            SqlRepository<T> *repo = //_globals._repositories.address;
-                SqlRepositoryContainer::Get<T>();
-
-            if(repo)
-            {
-                QUuid parentId = Operations::instance().parentId(opId);
-                if(b->IsCreate()){
-                    bool added = repo->Add(data);
-                    if(added){
-
-                        if(!parentId.isNull())
-                        {
-                            // todo 001a kell a row data is átadni, beszúrjuk a rowt a végére
-                            emit TableFresh_AddRow(parentId, m.values);
-                        }
-                    }
-                } else if(b->IsUpdate()){
-                    bool updated = repo->Update(data);
-                    if(updated){
-                        //QUuid parentId = Operations::instance().parentId(opId);
-                        if(!parentId.isNull()){
-                            // todo 001b kell a row data is átadni, felupdateljük a rowt
-                            emit TableFresh_UpdateRow(parentId, m.values);
-                        }
-                    }
-                };
-            }
-
-            Operations::instance().stop(opId);
-        }
-        else{
-            b->dataForm_Set_Validations(m.validations);
-            QStringList e = m.Get_LogMessages();
-            zWarning(e.join('\n'));
-        }
-    }
-
-    //Operations::instance().stop(opId);
-}
-
-void MainPresenter::process_Add_AddressAction(IMainView *sender){
-    zTrace();
-    Operation_InsertAddress(sender);
-}
-
-void MainPresenter::process_Update_AddressAction(IMainView *sender){
-    zTrace();
-
-    Operation_UpdateAddress(sender, QUuid(), 2);
-}
-
-void MainPresenter::Operation_UpdateAddress(IMainView *sender, QUuid parent_opId, int id){
-    QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__, parent_opId);
-
-    FormModel<Address>* model = new FormModel<Address>(FormModel_Type::Update, id);
-    Operations::instance().setData(opId, model);
-
-    CreateUpdate_Address(opId);
-}
-
-void MainPresenter::Operation_InsertAddress(IMainView *sender)
-{
-    QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
-
-    FormModel<Address>* model = new FormModel<Address>(FormModel_Type::Create, -1);
-    Operations::instance().setData(opId, model);
-
-    CreateUpdate_Address(opId);
-}
-
-void MainPresenter::CreateUpdate_Address(QUuid opId)
-{
-    //void *a = Operations::instance().data(opId);
-    //FormModel<Address> *model = reinterpret_cast<FormModel<Address>*>(a);
-    FormModel<Address> *model = Operations::instance().data<FormModel<Address>>(opId);
-
-    if(model)
-    {
-        auto addressRepo = _globals._repositories.address;
-        bool connected = _globals._helpers._sqlHelper.TryConnect();
-        if(connected)
-        {
-            bool isRepoOk = SqlRepository<Address>::Check();
-            bool ref1Ok_County = CheckRef(Address, countyId, County);
-            //bool ref2Ok_County = CheckRef(Address, county2Id, County);
-            //bool ref3Ok_County = CheckRef(Address, county3Id, County);
-
-            bool refOk_Country = CheckRef(Address, countryId, Country);
-
-            bool valid = isRepoOk
-                         && ref1Ok_County //&& ref2Ok_County && ref3Ok_County
-                         && refOk_Country ;
-            if(valid)
-            {
-                DataForm *form = new DataForm(opId);
-
-                QString wCode_title = model->GetOpname();//
-                QString title =  _globals._translator.Translate(wCode_title) + ": " + _tr(WCodes::Address);
-
-                form->setWindowTitle(title);
-
-                // referenciákat lekérjük id alapján
-
-                Address data;
-
-                if (model->IsUpdate()) {
-                    data = _globals._repositories.address.Get(model->Id());
-                    //model->Set_data(data);
-                }
-
-                // ez a mezők neveit és azok típusát tartalmazza
-                // referencia esetén a value a hivatkozott id,
-                QList<MetaValue> m = Address::Meta().ToMetaValues(data);
-                form->setMetaValues(m);
-
-                DataRowDefaultModel countyRows = Get_DataRowDefaultModel(Address, countyId, County);
-                //DataRowDefaultModel county2Rows = Copy_DataRowDefaultModel(countyRows, Address, county2Id);
-                //DataRowDefaultModel county3Rows = Copy_DataRowDefaultModel(countyRows, Address, county3Id);
-
-                DataRowDefaultModel countryRows = Get_DataRowDefaultModel(Address, countryId, Country);
-
-                QList<DataRowDefaultModel> defaults {countyRows, countryRows};//county2Rows, county3Rows,
-
-                form->SetDataRowDefaults(defaults);
-
-                form->show();
-
-                QObject::connect(form, SIGNAL(AcceptActionTriggered(QUuid)),
-                                 this, SLOT(process_CreateUpdate_Address_AcceptAction(QUuid)));
-
-                QObject::connect(form, SIGNAL(DoneActionTriggered(QUuid, int)),
-                                 this, SLOT(process_DoneAction(QUuid, int)));
-
-
-                model->Set_data(form, data);
-
-            }
-        }
-    }
 }
 
 void MainPresenter::process_Add_SoldItemAction(IMainView *sender){
@@ -425,27 +279,6 @@ void MainPresenter::process_Add_SoldItemAction(IMainView *sender){
     QObject::connect(form, SIGNAL(DoneActionTriggered(QUuid, int)),
                      this, SLOT(process_DoneAction(QUuid, int)));
 
-}
-
-
-// import
-
-void MainPresenter::process_CimImport_Action(IMainView *sender)
-{
-    zTrace();
-    QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
-
-    bool connected = _globals._helpers._sqlHelper.TryConnect();
-    if(connected)
-    {
-        bool isRepoOk = SqlRepository<Address>::Check();
-        if(isRepoOk){
-            MainViewModel::FileNameModel fn = sender->get_CSVFileName_Address();
-            QString keyColumnName = FieldName(Address, excelId);
-            Import_private<Address>(fn, keyColumnName,';');
-        }
-    }
-    Operations::instance().stop(opId);
 }
 
 void MainPresenter::process_PartnerImport_Action(IMainView *sender)
@@ -573,32 +406,9 @@ void MainPresenter::process_ArticleImport_Action(IMainView *sender)
 //     return true;
 // }
 
-template<typename T, typename R>
-bool MainPresenter::CheckRef_(const QString& f)
-{
-    Ref<R>* r1 = T::Meta().template GetRef2<R>(f);
-    if(!r1) return false;
 
-    bool ok = SqlRepository<R>::Check();
-    return ok;
-}
 
-template<typename T, typename R>
-DataRowDefaultModel MainPresenter::Get_DataRowDefaultModel_(const QString& f)
-{
-    //Ref<R>* r1 = T::Meta().template GetRef2<R>();
 
-    QString fieldName = f;// T::Meta().template GetRef_FieldName<R>();
-    SqlRepository<R> *repo = SqlRepositoryContainer::Get<R>();
-
-    bool valid = repo && !fieldName.isEmpty();
-    if(!valid) return DataRowDefaultModel("");
-
-    QList<R> data = repo->GetAll();
-    DataRowDefaultModel rows = R::Meta().ToIdMegnevs(data);
-    rows.SetName_(fieldName);
-    return rows;
-}
 
 
 template<typename T>
@@ -614,129 +424,69 @@ void MainPresenter::Import_private(const MainViewModel::FileNameModel& fn,
         }   
 }
 
-///
+//
+
+void MainPresenter::process_PartnerList_Action(IMainView *sender)
+{
+    zTrace();
+    QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
+
+    ListModel<Partner>* model = new ListModel<Partner>();
+    //model->amType = AddModel_Type::Update;
+    Operations::instance().setData(opId, model);
+
+    //List_Partner(opId);
+}
+
+// Buttons: Address
+
+void MainPresenter::process_Add_AddressAction(IMainView *sender){
+    zTrace();
+    AddressOperations::Operation_InsertAddress(this, sender);
+}
+
+void MainPresenter::process_Update_AddressAction(IMainView *sender){
+    zTrace();
+
+    AddressOperations::Operation_UpdateAddress(this, sender, QUuid(), 2);
+}
+
 void MainPresenter::process_AddressList_Action(IMainView *sender)
 {
     zTrace();
     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
     ListModel<Address>* model = new ListModel<Address>();
+
+    AddressList *adl = new AddressList();
+
+    model->setAddressList(adl);
+
     //model->amType = AddModel_Type::Update;
     Operations::instance().setData(opId, model);
 
-    List_Address(opId);
+    adl->List_Address(opId, this);
 }
 
-/*
-*
-*/
-void MainPresenter::List_Address(QUuid opId)
+// import
+
+void MainPresenter::process_CimImport_Action(IMainView *sender)
 {
-    //void *a = Operations::instance().data(opId);
-    //ListModel<Address> *model = reinterpret_cast<ListModel<Address>*>(a);
-    ListModel<Address> *model = Operations::instance().data<ListModel<Address>>(opId);
+    zTrace();
+    AddressOperations::Import1Result a = AddressOperations::Operation_ImportAddress1(this, sender);
 
-    if(model)
+    if(a.isValid())
     {
-        auto addressRepo = _globals._repositories.address;
-        bool connected = _globals._helpers._sqlHelper.TryConnect();
-        if(connected)
+        MainViewModel::FileNameModel fn = sender->get_CSVFileName_Address();
+        if(fn.IsValid())
         {
-            bool isRepoOk = SqlRepository<Address>::Check();
-            bool ref1Ok_County = CheckRef(Address, countyId, County);
-
-            bool refOk_Country = CheckRef(Address, countryId, Country);
-
-            bool valid = isRepoOk
-                         && ref1Ok_County //&& ref2Ok_County && ref3Ok_County
-                         && refOk_Country ;
-            if(valid)
-            {
-                DataListForm* form = new DataListForm(opId);
-
-                QString title = _tr(WCodes::List)+": "+_tr(WCodes::Address);
-                form->setWindowTitle(title);
-
-                //referenciákat lekérjük id alapján
-
-                QList<Address> data = _globals._repositories.address.GetAll();
-                //model->data = data;
-
-                // ez a mezők neveit és azok típusát tartalmazza
-                // referencia esetén a value a hivatkozott id,
-                QList<QList<MetaValue>> m = Address::Meta().ToMetaValueList(data);
-                form->setMetaValueList(m);
-
-                DataRowDefaultModel countyRows = Get_DataRowDefaultModel(Address, countyId, County);
-                DataRowDefaultModel countryRows = Get_DataRowDefaultModel(Address, countryId, Country);
-                QList<DataRowDefaultModel> defaults {countyRows, countryRows};
-                form->SetDataRowDefaults(defaults);
-
-                form->show();
-
-                QObject::connect(form, SIGNAL(UpdateActionTriggered(QUuid, int)),
-                                 this, SLOT(process_UpdateAction(QUuid, int)));
-
-                QObject::connect(form, SIGNAL(InsertActionTriggered(QUuid)),
-                                 this, SLOT(process_InsertAction(QUuid)));
-
-                QObject::connect(this, SIGNAL(TableFresh_AddRow(QUuid, const  QList<MetaValue>&)),
-                                 this, SLOT(process_TableFresh_AddRow(QUuid, const  QList<MetaValue>&)));
-
-                QObject::connect(this, SIGNAL(TableFresh_UpdateRow(QUuid, const  QList<MetaValue>&)),
-                                 this, SLOT(process_TableFresh_UpdateRow(QUuid, const  QList<MetaValue>&)));
-
-                QObject::connect(form, SIGNAL(DoneActionTriggered(QUuid, int)),
-                                 this, SLOT(process_DoneAction2(QUuid, int)));
-
-                model->Set_data(form, data);
-
-            }
+            AddressOperations::Operation_ImportAddress2(fn);
         }
     }
-}
-
-
-void MainPresenter::process_DoneAction2(QUuid opId, int r){
-    zTrace();
-
-    QObject::disconnect(this, SIGNAL(TableFresh()),
-                     this, SLOT(process_TableFresh()));
-
-
-    Operations::instance().stop(opId);
+    Operations::instance().stop(a.opId());
 }
 
 
 
-void MainPresenter::process_UpdateAction(QUuid opId, int id)
-{
-    zTrace();
 
-    //void *a = Operations::instance().data(opId);
-    //ListModel<Address> *model = reinterpret_cast<ListModel<Address>*>(a);
-    //if(model)
-   // {
-        Operation_UpdateAddress(_views.at(0), opId, id);
-    //}
-
-}
-
-void MainPresenter::process_InsertAction(QUuid opid)
-{
-    zTrace();
-    Operation_InsertAddress(_views.at(0));
-
-    // be kell frissíteni a táblában az új rekordot
-}
-
-void MainPresenter::process_TableFresh_AddRow(QUuid opid, const QList<MetaValue>& values)
-{
-    zTrace();
-}
-
-void MainPresenter::process_TableFresh_UpdateRow(QUuid opid, const QList<MetaValue>& values)
-{
-    zTrace();
-}
 

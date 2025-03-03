@@ -45,6 +45,7 @@ signals:
 
     // list
     void AddressList_ActionTriggered(IMainView *sender) override;
+    void PartnerList_ActionTriggered(IMainView *sender) override;
 
     //import
     void TetelImport_ActionTriggered(IMainView *sender) override;    
@@ -79,5 +80,6 @@ private slots:
     void on_pushButton_AddressCreate_clicked();
     void on_pushButton_AddressUpdate_clicked();
     void on_pushButton_AddressList_clicked();
+    void on_pushButton_PartnerList_clicked();
 };
 #endif // MAINWINDOW_H

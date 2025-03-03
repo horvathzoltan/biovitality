@@ -86,7 +86,7 @@ public:
         //     return;
         // }
 
-        bool hasKeyColumn = keyColumnName.isEmpty();
+        bool hasKeyColumn = !keyColumnName.isEmpty();
 
         int i_all=0, u_all=0;
         int i_ok=0, u_ok=0;

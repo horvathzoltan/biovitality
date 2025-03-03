@@ -40,6 +40,7 @@ public: // signals
     virtual void CountyImport_ActionTriggered(IMainView *sender) = 0;
 //list
     virtual void AddressList_ActionTriggered(IMainView *sender) =0;
+    virtual void PartnerList_ActionTriggered(IMainView *sender) =0;
 //log
     virtual void ToClipBoard_ActionTriggered(IMainView *sender) = 0;    
     virtual void ToLogFile_ActionTriggered(IMainView *sender) = 0;

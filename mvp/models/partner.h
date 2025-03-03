@@ -26,7 +26,8 @@ public:
 
     int id=-1;
     QString Name;
-    int excelId=-1;
+    std::optional<int> excelId;
+    std::optional<int> addressId;
 
     // partnertipus // szállító/vevő/mindkettő
     // adózástípus

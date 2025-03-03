@@ -10,6 +10,8 @@ DataListForm::DataListForm(QUuid opId, QWidget *parent)
 {
     _opId = opId;
     ui->setupUi(this);
+    ui->tableWidget->setCurrentItem(nullptr);
+
 }
 
 DataListForm::~DataListForm()
@@ -34,22 +36,36 @@ void DataListForm::done(int r)
     emit DoneActionTriggered(_opId, r);
 }
 
-
-
-void DataListForm::setMetaValueList(QList<QList<MetaValue>> m)
+void DataListForm::AddRow(const QList<MetaValue> &values)
 {
-    QList<MetaValue> a = m.first();
+    int rowIx = ui->tableWidget->rowCount();
+    ui->tableWidget->insertRow(rowIx);
+    UpdateRow_private(rowIx, values);
+}
 
-    int columnCount = a.count();
+void DataListForm::UpdateRow(const QList<MetaValue> &values)
+{
+    if(values.isEmpty()) return;
+    bool ok;
+    int id = values[_idColumnIx].value.toInt(&ok);
+    if(!ok) return;
+    int rowIx = FindRow(id);
+    if(rowIx == -1) return;
+
+    UpdateRow_private(rowIx, values);
+}
+
+void DataListForm::setHeaderLine(const QList<MetaValue>& h0)
+{
+    int columnCount = h0.count();
     ui->tableWidget->setColumnCount(columnCount);
 
     _metaFieldColumnMap.clear();
-
-    int i=0;
-    for (MetaValue &metaValue : a)
+    for(int i=0;i<columnCount;i++)
     {
+        const MetaValue& metaValue = h0[i];
         QString translatedName = _globals._translator.Translate(metaValue.wcode);
-        //int i = ui->tableWidget->columnCount();
+
         ui->tableWidget->setHorizontalHeaderItem(i, new QTableWidgetItem(translatedName));
 
         _metaFieldColumnMap.insert(metaValue.metaField_name, i);
@@ -58,31 +74,108 @@ void DataListForm::setMetaValueList(QList<QList<MetaValue>> m)
         {
             _refColumnIxs.append(i);
         }
-        i++;
-    }
-
-    for(QList<MetaValue>& row : m)
-    {
-        int rowIx = ui->tableWidget->rowCount();
-        ui->tableWidget->insertRow(rowIx);
-        int i=0;
-        for (MetaValue &metaValue : row)
-        {
-            QString translatedValue = metaValue.value.toString();
-            QTableWidgetItem *item = new QTableWidgetItem(translatedValue);
-            ui->tableWidget->setItem(rowIx, i, item);
-            i++;
-        }
     }
 }
 
+DataRowDefaultModel* DataListForm::FindDefaults(const QString &fieldName)
+{
+    if(_dataRowDefaultModels.isEmpty()) return nullptr;
+    for (DataRowDefaultModel &a : _dataRowDefaultModels) {
+        if(!a.IsValid()) continue;
+        if (fieldName == a.name()) {
+            return &a;
+        }
+    }
+    return nullptr;
+}
+
+void DataListForm::setMetaValueList(QList<QList<MetaValue>> m)
+{    
+    int rowCount = m.count();
+    ui->tableWidget->setRowCount(rowCount);
+    for(int i=0;i<rowCount;i++)
+    {
+        UpdateRow_private(i, m[i]);
+    }
+}
+
+
+
+void DataListForm::UpdateRow_private(int rowIx, const QList<MetaValue> &values)
+{
+    if(!RowIxIsValid(rowIx)) return;
+    if(values.isEmpty()) return;
+
+    int valuesCount = values.count();
+    for(int i=0;i<valuesCount;i++)
+    {
+        const MetaValue &metaValue = values[i];
+        QString translatedValue = metaValue.value.toString();
+        QTableWidgetItem *item = new QTableWidgetItem(translatedValue);
+
+        if(metaValue.refType == RefType::R_1N){
+            bool isRef = _refColumnIxs.contains(i);
+            if(isRef){
+                DataRowDefaultModel* a = FindDefaults(metaValue.metaField_name);
+                if(a){
+                    std::optional<int> id;
+                    QMetaType qvm = metaValue.value.metaType();
+                    auto f_type = QMetaType::fromType<std::optional<int>>();
+
+                    bool cc = QMetaType::canConvert(qvm, f_type);
+
+                    if(cc)
+                    {
+                        QMetaType::convert(qvm, metaValue.value.constData(), f_type, &id);
+                        if(id.has_value()){
+                            QString b = a->GetMegnev(id.value());
+                            item->setData(Qt::DisplayRole, b);
+                        }
+                    }
+                }
+            }
+        } else if(metaValue.refType == RefType::R_NM){
+
+        }
+        ui->tableWidget->setItem(rowIx, i, item);
+    }
+}
+
+
+
+int DataListForm::FindRow(int id)
+{
+    for(int r=0;r<ui->tableWidget->rowCount();r++)
+    {
+        QTableWidgetItem *item = ui->tableWidget->item(r, _idColumnIx);
+        if(!item) continue;
+
+        bool ok;
+        int rowId = item->data(Qt::DisplayRole).toInt(&ok);
+        if(ok && rowId == id)
+        {
+            return r;
+        }
+    }
+    return -1;
+}
+
+bool DataListForm::RowIxIsValid(int rowIx)
+{
+    if(rowIx<0) return false;
+    if(rowIx>=ui->tableWidget->rowCount()) return false;
+    return true;
+}
+
+
 void DataListForm::SetDataRowDefaults(QList<DataRowDefaultModel> values)
 {
+    _dataRowDefaultModels = values;
     for (DataRowDefaultModel &v : values) {
         QString dataRowName = v.name();
         //DataRowWidget *w = FindWidget(dataRowName);
 
-        // todo 00 a columt kell megtalálni meta mező név alapján
+        //  00 a columt kell megtalálni meta mező név alapján
         // végig kell menni a rowokon
         // a benne lévő id alapján ki kell cserélni az adatot a cellában
 
@@ -142,6 +235,7 @@ QString DataListForm::GetColumnNameByItem(QTableWidgetItem *item) {
 
 void DataListForm::on_pushButton_Update_clicked()
 {
+    zTrace();
     emit UpdateActionTriggered(_opId, _currentId);
 }
 

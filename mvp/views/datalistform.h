@@ -25,22 +25,28 @@ public:
 
     void done(int r);
 
-   // int CurrentId(){return _currentId;}
+    void AddRow(const QList<MetaValue>& values);
+    void UpdateRow(const QList<MetaValue>& values);
+    void setHeaderLine(const QList<MetaValue> &h0);
 private:
     Ui::DataListForm *ui;
     QUuid _opId;
 
     int _idColumnIx=0;
     int _currentId;
-
+    QList<DataRowDefaultModel> _dataRowDefaultModels;
     //void accept();
     //void reject();
+
+    DataRowDefaultModel* FindDefaults(const QString& fieldName);
 
     QMap<QString,int> _metaFieldColumnMap;
     QList<int> _refColumnIxs;
 
     QString GetColumnNameByItem(QTableWidgetItem *item);
-
+    void UpdateRow_private(int rowIx, const QList<MetaValue>& values);
+    int FindRow(int id);
+    bool RowIxIsValid(int rowIx);
 private slots:
     void on_pushButton_Update_clicked();
     void on_pushButton_Insert_clicked();

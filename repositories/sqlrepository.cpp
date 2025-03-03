@@ -378,6 +378,10 @@ bool SqlRepository<T>::Check()
     return e;
 }
 
+
+
+
+
 // RepositoryBase* RepositoryBase::GetRepository(const QString& tableName){
 //     for(auto r:_repos){
 //         if(r->_tableName == tableName) return r;

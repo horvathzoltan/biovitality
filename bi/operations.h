@@ -3,6 +3,7 @@
 
 #include <typeindex>
 
+#include "bi/address/addresslist.h"
 #include "mvp/models/solditem.h"
 #include "helpers/logger.h"
 #include "mvp/views/dataform.h"
@@ -74,9 +75,11 @@ private:
     ~ListModel(){
         _data.clear();
         delete _dataListForm;
+        delete _addressList;
     }
     QList<T> _data;
-    DataListForm* _dataListForm;    
+    DataListForm* _dataListForm;
+    AddressList* _addressList;
     //AddModel_Type amType;
 public:
     //int CurrentId(){return _dataListForm->CurrentId();};
@@ -84,6 +87,8 @@ public:
         _dataListForm = f;
         _data = d;
     }
+    DataListForm* dataListForm(){return _dataListForm;}
+    void setAddressList(AddressList* al){_addressList = al;}
 };
 
 class Operation{

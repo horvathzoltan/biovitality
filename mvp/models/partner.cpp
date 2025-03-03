@@ -1,3 +1,4 @@
+#include "address.h"
 #include "partner.h"
 #include <meta/csvhelper.h>
 
@@ -16,13 +17,20 @@ void Partner::MetaInit()
     AddMetaField(id); // id
     AddMetaField(Name); //megnev
     AddMetaField(excelId); //excelId
+    AddMetaField(addressId);
 
-    _meta.MetaIdMegnevIndex(0,{1},-1);
+    //_meta.MetaIdMegnevIndex(0,{1},-1);
     //AddMetaIdMegnevIndex(id, name, KSH_code);
+     _meta.SetMetaIdMegnev(Partner, id, Name);
 }
 
-void Partner::AddRefs(){};
-void Partner::DeleteRefs(){};
+void Partner::AddRefs(){
+    _meta.AddMetaReference_1N(Partner, addressId, Address, id);
+};
+
+void Partner::DeleteRefs(){
+    _meta.DeleteMetaReference(Partner, addressId, Address);
+};
 
 bool Partner::isValid()
 {

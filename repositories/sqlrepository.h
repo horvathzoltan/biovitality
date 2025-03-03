@@ -1,12 +1,17 @@
 #ifndef SQLREPOSITORY_H
 #define SQLREPOSITORY_H
 
+#include "meta/meta.h"
 #include <QSqlField>
 #include <QString>
 #include <typeindex>
 
 #include <helpers/sqlhelper.h>
 #include <helpers/typehelper.h>
+
+#define CheckRef(t, b, r) SqlRepositoryHelper::CheckRef_<t,r>(FieldName(t,b))
+#define Get_DataRowDefaultModel(t, b, r) SqlRepositoryHelper::Get_DataRowDefaultModel_<t,r>(FieldName(t,b))
+
 
 //#include <meta/meta.h>
 
@@ -100,6 +105,7 @@ public:
 */
 
 
+
 template<typename T>
 //class SqlRepository : public SqlExcelRepository, public RepositoryBase
 class SqlRepository : public RepositoryBase
@@ -125,6 +131,9 @@ public:
 
     //template<typename T>
     static bool Check();
+
+
+
 };
 
 class SqlRepositoryContainer{
@@ -139,6 +148,36 @@ public:
     static SqlRepository<T>* Get(){return _data.Get<SqlRepository<T>>();}
 };
 
+
+class SqlRepositoryHelper{
+public:
+    template<typename T, typename R>
+    static bool CheckRef_(const QString& f)
+    {
+        Ref<R>* r1 = T::Meta().template GetRef2<R>(f);
+        if(!r1) return false;
+
+        bool ok = SqlRepository<R>::Check();
+        return ok;
+    }
+
+    template<typename T, typename R>
+    static DataRowDefaultModel Get_DataRowDefaultModel_(const QString& f)
+    {
+        //Ref<R>* r1 = T::Meta().template GetRef2<R>();
+
+        QString fieldName = f;// T::Meta().template GetRef_FieldName<R>();
+        SqlRepository<R> *repo = SqlRepositoryContainer::Get<R>();
+
+        bool valid = repo && !fieldName.isEmpty();
+        if(!valid) return DataRowDefaultModel("");
+
+        QList<R> data = repo->GetAll();
+        DataRowDefaultModel rows = R::Meta().ToIdMegnevs(data);
+        rows.SetName_(fieldName);
+        return rows;
+    }
+};
 // template<typename T>
 // class SqlERepository : public SqlRepository<T>
 // {

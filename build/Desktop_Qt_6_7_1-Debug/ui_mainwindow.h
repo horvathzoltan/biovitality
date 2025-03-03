@@ -40,17 +40,19 @@ public:
     QGroupBox *groupBox_Import;
     QHBoxLayout *horizontalLayout_4;
     QSpacerItem *horizontalSpacer_2;
-    QPushButton *pushButton_PartnerImport;
     QPushButton *pushButton_ArticleImport;
     QPushButton *pushButton_CoutntyImport;
     QPushButton *pushButton_CountryImpot;
     QGroupBox *groupBox_Address;
     QHBoxLayout *horizontalLayout_5;
-    QPushButton *pushButton_AddressCreate;
-    QPushButton *pushButton_AddressUpdate;
     QPushButton *pushButton_AddressList;
     QSpacerItem *horizontalSpacer_4;
     QPushButton *pushButton_AddressImport;
+    QGroupBox *groupBox_Partner;
+    QHBoxLayout *horizontalLayout_6;
+    QPushButton *pushButton_PartnerList;
+    QSpacerItem *horizontalSpacer_5;
+    QPushButton *pushButton_PartnerImport;
     QSpacerItem *verticalSpacer;
     QHBoxLayout *horizontalLayout_2;
     QPlainTextEdit *plainTextEdit_status;
@@ -116,11 +118,6 @@ public:
 
         horizontalLayout_4->addItem(horizontalSpacer_2);
 
-        pushButton_PartnerImport = new QPushButton(groupBox_Import);
-        pushButton_PartnerImport->setObjectName("pushButton_PartnerImport");
-
-        horizontalLayout_4->addWidget(pushButton_PartnerImport);
-
         pushButton_ArticleImport = new QPushButton(groupBox_Import);
         pushButton_ArticleImport->setObjectName("pushButton_ArticleImport");
 
@@ -143,16 +140,6 @@ public:
         groupBox_Address->setObjectName("groupBox_Address");
         horizontalLayout_5 = new QHBoxLayout(groupBox_Address);
         horizontalLayout_5->setObjectName("horizontalLayout_5");
-        pushButton_AddressCreate = new QPushButton(groupBox_Address);
-        pushButton_AddressCreate->setObjectName("pushButton_AddressCreate");
-
-        horizontalLayout_5->addWidget(pushButton_AddressCreate);
-
-        pushButton_AddressUpdate = new QPushButton(groupBox_Address);
-        pushButton_AddressUpdate->setObjectName("pushButton_AddressUpdate");
-
-        horizontalLayout_5->addWidget(pushButton_AddressUpdate);
-
         pushButton_AddressList = new QPushButton(groupBox_Address);
         pushButton_AddressList->setObjectName("pushButton_AddressList");
 
@@ -169,6 +156,27 @@ public:
 
 
         verticalLayout->addWidget(groupBox_Address);
+
+        groupBox_Partner = new QGroupBox(centralwidget);
+        groupBox_Partner->setObjectName("groupBox_Partner");
+        horizontalLayout_6 = new QHBoxLayout(groupBox_Partner);
+        horizontalLayout_6->setObjectName("horizontalLayout_6");
+        pushButton_PartnerList = new QPushButton(groupBox_Partner);
+        pushButton_PartnerList->setObjectName("pushButton_PartnerList");
+
+        horizontalLayout_6->addWidget(pushButton_PartnerList);
+
+        horizontalSpacer_5 = new QSpacerItem(40, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
+
+        horizontalLayout_6->addItem(horizontalSpacer_5);
+
+        pushButton_PartnerImport = new QPushButton(groupBox_Partner);
+        pushButton_PartnerImport->setObjectName("pushButton_PartnerImport");
+
+        horizontalLayout_6->addWidget(pushButton_PartnerImport);
+
+
+        verticalLayout->addWidget(groupBox_Partner);
 
         verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Policy::Minimum, QSizePolicy::Policy::Expanding);
 
@@ -220,15 +228,15 @@ public:
         pushButton_AddSoldItem->setText(QCoreApplication::translate("MainWindow", "Hozz\303\241ad\303\241s", nullptr));
         pushButton_TetelImport->setText(QCoreApplication::translate("MainWindow", "Import", nullptr));
         groupBox_Import->setTitle(QCoreApplication::translate("MainWindow", "MainDataImport", nullptr));
-        pushButton_PartnerImport->setText(QCoreApplication::translate("MainWindow", "Partner Import", nullptr));
-        pushButton_ArticleImport->setText(QCoreApplication::translate("MainWindow", "Cikk Import", nullptr));
-        pushButton_CoutntyImport->setText(QCoreApplication::translate("MainWindow", "Megye Import", nullptr));
-        pushButton_CountryImpot->setText(QCoreApplication::translate("MainWindow", "Orsz\303\241g Import", nullptr));
+        pushButton_ArticleImport->setText(QCoreApplication::translate("MainWindow", "ArticleImport", nullptr));
+        pushButton_CoutntyImport->setText(QCoreApplication::translate("MainWindow", "CountyImport", nullptr));
+        pushButton_CountryImpot->setText(QCoreApplication::translate("MainWindow", "CountryImport", nullptr));
         groupBox_Address->setTitle(QCoreApplication::translate("MainWindow", "address", nullptr));
-        pushButton_AddressCreate->setText(QCoreApplication::translate("MainWindow", "create", nullptr));
-        pushButton_AddressUpdate->setText(QCoreApplication::translate("MainWindow", "update", nullptr));
         pushButton_AddressList->setText(QCoreApplication::translate("MainWindow", "AddressList", nullptr));
-        pushButton_AddressImport->setText(QCoreApplication::translate("MainWindow", "import", nullptr));
+        pushButton_AddressImport->setText(QCoreApplication::translate("MainWindow", "AddressImport", nullptr));
+        groupBox_Partner->setTitle(QCoreApplication::translate("MainWindow", "GroupBox", nullptr));
+        pushButton_PartnerList->setText(QCoreApplication::translate("MainWindow", "PartnerList", nullptr));
+        pushButton_PartnerImport->setText(QCoreApplication::translate("MainWindow", "PartnerImport", nullptr));
         pushButton_ToClipBoard->setText(QCoreApplication::translate("MainWindow", "ToClipBoard", nullptr));
         pushButton_ToLogFile->setText(QCoreApplication::translate("MainWindow", "ToLogFile", nullptr));
     } // retranslateUi
