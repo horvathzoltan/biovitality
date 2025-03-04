@@ -31,7 +31,9 @@ public:
     };
 
     struct AcceptActionResponse{
-
+        AcceptActionType type;
+        QUuid parentId;
+        QList<MetaValue> m_values;
     };
 
     template<typename T>
