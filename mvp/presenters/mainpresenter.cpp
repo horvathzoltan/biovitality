@@ -194,14 +194,35 @@ void MainPresenter::process_Add_SoldItem_AcceptAction(QUuid opId)
 {
     zTrace();
     auto e = OperationHelper::process_CreateUpdate_AcceptAction<SoldItem>(opId);
-
+    // if(e.type==OperationHelper::AcceptActionType::AddRow){
+    //     zInfo("AddRow");
+    //     emit  TableFresh_AddRow(e.parentId, e.m_values);
+    // } else if(e.type==OperationHelper::AcceptActionType::UpdateRow){
+    //     zInfo("UpdateRow");
+    //     emit  TableFresh_UpdateRow(e.parentId, e.m_values);
+    // }
 }
 
 void MainPresenter::process_CreateUpdate_Address_AcceptAction(QUuid opId)
 {
     zTrace();
     auto e = OperationHelper::process_CreateUpdate_AcceptAction<Address>(opId);
-
+    if(e.type!=OperationHelper::AcceptActionType::None)
+    {
+        ListModel<Address> *model = Operations::instance().data<ListModel<Address>> (e.parentId);
+        if(model)
+        {
+            DataListForm *form = model->dataListForm();
+            if(form)
+            {
+                if(e.type==OperationHelper::AcceptActionType::AddRow){
+                    emit  form->TableFresh_AddRow(e.parentId, e.m_values);
+                } else if(e.type==OperationHelper::AcceptActionType::UpdateRow){
+                    emit  form->TableFresh_UpdateRow(e.parentId, e.m_values);
+                }
+            }
+        }
+    }
 }
 
 void MainPresenter::process_DoneAction(QUuid opId, int r){

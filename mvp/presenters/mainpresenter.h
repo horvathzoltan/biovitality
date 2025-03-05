@@ -89,9 +89,9 @@ private slots:
     void process_PartnerList_Action(IMainView *sender);
 
 
-signals:
-    void TableFresh_AddRow(QUuid opid,const  QList<MetaValue>& values);
-    void TableFresh_UpdateRow(QUuid opid,const QList<MetaValue>& values);
+// signals:
+//     void TableFresh_AddRow(QUuid opid,const  QList<MetaValue>& values);
+//     void TableFresh_UpdateRow(QUuid opid,const QList<MetaValue>& values);
 
 
     // template<typename T>

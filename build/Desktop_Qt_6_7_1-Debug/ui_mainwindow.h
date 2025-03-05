@@ -46,6 +46,7 @@ public:
     QGroupBox *groupBox_Address;
     QHBoxLayout *horizontalLayout_5;
     QPushButton *pushButton_AddressList;
+    QPushButton *pushButton_AddAddress;
     QSpacerItem *horizontalSpacer_4;
     QPushButton *pushButton_AddressImport;
     QGroupBox *groupBox_Partner;
@@ -145,6 +146,11 @@ public:
 
         horizontalLayout_5->addWidget(pushButton_AddressList);
 
+        pushButton_AddAddress = new QPushButton(groupBox_Address);
+        pushButton_AddAddress->setObjectName("pushButton_AddAddress");
+
+        horizontalLayout_5->addWidget(pushButton_AddAddress);
+
         horizontalSpacer_4 = new QSpacerItem(761, 20, QSizePolicy::Policy::Expanding, QSizePolicy::Policy::Minimum);
 
         horizontalLayout_5->addItem(horizontalSpacer_4);
@@ -233,6 +239,7 @@ public:
         pushButton_CountryImpot->setText(QCoreApplication::translate("MainWindow", "CountryImport", nullptr));
         groupBox_Address->setTitle(QCoreApplication::translate("MainWindow", "address", nullptr));
         pushButton_AddressList->setText(QCoreApplication::translate("MainWindow", "AddressList", nullptr));
+        pushButton_AddAddress->setText(QCoreApplication::translate("MainWindow", "AddAddress", nullptr));
         pushButton_AddressImport->setText(QCoreApplication::translate("MainWindow", "AddressImport", nullptr));
         groupBox_Partner->setTitle(QCoreApplication::translate("MainWindow", "GroupBox", nullptr));
         pushButton_PartnerList->setText(QCoreApplication::translate("MainWindow", "PartnerList", nullptr));

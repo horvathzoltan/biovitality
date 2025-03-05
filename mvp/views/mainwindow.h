@@ -81,5 +81,6 @@ private slots:
     void on_pushButton_AddressUpdate_clicked();
     void on_pushButton_AddressList_clicked();
     void on_pushButton_PartnerList_clicked();
+    void on_pushButton_AddAddress_clicked();
 };
 #endif // MAINWINDOW_H

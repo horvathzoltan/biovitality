@@ -31,20 +31,22 @@ public:
     };
 
     struct AcceptActionResponse{
-        AcceptActionType type;
+        AcceptActionType type = None;
+        QUuid opId;
         QUuid parentId;
         QList<MetaValue> m_values;
+
+        explicit AcceptActionResponse(QUuid o) : opId(o){};
+
+        private:
+        AcceptActionResponse(){};
     };
 
     template<typename T>
     static AcceptActionResponse process_CreateUpdate_AcceptAction(QUuid opId)
     {
-
-        AcceptActionResponse e;
         zTrace();
-        //void *a = Operations::instance().data(opId);
-        //FormModel<T> *b = reinterpret_cast<FormModel<T>*>(a);
-        auto op = Operations::instance().operation(opId);
+        AcceptActionResponse e(opId);
 
         FormModel<T> *b = Operations::instance().data<FormModel<T>>(opId);
 
@@ -67,20 +69,20 @@ public:
                         if(added){
                             if(!parentId.isNull())
                             {
-                                //  001a kell a row data is átadni, beszúrjuk a rowt a végére
-                                emit  TableFresh_AddRow(parentId, m.values);
-                                e = AddRow;
+                                e.m_values = m.values;
+                                e.parentId = parentId;
+                                e.type = AddRow;
                             }
                         }
                     } else if(b->IsUpdate()){
                         // UPDATE
                         bool updated = repo->Update(data);
                         if(updated){
-                            //QUuid parentId = Operations::instance().parentId(opId);
-                            if(!parentId.isNull()){
-                                //  001b kell a row data is átadni, felupdateljük a rowt
-                                emit TableFresh_UpdateRow(parentId, m.values);
-                                e = UpdateRow;
+                            if(!parentId.isNull())
+                            {
+                                e.m_values = m.values;
+                                e.parentId = parentId;
+                                e.type = UpdateRow;
                             }
                         }
                     };

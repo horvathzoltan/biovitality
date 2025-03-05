@@ -69,12 +69,11 @@ void AddressList::List_Address(QUuid opId, Presenter *presenter)
                 QObject::connect(form, SIGNAL(InsertActionTriggered(QUuid)),
                                  this, SLOT(process_InsertAction(QUuid)));
 
-                QObject::connect(presenter, SIGNAL(TableFresh_AddRow(QUuid, const  QList<MetaValue>&)),
+                QObject::connect(form, SIGNAL(TableFresh_AddRow(QUuid, const  QList<MetaValue>&)),
                                  this, SLOT(process_TableFresh_AddRow(QUuid, const  QList<MetaValue>&)));
 
-                QObject::connect(presenter, SIGNAL(TableFresh_UpdateRow(QUuid, const  QList<MetaValue>&)),
+                QObject::connect(form, SIGNAL(TableFresh_UpdateRow(QUuid, const  QList<MetaValue>&)),
                                  this, SLOT(process_TableFresh_UpdateRow(QUuid, const  QList<MetaValue>&)));
-
 
                 QObject::connect(form, SIGNAL(DoneActionTriggered(QUuid, int)),
                                  this, SLOT(process_DoneAction2(QUuid, int)));
@@ -104,7 +103,7 @@ void AddressList::process_InsertAction(QUuid opId)
 
 void AddressList::process_TableFresh_AddRow(QUuid opId, const QList<MetaValue>& values)
 {
-    //zTrace();
+    zTrace();
     ListModel<Address> *model = Operations::instance().data<ListModel<Address>>(opId);
     if(!model) return;
     DataListForm *d = model->dataListForm();
@@ -116,7 +115,7 @@ void AddressList::process_TableFresh_AddRow(QUuid opId, const QList<MetaValue>& 
 
 void AddressList::process_TableFresh_UpdateRow(QUuid opId, const QList<MetaValue>& values)
 {
-    //zTrace();
+    zTrace();
     ListModel<Address> *model = Operations::instance().data<ListModel<Address>>(opId);
     if(!model) return;
     DataListForm *d = model->dataListForm();

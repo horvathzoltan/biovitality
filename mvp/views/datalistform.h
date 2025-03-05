@@ -57,6 +57,8 @@ signals:
     void UpdateActionTriggered(QUuid, int);
     void InsertActionTriggered(QUuid);
     void DoneActionTriggered(QUuid, int r);
+    void TableFresh_AddRow(QUuid opid,const  QList<MetaValue>& values);
+    void TableFresh_UpdateRow(QUuid opid,const QList<MetaValue>& values);
 
 };
 #endif // DATALISTFORM_H

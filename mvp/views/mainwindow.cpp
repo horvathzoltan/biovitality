@@ -183,6 +183,12 @@ void MainWindow::on_pushButton_AddressCreate_clicked()
     emit Add_Address_ActionTriggered(this);
 }
 
+void MainWindow::on_pushButton_AddAddress_clicked()
+{
+    zTrace();
+    emit Add_Address_ActionTriggered(this);
+}
+
 //import
 
 void MainWindow::on_pushButton_TetelImport_clicked()
@@ -264,4 +270,7 @@ void MainWindow::on_pushButton_PartnerList_clicked()
     zTrace();
     emit PartnerList_ActionTriggered(this);
 }
+
+
+
 
