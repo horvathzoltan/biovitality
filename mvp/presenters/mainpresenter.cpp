@@ -7,39 +7,29 @@
 #include <QDebug>
 #include <QStringLiteral>
 
+#include "infrastructure/globals.h"
+#include "repositories/sqlrepository.h"
+#include "meta/csv_sqlhelper.h"
 
-#include <bi/address/addresslist.h>
-#include <bi/address/addressoperations.h>
-
+#include "bi/address/addresslist.h"
+//#include "bi/address/addresslist.h"
+#include "bi/address/addressoperations.h"
+#include "bi/operations.h"
+#include "bi/operationhelper.h"
 
 #include "mainpresenter.h"
+#include "mainpresenter_address.h"
 #include "helpers/logger.h"
-//#include "helpers/sqlhelper.h"
 #include "helpers/translator.h"
-#include "mvp/viewmodels/mainviewmodel.h"
-//#include "dowork.h"
-#include "bi/operations.h"
-//#include "settings.h"
-#include "mvp/views/dataform.h"
-//#include "datarowwidget.h"
-#include "infrastructure/globals.h"
-
-
-//#include "helpers/filehelper.h"
 #include "helpers/sqlhelper.h"
 
 #include "mvp/models/county.h"
 #include "mvp/models/article.h"
 #include "mvp/models/solditem.h"
 #include "mvp/models/address.h"
+#include "mvp/viewmodels/mainviewmodel.h"
+#include "mvp/views/dataform.h"
 
-//#include "mvp/views/datalistform.h"
-#include "repositories/sqlrepository.h"
-
-#include "meta/csv_sqlhelper.h"
-#include "../../bi/address/addresslist.h"
-//#include "meta/sqlmetahelper.h"
-#include "../../bi/operationhelper.h"
 
 extern Globals _globals;
 
@@ -60,6 +50,8 @@ void MainPresenter::appendView(IMainView *w)
 
     QObject *view_obj = dynamic_cast<QObject *>(w);
 
+    _mainPresenter_Address.Connect(view_obj);
+
     QObject::connect(view_obj, SIGNAL(PushButtonActionTriggered(IMainView *)),
                      this, SLOT(processPushButtonAction(IMainView *)));
 
@@ -68,31 +60,16 @@ void MainPresenter::appendView(IMainView *w)
 
     // UI Form Add tetel
     QObject::connect(view_obj, SIGNAL(Add_SoldItem_ActionTriggered(IMainView *)),
-                     this, SLOT(process_Add_SoldItemAction(IMainView *)));
-
-    // UI Form Add Address
-    QObject::connect(view_obj, SIGNAL(Add_Address_ActionTriggered(IMainView *)),
-                     this, SLOT(process_Add_AddressAction(IMainView *)));
-
-    QObject::connect(view_obj, SIGNAL(Update_Address_ActionTriggered(IMainView *)),
-                     this, SLOT(process_Update_AddressAction(IMainView *)));
+                     this, SLOT(process_Add_SoldItemAction(IMainView *)));   
 
     // CSV_Import SoldItem - Tetel
     QObject::connect(view_obj, SIGNAL(TetelImport_ActionTriggered(IMainView *)),
                      this, SLOT(process_TetelImport_Action(IMainView *)));
 
-    // CSV_Import Address - Cím
-    QObject::connect(view_obj, SIGNAL(CimImport_ActionTriggered(IMainView *)),
-                     this, SLOT(process_CimImport_Action(IMainView *)));
-
-    // Address List
-    QObject::connect(view_obj, SIGNAL(AddressList_ActionTriggered(IMainView *)),
-                     this, SLOT(process_AddressList_Action(IMainView *)));
 
     // Partner List
     QObject::connect(view_obj, SIGNAL(PartnerList_ActionTriggered(IMainView *)),
                      this, SLOT(process_PartnerList_Action(IMainView *)));
-
 
     //CSV_Import Country - Ország
     QObject::connect(view_obj, SIGNAL(CountryImport_ActionTriggered(IMainView *)),
@@ -120,24 +97,7 @@ void MainPresenter::initView(IMainView *w) const {
     w->set_DoWorkRModel(rm);
 
     static const QString conn = QStringLiteral("conn1");
-    // SQLHelper::SQLSettings sql_settings{
-    //     "QMARIADB",
-    //     "biovitality",
-    //         {{"192.168.1.105", 3306}},
-    //     "zoli",
-    //     "Aladar123"
-    // };
-    //SQLHelper sqlh;
-
-    // bool ok = _globals._helpers._sqlHelper.Connect();
-
-    // if(_globals._helpers._sqlHelper.dbIsValid()){
-    //     zInfo("DB "+_globals._settings._sql_settings.dbname+" is valid");
-    // } else{
-    //     zWarning("DB "+_globals._settings._sql_settings.dbname+" is invalid");
-    // }
     w->set_StatusLine({""});
-    //_db.close();   
 
     Repositories::MetaInit();
 };
@@ -146,9 +106,6 @@ void MainPresenter::initView(IMainView *w) const {
 
 void MainPresenter::processPushButtonAction(IMainView *sender){
     zTrace();
-    //auto m = sender->get_DoWorkModel();
-    //auto rm = DoWork::Work1(m);
-    //sender->set_DoWorkRModel(rm);
 }
 
 
@@ -165,21 +122,8 @@ void MainPresenter::processDBTestAction(IMainView *sender)
     fullfillment = hu.toDate(str,"yyyy.M.d");
     zInfo("fullfillment("+str+"): "+fullfillment.toString());
 
-    //str = QStringLiteral("2020.04.10.");
     fullfillment = hu.toDate(str,"yyyy.M.d");
     zInfo("fullfillment("+str+"): "+fullfillment.toString());
-    /*
-    //SqlRepository<SoldItem> sr("SoldItem");
-    auto a = sr.Get(2);
-    //auto a = sr.GetAll();https://www.facebook.com/
-    a.partnerHq = "aaa12";
-    a.partnerName = "maki12";
-    bool b = sr.Update(a);
-    zInfo(QStringLiteral("Update:")+(b?"ok":"failed"));
-    a.partnerHq = "aaa118_uj";
-    a.partnerName = "maki118_uj";
-    bool c = sr.Add(a);
-*/
     return;
 }
 
@@ -203,27 +147,7 @@ void MainPresenter::process_Add_SoldItem_AcceptAction(QUuid opId)
     // }
 }
 
-void MainPresenter::process_CreateUpdate_Address_AcceptAction(QUuid opId)
-{
-    zTrace();
-    auto e = OperationHelper::process_CreateUpdate_AcceptAction<Address>(opId);
-    if(e.type!=OperationHelper::AcceptActionType::None)
-    {
-        ListModel<Address> *model = Operations::instance().data<ListModel<Address>> (e.parentId);
-        if(model)
-        {
-            DataListForm *form = model->dataListForm();
-            if(form)
-            {
-                if(e.type==OperationHelper::AcceptActionType::AddRow){
-                    emit  form->TableFresh_AddRow(e.parentId, e.m_values);
-                } else if(e.type==OperationHelper::AcceptActionType::UpdateRow){
-                    emit  form->TableFresh_UpdateRow(e.parentId, e.m_values);
-                }
-            }
-        }
-    }
-}
+
 
 void MainPresenter::process_DoneAction(QUuid opId, int r){
     zTrace();
@@ -265,29 +189,23 @@ void MainPresenter::process_Add_SoldItemAction(IMainView *sender){
     // rekordok az sql-ből
     // getall -> rekordok -> model lista
 
-
-
     // partners -> partnerName
     QList<Partner> partners = _globals._repositories.partner.GetAll();
-    //DataRowDefaultModel partnerRows = Partner::To_DataRowDefaultModel(partners);
     DataRowDefaultModel partnerRows = Partner::Meta().ToIdMegnevs(partners);
     partnerRows.SetName(SoldItem,partnerName); // ennek a mezőnek lesznek ezek a defaultjai
 
     // címek -> partnerHq
     QList<Address> addresses = _globals._repositories.address.GetAll();
-    //DataRowDefaultModel addressRows = Address::To_DataRowDefaultModel(addresses);
     DataRowDefaultModel addressRows = Address::Meta().ToIdMegnevs(addresses);
     addressRows.SetName(SoldItem,partnerHq); // ennek a mezőnek lesznek ezek a defaultjai
 
     // megyék - county
     QList<County> counties = _globals._repositories.county.GetAll();
-    //DataRowDefaultModel countyRows = County::To_DataRowDefaultModel(counties);
     DataRowDefaultModel countyRows = County::Meta().ToIdMegnevs(counties);
     countyRows.SetName(SoldItem,county); // ennek a mezőnek lesznek ezek a defaultjai
 
     // cikkek - productName
     QList<Article> articles = _globals._repositories.article.GetAll();
-    //DataRowDefaultModel articleRows = Article::To_DataRowDefaultModel(articles);
     DataRowDefaultModel articleRows = Article::Meta().ToIdMegnevs(articles);
     articleRows.SetName(SoldItem,productName); // ennek a mezőnek lesznek ezek a defaultjai
 
@@ -429,11 +347,6 @@ void MainPresenter::process_ArticleImport_Action(IMainView *sender)
 //     return true;
 // }
 
-
-
-
-
-
 template<typename T>
 void MainPresenter::Import_private(const MainViewModel::FileNameModel& fn,
                                    //SqlRepository<T>& repo,
@@ -461,53 +374,80 @@ void MainPresenter::process_PartnerList_Action(IMainView *sender)
     //List_Partner(opId);
 }
 
-// Buttons: Address
 
-void MainPresenter::process_Add_AddressAction(IMainView *sender){
-    zTrace();
-    AddressOperations::Operation_InsertAddress(this, sender);
-}
+// /*ADDRESS*/
 
-void MainPresenter::process_Update_AddressAction(IMainView *sender){
-    zTrace();
+// // Create
+// void MainPresenter::process_Add_AddressAction(IMainView *sender){
+//     zTrace();
+//     AddressOperations::Operation_InsertAddress(this, sender);
+// }
 
-    AddressOperations::Operation_UpdateAddress(this, sender, QUuid(), 2);
-}
+// // Update
+// void MainPresenter::process_Update_AddressAction(IMainView *sender){
+//     zTrace();
 
-void MainPresenter::process_AddressList_Action(IMainView *sender)
-{
-    zTrace();
-    QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
+//     AddressOperations::Operation_UpdateAddress(this, sender, QUuid(), 2);
+// }
 
-    ListModel<Address>* model = new ListModel<Address>();
+// // ReadAll
+// void MainPresenter::process_AddressList_Action(IMainView *sender)
+// {
+//     zTrace();
+//     QUuid opId = Operations::instance().startNew(this, sender, __FUNCTION__);
 
-    AddressList *adl = new AddressList();
+//     ListModel<Address>* model = new ListModel<Address>();
 
-    model->setAddressList(adl);
+//     AddressList *adl = new AddressList();
 
-    //model->amType = AddModel_Type::Update;
-    Operations::instance().setData(opId, model);
+//     model->setAddressList(adl);
 
-    adl->List_Address(opId, this);
-}
+//     //model->amType = AddModel_Type::Update;
+//     Operations::instance().setData(opId, model);
 
-// import
+//     adl->List_Address(opId, this);
+// }
 
-void MainPresenter::process_CimImport_Action(IMainView *sender)
-{
-    zTrace();
-    AddressOperations::Import1Result a = AddressOperations::Operation_ImportAddress1(this, sender);
+// // Create/Update
+// void MainPresenter::process_CreateUpdate_Address_AcceptAction(QUuid opId)
+// {
+//     zTrace();
+//     auto e = OperationHelper::process_CreateUpdate_AcceptAction<Address>(opId);
+//     if(e.type!=OperationHelper::AcceptActionType::None)
+//     {
+//         ListModel<Address> *model = Operations::instance().data<ListModel<Address>> (e.parentId);
+//         if(model)
+//         {
+//             DataListForm *form = model->dataListForm();
+//             if(form)
+//             {
+//                 if(e.type==OperationHelper::AcceptActionType::AddRow){
+//                     emit  form->TableFresh_AddRow(e.parentId, e.m_values);
+//                 } else if(e.type==OperationHelper::AcceptActionType::UpdateRow){
+//                     emit  form->TableFresh_UpdateRow(e.parentId, e.m_values);
+//                 }
+//             }
+//         }
+//     }
+// }
 
-    if(a.isValid())
-    {
-        MainViewModel::FileNameModel fn = sender->get_CSVFileName_Address();
-        if(fn.IsValid())
-        {
-            AddressOperations::Operation_ImportAddress2(fn);
-        }
-    }
-    Operations::instance().stop(a.opId());
-}
+// // Import
+
+// void MainPresenter::process_CimImport_Action(IMainView *sender)
+// {
+//     zTrace();
+//     AddressOperations::Import1Result a = AddressOperations::Operation_ImportAddress1(this, sender);
+
+//     if(a.isValid())
+//     {
+//         MainViewModel::FileNameModel fn = sender->get_CSVFileName_Address();
+//         if(fn.IsValid())
+//         {
+//             AddressOperations::Operation_ImportAddress2(fn);
+//         }
+//     }
+//     Operations::instance().stop(a.opId());
+// }
 
 
 

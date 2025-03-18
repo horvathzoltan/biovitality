@@ -76,7 +76,7 @@ void AddressList::List_Address(QUuid opId, Presenter *presenter)
                                  this, SLOT(process_TableFresh_UpdateRow(QUuid, const  QList<MetaValue>&)));
 
                 QObject::connect(form, SIGNAL(DoneActionTriggered(QUuid, int)),
-                                 this, SLOT(process_DoneAction2(QUuid, int)));
+                                 this, SLOT(process_DoneAction(QUuid, int)));
 
                 model->Set_data(form, data);
 
@@ -125,7 +125,7 @@ void AddressList::process_TableFresh_UpdateRow(QUuid opId, const QList<MetaValue
 }
 
 
-void AddressList::process_DoneAction2(QUuid opId, int r){
+void AddressList::process_DoneAction(QUuid opId, int r){
     zTrace();
 
     QObject::disconnect(this, SIGNAL(TableFresh()),

@@ -21,7 +21,7 @@ private slots:
     void process_InsertAction(QUuid opId);
     void process_TableFresh_AddRow(QUuid opId, const QList<MetaValue> &values);
     void process_TableFresh_UpdateRow(QUuid opid, const QList<MetaValue> &values);
-    void process_DoneAction2(QUuid opId, int r);
+    void process_DoneAction(QUuid opId, int r);
 
 };
 

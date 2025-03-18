@@ -88,10 +88,10 @@ void AddressOperations::CreateUpdate_Address(QUuid opId)
                 form->show();
 
                 QObject::connect(form, SIGNAL(AcceptActionTriggered(QUuid)),
-                                 a->presenter(), SLOT(process_CreateUpdate_Address_AcceptAction(QUuid)));
+                                 a->presenter(), SLOT(process_AcceptAddress_Action(QUuid)));
 
                 QObject::connect(form, SIGNAL(DoneActionTriggered(QUuid, int)),
-                                 a->presenter(), SLOT(process_DoneAction(QUuid, int)));
+                                 a->presenter(), SLOT(process_DoneAddress_Action(QUuid, int)));
 
 
                 model->Set_data(form, data);

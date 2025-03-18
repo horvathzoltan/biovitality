@@ -12,6 +12,7 @@
 #include "meta/meta.h"
 //#include "helpers/sqlhelper.h"
 #include "mvp/viewinterfaces/imainview.h"
+#include "mainpresenter_address.h"
 #include "presenter.h"
 //#include "repositories/sqlrepository.h"
 
@@ -29,10 +30,9 @@ public:
     void appendView(IMainView *w);
     void initView(IMainView *w) const;
 
-
-
-private:
+private:    
     QList<IMainView*> _views;
+    MainPresenter_Address _mainPresenter_Address;
 
     //static IMainView *_logView;
     void refreshView(IMainView *w) const;
@@ -67,16 +67,12 @@ private slots:
     void process_Add_SoldItem_AcceptAction(QUuid opId);
 
     void process_DoneAction(QUuid opId, int r);
-    // Add Address
-    void process_Add_AddressAction(IMainView *sender);
-    void process_Update_AddressAction(IMainView *sender);
 
-    void process_CreateUpdate_Address_AcceptAction(QUuid opId);
+
 
     // CSV Import Tétel
     void process_TetelImport_Action(IMainView *sender);
-    // CSV Import Cim
-    void process_CimImport_Action(IMainView *sender);
+
     // CSV Import Partner
     void process_PartnerImport_Action(IMainView *sender);
     // CSV Import Ország
@@ -85,7 +81,7 @@ private slots:
     // CSV Imort cikk
     void process_ArticleImport_Action(IMainView *sender);
 
-    void process_AddressList_Action(IMainView *sender);
+
     void process_PartnerList_Action(IMainView *sender);
 
 

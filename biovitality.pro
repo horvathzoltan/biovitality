@@ -34,6 +34,7 @@ SOURCES += \
     mvp/models/invoiceitems.cpp \
     mvp/models/partner.cpp \
     mvp/models/solditem.cpp \
+    mvp/presenters/mainpresenter_address.cpp \
     mvp/views/datalistform.cpp \
     repositories/sqlrepository.cpp \
     infrastructure/buildnumber.cpp \
@@ -81,6 +82,7 @@ HEADERS += \
     mvp/models/invoiceitems.h \
     mvp/models/modelinterfaces.h \
     mvp/models/partner.h \
+    mvp/presenters/mainpresenter_address.h \
     mvp/viewinterfaces/iview.h \
     mvp/views/datalistform.h \
     patterns/singleton.h \
