@@ -9,27 +9,22 @@ MainPresenter_Address::MainPresenter_Address(QObject *parent):Presenter(parent){
 
 void MainPresenter_Address::Connect(QObject *view_obj)//, Presenter *p)
 {
-    //_presenter = p;
-    /*ADDRESS*/
-    // UI Form Add Address
+    // Create
     QObject::connect(view_obj, SIGNAL(Add_Address_ActionTriggered(IMainView *)),
                      this, SLOT(process_CreateAddress_Action(IMainView *)));
 
+    // Update
     QObject::connect(view_obj, SIGNAL(Update_Address_ActionTriggered(IMainView *)),
                      this, SLOT(process_UpdateAddress_Action(IMainView *)));
 
-    // CSV_Import Address - Cím
-    QObject::connect(view_obj, SIGNAL(CimImport_ActionTriggered(IMainView *)),
-                     this, SLOT(process_ImportAddress_Action(IMainView *)));
-
-    // Address List
+    // ReadAll -> Create/Update form
     QObject::connect(view_obj, SIGNAL(AddressList_ActionTriggered(IMainView *)),
                      this, SLOT(process_ListAddress_Action(IMainView *)));
 
+    // CSV Import
+    QObject::connect(view_obj, SIGNAL(CimImport_ActionTriggered(IMainView *)),
+                     this, SLOT(process_ImportAddress_Action(IMainView *)));
 }
-
-
-/*ADDRESS*/
 
 // Create
 void MainPresenter_Address::process_CreateAddress_Action(IMainView *sender){
@@ -89,8 +84,7 @@ void MainPresenter_Address::process_DoneAddress_Action(QUuid opId, int r){
     zTrace();
 }
 
-// Import
-
+// CSV Import
 void MainPresenter_Address::process_ImportAddress_Action(IMainView *sender)
 {
     zTrace();
