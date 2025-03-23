@@ -36,7 +36,7 @@ private:
 
     //static IMainView *_logView;
     void refreshView(IMainView *w) const;
-    void Error(const QSqlError& err);
+    //void Error(const QSqlError& err);
 
 //    template<typename T>
 //    bool Import_CheckRepo(SqlRepository<T>& repo);

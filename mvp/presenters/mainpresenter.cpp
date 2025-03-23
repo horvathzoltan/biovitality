@@ -11,9 +11,9 @@
 #include "repositories/sqlrepository.h"
 #include "meta/csv_sqlhelper.h"
 
-#include "bi/address/addresslist.h"
 //#include "bi/address/addresslist.h"
-#include "bi/address/addressoperations.h"
+//#include "bi/address/addresslist.h"
+//#include "bi/address/addressoperations.h"
 #include "bi/operations.h"
 #include "bi/operationhelper.h"
 
@@ -127,10 +127,10 @@ void MainPresenter::processDBTestAction(IMainView *sender)
     return;
 }
 
-void MainPresenter::Error(const QSqlError& err)
-{
-    if(err.isValid()) zInfo(QStringLiteral("QSqlError: %1 - %2").arg(err.type()).arg(err.text()));
-}
+// void MainPresenter::Error(const QSqlError& err)
+// {
+//     if(err.isValid()) zInfo(QStringLiteral("QSqlError: %1 - %2").arg(err.type()).arg(err.text()));
+// }
 
 //
 
