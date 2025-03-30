@@ -55,6 +55,11 @@ public:
             zInfo("file ok");
             // az adott model osztály importját hívjuk
             // todo 001a vissza kell térni azokkal a fieldekke (indexekkel) is, amik bejöttek a csv-ből
+
+            // todo 001c ide kell egy olyan model, amiben benne van:
+            // a data list
+            // a mezők, amiket updatelni kell
+            // insert esetén az összes mező kell, mert kell bele a default érték is
             CSV_ImportModel<T> m = T::CSV_Import(csvModel.records, separator);
             csverr.setItemsCount(m.validItemsCount());
 

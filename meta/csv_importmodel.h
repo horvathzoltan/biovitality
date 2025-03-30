@@ -13,7 +13,7 @@ struct CSV_ImportModel
         T _item;
         QVarLengthArray<QString> _csvFields;
         int _rowNumber;
-        QChar _separator;
+        QChar _separator;        
     public:
         Data(T i, QVarLengthArray<QString> r, int n, QChar s){
             _csvFields = r;

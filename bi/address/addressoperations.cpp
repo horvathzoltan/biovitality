@@ -102,7 +102,7 @@ void AddressOperations::CreateUpdate_Address(QUuid opId)
 }
 
 
-AddressOperations::Import1Result AddressOperations::Operation_ImportAddress1(Presenter *presenter, IView *sender)
+AddressOperations::Import1Result AddressOperations::Create_ImportOperation(Presenter *presenter, IView *sender)
 {
     zTrace();
     Import1Result r;

@@ -32,7 +32,7 @@ public:
         QUuid opId(){return _opId;}
     };
 
-    static Import1Result Operation_ImportAddress1(Presenter *presenter, IView *sender);
+    static Import1Result Create_ImportOperation(Presenter *presenter, IView *sender);
     static void Operation_ImportAddress2(const MainViewModel::FileNameModel& fn);
 };
 

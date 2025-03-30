@@ -88,13 +88,15 @@ void MainPresenter_Address::process_DoneAddress_Action(QUuid opId, int r){
 void MainPresenter_Address::process_ImportAddress_Action(IMainView *sender)
 {
     zTrace();
-    AddressOperations::Import1Result a = AddressOperations::Operation_ImportAddress1(this, sender);
+
+    AddressOperations::Import1Result a = AddressOperations::Create_ImportOperation(this, sender);
 
     if(a.isValid())
     {
         MainViewModel::FileNameModel fn = sender->get_CSVFileName_Address();
         if(fn.IsValid())
         {
+            // todo 001 ImportOperation
             AddressOperations::Operation_ImportAddress2(fn);
         }
     }

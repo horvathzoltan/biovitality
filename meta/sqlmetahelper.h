@@ -131,6 +131,7 @@ public:
 
             zInfo(msg);
 
+            // az adott id létezik és updatelni kell
             if(contains)
             {
                 zInfo("record update");
@@ -140,6 +141,7 @@ public:
                 {                    
                     item.id = ids.first();
                     u_all++;
+                    // azokat a mezőket kell updatelni, amik be is jöttek a csv-ből
                     bool ok = repo->Update(item);
                     if(ok) u_ok++;
                     zInfo(QStringLiteral("record update: ") +(ok?"ok":"failed"));
