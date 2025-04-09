@@ -1,7 +1,7 @@
 #ifndef CSV_IMPORTMODEL_H
 #define CSV_IMPORTMODEL_H
 
-#include <QString>
+#include <QStringList>
 #include <QVarLengthArray>
 
 
@@ -13,13 +13,16 @@ struct CSV_ImportModel
         T _item;
         QVarLengthArray<QString> _csvFields;
         int _rowNumber;
-        QChar _separator;        
+        QChar _separator;
+        QStringList _fieldsToUpdate;
+
     public:
-        Data(T i, QVarLengthArray<QString> r, int n, QChar s){
+        Data(T i, QVarLengthArray<QString> r, int n, QChar s, QStringList f){
             _csvFields = r;
             _item = i;
             _rowNumber = n;
             _separator = s;
+            _fieldsToUpdate = f;
         }
         
         T item(){return _item;}

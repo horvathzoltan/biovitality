@@ -297,7 +297,12 @@ QFileInfo SQLHelper::GetMostRecent(const QString& path, const QString& pattern)
 {
     QFileInfo most_recent;
     static const QDate d1 = QDate(1980,1,1);
-#if QT_VERSION > QT_VERSION_CHECK(5, 14, 0)
+#if QT_VERSION >= QT_VERSION_CHECK(6, 9, 0)
+    QTimeZone timeZone("UTC");
+    QDateTime tstamp(d1, QTime(0, 0), timeZone);
+
+    //QDateTime tstamp = d1.startOfDay(Qt::UTC);// ::currentDateTimeUtc().addYears(-1);//f1.lastModified();
+#elif QT_VERSION > QT_VERSION_CHECK(5, 14, 0)
     QDateTime tstamp = d1.startOfDay(Qt::UTC);// ::currentDateTimeUtc().addYears(-1);//f1.lastModified();
 #else
 

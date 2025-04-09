@@ -77,7 +77,7 @@ CSV_ImportModel<Address> Address::CSV_Import(const QList<QVarLengthArray<QString
     int L = records.length();
     if(L<3) return {};
 
-    auto header = records[0];
+    QVarLengthArray<QString> header = records[0];
 
     QMap<QString,int> ixs;
 
@@ -105,6 +105,10 @@ CSV_ImportModel<Address> Address::CSV_Import(const QList<QVarLengthArray<QString
         QString d1 = CSVHelper::GetData(row, cim_KEY, ixs).toString();
 
         item.ParseAddressFields_private(d1);
+
+        // todo 02 d1-be kellenek a mezők amik bejöttek a csv-ből
+        // ezek a headerben vannak
+        // kell egy HasData függfény, ami felsorolja azokat a merőket, amiken valamiféle adat van
 
         CSV_ImportModel<Address>::Data data(item, row, i, separator);
         m.Add(data);
