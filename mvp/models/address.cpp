@@ -106,11 +106,13 @@ CSV_ImportModel<Address> Address::CSV_Import(const QList<QVarLengthArray<QString
 
         item.ParseAddressFields_private(d1);
 
+        QStringList fieldsWithData = CSVHelper::GetFieldsWithData(row, ixs);
+
         // todo 02 d1-be kellenek a mezők amik bejöttek a csv-ből
         // ezek a headerben vannak
         // kell egy HasData függfény, ami felsorolja azokat a merőket, amiken valamiféle adat van
 
-        CSV_ImportModel<Address>::Data data(item, row, i, separator);
+        CSV_ImportModel<Address>::Data da                                                                                                                                                                                                                                                        ta(item, row, i, separator);
         m.Add(data);
         // if(item.isValid()){
         //     m.append(item);
