@@ -51,7 +51,7 @@ public:
             int Get_RowIx(const QString& header);
         QMap<QString,int> Get_RowIndexes(const QVarLengthArray<QString>& header);
     };
-
+    
 };
 
 #endif // CSVHELPER_H

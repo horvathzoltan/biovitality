@@ -105,6 +105,11 @@ CSV_ImportModel<Address> Address::CSV_Import(const QList<QVarLengthArray<QString
         QString d1 = CSVHelper::GetData(row, cim_KEY, ixs).toString();
 
         item.ParseAddressFields_private(d1);
+        // todo 01aaa itt nem a csv-ből jövő mezőkből kell a van-e adat benne következtetést levonni,
+        // hanem ahogy a parse előállítja az adatot a mezőkbe
+        // ahoz hasonlóan kell az információ arról, hogy jött-e adat az adott mezőbe
+        // hiszen a cím string is fel van dolgozva és szétesik elemekre
+        // itt már releváns az, hogy jött-e adat az adott elembe
 
         QStringList fieldsWithData = CSVHelper::GetFieldsWithData(row, ixs);
 
@@ -112,7 +117,7 @@ CSV_ImportModel<Address> Address::CSV_Import(const QList<QVarLengthArray<QString
         // ezek a headerben vannak
         // kell egy HasData függfény, ami felsorolja azokat a merőket, amiken valamiféle adat van
 
-        CSV_ImportModel<Address>::Data da                                                                                                                                                                                                                                                        ta(item, row, i, separator);
+        CSV_ImportModel<Address>::Data data(item, row, i, separator, fieldsWithData);
         m.Add(data);
         // if(item.isValid()){
         //     m.append(item);

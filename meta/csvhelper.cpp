@@ -63,6 +63,8 @@ QList<MetaValue> CSVHelper::CSV_RowToMetaValues(const QVarLengthArray<QString> &
     return metaValues;
 }
 
+
+
 QMap<QString, int> CSVHelper::RowToField::Get_RowIndexes(const QVarLengthArray<QString> &headers)
 {
     QMap<QString,int> ixs;
