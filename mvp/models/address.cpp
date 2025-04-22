@@ -94,24 +94,40 @@ CSV_ImportModel<Address> Address::CSV_Import(const QList<QVarLengthArray<QString
     QLocale hu(QLocale::Hungarian);
 
     for(int i = 1;i<L;i++){
-        //if(i>=3)break;
+        // vesszük az adatsort
         QVarLengthArray<QString> row = records[i];
+        QStringList fieldsWithData;
+
         Address item;
-        QVariant excelIdValue = CSVHelper::GetData(row, excelId_KEY, ixs);
 
         item.id = 0;
-        item.excelId = CSVHelper::GetId(excelIdValue);
 
-        QString d1 = CSVHelper::GetData(row, cim_KEY, ixs).toString();
+        // ha volt benne adat,akkor
+        bool has_excelIdValue = CSVHelper::HasData(row, excelId_KEY, ixs);
+        if(has_excelIdValue){
+            // ha van benne adat, akkor a mező nevét felvesszük az adattal rendelkező mezők listájába
+            fieldsWithData.append(excelId_KEY);
 
+            QVariant excelIdValue = CSVHelper::GetData(row, excelId_KEY, ixs);
+            item.excelId = CSVHelper::GetId(excelIdValue);
+        }
+
+
+        QString d1 = CSVHelper::GetData(row, cim_KEY, ixs).toString();        
+        // d1 -> postalCode, settlementName, publicAreaName
         item.ParseAddressFields_private(d1);
-        // todo 01aaa itt nem a csv-ből jövő mezőkből kell a van-e adat benne következtetést levonni,
-        // hanem ahogy a parse előállítja az adatot a mezőkbe
+
+        // todo 01aaa1 countyId a településnév alapján valahogyan
+        // todo 01aaa2 countryId az országkód a megye alapján?
+
+        // todo 01aaa3 itt nem a csv-ből jövő mezőkből kell a van-e adat benne következtetést levonni,
+        // hanem ahogy a parse előállítja az adatot a mezőkbe:
+        // d1 -> postalCode, settlementName, publicAreaName
         // ahoz hasonlóan kell az információ arról, hogy jött-e adat az adott mezőbe
         // hiszen a cím string is fel van dolgozva és szétesik elemekre
         // itt már releváns az, hogy jött-e adat az adott elembe
 
-        QStringList fieldsWithData = CSVHelper::GetFieldsWithData(row, ixs);
+
 
         // todo 02 d1-be kellenek a mezők amik bejöttek a csv-ből
         // ezek a headerben vannak
