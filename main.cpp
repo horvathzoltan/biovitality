@@ -13,6 +13,8 @@
 
 Globals _globals;
 
+//todo aaaa gitignore test le kell majd törölni
+
 auto main(int argc, char *argv[]) -> int
 {
     SignalHelper::setShutDownSignal(SignalHelper::SIGINT_); // shut down on ctrl-c
