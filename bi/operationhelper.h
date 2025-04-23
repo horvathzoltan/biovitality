@@ -2,8 +2,8 @@
 #define OPERATIONHELPER_H
 
 #include <mvp/viewmodels/mainviewmodel.h>
-#include "../../meta/csv_sqlhelper.h"
-#include "bi/operations.h"
+#include "meta/csv_sqlhelper.h"
+#include "operations.h"
 
 class OperationHelper//: public QObject
 {
