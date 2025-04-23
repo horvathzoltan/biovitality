@@ -51,6 +51,9 @@ compile_commands.json
 # QtCreator local machine specific files for imported projects
 *creator.user*
 
+# QML cache
+*_qmlcache.qrc
+
 # AtH stuff
 *.swp
 debug/
